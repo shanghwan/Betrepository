@@ -39,7 +39,7 @@
 							<li><a href="#">BetOfTeam</a></li>
 							<li><a href="#">Preseason game</a></li>
 							<li><a href="#">Rank</a></li>
-							<li><a href="#">Attendance</a></li>
+							<li><a href="attendance.jsp">Attendance</a></li>
 						</ul>
 					</c:otherwise>
 				</c:choose>
