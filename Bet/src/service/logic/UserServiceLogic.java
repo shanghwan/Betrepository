@@ -46,6 +46,8 @@ public class UserServiceLogic implements UserService{
 	@Override
 	public void modifyUser(User user) {
 		
+		userstore.update(user);
+		
 	}
 
 	@Override
@@ -65,7 +67,7 @@ public class UserServiceLogic implements UserService{
 
 	@Override
 	public void remove(String userId) {
-		
+		userstore.delete(userId);
 	}
 
 	@Override

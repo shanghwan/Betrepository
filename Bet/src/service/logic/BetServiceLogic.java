@@ -26,7 +26,7 @@ public class BetServiceLogic implements BetService{
 
 	@Override
 	public List<Bet> findAllBet() {
-		return null;
+		return store.searchAll();
 	}
 
 	@Override

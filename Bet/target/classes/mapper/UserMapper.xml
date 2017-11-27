@@ -11,10 +11,10 @@
   VALUES(#{userId}, #{password}, #{name}, 300)
   </insert>
   
-  <select id="searchByUserId" parameterType="String" resultType="user">
+  <select id="searchByUserId" parameterType="String" resultType="User">
   SELECT userId, password, name, point
   FROM user_tb
-  WHERE userId = #{userId}
+  WHERE userId=#{userId}
   </select>
   
   <select id="searchByName" parameterType="String" resultType="User">

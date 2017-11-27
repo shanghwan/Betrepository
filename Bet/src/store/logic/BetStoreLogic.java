@@ -32,7 +32,18 @@ public class BetStoreLogic implements BetStore{
 
 	@Override
 	public List<Bet> searchAll() {
-		return null;
+		
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		List<Bet> list = null;
+		
+		try {
+			BetMapper mapper = session.getMapper(BetMapper.class);
+			list = mapper.searchAll();
+		}finally {
+			session.close();
+		}
+		
+		return list;
 	}
 
 	@Override
