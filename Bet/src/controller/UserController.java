@@ -13,43 +13,57 @@ import service.UserService;
 
 @Controller
 public class UserController {
-	
+
 	@Autowired
 	private UserService userservice;
-	
-	@RequestMapping(value="/Userregist.do", method=RequestMethod.POST)
-	public String join(User user) { 
-		userservice.regist(user);
 
+	@RequestMapping(value = "/Userregist.do", method = RequestMethod.POST)
+	public String join(User user) {
+		userservice.regist(user);
 
 		return "redirect:index.jsp";
 	}
-	
-	@RequestMapping(value="/login.do", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login(User user, HttpServletRequest req) {
-		
+
 		User loginUser = userservice.login(user);
-		
-		if(loginUser != null) {
+
+		if (loginUser != null) {
 			HttpSession session = req.getSession();
 			session.setAttribute("loginUser", loginUser);
-		}else {
+		} else {
 			HttpSession session = req.getSession();
 			session.invalidate();
 			return "redirect:index.jsp";
 		}
-		
+
 		return "redirect:index.jsp";
 	}
-	
-	@RequestMapping(value="/logout.do", method=RequestMethod.POST)
-	public String join(HttpServletRequest req) { 
+
+	@RequestMapping(value = "/logout.do", method = RequestMethod.POST)
+	public String join(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		session.invalidate();
 
-
 		return "redirect:index.jsp";
 	}
 	
 	
+	@RequestMapping(value="/pwok.do", method = RequestMethod.POST)
+	public String pwok(HttpServletRequest req, String paw) {
+		
+		String userId = (String)req.getSession().getAttribute("userId");
+		
+		User user = userservice.findByUserId(userId);
+		System.out.println(user);
+		if(user.getPassword().equals(paw)) {
+		return "redirect:usermodify.jsp";
+		
+		}
+		
+		return "rediect:mypage.jsp";
+	}
+
+
 }

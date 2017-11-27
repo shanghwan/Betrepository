@@ -50,7 +50,7 @@ public class UserServiceLogic implements UserService{
 
 	@Override
 	public User findByUserId(String userId) {
-		return null;
+		return userstore.searchByUserId(userId);
 	}
 
 	@Override
