@@ -45,7 +45,7 @@
   </insert>
   
   <select id="searchAll" resultType="Bet">
-  select * FROM bet_tb WHERE betWay = one
+  select * FROM bet_tb WHERE betWay = 'one'
   </select>
   
   
