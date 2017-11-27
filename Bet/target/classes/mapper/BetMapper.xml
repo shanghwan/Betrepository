@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="store.mapper.BetMapper">
+  
+  
+  <insert id="create" parameterType="Bet">
+  <selectKey keyProperty="betId" resultType="string" order="BEFORE">
+ 	 select bet_seq.nextval from dual
+  	</selectKey>
+  	
+  	<choose>
+  	<when test="photoA==null">
+  	insert into bet_tb
+  	(betId, state, title, content, photoA , photoB , betWay ,
+  	startDate ,endDate , openCheck , pointCheck , point, aVote, bVote )
+  	values(#{betId}, 0, #{title}, #{content}, null, #{photoB}
+  	, #{betWay}, SYSDATE, #{endDate}, #{openCheck}, #{pointCheck}, #{point}, 0, 0)
+  	</when>
+  	<when test="photoB==null">
+  	insert into bet_tb
+  	(betId, state, title, content, photoA , photoB , betWay ,
+  	startDate ,endDate , openCheck , pointCheck , point, aVote, bVote )
+  	values(#{betId}, 0, #{title}, #{content}, #{photoA}, NUll
+  	, #{betWay}, SYSDATE, #{endDate}, #{openCheck}, #{pointCheck}, #{point}, 0, 0)
+  	</when>
+  	<when test="photoB==null and photoA==null">
+  	insert into bet_tb
+  	(betId, state, title, content, photoA , photoB , betWay ,
+  	startDate ,endDate , openCheck , pointCheck , point, aVote, bVote )
+  	values(#{betId}, 0, #{title}, #{content}, null, null
+  	, #{betWay}, SYSDATE, #{endDate}, #{openCheck}, #{pointCheck}, #{point}, 0, 0)
+  	</when>
+  	<otherwise>
+  	insert into bet_tb
+  	(betId, state, title, content, photoA , photoB , betWay ,
+  	startDate ,endDate , openCheck , pointCheck , point, aVote, bVote )
+  	values(#{betId}, 0, #{title}, #{content}, #{photoA}, #{photoB}, 
+  	#{betWay}, SYSDATE, #{endDate}, #{openCheck}, #{pointCheck}, #{point}, 0, 0)
+  	</otherwise>
+  	</choose>
+  	  	
+  	
+  </insert>
+  
+  
+  
+  </mapper>
