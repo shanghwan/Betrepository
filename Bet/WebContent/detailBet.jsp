@@ -94,7 +94,7 @@
 				<div id="page">
 					<h1 class="page-title" align="center">${bet.title }</h1>
 					<h3 class="page-title" align="left">${bet.content }</h3>
-					<form action="#" method="#">
+					<form action="#" method="post">
 						<table>
 							<tr>
 								<td><img src="resources/images/betofall.jpg"
@@ -128,8 +128,7 @@
 					<td><strong>${comment.nickname }</strong></td>
 					<td class="text-right">${comment.commentDate }<a
 						class="glyphicon glyphicon-trash"
-						href="${ctx }/comment/remove.do?articleId=${article.articleId} &commentId=${comment.commentId}"></a>
-
+						href="removeComment.do?betId=${bet.betId} &commentId=${comment.commentId}"></a>
 					</td>
 				</tr>
 				<tr>
@@ -142,10 +141,9 @@
 
 		<div class="panel-footer">
 			<div class="write_area">
-				<form action="${ctx }/comment/regist.do">
-					<input type="hidden" name="articleId" value="${article.articleId }">
-					<textarea class="input_write_comment" name="comments"
-						placeholder="댓글쓰기"></textarea>
+				<form action="registComment.do" method="post">
+					<input type="hidden" name="betId" value="4${bet.betId }">
+					<textarea class="input_write_comment" name="comments" placeholder="댓글쓰기"></textarea>
 					<input type="submit" class="comment_submit" value="전송">
 				</form>
 			</div>
