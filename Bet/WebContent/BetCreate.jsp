@@ -14,6 +14,19 @@
 <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="resources/js/site.js"></script>
+<script>
+function display1(box){
+indivisual1.style.display = 'block';
+company1.style.display = 'none';
+}
+
+function display2(box){
+indivisual1.style.display = 'none';
+company1.style.display = 'block';
+}
+
+window.onload=display1
+</script>
 </head>
 
 <body>
@@ -51,7 +64,7 @@
 			</div>
 			<!-- // end #banner -->
 			<div id="main" class="clearfix">
-				<div id="content">
+			<form action="registBet.do" class="bs-example form-horizontal" enctype="multipart/form-data" method="POST">
 					<div class="post">
 						<div class="post-content clearfix">
 							<div class="post-thumb"></div>
@@ -109,11 +122,30 @@
 													class="form-control" type="text" placeholder="날짜를 입력해주세요."
 													size="50"></td>
 											</tr>
-											<tr>
-												<th>공개여부</th>
-												<td><input type="radio" name="open" value="공개">공개
-													<input type="radio" name="open" value="비공개">비공개
-											</tr>
+											                        <tr>
+                           <th>공개여부</th>
+                           <td><input type="radio" name="openCheck" value="공개">공개
+                              <input type="radio" name="openCheck" value="비공개">비공개
+                              </td>
+                        </tr>
+                        
+                        <tr>
+                           <th>BetOf</th>
+                           <td><input type="radio" name="betWay" onClick="display1()" value="one">One
+                              <input type="radio" name="betWay" onClick="display1()" value="team">Team
+                              <input type="radio" name="betWay" onclick="display2()" value="all">All
+                              </td>
+                        </tr>
+                        
+                        <tr id="indivisual1">
+                           <th>포인트방식</th>
+
+                           <td>
+                              <input type="radio" name="pointCheck"  value="올인">올인
+                              <input type="radio" name="pointCheck" value="자유">자유
+                              <input type="radio" name="pointCheck" value="고정">고정
+                              </td>
+                        </tr>
 									</table>
 							</div>
 						</div>
@@ -129,7 +161,6 @@
 					<div class="widget widget-search">
 						<h2>회원</h2>
 						<div class="contentarea" align="center">
-							<form action="logout.do" method="post">
 								<label>${loginUser.name }님 환영합니다.</label><br> <br> <label>포인트
 									: ${loginUser.point }p</label> <br></br>
 								<button type="submit" class="btn btn btn-warning">logout</button>

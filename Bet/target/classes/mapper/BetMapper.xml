@@ -9,6 +9,43 @@
   select * FROM bet_tb WHERE betWay =#{betWay} and state = '진행'
    </select>
   
+  <insert id="create" parameterType="Bet">
+  <selectKey keyProperty="betId" resultType="string" order="BEFORE">
+ 	 select bet_seq.nextval from dual
+  	</selectKey>
+  	
+  	<choose>
+  	<when test="photoA==null">
+  	insert into bet_tb
+  	(betId, state, title, content, photoA , photoB , betWay ,
+  	startDate ,endDate , openCheck , pointCheck , point, aVote, bVote, betOwner )
+  	values(#{betId}, '대기', #{title}, #{content}, null, #{photoB}
+  	, #{betWay}, SYSDATE, #{endDate}, #{openCheck}, #{pointCheck}, #{point}, 0, 0, #{betOwner})
+  	</when>
+  	<when test="photoB==null">
+  	insert into bet_tb
+  	(betId, state, title, content, photoA , photoB , betWay ,
+  	startDate ,endDate , openCheck , pointCheck , point, aVote, bVote, betOwner )
+  	values(#{betId}, '대기', #{title}, #{content}, #{photoA}, NUll
+  	, #{betWay}, SYSDATE, #{endDate}, #{openCheck}, #{pointCheck}, #{point}, 0, 0, #{betOwner})
+  	</when>
+  	<when test="photoB==null and photoA==null">
+  	insert into bet_tb
+  	(betId, state, title, content, photoA , photoB , betWay ,
+  	startDate ,endDate , openCheck , pointCheck , point, aVote, bVote ,betOwner)
+  	values(#{betId}, '대기', #{title}, #{content}, null, null
+  	, #{betWay}, SYSDATE, #{endDate}, #{openCheck}, #{pointCheck}, #{point}, 0, 0, #{betOwner})
+  	</when>
+  	<otherwise>
+  	insert into bet_tb
+  	(betId, state, title, content, photoA , photoB , betWay ,
+  	startDate ,endDate , openCheck , pointCheck , point, aVote, bVote ,betOwner)
+  	values(#{betId}, '대기', #{title}, #{content}, #{photoA}, #{photoB}, 
+  	#{betWay}, SYSDATE, #{endDate}, #{openCheck}, #{pointCheck}, #{point}, 0, 0, #{betOwner})
+  	</otherwise>
+  	</choose>
+  	
+  </insert>
   
   
   

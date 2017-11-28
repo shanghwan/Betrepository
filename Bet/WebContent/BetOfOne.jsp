@@ -96,14 +96,12 @@
 						</div>
 					</div>
 					<c:choose>
-						<c:when test="${loginUser ne null }">
-							<div align="right">
-								<a href="BetCreate.jsp"><button type="button"
-										class="btn btn btn-warning">내기생성</button></a>
-							</div>
-						</c:when>
-
-					</c:choose>
+					<c:when test="${loginUser ne null }">
+											<div align="right"><a href="registBet.do"><button type="button"
+												class="btn btn btn-warning">내기생성</button></a></div>
+					</c:when>
+					
+				</c:choose>
 
 
 

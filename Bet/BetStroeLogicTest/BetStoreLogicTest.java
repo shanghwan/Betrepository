@@ -42,6 +42,28 @@ public class BetStoreLogicTest {
 //		
 //		
 //	}
+	@Test
+	public void testCreate() {
+		Date date = new Date(2017/11/11);
+		Date date2 = new Date(2017/11/21);
+		Bet bet = new Bet();
+		bet.setBetId("1");
+		bet.setState("0");
+		bet.setTitle("�떥�슫�떎");
+		bet.setContent("�씠湲대떎");
+		bet.setPhotoA("null");
+		bet.setPhotoB("null");
+		bet.setBetWay("1");
+		bet.setStartDate(date);
+		bet.setPointCheck("1");
+//		bet.setEndDate(date2);
+		bet.setOpenCheck("1");
+		bet.setPoint(100);
+		
+		store.create(bet);
+		
+		
+	}
 
 	@Test
 	public void testSearchAll() {
