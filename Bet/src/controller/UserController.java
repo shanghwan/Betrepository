@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import domain.User;
+import service.AttendanceService;
 import service.UserService;
 
 @Controller
@@ -16,6 +17,7 @@ public class UserController {
 
 	@Autowired
 	private UserService userservice;
+	private AttendanceService attendanceservice;
 
 	@RequestMapping(value = "/Userregist.do", method = RequestMethod.POST)
 	public String join(User user) {
@@ -64,6 +66,13 @@ public class UserController {
 		
 		return "rediect:mypage.jsp";
 	}
+	
+//	@RequestMapping(value="/attendance.do", method = RequestMethod.POST)
+//	public String attendance(HttpServletRequest req){
+//		return "rediect:attendance.jsp";
+
+//		
+//	}
 
 
 }

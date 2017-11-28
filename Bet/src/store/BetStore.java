@@ -15,5 +15,4 @@ public interface BetStore {
 	List<Bet> searchByBetWay(String betWay);
 	void update(Bet bet);
 	void delete(String betId);
-
 }
