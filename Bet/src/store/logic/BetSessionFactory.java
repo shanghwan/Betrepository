@@ -20,7 +20,7 @@ public class BetSessionFactory {
 	
 	public static BetSessionFactory  getinstance() {
 		if(instance == null) {
-			instance = new BetSessionFactory ();
+			instance = new BetSessionFactory();
 		}
 		return instance;
 	}
