@@ -15,17 +15,17 @@
 <script type="text/javascript" src="resources/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="resources/js/site.js"></script>
 <script>
-function display1(box){
-indivisual1.style.display = 'block';
-company1.style.display = 'none';
-}
+	function display1(box) {
+		indivisual1.style.display = 'block';
+		company1.style.display = 'none';
+	}
 
-function display2(box){
-indivisual1.style.display = 'none';
-company1.style.display = 'block';
-}
+	function display2(box) {
+		indivisual1.style.display = 'none';
+		company1.style.display = 'block';
+	}
 
-window.onload=display1
+	window.onload = display1
 </script>
 </head>
 
@@ -43,7 +43,8 @@ window.onload=display1
 							<li class="active"><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
 							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
 							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
-							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
+							<li><a href="BetOfOnelistByState.do?state=대기">preseason
+									game</a></li>
 						</ul>
 					</c:when>
 					<c:otherwise>
@@ -51,7 +52,8 @@ window.onload=display1
 							<li class="active"><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
 							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
 							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
-							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
+							<li><a href="BetOfOnelistByState.do?state=대기">preseason
+									game</a></li>
 							<li><a href="#">Rank</a></li>
 							<li><a href="#">Attendance</a></li>
 						</ul>
@@ -64,13 +66,13 @@ window.onload=display1
 			</div>
 			<!-- // end #banner -->
 			<div id="main" class="clearfix">
-			<form action="registBet.do" class="bs-example form-horizontal" enctype="multipart/form-data" method="POST">
+				<form action="registBet.do" class="bs-example form-horizontal"
+					enctype="multipart/form-data" method="POST">
 					<div class="post">
 						<div class="post-content clearfix">
 							<div class="post-thumb"></div>
 							<div class="post-summary">
-								<form action="registBet.do" class="bs-example form-horizontal"
-									enctype="multipart/form-data" method="POST">
+								<form action="registBet.do" class="bs-example form-horizontal" enctype="multipart/form-data" method="POST">
 									<table>
 										<colgroup>
 											<col width="90" />
@@ -122,71 +124,60 @@ window.onload=display1
 													class="form-control" type="text" placeholder="날짜를 입력해주세요."
 													size="50"></td>
 											</tr>
-											                        <tr>
-                           <th>공개여부</th>
-                           <td><input type="radio" name="openCheck" value="공개">공개
-                              <input type="radio" name="openCheck" value="비공개">비공개
-                              </td>
-                        </tr>
-                        
-                        <tr>
-                           <th>BetOf</th>
-                           <td><input type="radio" name="betWay" onClick="display1()" value="one">One
-                              <input type="radio" name="betWay" onClick="display1()" value="team">Team
-                              <input type="radio" name="betWay" onclick="display2()" value="all">All
-                              </td>
-                        </tr>
-                        
-                        <tr id="indivisual1">
-                           <th>포인트방식</th>
+											<tr>
+												<th>공개여부</th>
+												<td><input type="radio" name="openCheck" value="공개">공개
+													<input type="radio" name="openCheck" value="비공개">비공개
+												</td>
+											</tr>
 
-                           <td>
-                              <input type="radio" name="pointCheck"  value="올인">올인
-                              <input type="radio" name="pointCheck" value="자유">자유
-                              <input type="radio" name="pointCheck" value="고정">고정
-                              </td>
-                        </tr>
+											<tr>
+												<th>BetOf</th>
+												<td><input type="radio" name="betWay"
+													onClick="display1()" value="one">One <input
+													type="radio" name="betWay" onClick="display1()"
+													value="team">Team <input type="radio" name="betWay"
+													onclick="display2()" value="all">All</td>
+											</tr>
+
+											<tr id="indivisual1">
+												<th>포인트방식</th>
+
+												<td><input type="radio" name="pointCheck" value="올인">올인
+													<input type="radio" name="pointCheck" value="자유">자유
+													<input type="radio" name="pointCheck" value="고정">고정
+												</td>
+											</tr>
+										
 									</table>
+										</form>
 							</div>
 						</div>
 					</div>
 					<div align="right">
 						<button type="submit" class="btn btn btn-warning">내기생성</button>
 					</div>
-					</form>
-
-				</div>
-				<!-- // end #content -->
-				<div id="sidebar">
-					<div class="widget widget-search">
-						<h2>회원</h2>
-						<div class="contentarea" align="center">
-								<label>${loginUser.name }님 환영합니다.</label><br> <br> <label>포인트
-									: ${loginUser.point }p</label> <br></br>
-								<button type="submit" class="btn btn btn-warning">logout</button>
-								<a href="#"><button type="button"
-										class="btn btn btn-warning">MyPage</button></a>
-						</div>
-					</div>
-				</div>
+				</form>
 
 			</div>
-			<div id="footer">
-				<p>
-					&copy; copyright 2012 <a href="htp://www.dkntemplates.com"
-						title="Dkntemplates">www.dkntemplates.com</a> All right reserved
-				</p>
-
-				<!-- Please don't remove my backlink -->
-				<p>
-					Free Web Design Templates by <a href="http://www.dkntemplates.com"
-						title="Dkntemplates">Dkntemplates.com</a>
-				</p>
-				<!-- Please don't remove my backlink -->
-
-			</div>
-			<!-- // end #footer -->
+			<!-- // end #content -->
 		</div>
-		<!-- // end #container -->
+		<div id="footer">
+			<p>
+				&copy; copyright 2012 <a href="htp://www.dkntemplates.com"
+					title="Dkntemplates">www.dkntemplates.com</a> All right reserved
+			</p>
+
+			<!-- Please don't remove my backlink -->
+			<p>
+				Free Web Design Templates by <a href="http://www.dkntemplates.com"
+					title="Dkntemplates">Dkntemplates.com</a>
+			</p>
+			<!-- Please don't remove my backlink -->
+
+		</div>
+		<!-- // end #footer -->
+	</div>
+	<!-- // end #container -->
 	</div>
 	<!-- // end #wrapper -->
