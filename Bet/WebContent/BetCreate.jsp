@@ -56,7 +56,8 @@
 						<div class="post-content clearfix">
 							<div class="post-thumb"></div>
 							<div class="post-summary">
-									<form action="registBet.do" class="bs-example form-horizontal" enctype="multipart/form-data" method="POST">
+								<form action="registBet.do" class="bs-example form-horizontal"
+									enctype="multipart/form-data" method="POST">
 									<table>
 										<colgroup>
 											<col width="90" />
@@ -65,9 +66,9 @@
 											<col width="100" />
 											<col width="100" />
 										</colgroup>
-									
+
 										<thead>
-										
+
 											<tr>
 												<th>제목</th>
 												<td><input id="title" name="title" class="form-control"
@@ -88,7 +89,8 @@
 											<tr>
 
 												<th>포인트</th>
-												<td><input name="point" class="form-control" type="text" placeholder="포인트을 입력해주세요." size="20"></td>
+												<td><input name="point" class="form-control"
+													type="text" placeholder="포인트을 입력해주세요." size="20"></td>
 											<tr>
 
 												<th>초대자</th>
@@ -133,8 +135,6 @@
 								<button type="submit" class="btn btn btn-warning">logout</button>
 								<a href="#"><button type="button"
 										class="btn btn btn-warning">MyPage</button></a>
-
-							
 						</div>
 					</div>
 				</div>

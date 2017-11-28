@@ -6,10 +6,12 @@
 <configuration>
 	<properties resource="dataresource.properties" />
 	<typeAliases>
-		<typeAlias type="domain.User" alias="User"/>
-		<typeAlias type="domain.Bet" alias="Bet"/>
+		<typeAlias type="domain.User" alias="User" />
+		<typeAlias type="domain.Bet" alias="Bet" />
+		<typeAlias type="domain.Comment" alias="Comment" />
+		<typeAlias type="domain.Point" alias="Point" />
 	</typeAliases>
-	
+
 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
@@ -21,10 +23,12 @@
 			</dataSource>
 		</environment>
 	</environments>
-	
+
 	<mappers>
 		<mapper resource="mapper/UserMapper.xml" />
 		<mapper resource="mapper/BetMapper.xml" />
+		<mapper resource="mapper/CommentMapper.xml" />
+		<mapper resource="mapper/PointMapper.xml" />
 	</mappers>
-	
+
 </configuration>

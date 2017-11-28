@@ -147,7 +147,6 @@
 					<textarea class="input_write_comment" name="comments"
 						placeholder="댓글쓰기"></textarea>
 					<input type="submit" class="comment_submit" value="전송">
-
 				</form>
 			</div>
 		</div>

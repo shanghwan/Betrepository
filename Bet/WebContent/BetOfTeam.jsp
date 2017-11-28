@@ -142,7 +142,6 @@
 										<button type="submit" class="btn btn btn-warning">logout</button>
 										<a href="#"><button type="button"
 												class="btn btn btn-warning">MyPage</button></a>
-
 									</form>
 								</div>
 							</div>
