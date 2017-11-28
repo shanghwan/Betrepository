@@ -1,5 +1,7 @@
 package controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +18,9 @@ public class CommentController {
 	private CommentService service;
 
 	@RequestMapping(value = "/registComment.do", method = RequestMethod.POST)
-	public ModelAndView registComment(Comment comment) {
+	public ModelAndView registComment(HttpSession session, Comment comment) {
+		String userId = (String) session.getAttribute("userId");
+		comment.setUserId(userId);
 		service.registComment(comment);
 		ModelAndView modelAndView = new ModelAndView("detailBet.jsp");
 		modelAndView.addObject("comment", comment);
