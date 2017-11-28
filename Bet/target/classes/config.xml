@@ -7,12 +7,12 @@
 	<properties resource="dataresource.properties" />
 	<typeAliases>
 		<typeAlias type="domain.User" alias="User"/>
-<<<<<<< HEAD
+
 		<typeAlias type="domain.Team" alias="Team"/>
 		<typeAlias type="domain.Player" alias="Player"/>
-=======
+
 		<typeAlias type="domain.Bet" alias="Bet"/>
->>>>>>> branch 'master' of https://github.com/shanghwan/Betrepository.git
+
 	</typeAliases>
 	
 	<environments default="development">
