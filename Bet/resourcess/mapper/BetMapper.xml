@@ -15,7 +15,7 @@
   	<when test="photoA==null">
   	insert into bet_tb
   	(betId, state, title, content, photoA , photoB , betWay ,
-  	startDate ,endDate , openCheck , pointCheck , point, aVote, bVote ,betOwner)
+  	startDate ,endDate , openCheck , pointCheck , point, aVote, bVote, betOwner )
   	values(#{betId}, '대기', #{title}, #{content}, null, #{photoB}
   	, #{betWay}, SYSDATE, #{endDate}, #{openCheck}, #{pointCheck}, #{point}, 0, 0, #{betOwner})
   	</when>
@@ -29,14 +29,14 @@
   	<when test="photoB==null and photoA==null">
   	insert into bet_tb
   	(betId, state, title, content, photoA , photoB , betWay ,
-  	startDate ,endDate , openCheck , pointCheck , point, aVote, bVote, betOwner )
+  	startDate ,endDate , openCheck , pointCheck , point, aVote, bVote ,betOwner)
   	values(#{betId}, '대기', #{title}, #{content}, null, null
   	, #{betWay}, SYSDATE, #{endDate}, #{openCheck}, #{pointCheck}, #{point}, 0, 0, #{betOwner})
   	</when>
   	<otherwise>
   	insert into bet_tb
   	(betId, state, title, content, photoA , photoB , betWay ,
-  	startDate ,endDate , openCheck , pointCheck , point, aVote, bVote, betOwner )
+  	startDate ,endDate , openCheck , pointCheck , point, aVote, bVote ,betOwner)
   	values(#{betId}, '대기', #{title}, #{content}, #{photoA}, #{photoB}, 
   	#{betWay}, SYSDATE, #{endDate}, #{openCheck}, #{pointCheck}, #{point}, 0, 0, #{betOwner})
   	</otherwise>
