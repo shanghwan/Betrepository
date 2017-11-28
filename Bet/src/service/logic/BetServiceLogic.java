@@ -29,17 +29,17 @@ public class BetServiceLogic implements BetService{
 		bet.setStartDate(today);
 		
 		if(bet.getBetWay().equals("all")) {
-			bet.setPointCheck("°íÁ¤");
+			bet.setPointCheck("ê³ ì •");
 		}
 		
-		if(bet.getPointCheck().equals("¿ÃÀÎ")) {
+		if(bet.getPointCheck().equals("ì˜¬ì¸")) {
 		User user = userStore.searchByUserId(bet.getBetOwner());
 		bet.setPoint(user.getPoint());
 		}
 		
 		
-		// point ³»¿ª µî·ÏÇØ¾ßÇÔ
-				//³»±âÀå Æ÷ÀÎÆ® Â÷°¨ÇØ¾ßÇÔ
+		// point ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
 		
 		
 		return store.create(bet);

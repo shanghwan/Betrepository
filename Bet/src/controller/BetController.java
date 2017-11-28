@@ -64,7 +64,7 @@ public class BetController {
 			return "redirect:index.jsp";
 		}
 		
-		return "BetCreate.jsp";
+		return "create.jsp";
 	}
 	
 	@RequestMapping(value="/registBet.do", method=RequestMethod.POST)
