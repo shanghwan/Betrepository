@@ -29,20 +29,23 @@ public class BetController {
 	
 	@RequestMapping(value="/registBet.do",method = RequestMethod.GET)
 	public String showCreateBet() {
-		return "BetCreate.jsp";
+		return "create.jsp";
 	}
 	
 	@RequestMapping(value="/registBet.do",method = RequestMethod.POST)
 	public String createBet(Bet bet, HttpSession session) {
 		
-		System.out.println(session.getAttribute("userId"));
 		System.out.println(bet.getTitle());
-//		User user = userService.findByUserId((String)session.getAttribute("userId"));
-//		String betOwner = user.getName();
+		System.out.println(bet.getContent());
+		System.out.println(bet.getEndDate());
+		String userId = (String)session.getAttribute("userId");
+		User user = userService.findByUserId(userId);
+		String betOwner = user.getName();
+		bet.setBetOwner(betOwner);
+		bet.setBetWay("one");
 		
-	
-//		bet.setBetOwner(betOwner);
-//		bet.setBetWay("one");
+		System.out.println(bet.getBetOwner());
+		System.out.println(bet.getBetWay());
 		
 		
 		betService.registBet(bet);

@@ -31,7 +31,7 @@ public class BetStoreLogicTest {
 		bet.setBetWay("1");
 		bet.setStartDate(date);
 		bet.setPointCheck("1");
-		bet.setEndDate(date2);
+//		bet.setEndDate(date2);
 		bet.setOpenCheck("1");
 		bet.setPoint(100);
 		bet.setPhotoA("null");

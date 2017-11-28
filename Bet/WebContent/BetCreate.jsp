@@ -27,18 +27,18 @@
 				<c:choose>
 					<c:when test="${loginUser eq null }">
 						<ul id="nav">
-							<li class="active"><a href="BetOfOne.jsp">BetOfOne</a></li>
-							<li><a href="#">BetOfAll</a></li>
-							<li><a href="#">BetOfTeam</a></li>
-							<li><a href="#">preseason game</a></li>
+							<li class="active"><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
+							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
+							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
+							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
 						</ul>
 					</c:when>
 					<c:otherwise>
 						<ul id="nav">
-							<li class="active"><a href="BetOfOne.jsp">BetOfOne</a></li>
-							<li><a href="#">BetOfAll</a></li>
-							<li><a href="#">BetOfTeam</a></li>
-							<li><a href="#">Preseason game</a></li>
+							<li class="active"><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
+							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
+							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
+							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
 							<li><a href="#">Rank</a></li>
 							<li><a href="#">Attendance</a></li>
 						</ul>
@@ -51,14 +51,12 @@
 			</div>
 			<!-- // end #banner -->
 			<div id="main" class="clearfix">
-				<form action="/Bet/registBet.do" class="bs-example form-horizontal"
-					enctype="multipart/form-data" method="POST">
-					<div id="content">
-						<div class="post">
-							<div class="post-content clearfix">
-								<div class="post-thumb"></div>
-								<div class="post-summary">
-
+			<form action="/Bet/registBet.do" class="bs-example form-horizontal" enctype="multipart/form-data" method="POST">
+					<div class="post">
+						<div class="post-content clearfix">
+							<div class="post-thumb"></div>
+							<div class="post-summary">
+									
 									<table>
 										<colgroup>
 											<col width="90" />
@@ -67,8 +65,9 @@
 											<col width="100" />
 											<col width="100" />
 										</colgroup>
-
+									
 										<thead>
+										
 											<tr>
 												<th>제목</th>
 												<td><input id="title" name="title" class="form-control"
@@ -79,17 +78,14 @@
 												<td align="left"><input id="content" name="content"
 													class="form-control" type="text" placeholder="내용을 입력하세요."
 													size="60"><br> <br> 
-													</td>
+													<input id="loginId"	name="photoA" class="form-control" type="file"> <input
+													id="loginId" name="photoB" class="form-control" type="file"></td>
 											</tr>
-											<tr>
-												<th>내기장</th>
-												<td>${loginUser.name }</td>
-											</tr>
+											
 											<tr>
 
 												<th>포인트</th>
-												<td><input name="point" class="form-control"
-													type="text" placeholder="포인트을 입력해주세요." size="20"></td>
+												<td><input name="point" class="form-control" type="text" placeholder="포인트을 입력해주세요." size="20"></td>
 											
 											<tr>
 												<th>종료날짜</th>
@@ -103,48 +99,49 @@
 													<input type="radio" name="openCheck" value="비공개">비공개
 											</tr>
 									</table>
-								</div>
 							</div>
 						</div>
-						<div align="right">
-							<button type="submit" class="btn btn btn-warning">내기생성</button>
+					</div>
+					<div align="right">
+						<button type="submit" class="btn btn btn-warning">내기생성</button>
+					</div>
+					</form>
+
+				</div>
+				<!-- // end #content -->
+				<div id="sidebar">
+					<div class="widget widget-search">
+						<h2>회원</h2>
+						<div class="contentarea" align="center">
+							
+								<label>${loginUser.name }님 환영합니다.</label><br> <br> <label>포인트
+									: ${loginUser.point }p</label> <br></br>
+								<button type="submit" class="btn btn btn-warning">logout</button>
+								<a href="#"><button type="button"
+										class="btn btn btn-warning">MyPage</button></a>
+
+							
 						</div>
-				</form>
-
-			</div>
-			<!-- // end #content -->
-			<div id="sidebar">
-				<div class="widget widget-search">
-					<h2>회원</h2>
-					<div class="contentarea" align="center">
-
-						<label>${loginUser.name }님 환영합니다.</label><br> <br> <label>포인트
-							: ${loginUser.point }p</label> <br></br>
-						<button type="submit" class="btn btn btn-warning">logout</button>
-						<a href="#"><button type="button" class="btn btn btn-warning">MyPage</button></a>
-
-
 					</div>
 				</div>
+
 			</div>
+			<div id="footer">
+				<p>
+					&copy; copyright 2012 <a href="htp://www.dkntemplates.com"
+						title="Dkntemplates">www.dkntemplates.com</a> All right reserved
+				</p>
 
+				<!-- Please don't remove my backlink -->
+				<p>
+					Free Web Design Templates by <a href="http://www.dkntemplates.com"
+						title="Dkntemplates">Dkntemplates.com</a>
+				</p>
+				<!-- Please don't remove my backlink -->
+
+			</div>
+			<!-- // end #footer -->
 		</div>
-		<div id="footer">
-			<p>
-				&copy; copyright 2012 <a href="htp://www.dkntemplates.com"
-					title="Dkntemplates">www.dkntemplates.com</a> All right reserved
-			</p>
-
-			<!-- Please don't remove my backlink -->
-			<p>
-				Free Web Design Templates by <a href="http://www.dkntemplates.com"
-					title="Dkntemplates">Dkntemplates.com</a>
-			</p>
-			<!-- Please don't remove my backlink -->
-
-		</div>
-		<!-- // end #footer -->
-	</div>
-	<!-- // end #container -->
+		<!-- // end #container -->
 	</div>
 	<!-- // end #wrapper -->

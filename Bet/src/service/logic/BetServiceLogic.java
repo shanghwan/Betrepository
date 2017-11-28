@@ -20,11 +20,9 @@ public class BetServiceLogic implements BetService{
 	@Override
 	public String registBet(Bet bet) {
 		Date today = new Date(Calendar.getInstance().getTimeInMillis());
-		Date endDay = bet.getEndDate();
-		bet.setEndDate(endDay);
 		bet.setStartDate(today);
 		
-		System.out.println(bet.getTitle());
+		System.out.println(bet.getPhotoA());
 		
 		return store.create(bet);
 	}
