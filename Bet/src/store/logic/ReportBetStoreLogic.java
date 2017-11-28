@@ -84,6 +84,7 @@ public class ReportBetStoreLogic implements ReportBetStore{
 		try {
 			ReportBetMapper mapper = session.getMapper(ReportBetMapper.class);
 			mapper.delete(reportId);
+			session.commit();
 		}finally {
 			session.close();
 		}
@@ -92,11 +93,13 @@ public class ReportBetStoreLogic implements ReportBetStore{
 
 	@Override
 	public void deleteAllByTarget(String target) {
+		
 		SqlSession session = BetSessionFactory.getinstance().getSession();
 		
 		try {
 			ReportBetMapper mapper = session.getMapper(ReportBetMapper.class);
 			mapper.deleteAllByTarget(target);
+			session.commit();
 		}finally {
 			session.close();
 		}
