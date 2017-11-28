@@ -66,7 +66,7 @@
 			</div>
 			<!-- // end #banner -->
 			<div id="main" class="clearfix">
-				<form action="registBet.do" class="bs-example form-horizontal"
+				<form action="/Bet/registBet.do" class="bs-example form-horizontal"
 					enctype="multipart/form-data" method="POST">
 					<div class="post">
 						<div class="post-content clearfix">
@@ -86,33 +86,19 @@
 												<td align="left"><input id="content" name="content"
 													class="form-control" type="text" placeholder="내용을 입력하세요."
 													size="60"><br> <br> <input id="loginId"
-													name="userId" class="form-control" type="file"> <input
-													id="loginId" name="userId" class="form-control" type="file"></td>
+													name="photoA" class="form-control" type="file"> <input
+													id="loginId" name="photoB" class="form-control" type="file"></td>
 											</tr>
-											<tr>
-												<th>내기장</th>
-												<td>${loginUser.name }</td>
-											</tr>
+											
 											<tr>
 
 												<th>포인트</th>
 												<td><input name="point" class="form-control"
 													type="text" placeholder="포인트을 입력해주세요." size="20"></td>
-											<tr>
-
-												<th>초대자</th>
-												<td><input id="name" name="name" class="form-control"
-													type="text" placeholder="아이디를 입력해주세요" size="50">&nbsp;<select
-													name='fruits'>
-														<option value='' selected>친구목록</option>
-														<option value='apple'>사과</option>
-														<option value='banana'>바나나</option>
-														<option value='lemon'>레몬</option>
-												</select></td>
-											</tr>
+											
 											<tr>
 												<th>종료날짜</th>
-												<td><input id="endDate" name="endDate"
+												<td><input id="endDate" name="String"
 													class="form-control" type="text" placeholder="YYMMDD"
 													size="50"></td>
 											</tr>
