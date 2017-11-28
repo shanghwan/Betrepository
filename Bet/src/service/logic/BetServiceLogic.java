@@ -26,12 +26,12 @@ public class BetServiceLogic implements BetService{
 
 	@Override
 	public List<Bet> findAllBet() {
-		return store.searchAll();
+		return store.searchAllBet();
 	}
 
 	@Override
-	public List<Bet> findByBetId(String betId) {
-		return null;
+	public Bet findByBetId(String betId) {
+		return store.searchByBetId(betId);
 	}
 
 	@Override
@@ -46,12 +46,12 @@ public class BetServiceLogic implements BetService{
 
 	@Override
 	public List<Bet> findByState(String state) {
-		return null;
+		return store.searchByState(state);
 	}
 
 	@Override
 	public List<Bet> findByBetWay(String betWay) {
-		return null;
+		return store.searchByBetWay(betWay);
 	}
 
 	@Override

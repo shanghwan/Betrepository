@@ -27,18 +27,18 @@
 				<c:choose>
 					<c:when test="${loginUser eq null }">
 						<ul id="nav">
-							<li class="active"><a href="BetOfOne.jsp">BetOfOne</a></li>
-							<li><a href="#">BetOfAll</a></li>
-							<li><a href="#">BetOfTeam</a></li>
-							<li><a href="#">preseason game</a></li>
+							<li class="active"><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
+							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
+							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
+							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
 						</ul>
 					</c:when>
 					<c:otherwise>
 						<ul id="nav">
-							<li class="active"><a href="BetOfOne.jsp">BetOfOne</a></li>
-							<li><a href="#">BetOfAll</a></li>
-							<li><a href="#">BetOfTeam</a></li>
-							<li><a href="#">Preseason game</a></li>
+							<li class="active"><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
+							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
+							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
+							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
 							<li><a href="#">Rank</a></li>
 							<li><a href="#">Attendance</a></li>
 						</ul>

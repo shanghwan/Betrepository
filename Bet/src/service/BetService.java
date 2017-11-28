@@ -8,7 +8,7 @@ public interface BetService {
 	
 	String registBet(Bet bet);
 	List<Bet> findAllBet();
-	List<Bet> findByBetId(String betId);
+	Bet findByBetId(String betId);
 	List<Bet> findByOwner(String betOwner);
 	List<Bet> findByTitle(String title);
 	List<Bet> findByState(String state);
