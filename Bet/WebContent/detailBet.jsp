@@ -137,7 +137,7 @@
 								<input type="hidden" name="betId" value="${bet.betId }">
 								<textarea class="input_write_comment" name="comments" placeholder="댓글쓰기"></textarea>
 								<%-- <input type="hidden" name="comment" value="${bet.betId }"> --%>
-								
+							
 								<input type="submit" class="comment_submit" value="전송">
 							</form>
 						</div>
