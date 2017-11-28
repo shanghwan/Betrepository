@@ -124,7 +124,8 @@
 							</tr>
 							<tr>
 								<td colspan="2">
-									<p class="txt">${comment.content }</p>
+									<%-- <p class="txt">${comment.content }</p> --%>
+									<p class="txt">${comment.comments }</p>
 								</td>
 							</tr>
 						</table>
@@ -132,10 +133,10 @@
 
 					<div class="panel-footer">
 						<div class="write_area">
-							<form action="registComment.do" method="post">
+							<form action="registComment.do">
 								<input type="hidden" name="betId" value="${bet.betId }">
-								<textarea class="input_write_comment" name="comment" placeholder="댓글쓰기"></textarea>
-								<input type="hidden" name="comment" value="${bet.betId }">
+								<textarea class="input_write_comment" name="comments" placeholder="댓글쓰기"></textarea>
+								<%-- <input type="hidden" name="comment" value="${bet.betId }"> --%>
 								
 								<input type="submit" class="comment_submit" value="전송">
 							</form>
