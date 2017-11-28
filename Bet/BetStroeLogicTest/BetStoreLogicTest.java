@@ -25,18 +25,16 @@ public class BetStoreLogicTest {
 		Date date = new Date(2017/11/11);
 		Date date2 = new Date(2017/11/21);
 		Bet bet = new Bet();
-		bet.setBetId("1");
-		bet.setState("0");
-		bet.setTitle("싸운다");
-		bet.setContent("이긴다");
-		bet.setPhotoA("null");
-		bet.setPhotoB("null");
+		
+		bet.setTitle("test3");
+		bet.setContent("test3");
 		bet.setBetWay("1");
 		bet.setStartDate(date);
 		bet.setPointCheck("1");
 		bet.setEndDate(date2);
 		bet.setOpenCheck("1");
 		bet.setPoint(100);
+		bet.setPhotoA("null");
 		
 		store.create(bet);
 		

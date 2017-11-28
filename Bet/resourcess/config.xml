@@ -7,11 +7,10 @@
 	<properties resource="dataresource.properties" />
 	<typeAliases>
 		<typeAlias type="domain.User" alias="User"/>
-
-		<typeAlias type="domain.Team" alias="Team"/>
 		<typeAlias type="domain.Player" alias="Player"/>
 
 		<typeAlias type="domain.Bet" alias="Bet"/>
+		
 
 	</typeAliases>
 	
@@ -29,7 +28,7 @@
 	
 	<mappers>
 		<mapper resource="mapper/PlayerMapper.xml" />
-		<mapper resource="mapper/TeamMapper.xml" />
+		
 		<mapper resource="mapper/UserMapper.xml" />
 		<mapper resource="mapper/BetMapper.xml" />
 	</mappers>

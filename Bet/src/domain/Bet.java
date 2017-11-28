@@ -27,6 +27,17 @@ public class Bet {
 	
 	
 
+	public Bet(String title, String content, int point, Date endDate, String openCheck) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.point = point;
+		this.endDate = endDate;
+		this.openCheck = openCheck;
+	}
+
+
+
 	public String getPointCheck() {
 		return pointCheck;
 	}
