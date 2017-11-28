@@ -20,6 +20,7 @@ public class BetController {
 	@RequestMapping("/list.do")
 	public ModelAndView showMusicChart(){
 		List<Bet> list = service.findAllBet();
+		System.out.println(list);
 		ModelAndView modelAndView = new ModelAndView("BetOfOne.jsp");
 		modelAndView.addObject("BetList", list);
 		return modelAndView;
