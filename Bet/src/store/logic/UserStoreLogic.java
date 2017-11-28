@@ -33,10 +33,8 @@ public class UserStoreLogic implements UserStore{
 	@Override
 	public User searchByUserId(String userId) {
 		
-		User user = null;
-		
 		SqlSession session = BetSessionFactory.getinstance().getSession();
-		
+		User user = null;
 		try {
 			UserMapper mapper = session.getMapper(UserMapper.class);
 			user = mapper.searchByUserId(userId);

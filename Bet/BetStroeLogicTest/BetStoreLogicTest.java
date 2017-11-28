@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -44,6 +45,11 @@ public class BetStoreLogicTest {
 
 	@Test
 	public void testSearchAll() {
+		
+		List<Bet> list = store.searchAll();
+		assertEquals(2, list.size());
+		assertEquals("1", list.get(0).getBetId());
+		
 	}
 
 	@Test

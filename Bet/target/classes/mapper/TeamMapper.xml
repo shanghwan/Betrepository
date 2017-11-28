@@ -16,8 +16,7 @@
 		SELECT
 		teamId, betId, result, teamName, startBet
 		FROM team_tb
-		WHERE teamId =
-		#{teamId}
+		WHERE teamId = #{teamId}
 	</select>
 
 	<select id="searchByBetId" parameterType="String" resultType="Team">

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +27,7 @@
 				<c:choose>
 					<c:when test="${loginUser eq null }">
 						<ul id="nav">
-							<li class="active"><a href="BetOfOne.jsp">BetOfOne</a></li>
+							<li><a href="BetOfOne.jsp">BetOfOne</a></li>
 							<li><a href="#">BetOfAll</a></li>
 							<li><a href="#">BetOfTeam</a></li>
 							<li><a href="#">preseason game</a></li>
@@ -35,7 +35,7 @@
 					</c:when>
 					<c:otherwise>
 						<ul id="nav">
-							<li class="active"><a href="BetOfOne.jsp">BetOfOne</a></li>
+							<li><a href="BetOfOne.jsp">BetOfOne</a></li>
 							<li><a href="#">BetOfAll</a></li>
 							<li><a href="#">BetOfTeam</a></li>
 							<li><a href="#">Preseason game</a></li>
@@ -47,7 +47,7 @@
 			</div>
 			<!-- // end #header -->
 			<div id="banner">
-				<h1 class="page-title">내기생성</h1>
+				<h1 class="page-title">My Page</h1>
 			</div>
 			<!-- // end #banner -->
 			<div id="main" class="clearfix">
@@ -55,72 +55,41 @@
 					<div class="post">
 						<div class="post-content clearfix">
 							<div class="post-thumb"></div>
-							<div class="post-summary">
-									<form action="registBet.do" class="bs-example form-horizontal" enctype="multipart/form-data" method="POST">
-									<table>
-										<colgroup>
-											<col width="90" />
-											<col width="*" />
-											<col width="100" />
-											<col width="100" />
-											<col width="100" />
-										</colgroup>
-									
-										<thead>
-										
-											<tr>
-												<th>제목</th>
-												<td><input id="title" name="title" class="form-control"
-													type="text" placeholder="제목을 입력하세요." size="60"></td>
-											</tr>
-											<tr>
-												<th>내용</th>
-												<td align="left"><input id="content" name="content"
-													class="form-control" type="text" placeholder="내용을 입력하세요."
-													size="60"><br> <br> <input id="loginId"
-													name="userId" class="form-control" type="file"> <input
-													id="loginId" name="userId" class="form-control" type="file"></td>
-											</tr>
-											<tr>
-												<th>내기장</th>
-												<td>${loginUser.name }</td>
-											</tr>
-											<tr>
 
-												<th>포인트</th>
-												<td><input name="point" class="form-control" type="text" placeholder="포인트을 입력해주세요." size="20"></td>
-											<tr>
 
-												<th>초대자</th>
-												<td><input id="name" name="name" class="form-control"
-													type="text" placeholder="아이디를 입력해주세요" size="50">&nbsp;<select
-													name='fruits'>
-														<option value='' selected>친구목록</option>
-														<option value='apple'>사과</option>
-														<option value='banana'>바나나</option>
-														<option value='lemon'>레몬</option>
-												</select></td>
-											</tr>
-											<tr>
-												<th>종료날짜</th>
-												<td><input id="endDate" name="endDate"
-													class="form-control" type="text" placeholder="날짜를 입력해주세요."
-													size="50"></td>
-											</tr>
-											<tr>
-												<th>공개여부</th>
-												<td><input type="radio" name="open" value="공개">공개
-													<input type="radio" name="open" value="비공개">비공개
-											</tr>
-									</table>
+							<div class="post-summary" align="center">
+								<ul id="nav">
+									<li><a href="mypage.jsp">회원수정</a></li>
+									<li><a href="#">내기목록</a></li>
+									<li><a href="#">포인트내역</a></li>
+									<li class="active"><a href="userDeletepassword.jsp">회원탈퇴</a></li>
+								</ul>
 							</div>
 						</div>
+						<div class="table-responsive">
+						<form action="deletepwok.do" method="post">
+							<table class="table table-striped table-bordered table-hover">
+								<colgroup>
+									<col width="100" />
+									<col width="*" />
+									<col width="120" />
+									<col width="70" />
+									<col width="50" />
+								</colgroup>
+								<thead>
+								</thead>
+								<tbody>
+										<div>
+											<label>비밀번호 입력 : </label> 
+											<input type="password" name="paw">&nbsp;&nbsp;
+											<button type="submit" class="btn btn btn-warning">확인</button>
+										</div>
+									
+								</tbody>
+							</table>
+							</form>
+						</div>
 					</div>
-					<div align="right">
-						<button type="submit" class="btn btn btn-warning">내기생성</button>
-					</div>
-					</form>
-
 				</div>
 				<!-- // end #content -->
 				<div id="sidebar">
@@ -131,10 +100,9 @@
 								<label>${loginUser.name }님 환영합니다.</label><br> <br> <label>포인트
 									: ${loginUser.point }p</label> <br></br>
 								<button type="submit" class="btn btn btn-warning">logout</button>
-								<a href="#"><button type="button"
+								<a href="mypage.jsp"><button type="button"
 										class="btn btn btn-warning">MyPage</button></a>
-
-							
+							</form>
 						</div>
 					</div>
 				</div>

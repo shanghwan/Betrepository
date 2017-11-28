@@ -41,9 +41,12 @@
   	#{betWay}, SYSDATE, #{endDate}, #{openCheck}, #{pointCheck}, #{point}, 0, 0)
   	</otherwise>
   	</choose>
-  	  	
   	
   </insert>
+  
+  <select id="searchAll" resultType="Bet">
+  select * FROM bet_tb WHERE betWay = 'one'
+  </select>
   
   
   

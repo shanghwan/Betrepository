@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,14 +59,15 @@
 
 							<div class="post-summary" align="center">
 								<ul id="nav">
-									<li class="active"><a href="BetOfOne.jsp">회원수정</a></li>
+									<li class="active"><a href="mypage.jsp">회원수정</a></li>
 									<li><a href="#">내기목록</a></li>
 									<li><a href="#">포인트내역</a></li>
-									<li><a href="#">회원탈퇴</a></li>
+									<li><a href="userDeletepassword.jsp">회원탈퇴</a></li>
 								</ul>
 							</div>
 						</div>
 						<div class="table-responsive">
+						<form action="pwok.do" method="post">
 							<table class="table table-striped table-bordered table-hover">
 								<colgroup>
 									<col width="100" />
@@ -78,15 +79,15 @@
 								<thead>
 								</thead>
 								<tbody>
-									<form action="pwok.do" method="post">
 										<div>
-											<label>비밀번호 입력 : </label> <input type="password"
-												name="paw">&nbsp;&nbsp;
+											<label>비밀번호 입력 : </label> 
+											<input type="password" name="paw">&nbsp;&nbsp;
 											<button type="submit" class="btn btn btn-warning">확인</button>
 										</div>
-									</form>
+									
 								</tbody>
 							</table>
+							</form>
 						</div>
 					</div>
 				</div>

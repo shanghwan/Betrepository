@@ -17,53 +17,78 @@ public class UserController {
 	@Autowired
 	private UserService userservice;
 
-	@RequestMapping(value = "/Userregist.do", method = RequestMethod.POST)
+	@RequestMapping(value="/Userregist.do", method = RequestMethod.POST)
 	public String join(User user) {
 		userservice.regist(user);
 
 		return "redirect:index.jsp";
 	}
 
-	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String login(User user, HttpServletRequest req) {
+	@RequestMapping(value="/login.do", method = RequestMethod.POST)
+	public String login(User user, HttpSession session, String password) {
 
 		User loginUser = userservice.login(user);
 
-		if (loginUser != null) {
-			HttpSession session = req.getSession();
+		if (loginUser != null && loginUser.getPassword().equals(password)) {
+			session.setAttribute("userId", loginUser.getUserId());
 			session.setAttribute("loginUser", loginUser);
-		} else {
-			HttpSession session = req.getSession();
-			session.invalidate();
 			return "redirect:index.jsp";
+		} else {
+			session.invalidate();
+			return "redirect:signUp.jsp";
 		}
 
-		return "redirect:index.jsp";
 	}
 
-	@RequestMapping(value = "/logout.do", method = RequestMethod.POST)
-	public String join(HttpServletRequest req) {
-		HttpSession session = req.getSession();
+	@RequestMapping(value="/logout.do", method = RequestMethod.POST)
+	public String join(HttpSession session) {
 		session.invalidate();
 
 		return "redirect:index.jsp";
 	}
-	
-	
+
 	@RequestMapping(value="/pwok.do", method = RequestMethod.POST)
-	public String pwok(HttpServletRequest req, String paw) {
-		
-		String userId = (String)req.getSession().getAttribute("userId");
-		
+	public String pwok(HttpSession session, String paw) {
+
+		String userId = (String) session.getAttribute("userId");
 		User user = userservice.findByUserId(userId);
-		System.out.println(user);
-		if(user.getPassword().equals(paw)) {
-		return "redirect:usermodify.jsp";
-		
+		if (user.getPassword().equals(paw)) {
+			return "redirect:usermodify.jsp";
 		}
-		
 		return "rediect:mypage.jsp";
 	}
+	
+	@RequestMapping(value="/usermodify.do", method = RequestMethod.POST)
+	public String usermodify(HttpSession session, String paw) {
+		
+		String userId = (String) session.getAttribute("userId");
+		User user = userservice.findByUserId(userId);
+		
+		user.setPassword(paw);
+		userservice.modifyUser(user);
 
+		return "mypage.jsp";
+	}
+	
+	@RequestMapping(value="/deletepwok.do", method = RequestMethod.POST)
+	public String deletepwok(HttpSession session, String paw) {
+
+		String userId = (String) session.getAttribute("userId");
+		User user = userservice.findByUserId(userId);
+		if (user.getPassword().equals(paw)) {
+			return "redirect:userDelete.jsp";
+		}
+		return "rediect:userDeletepassword.jsp";
+	}
+	
+	@RequestMapping(value="/userdelete.do", method = RequestMethod.POST)
+	public String userdelete(HttpSession session) {
+		
+		String userId = (String)session.getAttribute("userId");
+		
+		userservice.remove(userId);
+		session.invalidate();
+		return "redirect:index.jsp";
+	}
 
 }

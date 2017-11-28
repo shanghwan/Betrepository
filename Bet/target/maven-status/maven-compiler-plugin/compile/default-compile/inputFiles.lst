@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\kosta\git\Betrepository\Bet\src\store\UserStore.java
 C:\Users\kosta\git\Betrepository\Bet\src\controller\UserController.java
 C:\Users\kosta\git\Betrepository\Bet\src\service\logic\UserServiceLogic.java
@@ -6,3 +7,22 @@ C:\Users\kosta\git\Betrepository\Bet\src\domain\User.java
 C:\Users\kosta\git\Betrepository\Bet\src\store\mapper\UserMapper.java
 C:\Users\kosta\git\Betrepository\Bet\src\service\UserService.java
 C:\Users\kosta\git\Betrepository\Bet\src\store\logic\BetSessionFactory.java
+=======
+C:\gogit\Bet\src\store\logic\BetStoreLogic.java
+C:\gogit\Bet\src\service\UserService.java
+C:\gogit\Bet\src\store\UserStore.java
+C:\gogit\Bet\src\service\logic\BetServiceLogic.java
+C:\gogit\Bet\src\store\mapper\BetMapper.java
+C:\gogit\Bet\src\store\logic\BetSessionFactory.java
+C:\gogit\Bet\src\controller\BetController.java
+C:\gogit\Bet\src\service\logic\UserServiceLogic.java
+C:\gogit\Bet\src\store\logic\UserStoreLogic.java
+C:\gogit\Bet\src\store\mapper\UserMapper.java
+C:\gogit\Bet\src\service\BetService.java
+C:\gogit\Bet\src\store\BetStore.java
+C:\gogit\Bet\src\controller\UserController.java
+C:\gogit\Bet\src\domain\Comment.java
+C:\gogit\Bet\src\domain\User.java
+C:\gogit\Bet\src\domain\Bet.java
+C:\gogit\Bet\src\store\AttendanceStore.java
+>>>>>>> branch 'master' of https://github.com/shanghwan/Betrepository.git

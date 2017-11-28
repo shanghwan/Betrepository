@@ -59,10 +59,10 @@
 
 							<div class="post-summary" align="center">
 								<ul id="nav">
-									<li class="active"><a href="BetOfOne.jsp">회원수정</a></li>
+									<li class="active"><a href="mypage.jsp">회원수정</a></li>
 									<li><a href="#">내기목록</a></li>
 									<li><a href="#">포인트내역</a></li>
-									<li><a href="#">회원탈퇴</a></li>
+									<li><a href="userDeletepassword.jsp">회원탈퇴</a></li>
 								</ul>
 							</div>
 						</div>
@@ -78,7 +78,7 @@
 								<thead>
 								</thead>
 								<tbody>
-									<form action="pwok.do" method="post">
+									<form action="usermodify.do" method="post">
 										<div>
 											<label>변경할 비밀번호 입력 : </label> <input type="password"
 												name="paw">&nbsp;&nbsp;

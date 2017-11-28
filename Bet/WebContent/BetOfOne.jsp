@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="description" content="Project Description" />
@@ -55,13 +55,11 @@
 					<div class="post">
 						<div class="post-head">
 							<h1>
-								
 									<form action="" method="post">
 										<input size="50" type="text" name="categoryName"
 											placeholder="내기제목을 입력하세요"> <input
 											class="btn btn-xs btn-default" type="submit" value="검색">
 									</form>
-								
 							</h1>
 						</div>
 						<div class="post-content clearfix">
@@ -83,18 +81,14 @@
 											<th class="text-center">상태</th>
 										</tr>
 									</thead>
+									<c:forEach var="list" items="${BetList }">
 									<tr>
-										<td align="center">1</td>
-										<td align="center">LG VS SK</td>
-										<td align="center">구창환</td>
-										<td align="center">진행중</td>
+										<td align="center">${list.betId }</td>
+										<td align="center">${list.title }</td>
+										<td align="center">${list.betOwner }</td>
+										<td align="center">${list.betWay }</td>
 									</tr>
-									<tr>
-										<td align="center">2</td>
-										<td align="center">두산 VS 기아</td>
-										<td align="center">허준호</td>
-										<td align="center">진행중</td>
-									</tr>
+									</c:forEach>
 								</table>
 							</div>
 						</div>
