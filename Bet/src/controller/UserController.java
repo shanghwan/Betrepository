@@ -50,29 +50,29 @@ public class UserController {
 
 		return "redirect:index.jsp";
 	}
-	
-	
-	@RequestMapping(value="/pwok.do", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/pwok.do", method = RequestMethod.POST)
 	public String pwok(HttpServletRequest req, String paw) {
-		
-		String userId = (String)req.getSession().getAttribute("userId");
-		
+
+		String userId = (String) req.getSession().getAttribute("userId");
+
 		User user = userservice.findByUserId(userId);
 		System.out.println(user);
-		if(user.getPassword().equals(paw)) {
-		return "redirect:usermodify.jsp";
-		
+		if (user.getPassword().equals(paw)) {
+			return "redirect:usermodify.jsp";
+
 		}
-		
+
 		return "rediect:mypage.jsp";
 	}
+
+	// @RequestMapping(value="/attendance.do", method = RequestMethod.POST)
+	// public String attendance(HttpServletRequest re){
+	// String userId = (String)req.getSession().getAttribute("userId");
+	// User user = userservice.findByUserId(userId);
 	
-//	@RequestMapping(value="/attendance.do", method = RequestMethod.POST)
-//	public String attendance(HttpServletRequest req){
-//		return "rediect:attendance.jsp";
-
-//		
-//	}
-
+	// return "rediect:attendance.jsp";
+	//
+	// }
 
 }
