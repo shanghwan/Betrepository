@@ -72,15 +72,7 @@
 						<div class="post-content clearfix">
 							<div class="post-thumb"></div>
 							<div class="post-summary">
-								<form action="registBet.do" class="bs-example form-horizontal" enctype="multipart/form-data" method="POST">
 									<table>
-										<colgroup>
-											<col width="90" />
-											<col width="*" />
-											<col width="100" />
-											<col width="100" />
-											<col width="100" />
-										</colgroup>
 
 										<thead>
 
@@ -121,7 +113,7 @@
 											<tr>
 												<th>종료날짜</th>
 												<td><input id="endDate" name="endDate"
-													class="form-control" type="text" placeholder="날짜를 입력해주세요."
+													class="form-control" type="text" placeholder="YYMMDD"
 													size="50"></td>
 											</tr>
 											<tr>
@@ -150,7 +142,6 @@
 											</tr>
 										
 									</table>
-										</form>
 							</div>
 						</div>
 					</div>
@@ -158,9 +149,10 @@
 						<button type="submit" class="btn btn btn-warning">내기생성</button>
 					</div>
 				</form>
-
+			
 			</div>
 			<!-- // end #content -->
+
 		</div>
 		<div id="footer">
 			<p>
