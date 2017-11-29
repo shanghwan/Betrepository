@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Bet;
+import domain.Invite;
 import domain.User;
 import service.BetService;
 import service.InviteService;
@@ -49,8 +50,10 @@ public class BetController {
 	@RequestMapping("/BetOfOneDetail.do")
 	public ModelAndView BetOfOneDetail(String betId){
 		Bet bet = betService.findByBetId(betId);
+		List<String> list = inviteservice.findByAllInviteByBetId(betId);
 		ModelAndView modelAndView = new ModelAndView("detailBet.jsp");
 		modelAndView.addObject("bet", bet);
+		modelAndView.addObject("list", list);
 		return modelAndView;
 	}
 	
@@ -88,10 +91,10 @@ public class BetController {
 	}
 	
 	@RequestMapping(value="/BetFail.do")
-	public String BetFail(String betId, Model model) {
+	public String BetFail(String betId, Model model, HttpSession session) {
 		
 		List<String> list = inviteservice.findByAllInviteByBetId(betId);
-		model.addAttribute("betId", betId);
+		session.setAttribute("betId", betId);
 		model.addAttribute("list", list);
 		
 		return "BetFail.jsp";
@@ -105,6 +108,17 @@ public class BetController {
 		
 		
 		return "BetFail.do";
+	}
+	
+	@RequestMapping(value="/gamestart.do")
+	public String gamestart(String userId, String betId, Model model) {
+		
+		Bet bet = betService.findByBetId(betId);
+		model.addAttribute("bet", bet);
+		
+		//modify
+		
+		return "detailBet.jsp";
 	}
 	
 	

@@ -69,7 +69,7 @@
 					<td>아이디</td>
 					<td>이름</td>
 				</tr>
-
+				<c:if test="${userId ne user.userId }">
 				<tr align="center">
 					<td>${user.userId }</td>
 					<td>${user.name }</td>
@@ -78,7 +78,7 @@
 							<button type="submit" onclick='close()'>초대</button>
 					</a>
 				</tr>
-
+				</c:if>
 			</table>
 		</c:when>
 		

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import domain.Bet;
+import domain.Invite;
 import domain.User;
 import service.InviteService;
 import store.InviteStore;
@@ -34,7 +36,8 @@ public class InviteServiceLogic implements InviteService{
 	}
 
 	@Override
-	public List<String> findByAllInviteByUserId(String userId) {
+	public List<Invite> findByAllInviteByUserId(String userId) {
+		
 		return inviteStore.searchByAllInviteByUserId(userId);
 	}
 

@@ -18,8 +18,8 @@
   delete from invite_tb WHERE INVITEUSERID = #{userId} and betId = #{betId}
   </delete>
   
-  <select id="searchByAllInviteByUserId" parameterType="String" resultType="String">
-  SELECT betId FROM invite_tb WHERE INVITEUSERID = #{userId}
+  <select id="searchByAllInviteByUserId" parameterType="String" resultType="Invite">
+  SELECT * FROM invite_tb WHERE INVITEUSERID = #{inviteUserId}
   </select>
     
   

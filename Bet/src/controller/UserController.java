@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import domain.Bet;
+import domain.Invite;
 import domain.User;
 import service.AttendanceService;
 import service.BetService;
@@ -128,13 +129,9 @@ public class UserController {
 		String userId = (String)session.getAttribute("userId");
 		
 		
-		List<String> list = inviteservice.findByAllInviteByUserId(userId);
+		List<Invite> list = inviteservice.findByAllInviteByUserId(userId);
 		
 		model.addAttribute("list", list);
-		
-		
-		
-		
 		return "inviteList.jsp";
 	}
 	

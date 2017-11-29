@@ -87,9 +87,11 @@
 									<c:forEach items="${list }" var="list" varStatus="sts">
 									<tr>
 										<td align="center">${sts.count }</td>
-										<td align="center">${list }</td>
-										<td align="center">내기제목</td>
-										<td align="center">내기장</td>
+										<td align="center"><a
+											href="BetOfOneDetail.do?betId=${list.betId}"
+											class="list-group-item hidden-xs">${list.betId }</a></td>
+										<td align="center">${list.title }</td>
+										<td align="center">${bet.betOwner }</td>
 									</tr>
 									</c:forEach>
 								</table>

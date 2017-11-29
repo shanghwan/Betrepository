@@ -12,6 +12,7 @@
 		<typeAlias type="domain.Point" alias="Point" />
 		<typeAlias type="domain.Report" alias="Report" />
 		<typeAlias type="domain.Player" alias="Player"/>
+		<typeAlias type="domain.Invite" alias="Invite"/>
 	</typeAliases>
 
 	<environments default="development">

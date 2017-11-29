@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import domain.Invite;
 import domain.User;
 import store.InviteStore;
 import store.mapper.InviteMapper;
@@ -68,11 +69,11 @@ public class InviteStoreLogic implements InviteStore{
 	
 
 	@Override
-	public List<String> searchByAllInviteByUserId(String userId) {
+	public List<Invite> searchByAllInviteByUserId(String userId) {
 		
 		SqlSession session = BetSessionFactory.getinstance().getSession();
 		
-		List<String> list = null;
+		List<Invite> list = null;
 		
 		try {
 			InviteMapper mapper = session.getMapper(InviteMapper.class);

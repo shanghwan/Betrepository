@@ -138,7 +138,7 @@
 										<label>${loginUser.name }님 환영합니다.</label><br> <br> <label>포인트
 											: ${loginUser.point }p</label> <br></br>
 										<button type="submit" class="btn btn btn-warning">logout</button>
-										<a href="#"><button type="button"
+										<a href="mypage.jsp"><button type="button"
 												class="btn btn btn-warning">MyPage</button></a>
 
 									</form>

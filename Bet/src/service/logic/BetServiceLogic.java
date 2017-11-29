@@ -37,11 +37,6 @@ public class BetServiceLogic implements BetService{
 		bet.setPoint(user.getPoint());
 		}
 		
-		
-		// point ���� ����ؾ���
-				//������ ����Ʈ �����ؾ���
-		
-		
 		return store.create(bet);
 	}
 
@@ -77,6 +72,7 @@ public class BetServiceLogic implements BetService{
 
 	@Override
 	public void modify(Bet bet) {
+		
 		
 	}
 
