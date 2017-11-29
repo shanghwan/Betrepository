@@ -8,14 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import domain.Bet;
+import domain.Comment;
 import service.BetService;
 import store.BetStore;
+import store.CommentStore;
+import store.logic.CommentStoreLogic;
 
 @Service
 public class BetServiceLogic implements BetService{
 	
 	@Autowired
 	private BetStore store;
+	
+	@Autowired
+	private CommentStore CommentStore;
 
 	@Override
 	public String registBet(Bet bet) {
@@ -31,7 +37,12 @@ public class BetServiceLogic implements BetService{
 
 	@Override
 	public Bet findByBetId(String betId) {
-		return store.searchByBetId(betId);
+		
+		Bet bet = store.searchByBetId(betId);
+		List<Comment> list = CommentStore.searchAll(betId);
+		bet.setComments(list);
+		
+		return bet;
 	}
 
 	@Override

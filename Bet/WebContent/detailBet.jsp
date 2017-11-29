@@ -118,19 +118,19 @@
 						<table class="table" style="font-size: 13px; padding: 20px;">
 							<tr>
 								<td><strong>${comment.userId }</strong></td>
-								<td class="text-right">${comment.regDate }<a
-									class="glyphicon glyphicon-trash"
+								<td class="text-right">${comment.regDate }
+								<a class="glyphicon glyphicon-trash"
 									href="removeComment.do?betId=${bet.betId} &commentId=${comment.commentId}"></a>
 								</td>
 							</tr>
 							<tr>
-								<td colspan="2">
-									<p class="txt">${comment.content }</p>
-									<p style="padding: 20px">${comment.contents }
+								<td>
+									<p class="txt">${comment.content }</p> <%-- 	
+																	<p style="padding: 20px">${comment.contents }
 										<c:if test="${comment.photo ne null }">
 											<img src="/photo/123${comment.photo }">
 										</c:if>
-									</p>
+									</p> --%>
 								</td>
 							</tr>
 						</table>

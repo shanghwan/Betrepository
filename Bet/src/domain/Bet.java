@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 public class Bet {
-	
+
 	private String betId;
 	private String title;
 	private String state;
@@ -20,24 +20,19 @@ public class Bet {
 	private int aVote;
 	private int bVote;
 	private String pointCheck;
-	
+
 	private List<Comment> comments;
-	
-	public Bet() {}
-	
-	
+
+	public Bet() {
+	}
 
 	public String getPointCheck() {
 		return pointCheck;
 	}
 
-
-
 	public void setPointCheck(String pointCheck) {
 		this.pointCheck = pointCheck;
 	}
-
-
 
 	public String getBetId() {
 		return betId;
@@ -158,10 +153,5 @@ public class Bet {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
-
-
-	
-	
-	
 
 }

@@ -15,6 +15,7 @@ import service.CommentService;
 @Controller
 @MultipartConfig(maxFileSize = 1024 * 1024 * 1024, location = "C:/Users/kosta/eclipse-workspace/web.servlet.todayCom_ver01/WebContent/photo")
 public class CommentController {
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private CommentService service;

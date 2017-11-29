@@ -42,9 +42,8 @@ public class BetController {
 
 	@RequestMapping("/BetOfOneDetail.do")
 	public ModelAndView BetOfOneDetail(String betId) {
-		Bet bet = service.findByBetId(betId);
 		ModelAndView modelAndView = new ModelAndView("detailBet.jsp");
-		modelAndView.addObject("bet", bet);
+		modelAndView.addObject("bet", service.findByBetId(betId));	
 		return modelAndView;
 	}
 
