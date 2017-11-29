@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="store.mapper.TeamMapper">
+	<insert id="create" parameterType="Team">
+		<selectKey keyProperty="teamId" resultType="string" order="BEFORE">
+			SELECT team_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO team_tb(teamId, betId, result, teamName, startBet)
+		VALUES(#{teamId}, #{betId}, #{result}, #{teamName}, no)
+	</insert>
+
+	<select id="search" parameterType="String" resultType="Team">
+		SELECT
+		teamId, betId, result, teamName, startBet
+		FROM team_tb
+		WHERE teamId = #{teamId}
+	</select>
+
+	<select id="searchByBetId" parameterType="String" resultType="Team">
+		SELECT teamId, betId, result, teamName, startBet
+		FROM team_tb
+		WHERE
+		betId = #{betId}
+	</select>
+
+	<update id="update" parameterType="Team">
+		UPDATE team_tb
+		set result =
+		#{result},
+		startBet = #{start}
+		WHERE teamId = #{teamId}
+	</update>
+
+	<delete id="delete" parameterType="betId">
+		DELETE FROM team_tb
+		WHERE betId
+		= #{betId}
+	</delete>
+
+</mapper>

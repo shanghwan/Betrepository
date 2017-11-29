@@ -7,7 +7,7 @@ import domain.Bet;
 public interface BetStore {
 	
 	String create(Bet bet);
-	List<Bet> searchAll();
+	List<Bet> searchAllBet();
 	Bet searchByBetId(String betId);
 	List<Bet> searchByBetOwner(String betOwner);
 	List<Bet> searchByTitle(String title);
@@ -15,5 +15,4 @@ public interface BetStore {
 	List<Bet> searchByBetWay(String betWay);
 	void update(Bet bet);
 	void delete(String betId);
-
 }

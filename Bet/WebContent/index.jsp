@@ -24,20 +24,20 @@
 					<p>what's up</p>
 				</div>
 				<c:choose>
-					<c:when test="${loginUser eq null }">
+					<c:when test="${loginUser eq null || loginUser.userId eq 'admin'}">
 						<ul id="nav">
-							<li><a href="BetOfOne.jsp">BetOfOne</a></li>
-							<li><a href="#">BetOfAll</a></li>
-							<li><a href="#">BetOfTeam</a></li>
-							<li><a href="#">preseason game</a></li>
+							<li><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
+							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
+							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
+							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
 						</ul>
 					</c:when>
 					<c:otherwise>
 						<ul id="nav">
-							<li><a href="BetOfOne.jsp">BetOfOne</a></li>
-							<li><a href="#">BetOfAll</a></li>
-							<li><a href="#">BetOfTeam</a></li>
-							<li><a href="#">Preseason game</a></li>
+							<li><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
+							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
+							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
+							<li><a href="BetOfOnelistByState.do?state=대기">Preseason game</a></li>
 							<li><a href="#">Rank</a></li>
 							<li><a href="attendance.jsp">Attendance</a></li>
 						</ul>
@@ -77,7 +77,7 @@
 					<div class="post">
 						<div class="post-head">
 							<h1>
-								<a href="#" title="Welcome to Dkntemplates">Welcome to
+								<a href="BetOfOnelist.do?betWay=all" title="Welcome to Dkntemplates">Welcome to
 									BetOfAll</a>
 							</h1>
 						</div>
@@ -116,7 +116,7 @@
 									</tr>
 								</table>
 								<p>
-									<a href="#">Readmore ...</a>
+									<a href="BetOfOnelist.do?betWay=all">Readmore ...</a>
 								</p>
 							</div>
 						</div>
@@ -125,7 +125,7 @@
 					<div class="post">
 						<div class="post-head">
 							<h1>
-								<a href="#" title="Another Post Title">Welcome to BetOfOne</a>
+								<a href="BetOfOnelist.do?betWay=one" title="Another Post Title">Welcome to BetOfOne</a>
 							</h1>
 						</div>
 						<div class="post-content clearfix">
@@ -163,7 +163,7 @@
 									</tr>
 								</table>
 								<p>
-									<a href="#">Readmore ...</a>
+									<a href="BetOfOnelist.do?betWay=one">Readmore ...</a>
 								</p>
 							</div>
 						</div>
@@ -172,7 +172,7 @@
 					<div class="post">
 						<div class="post-head">
 							<h1>
-								<a href="#" title="Another Post Title">Welcome to BetOfTeam</a>
+								<a href="BetOfOnelist.do?betWay=team" title="Another Post Title">Welcome to BetOfTeam</a>
 							</h1>
 						</div>
 						<div class="post-content clearfix">
@@ -210,7 +210,7 @@
 									</tr>
 								</table>
 								<p>
-									<a href="#">Readmore ...</a>
+									<a href="BetOfOnelist.do?betWay=team">Readmore ...</a>
 								</p>
 							</div>
 						</div>
@@ -231,6 +231,23 @@
 										<button type="submit" class="btn btn btn-warning">로그인</button>
 										<a href="signUp.jsp"><button type="button"
 												class="btn btn btn-warning">회원 가입</button></a>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</c:when>
+					<c:when test="${loginUser.userId eq 'admin'}">
+					<div id="sidebar">
+							<div class="widget widget-search">
+								<h2>회원</h2>
+								<div class="contentarea" align="center">
+									<form action="logout.do" method="post">
+										<label>${loginUser.name }님 환영합니다.</label><br>
+										<br> <label>포인트 : ${loginUser.point }p</label> <br></br>
+										<button type="submit" class="btn btn btn-warning">logout</button>
+										<a href="adminpage.jsp"><button type="button"
+												class="btn btn btn-warning">admin Page</button></a>
 
 									</form>
 								</div>

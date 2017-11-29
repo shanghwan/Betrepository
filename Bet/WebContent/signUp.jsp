@@ -25,10 +25,10 @@
 				</div>
 				<ul id="nav">
 					<li><a href="index.jsp">Home</a></li>
-					<li><a href="BetOfOne.jsp">BetOfOne</a></li>
-					<li><a href="#">BetOfAll</a></li>
-					<li><a href="#">BetOfTeam</a></li>
-					<li><a href="#">preseason game</a></li>
+					<li><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
+					<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
+					<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
+					<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
 				</ul>
 			</div>
 			<!-- // end #header -->

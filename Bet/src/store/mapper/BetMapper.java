@@ -6,8 +6,8 @@ import domain.Bet;
 
 public interface BetMapper {
 	
-	void create(Bet bet);
-	List<Bet> searchAll();
+	String create(Bet bet);
+	List<Bet> searchAllBet();
 	Bet searchByBetId(String betId);
 	List<Bet> searchByBetOwner(String betOwner);
 	List<Bet> searchByTitle(String title);

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="store.mapper.ReportBetMapper">
+
+	<insert id="create" parameterType="report">
+		<selectKey keyProperty="reportId" resultType="String" order="BEFORE">
+			SELECT reportbet_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO reportBet_tb(id AS reportId, userId, reportbetId AS target, reportContent AS reason, reportBetDate AS regDate)
+		values (#{reportId}, #{userId}, #{target}, #{reason}, SYSDATE)
+	</insert>
+
+
+</mapper>

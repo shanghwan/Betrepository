@@ -8,30 +8,51 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import domain.Bet;
+import domain.User;
 import service.BetService;
 import store.BetStore;
+import store.UserStore;
 
 @Service
 public class BetServiceLogic implements BetService{
 	
 	@Autowired
 	private BetStore store;
+	
+	@Autowired
+	private UserStore userStore;
+	
 
 	@Override
 	public String registBet(Bet bet) {
 		Date today = new Date(Calendar.getInstance().getTimeInMillis());
 		bet.setStartDate(today);
+		
+		if(bet.getBetWay().equals("all")) {
+			bet.setPointCheck("고정");
+		}
+		
+		if(bet.getPointCheck().equals("올인")) {
+		User user = userStore.searchByUserId(bet.getBetOwner());
+		bet.setPoint(user.getPoint());
+		}
+		
+		
+		// point 내역 등록해야함
+				//내기장 포인트 차감해야함
+		
+		
 		return store.create(bet);
 	}
 
 	@Override
 	public List<Bet> findAllBet() {
-		return store.searchAll();
+		return store.searchAllBet();
 	}
 
 	@Override
-	public List<Bet> findByBetId(String betId) {
-		return null;
+	public Bet findByBetId(String betId) {
+		return store.searchByBetId(betId);
 	}
 
 	@Override
@@ -46,12 +67,12 @@ public class BetServiceLogic implements BetService{
 
 	@Override
 	public List<Bet> findByState(String state) {
-		return null;
+		return store.searchByState(state);
 	}
 
 	@Override
 	public List<Bet> findByBetWay(String betWay) {
-		return null;
+		return store.searchByBetWay(betWay);
 	}
 
 	@Override
