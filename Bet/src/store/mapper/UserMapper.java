@@ -12,5 +12,5 @@ public interface UserMapper {
 	List<User> searchByPoint();
 	void update(User user);
 	void delete(String userId);
-
+	void attendance(String userId);
 }

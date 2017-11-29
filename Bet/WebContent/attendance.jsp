@@ -129,8 +129,8 @@ int intToday = Integer.parseInt(sdf.format(todayCal.getTime()));
 
 												
  
-</HEAD>
-<BODY>
+</head>
+</body>
 
  
 
@@ -209,9 +209,15 @@ int intToday = Integer.parseInt(sdf.format(todayCal.getTime()));
 </THEAD>
 <TBODY>
 <TR>
-<center><a href="attendance.do" onclick="{$action_attend}"><img src="http://img.echosting.cafe24.com/skin/base_ko_KR/calendar/btn_attend.gif" alt="출석체크" /></a></center>
-<br>
-<br>
+
+
+<form action="attendance.do" method="post">
+<input type="submit"  value="출석체크"></form>
+                  
+
+
+
+
 
 <%
  

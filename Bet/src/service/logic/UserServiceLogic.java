@@ -80,4 +80,9 @@ public class UserServiceLogic implements UserService{
 		
 	}
 
+	@Override
+	public void attendanceUser(String userId) {
+		userstore.attendance(userId);
+	}
+
 }

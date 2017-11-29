@@ -44,5 +44,11 @@ public class UserStoreLogicTest {
 	@Test
 	public void testDelete() {
 	}
+	
+	@Test
+	public void testAttendance() {
+	
+	}
+
 
 }
