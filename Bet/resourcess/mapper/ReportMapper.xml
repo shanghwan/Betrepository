@@ -5,12 +5,19 @@
 
 <mapper namespace="store.mapper.ReportBetMapper">
 
-	<insert id="create" parameterType="report">
+	<resultMap type="Report" id="ReportMap">
+		<id property="id" column="reportId" />
+		<result property="reportbetId" column="target" />
+		<result property="reportContent" column="reason" />
+		<result property="reportBetDate" column="regDate" />
+	</resultMap>
+
+	<insert id="create" parameterType="Report">
 		<selectKey keyProperty="reportId" resultType="String" order="BEFORE">
 			SELECT reportbet_seq.nextval FROM dual
 		</selectKey>
-		INSERT INTO reportBet_tb(id AS reportId, userId, reportbetId AS target, reportContent AS reason, reportBetDate AS regDate)
-		values (#{reportId}, #{userId}, #{target}, #{reason}, SYSDATE)
+		INSERT INTO reportBet_tb(reportId, userId, target, reason, regDate)
+		values(#{reportId}, #{userId}, #{target}, #{reason}, #{regDate})
 	</insert>
 
 

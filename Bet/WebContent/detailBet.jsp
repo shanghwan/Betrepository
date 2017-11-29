@@ -32,6 +32,9 @@
 <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="resources/js/site.js"></script>
+  <script>
+  function showPopup() { window.open("BetFail.do?betId=${bet.betId}", "a", "width=500, height=300, left=100, top=50"); }
+  </script>
 </head>
 
 <body>
@@ -75,6 +78,9 @@
 			<a href="createBetReport.do?betId=${bet.betId }"
 				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">신고</a>
 			<br>
+			<div align="left">
+			<button type="submit" class="btn btn btn-warning" onclick="showPopup();">초대하기</button>
+			</div>
 
 			<div align="right">
 				<br> 종료날짜 : ${bet.endDate} <br> 내기장 아이디 : ${bet.betOwner }

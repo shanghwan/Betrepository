@@ -28,12 +28,13 @@
 
 	<mappers>
 		<mapper resource="mapper/PlayerMapper.xml" />
-	
+		<mapper resource="mapper/InviteMapper.xml" />
 		<mapper resource="mapper/UserMapper.xml" />
 		<mapper resource="mapper/BetMapper.xml" />
 		<mapper resource="mapper/CommentMapper.xml" />
 		<mapper resource="mapper/PointMapper.xml" />
 		<mapper resource="mapper/ReportMapper.xml" />
+		
 	</mappers>
 
 </configuration>

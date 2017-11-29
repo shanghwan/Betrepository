@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +30,8 @@
 							<li><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
 							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
 							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
-							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
+							<li><a href="BetOfOnelistByState.do?state=대기">preseason
+									game</a></li>
 						</ul>
 					</c:when>
 					<c:otherwise>
@@ -38,7 +39,8 @@
 							<li><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
 							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
 							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
-							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
+							<li><a href="BetOfOnelistByState.do?state=대기">preseason
+									game</a></li>
 							<li><a href="#">Rank</a></li>
 							<li><a href="#">Attendance</a></li>
 						</ul>
@@ -47,7 +49,7 @@
 			</div>
 			<!-- // end #header -->
 			<div id="banner">
-				<h1 class="page-title">My Page</h1>
+				<h1 class="page-title">초대목록</h1>
 			</div>
 			<!-- // end #banner -->
 			<div id="main" class="clearfix">
@@ -59,35 +61,38 @@
 
 							<div class="post-summary" align="center">
 								<ul id="nav">
-									<li class="active"><a href="mypage.jsp">회원수정</a></li>
+									<li><a href="mypage.jsp">회원수정</a></li>
 									<li><a href="#">내기목록</a></li>
 									<li><a href="#">포인트내역</a></li>
 									<li><a href="userDeletepassword.jsp">회원탈퇴</a></li>
-									<li><a href="inviteList.do">초대목록</a></li>
+									<li class="active"><a href="inviteList.do">초대목록</a></li>
 								</ul>
 							</div>
 						</div>
 						<div class="table-responsive">
-						<form action="pwok.do" method="post">
-							<table class="table table-striped table-bordered table-hover">
-								<colgroup>
-									<col width="100" />
-									<col width="*" />
-									<col width="120" />
-									<col width="70" />
-									<col width="50" />
-								</colgroup>
-								<thead>
-								</thead>
-								<tbody>
-										<div>
-											<label>비밀번호 입력 : </label> 
-											<input type="password" name="paw">&nbsp;&nbsp;
-											<button type="submit" class="btn btn btn-warning">확인</button>
-										</div>
-									
-								</tbody>
-							</table>
+							<form action="pwok.do" method="post">
+								<table class="table table-striped table-bordered table-hover">
+									<colgroup align="center">
+										<col width="100" />
+										<col width="100" />
+										<col width="200" />
+										<col width="120" />
+									</colgroup>
+									<tr>
+										<td align="center">번호</td>
+										<td align="center">내기번호</td>
+										<td align="center">내기제목</td>
+										<td align="center">내기장</td>
+									</tr>
+									<c:forEach items="${list }" var="list" varStatus="sts">
+									<tr>
+										<td align="center">${sts.count }</td>
+										<td align="center">${list }</td>
+										<td align="center">내기제목</td>
+										<td align="center">내기장</td>
+									</tr>
+									</c:forEach>
+								</table>
 							</form>
 						</div>
 					</div>

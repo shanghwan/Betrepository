@@ -7,18 +7,24 @@ import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Bet;
+import domain.User;
 import service.BetService;
+import service.InviteService;
 
 @Controller
 public class BetController {
 	
 	@Autowired
 	private BetService betService;
+	
+	@Autowired
+	private InviteService inviteservice;
 	
 	@RequestMapping("/BetOfOnelist.do")
 	public ModelAndView BetOfOnelist(String betWay){
@@ -64,7 +70,7 @@ public class BetController {
 			return "redirect:index.jsp";
 		}
 		
-		return "create.jsp";
+		return "BetCreate.jsp";
 	}
 	
 	@RequestMapping(value="/registBet.do", method=RequestMethod.POST)
@@ -78,9 +84,29 @@ public class BetController {
 		
 		betService.registBet(bet);
 		
-		//return �����Ϸ� �ٲ����
 		return "redirect:index.jsp";
 	}
+	
+	@RequestMapping(value="/BetFail.do")
+	public String BetFail(String betId, Model model) {
+		
+		List<String> list = inviteservice.findByAllInviteByBetId(betId);
+		model.addAttribute("betId", betId);
+		model.addAttribute("list", list);
+		
+		return "BetFail.jsp";
+	}
+	
+	@RequestMapping(value="/deleteinviteByuserId.do")
+	public String deleteinviteByuserId(String userId, String betId) {
+		
+		
+		inviteservice.removeInvite(userId, betId);
+		
+		
+		return "BetFail.do";
+	}
+	
 	
 	
 	
