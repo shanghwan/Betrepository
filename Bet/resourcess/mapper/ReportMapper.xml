@@ -5,7 +5,7 @@
 
 <mapper namespace="store.mapper.ReportBetMapper">
 
-	<insert id="create" parameterType="report">
+	<insert id="create" parameterType="Report">
 		<selectKey keyProperty="reportId" resultType="String" order="BEFORE">
 			SELECT reportbet_seq.nextval FROM dual
 		</selectKey>

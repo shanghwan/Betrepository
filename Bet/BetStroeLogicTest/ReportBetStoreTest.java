@@ -23,7 +23,7 @@ public class ReportBetStoreTest {
 	public void testCreate() {
 		
 		Report re = new Report();
-		Date date = new Date(1992-07-04);
+		Date date = new Date(1992/07/04);
 		re.setReportId("1");
 		re.setUserId("koo");
 		re.setTarget("2");

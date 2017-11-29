@@ -12,13 +12,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Bet;
+import domain.Team;
 import service.BetService;
+import service.TeamService;
 
 @Controller
 public class BetController {
 	
 	@Autowired
 	private BetService betService;
+	
+	@Autowired
+	private TeamService teamService;
 	
 	@RequestMapping("/BetOfOnelist.do")
 	public ModelAndView BetOfOnelist(String betWay){
@@ -43,8 +48,15 @@ public class BetController {
 	@RequestMapping("/BetOfOneDetail.do")
 	public ModelAndView BetOfOneDetail(String betId){
 		Bet bet = betService.findByBetId(betId);
+		String teamName = "A";
+		Team teamA = teamService.findByTeamName(betId, teamName);
+		teamName = "B";
+		Team teamB = teamService.findByTeamName(betId, teamName);
+		
 		ModelAndView modelAndView = new ModelAndView("detailBet.jsp");
 		modelAndView.addObject("bet", bet);
+		modelAndView.addObject("teamA", teamA);
+		modelAndView.addObject("teamB", teamB);
 		return modelAndView;
 	}
 	
@@ -76,10 +88,9 @@ public class BetController {
 		bet.setPhotoA("null");
 		bet.setPhotoB("null");
 		
-		betService.registBet(bet);
+		String betId = betService.registBet(bet);
 		
-		//return �����Ϸ� �ٲ����
-		return "redirect:index.jsp";
+		return "BetOfOneDetail.do?betId="+betId;
 	}
 	
 	

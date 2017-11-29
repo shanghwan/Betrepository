@@ -48,7 +48,8 @@
 							<li class="active"><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
 							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
 							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
-							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
+							<li><a href="BetOfOnelistByState.do?state=대기">preseason
+									game</a></li>
 						</ul>
 					</c:when>
 					<c:otherwise>
@@ -56,7 +57,8 @@
 							<li class="active"><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
 							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
 							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
-							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
+							<li><a href="BetOfOnelistByState.do?state=대기">preseason
+									game</a></li>
 							<li><a href="#">Rank</a></li>
 							<li><a href="#">Attendance</a></li>
 						</ul>
@@ -70,10 +72,11 @@
 			<!-- // end #banner -->
 			<a href="${ctx }/article/recommend.do?articleId=${article.articleId}"
 				class="glyphicon glyphicon-cog pull-right" style="padding: 10px">추천</a>
-			<a
-				href="createBetReport.do?betId=${bet.betId }"
+			<a href="createBetReport.do?betId=${bet.betId }"
 				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">신고</a>
-				<br>
+			<br>
+
+
 
 			<div align="right">
 				<br> 종료날짜 : ${bet.endDate} <br> 내기장 아이디 : ${bet.betOwner }
@@ -111,8 +114,20 @@
 						<div align="center">
 							<button type="submit" class="btn btn btn-warning">투표하기</button>
 						</div>
+
 					</form>
 
+					<div align="center">
+						<form action="teamJoin.do" method="post">
+						<input type="hidden" name="betId" value="${bet.betId }">
+							<textarea name="pointBet" placeholder="배팅할 포인트 입력"></textarea>
+							
+							<input type="radio" name="teamName" value="A">Team A
+                            <input type="radio" name="teamName" value="B">Team B
+                            
+							<input type="submit" class="btn btn btn-warning" value="참여">
+						</form>
+					</div>
 
 
 
@@ -142,8 +157,9 @@
 		<div class="panel-footer">
 			<div class="write_area">
 				<form action="registComment.do" method="post">
-					<input type="hidden" name="betId" value="4${bet.betId }">
-					<textarea class="input_write_comment" name="comments" placeholder="댓글쓰기"></textarea>
+					<input type="hidden" name="betId" value="${bet.betId }">
+					<textarea class="input_write_comment" name="comments"
+						placeholder="댓글쓰기"></textarea>
 					<input type="submit" class="comment_submit" value="전송">
 				</form>
 			</div>
