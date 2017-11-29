@@ -2,6 +2,7 @@ package domain;
 
 import java.sql.Date;
 
+
 public class Comment {
 
 	private String betId;

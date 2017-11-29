@@ -3,11 +3,13 @@ package store.logic;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
 
 import domain.Comment;
 import store.CommentStore;
 import store.mapper.CommentMapper;
 
+@Repository
 public class CommentStoreLogic implements CommentStore {
 
 	@Override

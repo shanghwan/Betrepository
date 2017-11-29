@@ -1,5 +1,6 @@
 package controller;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import domain.Comment;
 import service.CommentService;
 
 @Controller
+@MultipartConfig(maxFileSize = 1024 * 1024 * 1024, location = "C:/Users/kosta/eclipse-workspace/web.servlet.todayCom_ver01/WebContent/photo")
 public class CommentController {
 
 	@Autowired

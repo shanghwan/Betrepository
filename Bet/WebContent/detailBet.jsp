@@ -111,21 +111,26 @@
 						<div align="center">
 							<button type="submit" class="btn btn btn-warning">투표하기</button>
 						</div>
+
 					</form>
 
 					<c:forEach var="comment" items="${bet.comments }">
 						<table class="table" style="font-size: 13px; padding: 20px;">
 							<tr>
 								<td><strong>${comment.userId }</strong></td>
-								<td class="text-right">${comment.regDate }
-								<a class="glyphicon glyphicon-trash"
+								<td class="text-right">${comment.regDate }<a
+									class="glyphicon glyphicon-trash"
 									href="removeComment.do?betId=${bet.betId} &commentId=${comment.commentId}"></a>
 								</td>
 							</tr>
 							<tr>
 								<td colspan="2">
-									<%-- <p class="txt">${comment.content }</p> --%>
-									<p class="txt">${comment.comments }</p>
+									<p class="txt">${comment.content }</p>
+									<p style="padding: 20px">${comment.contents }
+										<c:if test="${comment.photo ne null }">
+											<img src="/photo/123${comment.photo }">
+										</c:if>
+									</p>
 								</td>
 							</tr>
 						</table>
@@ -133,12 +138,20 @@
 
 					<div class="panel-footer">
 						<div class="write_area">
-							<form action="registComment.do">
+							<form action="registComment.do" method="post">
 								<input type="hidden" name="betId" value="${bet.betId }">
-								<textarea class="input_write_comment" name="comments" placeholder="댓글쓰기"></textarea>
-								<%-- <input type="hidden" name="comment" value="${bet.betId }"> --%>
-							
+								<textarea class="input_write_comment" name="content"
+									placeholder="댓글쓰기"></textarea>
+								<div class="form-group">
+									<label class="col-lg-2 control-label">이미지</label>
+
+									<div class="col-lg-10">
+										<input type="file" name="photo" class="form-control">
+									</div>
+								</div>
 								<input type="submit" class="comment_submit" value="전송">
+
+
 							</form>
 						</div>
 					</div>
