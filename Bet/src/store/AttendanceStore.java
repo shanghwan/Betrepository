@@ -2,5 +2,7 @@ package store;
 
 public interface AttendanceStore {
 
-	abstract <Attendance> String create(Attendance attendance);
+	String create(String userId);
+	void delete(String userId);
+	
 }

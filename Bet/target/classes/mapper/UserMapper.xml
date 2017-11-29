@@ -31,7 +31,7 @@
 
 	<update id="update" parameterType="User">
 		UPDATE user_tb
-		set password = #{password}
+		set password = #{password}, point = #{point}
 		WHERE userId = #{userId}
 	</update>
 
@@ -40,11 +40,11 @@
 		WHERE userId = #{userId}
 	</delete>
 
-	<update id="attendance" parameterType="String">
+	<!-- <update id="attendance" parameterType="String">
 		Update user_tb
 		set point = point+ 100
 		WHERE userId = #{userId}
-	</update>
+	</update> -->
 
 
 

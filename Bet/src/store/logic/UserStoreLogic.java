@@ -109,18 +109,5 @@ public class UserStoreLogic implements UserStore{
 		
 	}
 
-	@Override
-	public void attendance(String userId) {
-		
-		SqlSession session = BetSessionFactory.getinstance().getSession();
-		
-		try {
-			UserMapper mapper = session.getMapper(UserMapper.class);
-			mapper.attendance(userId);
-			session.commit();
-		}finally {
-			session.close();
-		}
-	}
 
 }

@@ -96,8 +96,7 @@ public class UserController {
 	 public String attendance(HttpServletRequest req, HttpSession session){
 	 String userId = (String)req.getSession().getAttribute("userId");
 	 User loginUser = userservice.findByUserId(userId);
-	 userservice.attendanceUser(userId);
-	 //session.invalidate();
+	 userservice.attendance(loginUser);
 	 session.setAttribute("loginUser", loginUser);
 	 return "redirect:attendance.jsp";
 	

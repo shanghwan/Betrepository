@@ -1,5 +1,7 @@
 package service.logic;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,8 +83,13 @@ public class UserServiceLogic implements UserService{
 	}
 
 	@Override
-	public void attendanceUser(String userId) {
-		userstore.attendance(userId);
+	public void attendance(User user) {
+		
+		//Date today = new Date(Calendar.getInstance().getTimeInMillis());
+
+		user.setPoint(user.getPoint() + 100);
+		userstore.update(user);
+		
 	}
 
 }
