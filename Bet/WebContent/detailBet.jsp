@@ -79,7 +79,7 @@
 				<form action="gameJoin.do" method="post">
 						<input type="hidden" name="betId" value="${bet.betId }">
 						
-							<input type="text" name="pointBet" placeholder="아이디 " size="12"></input>
+							<input type="text" name="pointBet" placeholder="포인트 입력 " size="12"></input>
 							
 							<input type="radio" name="teamName" value="A">Team A
                             <input type="radio" name="teamName" value="B">Team B
@@ -141,7 +141,7 @@
 							<tr>
 								<td>
 									<p class="txt">${comment.content }</p> <%-- 	
-																	<p style="padding: 20px">${comment.contents }
+									<p style="padding: 20px">${comment.contents }
 										<c:if test="${comment.photo ne null }">
 											<img src="/photo/123${comment.photo }">
 										</c:if>
@@ -162,9 +162,9 @@
 								<input type="hidden" name="betId" value="${bet.betId }">
 								<textarea class="input_write_comment" name="content"
 									placeholder="댓글쓰기"></textarea>
+									<br><br><br>
 								<div class="form-group">
 									<label class="col-lg-2 control-label">이미지</label>
-
 									<div class="col-lg-10">
 										<input type="file" name="photo" class="form-control">
 									</div>
