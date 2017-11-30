@@ -1,5 +1,6 @@
 package service.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,15 @@ import domain.Bet;
 import domain.Invite;
 import domain.User;
 import service.InviteService;
+import store.BetStore;
 import store.InviteStore;
 @Service
 public class InviteServiceLogic implements InviteService{
 	
 	@Autowired
 	private InviteStore inviteStore;
+	@Autowired
+	private BetStore betStore;
 
 	@Override
 	public void registInvite(String userId, String betId) {
@@ -38,7 +42,21 @@ public class InviteServiceLogic implements InviteService{
 	@Override
 	public List<Invite> findByAllInviteByUserId(String userId) {
 		
-		return inviteStore.searchByAllInviteByUserId(userId);
+		List<Invite> list = inviteStore.searchByAllInviteByUserId(userId);
+		List<Invite> listTrue = new ArrayList<>(); 
+		for(Invite in : list) {
+			String betId = in.getBetId();
+			Bet bet = betStore.searchByBetId(betId);
+			
+			Invite invite = new Invite();
+			invite.setBetId(betId);
+			invite.setInviteUserId(userId);
+			invite.setTitle(bet.getTitle());
+			invite.setBetOwner(bet.getBetOwner());
+			listTrue.add(invite);
+			
+		}
+		return listTrue;
 	}
 
 }

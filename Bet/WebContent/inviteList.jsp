@@ -84,16 +84,17 @@
 										<td align="center">내기제목</td>
 										<td align="center">내기장</td>
 									</tr>
-									<c:forEach items="${list }" var="list" varStatus="sts">
+									<c:forEach items="${list }" var="p" varStatus="sts">
 									<tr>
 										<td align="center">${sts.count }</td>
+										<td align="center">${p.betId }</td>
 										<td align="center"><a
-											href="BetOfOneDetail.do?betId=${list.betId}"
-											class="list-group-item hidden-xs">${list.betId }</a></td>
-										<td align="center">${list.title }</td>
-										<td align="center">${bet.betOwner }</td>
+											href="BetOfOneDetail.do?betId=${p.betId}"
+											class="list-group-item hidden-xs">${p.title }</a></td>
+										<td align="center">${p.betOwner }</td>
 									</tr>
 									</c:forEach>
+									
 								</table>
 							</form>
 						</div>

@@ -11,7 +11,7 @@
   </insert>
   
   <select id="searchByAllInviteByBetId" parameterType="String" resultType="String">
-  SELECT * FROM invite_tb WHERE betId = #{betId}
+  SELECT INVITEUSERID, betId FROM invite_tb WHERE betId = #{betId}
   </select>
   
   <delete id="delete" parameterType="Hashmap">

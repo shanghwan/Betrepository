@@ -94,9 +94,9 @@ public class BetController {
 	public String BetFail(String betId, Model model, HttpSession session) {
 		
 		List<String> list = inviteservice.findByAllInviteByBetId(betId);
+		
 		session.setAttribute("betId", betId);
 		model.addAttribute("list", list);
-		
 		return "BetFail.jsp";
 	}
 	
@@ -115,6 +115,7 @@ public class BetController {
 		
 		Bet bet = betService.findByBetId(betId);
 		model.addAttribute("bet", bet);
+		
 		
 		//modify
 		

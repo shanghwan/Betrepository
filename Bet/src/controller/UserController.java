@@ -128,7 +128,6 @@ public class UserController {
 		
 		String userId = (String)session.getAttribute("userId");
 		
-		
 		List<Invite> list = inviteservice.findByAllInviteByUserId(userId);
 		
 		model.addAttribute("list", list);
