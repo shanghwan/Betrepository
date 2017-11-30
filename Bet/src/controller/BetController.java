@@ -90,6 +90,7 @@ public class BetController {
 		
 		String betId = betService.registBet(bet);
 		
+		
 		return "BetOfOneDetail.do?betId="+betId;
 	}
 	
