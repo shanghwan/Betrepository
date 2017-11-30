@@ -46,7 +46,7 @@
 				<div id="content">
 					<div class="post">
 						<div class="post-head">
-							<form action="/Bet/registBet.do" method="POST">
+							<form action="registBet.do" method="POST">
 
 								<table>
 									<colgroup>

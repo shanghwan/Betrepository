@@ -80,6 +80,7 @@ public class BetController {
 	public String showCreateBet(HttpSession session) {
 		String userId = (String)session.getAttribute("userId");
 		if(userId==null) {
+			
 			return "redirect:index.jsp";
 		}
 		
@@ -97,7 +98,7 @@ public class BetController {
 		
 		String betId = betService.registBet(bet);
 		
-		return "BetOfOneDetail.do?betId="+betId;
+		return "redirect:BetDetail.do?betId=" + betId;
 	}
 	
 	@RequestMapping(value="/BetFail.do")
