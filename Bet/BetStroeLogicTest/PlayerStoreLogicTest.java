@@ -23,7 +23,7 @@ public class PlayerStoreLogicTest {
 
 		Player p = new Player();
 		p.setBetId("99");
-		p.setPoint(30);
+		p.setPoint("30");
 		p.setPosition("member");
 		p.setTeamId("99");
 		p.setUserId("ggg");

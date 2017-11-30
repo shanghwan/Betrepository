@@ -42,7 +42,7 @@ public class GameController {
 			}
 			player.setBetId(betId);
 			player.setTeamId(team.getTeamId());
-			player.setPoint(point);
+			player.setPoint("point"); //string으로 바꿔서..
 			player.setUserId(userId);
 			player.setPosition("leader");
 			

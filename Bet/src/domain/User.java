@@ -5,7 +5,7 @@ public class User {
 	private String userId;
 	private String password;
 	private String name;
-	private int point;
+	private String point;
 	
 	public User() {}
 
@@ -34,11 +34,11 @@ public class User {
 		this.name = name;
 	}
 
-	public int getPoint() {
+	public String getPoint() {
 		return point;
 	}
 
-	public void setPoint(int point) {
+	public void setPoint(String point) {
 		this.point = point;
 	}
 

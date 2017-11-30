@@ -31,8 +31,7 @@
 
 	<update id="update" parameterType="Player">
 		UPDATE player_tb
-		set teamId =
-		#{teamId},
+		set teamId = #{teamId},
 		position = #{position},
 		point = #{point},
 		vote = #{vote}

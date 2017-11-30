@@ -51,8 +51,8 @@
 <body>
 
 	<form action="findByuserId.do?betId=${betId }" method="post">
-		<span class="green_window"> <input type="text"
-			class="input_text" name="userId" placeholder="아이디를 입력하세요." />
+		<span class="green_window"> 
+		<input type="text" class="input_text" name="userId" placeholder="아이디를 입력하세요." />
 		</span>
 		<button type="submit" class="sch_smit">검색</button>
 	</form>

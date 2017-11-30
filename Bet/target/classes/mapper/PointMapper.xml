@@ -26,12 +26,16 @@
 		WHERE userId = #{userId}
 	</select>
 
-	<select id="gift" parameterType="String" resultType="Point"
-		resultMap="PointMap">
-		SELECT pointId, userId, receiverId, pointDate, type, point
-		FROM point_tb
+	<update id="gift" parameterType="String">
+		UPDATE point_tb
+		SET pointId = #{pointId},
+		    userId = #{userId},
+		    receiverId = #{receiverId}
+		    pointDate #{pointDate}
+		    type = {type}
+		    point = {point}		
 		WHERE userId = #{userId}
-	</select>
+	</update>
 
 	<delete id="delete" parameterType="String">
 		DELETE FROM point_tb

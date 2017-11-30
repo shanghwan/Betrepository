@@ -14,6 +14,7 @@
 <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="resources/js/site.js"></script>
+
 </head>
 
 <body>
@@ -73,11 +74,15 @@
 						<div class="post">
 							<div class="post-head">
 								<h1>
-									<form action="giftPoint.do" method="post">
-										<label>${loginUser.name }님의 포인트: ${loginUser.point }p</label>
-										<br></br> <input size="50" type="text" name="categoryName"
-											placeholder="선물할 포인트를입력하세요"> <input
-											class="btn btn-xs btn-default" type="submit" value="선물">
+									<form action="gitfPoint.do" method="post">
+										<label>${loginUser.name }님의 포인트는 ${loginUser.point }P</label>
+										<br></br> 
+										<input size="15" type="text" class="input_text" name="userId" placeholder="아이디" /> </span>							
+										<a>에게</a>
+											<input size="10" type="text" name="categoryName" placeholder="포인트"> 
+											<a>P 를</a>
+											<input class="btn btn-xs btn-default" type="submit" value="선물하기♥">
+										<span class="green_window">
 									</form>
 								</h1>
 							</div>
@@ -98,7 +103,7 @@
 										<td align="center">일자</td>
 										<td align="center">구분</td>
 										<td align="center">포인트</td>
-										<td align="center">선물보낸회원</td>
+										<td align="center">선물받은회원</td>
 									</tr>
 									<c:forEach items="${pList }" var="point" varStatus="sts">
 										<tr>
@@ -129,7 +134,7 @@
 						<div class="contentarea" align="center">
 							<form action="logout.do" method="post">
 								<label>${loginUser.name }님 환영합니다.</label><br> <br> <label><a
-									href="pointList.do">포인트</a>: ${loginUser.point }p</label> <br></br>
+									href="pointList.do">포인트</a>: ${loginUser.point }P</label> <br></br>
 								<button type="submit" class="btn btn btn-warning">logout</button>
 								<a href="mypage.jsp"><button type="button"
 										class="btn btn btn-warning">MyPage</button></a>
