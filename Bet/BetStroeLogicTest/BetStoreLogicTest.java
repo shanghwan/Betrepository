@@ -18,7 +18,6 @@ public class BetStoreLogicTest {
 	public void setUp() {
 		store = new BetStoreLogic();
 	}
-
 //	@Test
 //	public void testCreate() {
 //		Date date = new Date(2017/11/11);

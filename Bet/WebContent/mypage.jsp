@@ -42,7 +42,7 @@
 								<ul id="nav">
 									<li class="active"><a href="mypage.jsp">회원수정</a></li>
 									<li><a href="#">내기목록</a></li>
-									<li><a href="#">포인트내역</a></li>
+									<li><a href="pointList.do">포인트내역</a></li>
 									<li><a href="userDeletepassword.jsp">회원탈퇴</a></li>
 									<li><a href="inviteList.do">초대목록</a></li>
 								</ul>
@@ -79,8 +79,8 @@
 						<h2>회원</h2>
 						<div class="contentarea" align="center">
 							<form action="logout.do" method="post">
-								<label>${loginUser.name }님 환영합니다.</label><br> <br> <label>포인트
-									: ${loginUser.point }p</label> <br></br>
+								<label>${loginUser.name }님 환영합니다.</label><br> <br>
+								<label><a href="pointList.do">포인트</a>: ${loginUser.point }p</label> <br></br>
 								<button type="submit" class="btn btn btn-warning">logout</button>
 								<a href="mypage.jsp"><button type="button"
 										class="btn btn btn-warning">MyPage</button></a>

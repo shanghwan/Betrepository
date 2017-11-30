@@ -6,38 +6,43 @@
 <mapper namespace="store.mapper.PlayerMapper">
 
 	<insert id="create" parameterType="Player">
-		<selectKey keyProperty="playerId" resultType="string"
-			order="BEFORE">
+		<selectKey keyProperty="playerId" resultType="string" order="BEFORE">
 			SELECT player_seq.nextval FROM dual
 		</selectKey>
-		INSERT INTO player_tb(playerId, betId, teamId, userId, position, point, vote )
-		VALUES(#{playerId}, #{betId}, #{teamId}, #{userId}, #{position}, #{point}, 'N' )
+		INSERT INTO player_tb(playerId, betId, teamId, userId, position,
+		point, vote )
+		VALUES(#{playerId}, #{betId}, #{teamId}, #{userId},
+		#{position}, #{point}, 'N' )
 	</insert>
 
 	<select id="searchByPlayerId" parameterType="string" resultType="Player">
 		SELECT playerId, betId, teamId, userId, position, point, vote
-		FROM player_tb
+		FROM
+		player_tb
 		WHERE playerId = #{playerId}
 	</select>
-	
+
 	<select id="searchByTeamId" parameterType="HashMap" resultType="Player">
 		SELECT playerId, betId, teamId, userId, position, point, vote
-		FROM player_tb
+		FROM
+		player_tb
 		WHERE teamId = #{teamId} AND betId = #{betId}
 	</select>
-	
+
 	<update id="update" parameterType="Player">
 		UPDATE player_tb
-		set teamId = #{teamId},
-			position = #{position},
-			point = #{point},
-			vote = #{vote}
+		set teamId =
+		#{teamId},
+		position = #{position},
+		point = #{point},
+		vote = #{vote}
 		WHERE playerId = #{playerId}
 	</update>
-	
+
 	<delete id="delete" parameterType="HashMap">
 		DELETE FROM player_tb
-		WHERE userId = #{userId} AND betId = #{betId}
+		WHERE
+		userId = #{userId} AND betId = #{betId}
 	</delete>
 
 </mapper>

@@ -8,21 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import domain.Bet;
+import domain.Comment;
 import domain.Player;
 import domain.Team;
 import domain.User;
-import domain.Comment;
 import service.BetService;
 import service.TeamService;
 import store.BetStore;
 import store.PlayerStore;
 import store.UserStore;
 import store.CommentStore;
-import store.logic.CommentStoreLogic;
 
 @Service
 public class BetServiceLogic implements BetService {
 
+	@Autowired
+	private CommentStore CommentStore;
 	@Autowired
 	private BetStore betStore;
 	@Autowired
@@ -31,8 +32,6 @@ public class BetServiceLogic implements BetService {
 	private PlayerStore playerStore;
 	@Autowired
 	private TeamService teamService;
-	@Autowired
-	private CommentStore CommentStore;
 
 	@Override
 	public String registBet(Bet bet) {
@@ -45,7 +44,6 @@ public class BetServiceLogic implements BetService {
 			bet.setPointCheck("lock");
 			bet.setPoint(10);
 		}
-
 		if (bet.getPointCheck().equals("allin")) {
 			bet.setPoint(user.getPoint());
 		}

@@ -20,12 +20,10 @@
 		#{point})
 	</insert>
 
-	<select id="searchAll" parameterType="String" resultType="Point">
-		SELECT
-		pointId, userId, receiverId, pointDate, type, point
+	<select id="searchAll" parameterType="String" resultType="Point" resultMap="PointMap">
+		SELECT pointId, userId, receiverId, pointDate, type, point
 		FROM point_tb
-		WHERE
-		userId = #{userId}
+		WHERE userId = #{userId}
 	</select>
 
 	<select id="gift" parameterType="String" resultType="Point"

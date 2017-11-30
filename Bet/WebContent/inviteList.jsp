@@ -72,8 +72,7 @@
 											class="list-group-item hidden-xs">${p.title }</a></td>
 										<td align="center">${p.betOwner }</td>
 									</tr>
-									</c:forEach>
-									
+									</c:forEach>									
 								</table>
 							</form>
 						</div>

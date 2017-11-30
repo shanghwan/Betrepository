@@ -7,19 +7,19 @@ public class Point {
 	private String pointId;
 	private String userId;
 	private String receiverId;
-	private int point;
-	private Date regDate;
+	private String point;
+	private Date pointDate;
 	private String type;
 	
 	public Point() {}
 	
-	public Point(String pointId, String userId, String receiverId, int point, Date regDate, String type) {
+	public Point(String pointId, String userId, String receiverId, String point, Date pointDate, String type) {
 		super();
 		this.pointId = pointId;
 		this.userId = userId;
 		this.receiverId = receiverId;
 		this.point = point;
-		this.regDate = regDate;
+		this.pointDate = pointDate;
 		this.type = type;
 	}
 
@@ -47,20 +47,20 @@ public class Point {
 		this.receiverId = receiverId;
 	}
 
-	public int getPoint() {
+	public String getPoint() {
 		return point;
 	}
 
-	public void setPoint(int point) {
+	public void setPoint(String point) {
 		this.point = point;
 	}
 
-	public Date getRegDate() {
-		return regDate;
+	public Date getpointDate() {
+		return pointDate;
 	}
 
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setpointDate(Date pointDate) {
+		this.pointDate = pointDate;
 	}
 
 	public String getType() {
