@@ -24,26 +24,7 @@
 					<a href="index.jsp"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
-				<c:choose>
-					<c:when test="${loginUser eq null }">
-						<ul id="nav">
-							<li><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
-							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
-							<li class="active"><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
-							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
-						</ul>
-					</c:when>
-					<c:otherwise>
-						<ul id="nav">
-							<li><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
-							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
-							<li class="active"><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
-							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
-							<li><a href="#">Rank</a></li>
-							<li><a href="#">Attendance</a></li>
-						</ul>
-					</c:otherwise>
-				</c:choose>
+				<%@ include file="menu.jsp"%>
 			</div>
 			<!-- // end #header -->
 			<div id="banner">
@@ -85,7 +66,7 @@
 										<tr>
 											<td align="center">${list.betId }</td>
 											<td align="center"><a
-											href="BetOfOneDetail.do?betId=${list.betId}"
+											href="BetDetail.do?betId=${list.betId}"
 											class="list-group-item hidden-xs">${list.title }</a></td>
 											<td align="center">${list.betOwner }</td>
 											<td align="center">${list.state }</td>

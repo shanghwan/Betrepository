@@ -26,26 +26,7 @@
 					<a href="index.jsp"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
-				<c:choose>
-					<c:when test="${loginUser eq null }">
-						<ul id="nav">
-							<li class="active"><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
-							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
-							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
-							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
-						</ul>
-					</c:when>
-					<c:otherwise>
-						<ul id="nav">
-							<li class="active"><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
-							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
-							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
-							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
-							<li><a href="#">Rank</a></li>
-							<li><a href="attendance.jsp">Attendance</a></li>
-						</ul>
-					</c:otherwise>
-				</c:choose>
+				<%@ include file="menu.jsp"%>
 			</div>
 			<!-- // end #header -->
 			<div id="banner">

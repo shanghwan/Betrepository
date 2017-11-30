@@ -17,7 +17,7 @@ import store.UserStore;
 public class BetServiceLogic implements BetService{
 	
 	@Autowired
-	private BetStore store;
+	private BetStore betStore;
 	
 	@Autowired
 	private UserStore userStore;
@@ -37,17 +37,17 @@ public class BetServiceLogic implements BetService{
 		bet.setPoint(user.getPoint());
 		}
 		
-		return store.create(bet);
+		return betStore.create(bet);
 	}
 
 	@Override
 	public List<Bet> findAllBet() {
-		return store.searchAllBet();
+		return betStore.searchAllBet();
 	}
 
 	@Override
 	public Bet findByBetId(String betId) {
-		return store.searchByBetId(betId);
+		return betStore.searchByBetId(betId);
 	}
 
 	@Override
@@ -62,12 +62,12 @@ public class BetServiceLogic implements BetService{
 
 	@Override
 	public List<Bet> findByState(String state) {
-		return store.searchByState(state);
+		return betStore.searchByState(state);
 	}
 
 	@Override
 	public List<Bet> findByBetWay(String betWay) {
-		return store.searchByBetWay(betWay);
+		return betStore.searchByBetWay(betWay);
 	}
 
 	@Override

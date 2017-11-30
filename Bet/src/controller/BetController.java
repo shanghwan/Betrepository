@@ -25,10 +25,10 @@ public class BetController {
 	private BetService betService;
 	
 	@Autowired
-	private InviteService inviteservice;
+	private InviteService inviteService;
 	
-	@RequestMapping("/BetOfOnelist.do")
-	public ModelAndView BetOfOnelist(String betWay){
+	@RequestMapping("/Betlist.do")
+	public ModelAndView Betlist(String betWay){
 		List<Bet> list = betService.findByBetWay(betWay);
 		
 		if(betWay.equals("one")) {
@@ -47,18 +47,18 @@ public class BetController {
 		
 	}
 	
-	@RequestMapping("/BetOfOneDetail.do")
-	public ModelAndView BetOfOneDetail(String betId){
+	@RequestMapping("/BetDetail.do")
+	public ModelAndView BetDetail(String betId){
 		Bet bet = betService.findByBetId(betId);
-		List<String> list = inviteservice.findByAllInviteByBetId(betId);
+		List<String> list = inviteService.findByAllInviteByBetId(betId);
 		ModelAndView modelAndView = new ModelAndView("detailBet.jsp");
 		modelAndView.addObject("bet", bet);
 		modelAndView.addObject("list", list);
 		return modelAndView;
 	}
 	
-	@RequestMapping("/BetOfOnelistByState.do")
-	public ModelAndView BetOfOnelistByState(String state){
+	@RequestMapping("/BetlistByState.do")
+	public ModelAndView BetlistByState(String state){
 		List<Bet> list = betService.findByState(state);
 		ModelAndView modelAndView = new ModelAndView("preseasonGame.jsp");
 		modelAndView.addObject("BetList", list);
@@ -93,7 +93,7 @@ public class BetController {
 	@RequestMapping(value="/BetFail.do")
 	public String BetFail(String betId, Model model, HttpSession session) {
 		
-		List<String> list = inviteservice.findByAllInviteByBetId(betId);
+		List<String> list = inviteService.findByAllInviteByBetId(betId);
 		
 		session.setAttribute("betId", betId);
 		model.addAttribute("list", list);
@@ -104,7 +104,7 @@ public class BetController {
 	public String deleteinviteByuserId(String userId, String betId) {
 		
 		
-		inviteservice.removeInvite(userId, betId);
+		inviteService.removeInvite(userId, betId);
 		
 		
 		return "BetFail.do";

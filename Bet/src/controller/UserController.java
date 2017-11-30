@@ -23,16 +23,16 @@ import service.UserService;
 public class UserController {
 
 	@Autowired
-	private UserService userservice;
-	private AttendanceService attendanceservice;
+	private UserService userService;
+	private AttendanceService attendanceService;
 	@Autowired
-	private BetService betservice; 
+	private BetService betService; 
 	@Autowired
-	private InviteService inviteservice;
+	private InviteService inviteService;
 
 	@RequestMapping(value="/Userregist.do", method = RequestMethod.POST)
 	public String join(User user) {
-		userservice.regist(user);
+		userService.regist(user);
 
 		return "redirect:index.jsp";
 	}
@@ -40,7 +40,7 @@ public class UserController {
 	@RequestMapping(value="/login.do", method = RequestMethod.POST)
 	public String login(User user, HttpSession session, String password) {
 
-		User loginUser = userservice.login(user);
+		User loginUser = userService.login(user);
 
 		if (loginUser != null && loginUser.getPassword().equals(password)) {
 			session.setAttribute("userId", loginUser.getUserId());
@@ -64,7 +64,7 @@ public class UserController {
 	public String pwok(HttpSession session, String paw) {
 
 		String userId = (String) session.getAttribute("userId");
-		User user = userservice.findByUserId(userId);
+		User user = userService.findByUserId(userId);
 		if (user.getPassword().equals(paw)) {
 			return "redirect:usermodify.jsp";
 		}
@@ -75,10 +75,10 @@ public class UserController {
 	public String usermodify(HttpSession session, String paw) {
 		
 		String userId = (String) session.getAttribute("userId");
-		User user = userservice.findByUserId(userId);
+		User user = userService.findByUserId(userId);
 		
 		user.setPassword(paw);
-		userservice.modifyUser(user);
+		userService.modifyUser(user);
 
 		return "mypage.jsp";
 	}
@@ -87,7 +87,7 @@ public class UserController {
 	public String deletepwok(HttpSession session, String paw) {
 
 		String userId = (String) session.getAttribute("userId");
-		User user = userservice.findByUserId(userId);
+		User user = userService.findByUserId(userId);
 		if (user.getPassword().equals(paw)) {
 			return "redirect:userDelete.jsp";
 		}
@@ -99,7 +99,7 @@ public class UserController {
 		
 		String userId = (String)session.getAttribute("userId");
 		
-		userservice.remove(userId);
+		userService.remove(userId);
 		session.invalidate();
 		return "redirect:index.jsp";
 	}
@@ -107,8 +107,8 @@ public class UserController {
 	@RequestMapping(value="/findByuserId.do", method = RequestMethod.POST)
 	public String findByuserId(String userId, String betId, Model model) {
 		
-		Bet bet = betservice.findByBetId(betId);
-		User user = userservice.findByUserId(userId);
+		Bet bet = betService.findByBetId(betId);
+		User user = userService.findByUserId(userId);
 		model.addAttribute("user", user);
 		model.addAttribute("bet", bet);
 		return "BetFail.jsp";
@@ -117,7 +117,7 @@ public class UserController {
 	@RequestMapping(value="/invite.do")
 	public String invite(String userId, String betId, Model model) {
 		
-		inviteservice.registInvite(userId, betId);
+		inviteService.registInvite(userId, betId);
 		model.addAttribute("betId", betId);
 		return "redirect:BetFail.do";
 	}
@@ -128,7 +128,7 @@ public class UserController {
 		
 		String userId = (String)session.getAttribute("userId");
 		
-		List<Invite> list = inviteservice.findByAllInviteByUserId(userId);
+		List<Invite> list = inviteService.findByAllInviteByUserId(userId);
 		
 		model.addAttribute("list", list);
 		return "inviteList.jsp";
