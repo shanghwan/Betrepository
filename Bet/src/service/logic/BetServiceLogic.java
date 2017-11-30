@@ -11,11 +11,14 @@ import domain.Bet;
 import domain.Player;
 import domain.Team;
 import domain.User;
+import domain.Comment;
 import service.BetService;
 import service.TeamService;
 import store.BetStore;
 import store.PlayerStore;
 import store.UserStore;
+import store.CommentStore;
+import store.logic.CommentStoreLogic;
 
 @Service
 public class BetServiceLogic implements BetService {
@@ -28,6 +31,8 @@ public class BetServiceLogic implements BetService {
 	private PlayerStore playerStore;
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private CommentStore CommentStore;
 
 	@Override
 	public String registBet(Bet bet) {
@@ -75,7 +80,12 @@ public class BetServiceLogic implements BetService {
 
 	@Override
 	public Bet findByBetId(String betId) {
-		return betStore.searchByBetId(betId);
+
+		Bet bet = betStore.searchByBetId(betId);
+		List<Comment> list = CommentStore.searchAll(betId);
+		bet.setComments(list);
+
+		return bet;
 	}
 
 	@Override

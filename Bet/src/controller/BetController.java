@@ -16,19 +16,23 @@ import domain.Bet;
 import domain.Invite;
 import domain.User;
 import domain.Team;
+import domain.Comment;
 import service.BetService;
 import service.InviteService;
 import service.TeamService;
+import service.CommentService;
 
 @Controller
 public class BetController {
-	
+
 	@Autowired
 	private BetService betService;
 	@Autowired
 	private InviteService inviteService;
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private CommentService commentService;
 	
 	@RequestMapping("/Betlist.do")
 	public ModelAndView Betlist(String betWay){
@@ -38,16 +42,16 @@ public class BetController {
 			ModelAndView modelAndView = new ModelAndView("BetOfOne.jsp");
 			modelAndView.addObject("BetList", list);
 			return modelAndView;
-		}else if(betWay.equals("all")) {
+		} else if (betWay.equals("all")) {
 			ModelAndView modelAndView = new ModelAndView("BetOfAll.jsp");
 			modelAndView.addObject("BetList", list);
 			return modelAndView;
-		}else {
+		} else {
 			ModelAndView modelAndView = new ModelAndView("BetOfTeam.jsp");
 			modelAndView.addObject("BetList", list);
 			return modelAndView;
 		}
-		
+
 	}
 	
 	@RequestMapping("/BetDetail.do")
@@ -58,18 +62,20 @@ public class BetController {
 		Team teamA = teamService.findByTeamName(betId, teamName);
 		teamName = "B";
 		Team teamB = teamService.findByTeamName(betId, teamName);
-		
+
 		ModelAndView modelAndView = new ModelAndView("detailBet.jsp");
 		modelAndView.addObject("bet", bet);
 		modelAndView.addObject("list", list);
 		modelAndView.addObject("teamA", teamA);
 		modelAndView.addObject("teamB", teamB);
+
 		return modelAndView;
 	}
 	
 	@RequestMapping("/BetlistByState.do")
 	public ModelAndView BetlistByState(String state){
 		List<Bet> list = betService.findByState(state);
+
 		ModelAndView modelAndView = new ModelAndView("preseasonGame.jsp");
 		modelAndView.addObject("BetList", list);
 		return modelAndView;
