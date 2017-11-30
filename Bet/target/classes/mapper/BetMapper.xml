@@ -5,8 +5,28 @@
   
   <mapper namespace="store.mapper.BetMapper">
   
-    <select id="searchByBetWay" resultType="Bet">
-  select * FROM bet_tb WHERE betWay =#{betWay} and state = '진행'
+  <resultMap type="Bet" id="BetMap">
+		<result property="betId" column="betId" />
+		<result property="title" column="title" />
+		<result property="state" column="state" />
+		<result property="betWay" column="betWay" />
+		<result property="content" column="content" />
+		<result property="photoA" column="photeA" />
+		<result property="photoB" column="photeB" />
+		<result property="point" column="point" />
+		<result property="endDate" column="endDate" />
+		<result property="startDate" column="startDate" />
+		<result property="openCheck" column="openCheck" />
+		<result property="aVote" column="aVote" />
+		<result property="bVote" column="bVote" />
+		<result property="pointCheck" column="pointCheck" />
+		<result property="betOwner" column="betOwner" />
+	</resultMap>
+  
+    <select id="searchByBetWay" resultType="Bet" resultMap="BetMap">
+  select betId, state, title, content, photoA , photoB , betWay ,
+  	startDate ,endDate , openCheck , pointCheck , point, aVote, bVote, betOwner 
+  	FROM bet_tb WHERE betWay =#{betWay} and state = '진행'
    </select>
   
   <insert id="create" parameterType="Bet">
@@ -49,12 +69,16 @@
   
   
   
-  <select id="searchByBetId" parameterType="String" resultType="Bet">
-  select * FROM bet_tb WHERE BetId = #{betId} 
+  <select id="searchByBetId" parameterType="String" resultType="Bet" resultMap="BetMap">
+  select betId, state, title, content, photoA , photoB , betWay ,
+  	startDate ,endDate , openCheck , pointCheck , point, aVote, bVote, betOwner 
+  	FROM bet_tb WHERE betId = #{betId} 
   </select>
   
-    <select id="searchByState" parameterType="String" resultType="Bet">
-  select * FROM bet_tb WHERE state = #{state} 
+    <select id="searchByState" parameterType="String" resultType="Bet" resultMap="BetMap">
+  select betId, state, title, content, photoA , photoB , betWay ,
+  	startDate ,endDate , openCheck , pointCheck , point, aVote, bVote, betOwner 
+  	FROM bet_tb WHERE state = #{state} 
   </select>
   
   

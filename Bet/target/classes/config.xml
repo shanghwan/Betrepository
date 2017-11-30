@@ -12,7 +12,11 @@
 		<typeAlias type="domain.Point" alias="Point" />
 		<typeAlias type="domain.Report" alias="Report" />
 		<typeAlias type="domain.Player" alias="Player"/>
+<<<<<<< HEAD
 		<typeAlias type="domain.Invite" alias="Invite"/>
+=======
+		<typeAlias type="domain.Team" alias="Team"/>
+>>>>>>> refs/remotes/origin/junho
 	</typeAliases>
 
 	<environments default="development">
@@ -29,13 +33,20 @@
 
 	<mappers>
 		<mapper resource="mapper/PlayerMapper.xml" />
+<<<<<<< HEAD
 		<mapper resource="mapper/InviteMapper.xml" />
+=======
+>>>>>>> refs/remotes/origin/junho
 		<mapper resource="mapper/UserMapper.xml" />
 		<mapper resource="mapper/BetMapper.xml" />
 		<mapper resource="mapper/CommentMapper.xml" />
 		<mapper resource="mapper/PointMapper.xml" />
 		<mapper resource="mapper/ReportMapper.xml" />
+<<<<<<< HEAD
 		
+=======
+		<mapper resource="mapper/TeamMapper.xml" />
+>>>>>>> refs/remotes/origin/junho
 	</mappers>
 
 </configuration>

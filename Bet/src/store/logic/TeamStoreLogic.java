@@ -1,5 +1,6 @@
 package store.logic;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -78,6 +79,22 @@ public class TeamStoreLogic implements TeamStore{
 		}finally {
 			session.close();
 		}
+	}
+
+	@Override
+	public Team searchByTeamName(String betId, String teamName) {
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		HashMap<String, String> map = new HashMap<>();
+		Team team = null;
+		try {
+			TeamMapper mapper = session.getMapper(TeamMapper.class);
+			map.put("betId", betId);
+			map.put("teamName", teamName);
+			team = mapper.searchByTeamName(map);
+		} finally {
+			session.commit();
+		}
+		return team;
 	}
 
 }

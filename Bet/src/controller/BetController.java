@@ -15,17 +15,20 @@ import org.springframework.web.servlet.ModelAndView;
 import domain.Bet;
 import domain.Invite;
 import domain.User;
+import domain.Team;
 import service.BetService;
 import service.InviteService;
+import service.TeamService;
 
 @Controller
 public class BetController {
 	
 	@Autowired
 	private BetService betService;
-	
 	@Autowired
 	private InviteService inviteservice;
+	@Autowired
+	private TeamService teamService;
 	
 	@RequestMapping("/BetOfOnelist.do")
 	public ModelAndView BetOfOnelist(String betWay){
@@ -51,9 +54,16 @@ public class BetController {
 	public ModelAndView BetOfOneDetail(String betId){
 		Bet bet = betService.findByBetId(betId);
 		List<String> list = inviteservice.findByAllInviteByBetId(betId);
+		String teamName = "A";
+		Team teamA = teamService.findByTeamName(betId, teamName);
+		teamName = "B";
+		Team teamB = teamService.findByTeamName(betId, teamName);
+		
 		ModelAndView modelAndView = new ModelAndView("detailBet.jsp");
 		modelAndView.addObject("bet", bet);
 		modelAndView.addObject("list", list);
+		modelAndView.addObject("teamA", teamA);
+		modelAndView.addObject("teamB", teamB);
 		return modelAndView;
 	}
 	
@@ -85,9 +95,9 @@ public class BetController {
 		bet.setPhotoA("null");
 		bet.setPhotoB("null");
 		
-		betService.registBet(bet);
+		String betId = betService.registBet(bet);
 		
-		return "redirect:index.jsp";
+		return "BetOfOneDetail.do?betId="+betId;
 	}
 	
 	@RequestMapping(value="/BetFail.do")

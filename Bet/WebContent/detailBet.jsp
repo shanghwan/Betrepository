@@ -129,6 +129,7 @@
 						<div align="center">
 							<button type="submit" class="btn btn btn-warning">투표하기</button>
 						</div>
+
 					</form>
 
 					<c:forEach var="comment" items="${bet.comments }">
@@ -147,6 +148,17 @@
 							</tr>
 						</table>
 					</c:forEach>
+					<div align="center">
+						<form action="gameJoin.do" method="post">
+						<input type="hidden" name="betId" value="${bet.betId }">
+							<textarea name="pointBet" placeholder="배팅할 포인트 입력"></textarea>
+							
+							<input type="radio" name="teamName" value="A">Team A
+                            <input type="radio" name="teamName" value="B">Team B
+                            
+							<input type="submit" class="btn btn btn-warning" value="참여">
+						</form>
+					</div>
 
 					<div class="panel-footer">
 						<div class="write_area">
@@ -164,6 +176,36 @@
 			</div>
 			<!-- // end #content -->
 		</div>
+
+		<c:forEach var="comment" items="${article.comments }">
+			<table class="table" style="font-size: 13px; padding: 20px;">
+				<tr>
+					<td><strong>${comment.nickname }</strong></td>
+					<td class="text-right">${comment.commentDate }<a
+						class="glyphicon glyphicon-trash"
+						href="removeComment.do?betId=${bet.betId} &commentId=${comment.commentId}"></a>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<p class="txt">${comment.comments }</p>
+					</td>
+				</tr>
+			</table>
+		</c:forEach>
+
+		<div class="panel-footer">
+			<div class="write_area">
+				<form action="registComment.do" method="post">
+					<input type="hidden" name="betId" value="${bet.betId }">
+					<textarea class="input_write_comment" name="comments"
+						placeholder="댓글쓰기"></textarea>
+					<input type="submit" class="comment_submit" value="전송">
+				</form>
+			</div>
+		</div>
+
+
 
 		<div id="footer">
 			<p>
