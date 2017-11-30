@@ -18,13 +18,13 @@ public class CommentController {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private CommentService service;
+	private CommentService commentService;
 
 	@RequestMapping(value = "/registComment.do", method = RequestMethod.POST)
 	public ModelAndView registComment(HttpSession session, Comment comment) {
 		String userId = (String) session.getAttribute("userId");
 		comment.setUserId(userId);
-		service.registComment(comment);
+		commentService.registComment(comment);
 		ModelAndView modelAndView = new ModelAndView("detailBet.jsp");
 		modelAndView.addObject("comment", comment);
 		return modelAndView;
@@ -32,7 +32,7 @@ public class CommentController {
 
 	@RequestMapping(value = "/removeComment.do", method = RequestMethod.POST)
 	public ModelAndView deleteComment(Comment comment, String commentId) {
-		service.removeComment(commentId);
+		commentService.removeComment(commentId);
 		ModelAndView modelAndView = new ModelAndView("detailBet.jsp");
 		return modelAndView;
 	}
