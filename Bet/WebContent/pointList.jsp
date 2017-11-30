@@ -69,6 +69,20 @@
 								</ul>
 							</div>
 						</div>
+
+						<div class="post">
+							<div class="post-head">
+								<h1>
+									<form action="giftPoint.do" method="post">
+										<label>${loginUser.name }님의 포인트: ${loginUser.point }p</label>
+										<br></br> <input size="50" type="text" name="categoryName"
+											placeholder="선물할 포인트를입력하세요"> <input
+											class="btn btn-xs btn-default" type="submit" value="선물">
+									</form>
+								</h1>
+							</div>
+						</div>
+
 						<div class="table-responsive">
 							<form action="pwok.do" method="post">
 								<table class="table table-striped table-bordered table-hover">
@@ -80,20 +94,27 @@
 										<col width="120" />
 									</colgroup>
 									<tr>
+										<td align="center">번호</td>
 										<td align="center">일자</td>
-										<td align="center">적립/차감</td>
 										<td align="center">구분</td>
 										<td align="center">포인트</td>
 										<td align="center">선물보낸회원</td>
 									</tr>
-									<c:forEach items="${list }" var="list" varStatus="sts">
+									<c:forEach items="${pList }" var="point" varStatus="sts">
 										<tr>
 											<td align="center">${sts.count }</td>
-											<td align="center"><a
-												href="BetOfOneDetail.do?betId=${list.betId}"
-												class="list-group-item hidden-xs">${list.betId }</a></td>
-											<td align="center">${list.title }</td>
-											<td align="center">${bet.betOwner }</td>
+											<td align="center">${point.pointDate }</td>
+											<td align="center">${point.type }</td>
+											<td align="center">${point.point }</td>
+											<c:choose>
+												<%-- <c:when test="${point.receiverId eq '(null)'}"> --%>
+												<c:when test="${null eq point.receiverId}">
+													<td align="center">-</td>
+												</c:when>
+												<c:otherwise>
+													<td align="center">${point.receiverId }</td>
+												</c:otherwise>
+											</c:choose>
 										</tr>
 									</c:forEach>
 								</table>
@@ -107,8 +128,8 @@
 						<h2>회원</h2>
 						<div class="contentarea" align="center">
 							<form action="logout.do" method="post">
-								<label>${loginUser.name }님 환영합니다.</label><br> <br> 
-								<label><a href="index.jsp">포인트</a>: ${loginUser.point }p</label> <br></br>
+								<label>${loginUser.name }님 환영합니다.</label><br> <br> <label><a
+									href="pointList.do">포인트</a>: ${loginUser.point }p</label> <br></br>
 								<button type="submit" class="btn btn btn-warning">logout</button>
 								<a href="mypage.jsp"><button type="button"
 										class="btn btn btn-warning">MyPage</button></a>

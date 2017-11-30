@@ -22,15 +22,10 @@ public class PointServiceLogic implements PointService {
 	@Autowired
 	private UserStore userStore;
 
-	public PointServiceLogic() {
-		pointStore = new PointStoreLogic();
-		userStore = new UserStoreLogic();
-	}
-
 	@Override
 	public void registPoint(Point point) {
 		Date today = new Date(Calendar.getInstance().getTimeInMillis());
-		point.setRegDate(today);
+		point.setpointDate(today);
 		pointStore.create(point);
 	}
 
