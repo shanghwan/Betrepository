@@ -38,7 +38,7 @@ public class GameController {
 		if(bet.getBetWay().equals("one")) {
 			if(team.getPlayers().size()>0) {
 				//참여 불가능 하다는 alert 필요
-				return "BetOfOneDetail.do";
+				return "BetDetail.do";
 			}
 			player.setBetId(betId);
 			player.setTeamId(team.getTeamId());
@@ -47,10 +47,10 @@ public class GameController {
 			player.setPosition("leader");
 			
 			playerService.registPlayer(player);
-			return "BetOfOneDetail.do";
+			return "BetDetail.do";
 		}
 		
-		return "BetOfOneDetail.do";
+		return "BetDetail.do";
 	}
 	
 }

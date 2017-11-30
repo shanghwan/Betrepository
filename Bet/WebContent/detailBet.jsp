@@ -68,14 +68,32 @@
 			</c:if>
 			<c:forEach items="${list }" var="list">
 			<c:if test="${userId eq list }">
+			
+			<div align="center">
+						
+					</div>
+			
+			
+			
 				<div align="left">
-					<a href="gamestart.do?userId=${userId }&betId=${bet.betId}"><button type="submit" class="btn btn btn-warning">참여하기</button></a>
+				<form action="gameJoin.do" method="post">
+						<input type="hidden" name="betId" value="${bet.betId }">
+						
+							<input type="text" name="pointBet" placeholder="아이디 " size="12"></input>
+							
+							<input type="radio" name="teamName" value="A">Team A
+                            <input type="radio" name="teamName" value="B">Team B
+                            
+							<button type="submit" class="btn btn btn-warning">참여하기</button>
+						</form>
+					
 				</div>
 			</c:if>
 			</c:forEach>
 			<div align="right">
 				<br> 종료날짜 : ${bet.endDate} <br> 내기장 아이디 : ${bet.betOwner }
-				<Br> 포인트 : ${bet.point }<br> 참여한 아이디 : <select>
+				<Br> 포인트 : ${bet.point } <br> 포인트방식 : ${bet.pointCheck } <br> 
+					참여한 아이디 : <select> 
 					<option selected>A팀</option>
 					<option>옵션1</option>
 					<option>옵션2</option>
@@ -97,11 +115,11 @@
 							<tr>
 								<td><img src="resources/images/betofall.jpg"
 									alt="Banner Image 1" /><br> <br> <input type="radio"
-									name="open" value="공개">공개</td>
+									name="open" value="A">A</td>
 								<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>
 								<td><img src="resources/images/betofall.jpg"
 									alt="Banner Image 1" /><br> <br> <input type="radio"
-									name="open" value="비공개">비공개</td>
+									name="open" value="B">B</td>
 							</tr>
 						</table>
 
@@ -127,30 +145,15 @@
 							</tr>
 						</table>
 					</c:forEach>
-					<div align="center">
-						<form action="gameJoin.do" method="post">
-						<input type="hidden" name="betId" value="${bet.betId }">
-							<textarea name="pointBet" placeholder="배팅할 포인트 입력"></textarea>
-							
-							<input type="radio" name="teamName" value="A">Team A
-                            <input type="radio" name="teamName" value="B">Team B
-                            
-							<input type="submit" class="btn btn btn-warning" value="참여">
-						</form>
-					</div>
+					
+					
+					
+					
+					
 
-					<div class="panel-footer">
-						<div class="write_area">
-							<form action="registComment.do" method="post">
-								<input type="hidden" name="betId" value="${bet.betId }">
-								<textarea class="input_write_comment" name="comment"
-									placeholder="댓글쓰기"></textarea>
-								<input type="hidden" name="comment" value="${bet.betId }">
 
-								<input type="submit" class="comment_submit" value="전송">
-							</form>
-						</div>
-					</div>
+
+					
 				</div>
 			</div>
 			<!-- // end #content -->
