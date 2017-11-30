@@ -6,7 +6,7 @@
 <mapper namespace="store.mapper.AttendanceMapper">
 
 
-	<insert id="create">
+	<insert id="create" parameterType="String">
 		<selectKey keyProperty="attendanceId" resultType="String" order="BEFORE">
 			SELECT attendance_seq.nextval FROM dual
 		</selectKey>

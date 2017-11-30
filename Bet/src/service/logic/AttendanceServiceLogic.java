@@ -6,6 +6,7 @@ import java.util.Calendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import domain.Attendance;
 import domain.User;
 import service.AttendanceService;
 import store.AttendanceStore;
@@ -21,13 +22,13 @@ public class AttendanceServiceLogic implements AttendanceService {
 	private UserStore userStore;
 	
 	@Override
-	public void registAttendance(String userId) {
+	public String registAttendance(Attendance attendance) {
 		Date today = new Date(Calendar.getInstance().getTimeInMillis());
-		
-		User user =  userStore.searchByUserId(userId);
+		attendance.setAttendanceDate(today);
+		User user = userStore.searchByUserId(attendance.getUserId());
 		user.setPoint(user.getPoint() + 100);
 		userStore.update(user);
-		attendanceStore.create(userId);
+		return attendanceStore.create(attendance);
 	}
 	
 

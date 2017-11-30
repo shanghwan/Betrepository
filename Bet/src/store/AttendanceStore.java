@@ -1,10 +1,11 @@
 package store;
 
-import java.sql.Date;
+
+import domain.Attendance;
 
 public interface AttendanceStore {
 
-	void create(String userId);
+	String create(Attendance attendance);
 	void delete(String userId);
 	
 }

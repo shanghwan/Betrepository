@@ -211,7 +211,7 @@ int intToday = Integer.parseInt(sdf.format(todayCal.getTime()));
 <TR>
 
 
-<form action="attendance.do" method="post">
+<form action="attendance.do?userId=${userId }" method="post">
 <input type="submit"  value="출석체크"></form>
                   
 

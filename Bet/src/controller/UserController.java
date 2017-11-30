@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import domain.Attendance;
 import domain.User;
 import service.AttendanceService;
 import service.UserService;
@@ -99,13 +101,18 @@ public class UserController {
 	
 	
 	 @RequestMapping(value="/attendance.do", method = RequestMethod.POST)
-	 public String attendance(HttpServletRequest req, HttpSession session){
+	 public ModelAndView attendance(HttpSession session, String userId, Attendance attendance){
 		 
-	 String userId = (String)req.getSession().getAttribute("userId");
 	 User loginUser = userservice.findByUserId(userId);
-	 attendacneService.registAttendance(userId);
 	 session.setAttribute("loginUser", loginUser);
-	 return "redirect:attendance.jsp";
+	 
+	 attendacneService.registAttendance(attendance);
+	 ModelAndView modelAndView = new ModelAndView("attendance.jsp");
+	 
+	 modelAndView.addObject("loginUser", loginUser);
+	 
+	 
+	 return modelAndView;
 	
 	 }
 

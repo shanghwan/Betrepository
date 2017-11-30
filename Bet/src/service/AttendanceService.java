@@ -2,11 +2,11 @@ package service;
 
 import java.sql.Date;
 
-import domain.User;
+import domain.Attendance;
 
 public interface AttendanceService {
 
 	
-	void registAttendance(String userId);
+	String registAttendance(Attendance attendance);
 	void removeAttendance(String userId);
 }

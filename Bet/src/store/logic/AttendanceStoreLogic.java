@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import domain.Attendance;
 import store.AttendanceStore;
 import store.mapper.AttendanceMapper;
 
@@ -13,16 +14,16 @@ import store.mapper.AttendanceMapper;
 public class AttendanceStoreLogic implements AttendanceStore{
 
 	@Override
-	public void create(String userId) {
+	public String create(Attendance attendance) {
 		SqlSession session = BetSessionFactory.getinstance().getSession();
-		HashMap<String, Object> map = new HashMap<>();
 		try {
 			AttendanceMapper mapper = session.getMapper(AttendanceMapper.class);
-			mapper.create(userId);
+			mapper.create(attendance);
 			session.commit();
 		} finally {
 			session.close();
 		}
+		return attendance.getAttendanceId();
 	}
 
 	@Override

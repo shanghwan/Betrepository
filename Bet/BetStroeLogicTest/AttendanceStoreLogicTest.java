@@ -5,6 +5,7 @@ import java.sql.Date;
 import org.junit.Before;
 import org.junit.Test;
 
+import domain.Attendance;
 import domain.User;
 import store.AttendanceStore;
 import store.UserStore;
@@ -24,10 +25,12 @@ public class AttendanceStoreLogicTest {
 
 	@Test
 	public void testCreate() {
-		User user = userStore.searchByUserId("koo");
+		Attendance att = new Attendance();
 		Date date = new Date(2017/11/11);
-		attendanceStore.create(user.getUserId());
+		att.setUserId("koo");
+		att.setAttendanceDate(date);
 		
+		attendanceStore.create(att);
 	}
 
 	@Test
