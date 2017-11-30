@@ -82,9 +82,12 @@
 				<br> 종료날짜 : ${bet.endDate} <br> 내기장 아이디 : ${bet.betOwner }
 				<Br> 포인트 : ${bet.point }<br> 참여한 아이디 : <select>
 					<option selected>A팀</option>
-					<option>옵션1</option>
-					<option>옵션2</option>
-					<option>옵션3</option>
+					<c:forEach items="${team }" var="teamA" varStatus="sts">
+						<option value="${team.players.userName }">
+						</option>
+					</c:forEach>
+					
+					
 				</select><select>
 					<option selected>B팀</option>
 					<option>옵션1</option>
