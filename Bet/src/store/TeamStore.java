@@ -11,6 +11,7 @@ public interface TeamStore {
 	List<Team> searchByBetId(String betId);
 	void update(Team team);
 	void delete(String betId);
+	Team searchByTeamName(String betId, String teamName);
 	
 
 }

@@ -6,11 +6,12 @@ public class Team {
 	
 	private String teamId;
 	private String betId;
-	private int totalPoint;
 	private String teamName;
 	private String start;
 	private String result;
 
+	
+	private int totalPoint;
 	private Player leader;
 	private List<Player> players;
 	
@@ -18,19 +19,7 @@ public class Team {
 	
 	
 
-	public Team(String teamId, String betId, int totalPoint, String teamName, String start, String result,
-			Player leader, List<Player> players) {
-		super();
-		this.teamId = teamId;
-		this.betId = betId;
-		this.totalPoint = totalPoint;
-		this.teamName = teamName;
-		this.start = start;
-		this.result = result;
-		this.leader = leader;
-		this.players = players;
-	}
-
+	
 
 
 	public String getTeamId() {
