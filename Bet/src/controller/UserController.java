@@ -119,17 +119,17 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/attendance.do", method = RequestMethod.POST)
-	public ModelAndView attendance(HttpSession session, String userId, Attendance attendance) {
+	public String attendance(HttpServletRequest req, HttpSession session, Attendance attendance) {
+
+		String userId = (String) req.getSession().getAttribute("userId");
 
 		User loginUser = userService.findByUserId(userId);
-		session.setAttribute("loginUser", loginUser);
-
 		attendacneService.registAttendance(attendance);
-		ModelAndView modelAndView = new ModelAndView("attendance.jsp");
 
-		modelAndView.addObject("loginUser", loginUser);
-
-		return modelAndView;
+//		session.invalidate();
+		
+		session.setAttribute("loginUser", loginUser);
+		return "redirect:attendance.jsp";
 	}
 
 	@RequestMapping(value = "/invite.do")

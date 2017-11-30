@@ -2,6 +2,7 @@ package service.logic;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.Enumeration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,7 @@ public class AttendanceServiceLogic implements AttendanceService {
 		userStore.update(user);
 		return attendanceStore.create(attendance);
 	}
+	
 	
 
 
