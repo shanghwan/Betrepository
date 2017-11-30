@@ -23,9 +23,9 @@ public class UserStoreLogicTest {
 	@Test
 	public void testSearchByUserId() {
 		
-		User user = store.searchByUserId("admin");
+		User user = store.searchByUserId("koo");
 		assertNotNull(user);
-		assertEquals("admin", user.getUserId());
+		assertEquals("koo", user.getUserId());
 		
 	}
 

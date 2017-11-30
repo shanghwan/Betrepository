@@ -23,13 +23,7 @@
 					<h1>내기의 神</h1>
 					<p>what's up</p>
 				</div>
-				<ul id="nav">
-					<li><a href="index.jsp">Home</a></li>
-					<li><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
-					<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
-					<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
-					<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
-				</ul>
+				<%@ include file="menu.jsp"%>
 			</div>
 			<!-- // end #header -->
 			<div id="banner">

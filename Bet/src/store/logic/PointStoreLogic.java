@@ -33,7 +33,7 @@ public class PointStoreLogic implements PointStore {
 
 		try {
 			PointMapper mapper = session.getMapper(PointMapper.class);
-			mapper.searchAll(userId);
+			list = mapper.searchAll(userId);
 			session.commit();
 		} finally {
 			session.close();

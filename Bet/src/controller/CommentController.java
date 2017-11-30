@@ -1,5 +1,8 @@
 package controller;
 
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,14 +13,18 @@ import domain.Comment;
 import service.CommentService;
 
 @Controller
+@MultipartConfig(maxFileSize = 1024 * 1024 * 1024, location = "C:/Users/kosta/eclipse-workspace/web.servlet.todayCom_ver01/WebContent/photo")
 public class CommentController {
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private CommentService service;
+	private CommentService commentService;
 
 	@RequestMapping(value = "/registComment.do", method = RequestMethod.POST)
-	public ModelAndView registComment(Comment comment) {
-		service.registComment(comment);
+	public ModelAndView registComment(HttpSession session, Comment comment) {
+		String userId = (String) session.getAttribute("userId");
+		comment.setUserId(userId);
+		commentService.registComment(comment);
 		ModelAndView modelAndView = new ModelAndView("detailBet.jsp");
 		modelAndView.addObject("comment", comment);
 		return modelAndView;
@@ -25,7 +32,7 @@ public class CommentController {
 
 	@RequestMapping(value = "/removeComment.do", method = RequestMethod.POST)
 	public ModelAndView deleteComment(Comment comment, String commentId) {
-		service.removeComment(commentId);
+		commentService.removeComment(commentId);
 		ModelAndView modelAndView = new ModelAndView("detailBet.jsp");
 		return modelAndView;
 	}
