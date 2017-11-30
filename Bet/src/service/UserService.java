@@ -15,6 +15,5 @@ public interface UserService {
 	void remove(String userId);
 	String registFriend(String userId);
 	void removeFriend(String userId);
-	void attendance(User user); 
 
 }

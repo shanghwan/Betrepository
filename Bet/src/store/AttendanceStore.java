@@ -1,8 +1,10 @@
 package store;
 
+import java.sql.Date;
+
 public interface AttendanceStore {
 
-	String create(String userId);
+	void create(String userId);
 	void delete(String userId);
 	
 }
