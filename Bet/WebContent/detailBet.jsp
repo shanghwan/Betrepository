@@ -118,7 +118,7 @@
 					</form>
 
 					<div align="center">
-						<form action="teamJoin.do" method="post">
+						<form action="gameJoin.do" method="post">
 						<input type="hidden" name="betId" value="${bet.betId }">
 							<textarea name="pointBet" placeholder="배팅할 포인트 입력"></textarea>
 							

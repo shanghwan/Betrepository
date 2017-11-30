@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import domain.Player;
 import domain.Team;
 import service.TeamService;
+import store.PlayerStore;
 import store.TeamStore;
 
 @Service
@@ -14,6 +16,8 @@ public class TeamServiceLogic implements TeamService{
 	
 	@Autowired
 	private TeamStore teamStore;
+	@Autowired
+	private PlayerStore playerStore;
 
 	@Override
 	public String registTeam(Team team) {
@@ -47,8 +51,10 @@ public class TeamServiceLogic implements TeamService{
 
 	@Override
 	public Team findByTeamName(String betId, String teamName) {
-		// TODO Auto-generated method stub
-		return teamStore.searchByTeamName(betId, teamName);
+		Team team = teamStore.searchByTeamName(betId, teamName);
+		List<Player> players = playerStore.searchByTeamId(team.getTeamId(), betId);
+		team.setPlayers(players);
+		return team;
 	}
 	
 }

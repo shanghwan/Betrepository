@@ -26,32 +26,7 @@ public class PlayerController {
 	private PlayerService playerService;
 	
 	
-	@RequestMapping(value="/teamJoin.do", method=RequestMethod.POST)
-	public String teamJoin(String betId, String pointBet, String teamName, HttpSession session){
-		String userId = (String)session.getAttribute("userId");
-		int point = Integer.parseInt(pointBet);
-		Bet bet = betService.findByBetId(betId);
-		Team team = teamService.findByTeamName(betId, teamName);
-		Player player = new Player();
-		
-		//큰 if 필요 (내기현황불러서 내가 이 내기에 참여했는지 체크)
-		
-		if(bet.getBetWay()=="one") {
-			if(team.getPlayers().size()>0) {
-				//참여 불가능 하다는 alert 필요
-				return "BetOfOneDetail.do?betId="+betId;
-			}
-			player.setBetId(betId);
-			player.setTeamId(team.getTeamId());
-			player.setPoint(point);
-			player.setUserId(userId);
-			player.setPosition("leader");
-			
-			playerService.registPlayer(player);
-		}
-		
-		return "BetOfOneDetail.do?betId="+betId;
-	}
+	
 	
 	
 	
