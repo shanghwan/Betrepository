@@ -31,7 +31,6 @@ public class ReportBetStoreTest {
 		re.setRegDate(date);
 		
 		store.create(re);
-
 		
 	}
 

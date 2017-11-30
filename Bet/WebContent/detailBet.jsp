@@ -32,6 +32,12 @@
 <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="resources/js/site.js"></script>
+<script>
+	function showPopup() {
+		window.open("BetFail.do?betId=${bet.betId}", "a",
+				"width=500, height=300, left=100, top=50");
+	}
+</script>
 </head>
 
 <body>
@@ -42,32 +48,11 @@
 					<a href="index.jsp"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
-				<c:choose>
-					<c:when test="${loginUser eq null }">
-						<ul id="nav">
-							<li class="active"><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
-							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
-							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
-							<li><a href="BetOfOnelistByState.do?state=대기">preseason
-									game</a></li>
-						</ul>
-					</c:when>
-					<c:otherwise>
-						<ul id="nav">
-							<li class="active"><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
-							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
-							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
-							<li><a href="BetOfOnelistByState.do?state=대기">preseason
-									game</a></li>
-							<li><a href="#">Rank</a></li>
-							<li><a href="#">Attendance</a></li>
-						</ul>
-					</c:otherwise>
-				</c:choose>
+				<%@ include file="menu.jsp"%>
 			</div>
 			<!-- // end #header -->
 			<div id="banner">
-				<h1 class="page-title">BetOf${bet.betWay }</h1>
+				<h1 class="page-title">BetOf${bet.betWay }(${bet.betId })</h1>
 			</div>
 			<!-- // end #banner -->
 			<a href="${ctx }/article/recommend.do?articleId=${article.articleId}"
@@ -75,9 +60,19 @@
 			<a href="createBetReport.do?betId=${bet.betId }"
 				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">신고</a>
 			<br>
-
-
-
+			<c:if test="${userId eq bet.betOwner }">
+				<div align="left">
+					<button type="submit" class="btn btn btn-warning"
+						onclick="showPopup();">초대하기</button>
+				</div>
+			</c:if>
+			<c:forEach items="${list }" var="list">
+			<c:if test="${userId eq list }">
+				<div align="left">
+					<a href="gamestart.do?userId=${userId }&betId=${bet.betId}"><button type="submit" class="btn btn btn-warning">참여하기</button></a>
+				</div>
+			</c:if>
+			</c:forEach>
 			<div align="right">
 				<br> 종료날짜 : ${bet.endDate} <br> 내기장 아이디 : ${bet.betOwner }
 				<Br> 포인트 : ${bet.point }<br> 참여한 아이디 : <select>
@@ -111,7 +106,6 @@
 									alt="Banner Image 1" /><br> <br> <input type="radio"
 									name="open" value="비공개">비공개</td>
 							</tr>
-
 						</table>
 
 						<div align="center">
@@ -120,6 +114,22 @@
 
 					</form>
 
+					<c:forEach var="comment" items="${bet.comments }">
+						<table class="table" style="font-size: 13px; padding: 20px;">
+							<tr>
+								<td><strong>${comment.userId }</strong></td>
+								<td class="text-right">${comment.regDate }<a
+									class="glyphicon glyphicon-trash"
+									href="removeComment.do?betId=${bet.betId} &commentId=${comment.commentId}"></a>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<p class="txt">${comment.content }</p>
+								</td>
+							</tr>
+						</table>
+					</c:forEach>
 					<div align="center">
 						<form action="gameJoin.do" method="post">
 						<input type="hidden" name="betId" value="${bet.betId }">
@@ -132,12 +142,21 @@
 						</form>
 					</div>
 
+					<div class="panel-footer">
+						<div class="write_area">
+							<form action="registComment.do" method="post">
+								<input type="hidden" name="betId" value="${bet.betId }">
+								<textarea class="input_write_comment" name="comment"
+									placeholder="댓글쓰기"></textarea>
+								<input type="hidden" name="comment" value="${bet.betId }">
 
-
+								<input type="submit" class="comment_submit" value="전송">
+							</form>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- // end #content -->
-
 		</div>
 
 		<c:forEach var="comment" items="${article.comments }">

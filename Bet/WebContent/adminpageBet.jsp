@@ -25,10 +25,10 @@
 					<p>what's up</p>
 				</div>
 						<ul id="nav">
-							<li><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
-							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
-							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
-							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
+							<li><a href="Betlist.do?betWay=one">BetOfOne</a></li>
+							<li><a href="Betlist.do?betWay=all">BetOfAll</a></li>
+							<li><a href="Betlist.do?betWay=team">BetOfTeam</a></li>
+							<li><a href="BetlistByState.do?state=대기">preseason game</a></li>
 						</ul>
 			</div>
 			<!-- // end #header -->
@@ -70,7 +70,7 @@
 										<tr>
 											<td align="center">${list.betId }</td>
 											<td align="center"><a
-											href="BetOfOneDetail.do?betId=${list.betId}"
+											href="BetDetail.do?betId=${list.betId}"
 											class="list-group-item hidden-xs">${list.title }</a></td>
 											<td align="center">${list.betOwner }</td>
 											<td align="center">${list.state }</td>

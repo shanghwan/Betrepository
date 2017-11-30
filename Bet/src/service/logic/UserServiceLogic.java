@@ -13,7 +13,7 @@ import store.UserStore;
 public class UserServiceLogic implements UserService{
 	
 	@Autowired
-	private UserStore userstore;
+	private UserStore userStore;
 
 	@Override
 	public User login(User user) {
@@ -21,7 +21,7 @@ public class UserServiceLogic implements UserService{
 		User readerUser = null;
 		
 		if(validate(user)) {
-			readerUser = userstore.searchByUserId(user.getUserId());
+			readerUser = userStore.searchByUserId(user.getUserId());
 		}
 		return readerUser;
 		
@@ -40,19 +40,19 @@ public class UserServiceLogic implements UserService{
 
 	@Override
 	public void regist(User user) {
-		userstore.create(user);
+		userStore.create(user);
 	}
 
 	@Override
 	public void modifyUser(User user) {
 		
-		userstore.update(user);
+		userStore.update(user);
 		
 	}
 
 	@Override
 	public User findByUserId(String userId) {
-		return userstore.searchByUserId(userId);
+		return userStore.searchByUserId(userId);
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class UserServiceLogic implements UserService{
 
 	@Override
 	public void remove(String userId) {
-		userstore.delete(userId);
+		userStore.delete(userId);
 	}
 
 	@Override

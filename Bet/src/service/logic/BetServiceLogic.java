@@ -100,7 +100,6 @@ public class BetServiceLogic implements BetService {
 
 	@Override
 	public void modify(Bet bet) {
-
 	}
 
 	@Override
