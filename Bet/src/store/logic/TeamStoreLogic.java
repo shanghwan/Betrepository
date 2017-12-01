@@ -83,6 +83,8 @@ public class TeamStoreLogic implements TeamStore{
 
 	@Override
 	public Team searchByTeamName(String betId, String teamName) {
+		
+		
 		SqlSession session = BetSessionFactory.getinstance().getSession();
 		HashMap<String, String> map = new HashMap<>();
 		Team team = null;

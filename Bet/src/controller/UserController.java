@@ -38,7 +38,7 @@ public class UserController {
 	public String join(User user) {
 		userService.regist(user);
 
-		return "redirect:index.jsp";
+		return "redirect:main.jsp";
 	}
 
 	@RequestMapping(value="/login.do", method = RequestMethod.POST)
@@ -49,7 +49,7 @@ public class UserController {
 		if (loginUser != null && loginUser.getPassword().equals(password)) {
 			session.setAttribute("userId", loginUser.getUserId());
 			session.setAttribute("loginUser", loginUser);
-			return "redirect:index.jsp";
+			return "redirect:main.jsp";
 		} else {
 			session.invalidate();
 			return "redirect:signUp.jsp";

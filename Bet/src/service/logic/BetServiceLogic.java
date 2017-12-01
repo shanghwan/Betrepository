@@ -18,6 +18,7 @@ import store.BetStore;
 import store.PlayerStore;
 import store.UserStore;
 import store.CommentStore;
+import store.InviteStore;
 
 @Service
 public class BetServiceLogic implements BetService {
@@ -32,6 +33,8 @@ public class BetServiceLogic implements BetService {
 	private PlayerStore playerStore;
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private InviteStore inviteStore;
 
 	@Override
 	public String registBet(Bet bet) {
@@ -112,6 +115,7 @@ public class BetServiceLogic implements BetService {
 
 	@Override
 	public void removeBet(String betId) {
+		inviteStore.deletebyBetId(betId);
 		betStore.delete(betId);
 		teamService.removeTeam(betId);
 	}

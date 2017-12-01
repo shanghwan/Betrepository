@@ -50,14 +50,14 @@
       <div id="container">
          <div id="header" class="clearfix">
             <div id="logo">
-               <a href="index.jsp"><h1>내기의 神</h1></a>
+               <a href="main.jsp"><h1>내기의 神</h1></a>
                <p>what's up</p>
             </div>
             <%@ include file="menu.jsp"%>
          </div>
          <!-- // end #header -->
          <div id="banner">
-            <h1 class="page-title">BetOf${bet.betWay }(${bet.betId })</h1>
+            <h1 class="page-title">BetOf${bet.betWay }(${bet.betId })<div align="center">${bet.title }</div></h1>
          </div>
          <!-- // end #banner -->
          <a href="${ctx }/article/recommend.do?articleId=${article.articleId}"
@@ -115,7 +115,6 @@
 
          <div id="main" class="clearfix">
             <div id="page">
-               <h1 class="page-title" align="center">${bet.title }</h1>
                <h3 class="page-title" align="left">${bet.content }</h3>
                <form action="#" method="post">
                   <table>

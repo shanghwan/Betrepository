@@ -21,7 +21,7 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="index.jsp"><h1>내기의 神</h1></a>
+					<a href="main.jsp"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 				<%@ include file="menu.jsp"%>
@@ -36,9 +36,7 @@
 					<div class="post">
 						<div class="post-content clearfix">
 							<div class="post-thumb"></div>
-
-
-							<div class="post-summary" align="center">
+							<div class="post-summary" align="left">
 								<ul id="nav">
 									<li><a href="mypage.jsp">회원수정</a></li>
 									<li><a href="#">내기목록</a></li>
@@ -48,7 +46,6 @@
 								</ul>
 							</div>
 						</div>
-
 						<div class="post">
 							<div class="post-head">
 								<h1>
@@ -104,16 +101,7 @@
 				<!-- // end #content -->
 				<div id="sidebar">
 					<div class="widget widget-search">
-						<h2>회원</h2>
-						<div class="contentarea" align="center">
-							<form action="logout.do" method="post">
-								<label>${loginUser.name }님 환영합니다.</label><br> <br> <label><a
-									href="pointList.do">포인트</a>: ${loginUser.point }p</label> <br></br>
-								<button type="submit" class="btn btn btn-warning">logout</button>
-								<a href="mypage.jsp"><button type="button"
-										class="btn btn btn-warning">MyPage</button></a>
-							</form>
-						</div>
+						<%@ include file="usermenu.jsp"%>
 					</div>
 				</div>
 

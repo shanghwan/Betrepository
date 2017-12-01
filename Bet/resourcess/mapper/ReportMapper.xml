@@ -17,7 +17,7 @@
 			SELECT reportbet_seq.nextval FROM dual
 		</selectKey>
 		INSERT INTO reportBet_tb(reportId, userId, reportbetId, reportContent, reportBetDate)
-		values(reportbet_seq.nextval, #{userId}, #{target}, #{reason}, SYSDATE)
+		values(#{reportId}, #{userId}, #{target}, #{reason}, SYSDATE)
 	</insert>
 	
 	<select id="searchByAllBetReport" resultType="Report" resultMap="ReportMap">
