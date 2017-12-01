@@ -72,16 +72,14 @@
                <button type="submit" class="btn btn btn-warning"
                   onclick="showPopup();">초대하기</button>
             </div>
+            
+            
+            
+            
+            
          </c:if>
          <c:forEach items="${list }" var="list">
          <c:if test="${userId eq list }">
-         
-         <div align="center">
-                  
-               </div>
-         
-         
-         
             <div align="left">
             <form action="gameJoin.do" method="post">
                   <input type="hidden" name="betId" value="${bet.betId }">
@@ -93,10 +91,16 @@
                             
                      <button type="submit" class="btn btn btn-warning">참여하기</button>
                   </form>
-               
             </div>
          </c:if>
          </c:forEach>
+         
+         
+         
+         
+         
+         
+         
          <div align="right">
             <br> 종료날짜 : ${bet.endDate} <br> 내기장 아이디 : ${bet.betOwner }
             <Br> 포인트 : ${bet.point } <br> 포인트방식 : ${bet.pointCheck } <br> 

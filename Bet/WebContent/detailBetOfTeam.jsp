@@ -45,14 +45,14 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="index.jsp"><h1>내기의 神</h1></a>
+					<a href="main.jsp"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 				<%@ include file="menu.jsp"%>
 			</div>
 			<!-- // end #header -->
 			<div id="banner">
-				<h1 class="page-title">BetOf${bet.betWay }(${bet.betId })</h1>
+				<h1 class="page-title">BetOfTeam(${bet.betId })</h1>
 			</div>
 			<!-- // end #banner -->
 			<a href="${ctx }/article/recommend.do?articleId=${article.articleId}"
@@ -114,78 +114,73 @@
 
 					</form>
 
-					<c:forEach var="comment" items="${bet.comments }">
-						<table class="table" style="font-size: 13px; padding: 20px;">
-							<tr>
-								<td><strong>${comment.userId }</strong></td>
-								<td class="text-right">${comment.regDate }<a
-									class="glyphicon glyphicon-trash"
-									href="removeComment.do?betId=${bet.betId} &commentId=${comment.commentId}"></a>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<p class="txt">${comment.content }</p>
-								</td>
-							</tr>
-						</table>
-					</c:forEach>
-					<div align="center">
-						<form action="gameJoin.do" method="post">
-						<input type="hidden" name="betId" value="${bet.betId }">
-							<textarea name="pointBet" placeholder="배팅할 포인트 입력"></textarea>
-							
-							<input type="radio" name="teamName" value="A">Team A
-                            <input type="radio" name="teamName" value="B">Team B
-                            
-							<input type="submit" class="btn btn btn-warning" value="참여">
-						</form>
-					</div>
+					              <c:forEach var="comment" items="${bet.comments }">
+                  <table class="table" style="font-size: 13px; padding: 20px;">
+                     <tr>
+                        <td><strong>${comment.userId }</strong></td>
+                        <td class="text-right">${comment.regDate }<a
+                           class="glyphicon glyphicon-trash"
+                           href="removeComment.do?betId=${bet.betId} &commentId=${comment.commentId}"></a>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <p class="txt">${comment.content }</p> <%--    
+                           <p style="padding: 20px">${comment.contents }
+                              <c:if test="${comment.photo ne null }">
+                                 <img src="/photo/123${comment.photo }">
+                              </c:if>
+                           </p> --%>
+                        </td>
+                     </tr>
+                  </table>
+               </c:forEach>
+               
+               
+               
+               
+               
 
-					<div class="panel-footer">
-						<div class="write_area">
-							<form action="registComment.do" method="post">
-								<input type="hidden" name="betId" value="${bet.betId }">
-								<textarea class="input_write_comment" name="comment"
-									placeholder="댓글쓰기"></textarea>
-								<input type="hidden" name="comment" value="${bet.betId }">
+               <div class="panel-footer">
+                  <div class="write_area">
+                     <form action="registComment.do" method="post">
+                        <input type="hidden" name="betId" value="${bet.betId }">
+                        <textarea class="input_write_comment" name="content"
+                           placeholder="댓글쓰기"></textarea>
+                           <br><br><br>
+                        <div class="form-group">
+                           <label class="col-lg-2 control-label">이미지</label>
+                           <div class="col-lg-10">
+                              <input type="file" name="photo" class="form-control">
+                           </div>
+                        </div>
+                        <input type="submit" class="comment_submit" value="전송">
 
-								<input type="submit" class="comment_submit" value="전송">
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- // end #content -->
-		</div>
 
-		<c:forEach var="comment" items="${article.comments }">
-			<table class="table" style="font-size: 13px; padding: 20px;">
-				<tr>
-					<td><strong>${comment.nickname }</strong></td>
-					<td class="text-right">${comment.commentDate }<a
-						class="glyphicon glyphicon-trash"
-						href="removeComment.do?betId=${bet.betId} &commentId=${comment.commentId}"></a>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<p class="txt">${comment.comments }</p>
-					</td>
-				</tr>
-			</table>
-		</c:forEach>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- // end #content -->
+      </div>
 
-		<div class="panel-footer">
-			<div class="write_area">
-				<form action="registComment.do" method="post">
-					<input type="hidden" name="betId" value="${bet.betId }">
-					<textarea class="input_write_comment" name="comments"
-						placeholder="댓글쓰기"></textarea>
-					<input type="submit" class="comment_submit" value="전송">
-				</form>
-			</div>
-		</div>
+      <c:forEach var="comment" items="${article.comments }">
+         <table class="table" style="font-size: 13px; padding: 20px;">
+            <tr>
+               <td><strong>${comment.nickname }</strong></td>
+               <td class="text-right">${comment.commentDate }<a
+                  class="glyphicon glyphicon-trash"
+                  href="removeComment.do?betId=${bet.betId} &commentId=${comment.commentId}"></a>
+               </td>
+            </tr>
+            <tr>
+               <td colspan="2">
+                  <p class="txt">${comment.comments }</p>
+               </td>
+            </tr>
+         </table>
+      </c:forEach>
 
 
 
