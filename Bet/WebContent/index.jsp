@@ -97,7 +97,7 @@
 									</tr>
 								</table>
 								<p>
-									<a href="BetOfOnelist.do?betWay=all">Readmore ...</a>
+									<a href="Betlist.do?betWay=all">Readmore ...</a>
 								</p>
 							</div>
 						</div>
@@ -106,7 +106,7 @@
 					<div class="post">
 						<div class="post-head">
 							<h1>
-								<a href="BetOfOnelist.do?betWay=one" title="Another Post Title">Welcome to BetOfOne</a>
+								<a href="Betlist.do?betWay=one" title="Another Post Title">Welcome to BetOfOne</a>
 							</h1>
 						</div>
 						<div class="post-content clearfix">
@@ -144,7 +144,7 @@
 									</tr>
 								</table>
 								<p>
-									<a href="BetOfOnelist.do?betWay=one">Readmore ...</a>
+									<a href="Betlist.do?betWay=one">Readmore ...</a>
 								</p>
 							</div>
 						</div>
@@ -153,7 +153,7 @@
 					<div class="post">
 						<div class="post-head">
 							<h1>
-								<a href="BetOfOnelist.do?betWay=team" title="Another Post Title">Welcome to BetOfTeam</a>
+								<a href="Betlist.do?betWay=team" title="Another Post Title">Welcome to BetOfTeam</a>
 							</h1>
 						</div>
 						<div class="post-content clearfix">
@@ -191,7 +191,7 @@
 									</tr>
 								</table>
 								<p>
-									<a href="BetOfOnelist.do?betWay=team">Readmore ...</a>
+									<a href="Betlist.do?betWay=team">Readmore ...</a>
 								</p>
 							</div>
 						</div>

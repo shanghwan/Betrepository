@@ -46,7 +46,7 @@
 							<div class="post-summary" align="center">
 								<ul id="nav">
 									<li class="active"><a href="adminpage.jsp">회원신고</a></li>
-									<li><a href="adminpageBet.jsp">내기신고</a></li>
+									<li><a href="adminpageBet.do">내기신고</a></li>
 								</ul>
 							</div>
 						</div>

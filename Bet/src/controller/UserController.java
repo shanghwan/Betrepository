@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import domain.Bet;
 import domain.Invite;
+import domain.Report;
 import domain.User;
 import service.AttendanceService;
 import service.BetService;
 import service.InviteService;
+import service.ReportService;
 import service.UserService;
 
 @Controller
@@ -29,6 +31,8 @@ public class UserController {
 	private BetService betService; 
 	@Autowired
 	private InviteService inviteService;
+	@Autowired
+	private ReportService reportService;
 
 	@RequestMapping(value="/Userregist.do", method = RequestMethod.POST)
 	public String join(User user) {
@@ -135,7 +139,15 @@ public class UserController {
 	}
 	
 	
-	
+		@RequestMapping(value="/adminpageBet.do")
+		public String adminpageBet(Model model) {
+			
+			List<Report> list = reportService.findAllBetReport();
+			
+			model.addAttribute("BetList", list);
+			
+			return "adminpageBet.jsp";
+		}
 		
 	
 	

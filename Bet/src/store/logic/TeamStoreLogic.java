@@ -91,8 +91,9 @@ public class TeamStoreLogic implements TeamStore{
 			map.put("betId", betId);
 			map.put("teamName", teamName);
 			team = mapper.searchByTeamName(map);
-		} finally {
 			session.commit();
+		} finally {
+			session.close();
 		}
 		return team;
 	}

@@ -92,6 +92,8 @@ public class BetController {
 	
 	@RequestMapping(value="/registBet.do", method=RequestMethod.POST)
 	public String registBet(Bet bet, HttpSession session) {
+		
+		
 		String userId = (String)session.getAttribute("userId");
 		
 		bet.setBetOwner(userId);

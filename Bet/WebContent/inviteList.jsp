@@ -42,7 +42,7 @@
 								<ul id="nav">
 									<li><a href="mypage.jsp">회원수정</a></li>
 									<li><a href="#">내기목록</a></li>
-									<li><a href="#">포인트내역</a></li>
+									<li><a href="pointList.do">포인트내역</a></li>
 									<li><a href="userDeletepassword.jsp">회원탈퇴</a></li>
 									<li class="active"><a href="inviteList.do">초대목록</a></li>
 								</ul>

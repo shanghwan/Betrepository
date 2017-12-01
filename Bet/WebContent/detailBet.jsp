@@ -37,6 +37,11 @@
       window.open("BetFail.do?betId=${bet.betId}", "a",
             "width=500, height=300, left=100, top=50");
    }
+   
+   function showPopup1() {
+	      window.open("BetReport.do?target=${bet.betId}&userId=${userId}", "a",
+	            "width=500, height=300, left=100, top=50");
+	   }
 </script>
 </head>
 
@@ -56,10 +61,12 @@
          </div>
          <!-- // end #banner -->
          <a href="${ctx }/article/recommend.do?articleId=${article.articleId}"
-            class="glyphicon glyphicon-cog pull-right" style="padding: 10px">추천</a>
-         <a href="createBetReport.do?betId=${bet.betId }"
-            class="glyphicon glyphicon-trash pull-right" style="padding: 10px">신고</a>
+            class="glyphicon glyphicon-cog pull-right" style="padding: 10px" >추천</a>
+         <a class="glyphicon glyphicon-trash pull-right" style="padding: 10px" onclick="showPopup1();">신고</a>
          <br>
+         <c:if test="${userId eq 'admin' }">
+           <a href="deleteBetAllReport.do?target=${bet.betId }"><button type="button" class="btn btn btn-warning">내기삭제</button></a>
+         </c:if>
          <c:if test="${userId eq bet.betOwner }">
             <div align="left">
                <button type="submit" class="btn btn btn-warning"

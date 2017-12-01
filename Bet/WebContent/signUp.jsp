@@ -20,8 +20,7 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<h1>내기의 神</h1>
-					<p>what's up</p>
+					<a href="index.jsp"><h1>내기의 神</h1></a>
 				</div>
 				<%@ include file="menu.jsp"%>
 			</div>
