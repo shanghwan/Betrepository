@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="description" content="Project Description" />
@@ -27,18 +27,18 @@
 				<c:choose>
 					<c:when test="${loginUser eq null }">
 						<ul id="nav">
-							<li class="active"><a href="BetOfOne.jsp">BetOfOne</a></li>
-							<li><a href="#">BetOfAll</a></li>
-							<li><a href="#">BetOfTeam</a></li>
-							<li><a href="#">preseason game</a></li>
+							<li class="active"><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
+							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
+							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
+							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
 						</ul>
 					</c:when>
 					<c:otherwise>
 						<ul id="nav">
-							<li class="active"><a href="BetOfOne.jsp">BetOfOne</a></li>
-							<li><a href="#">BetOfAll</a></li>
-							<li><a href="#">BetOfTeam</a></li>
-							<li><a href="#">Preseason game</a></li>
+							<li class="active"><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
+							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
+							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
+							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
 							<li><a href="#">Rank</a></li>
 							<li><a href="#">Attendance</a></li>
 						</ul>
@@ -55,13 +55,11 @@
 					<div class="post">
 						<div class="post-head">
 							<h1>
-								
-									<form action="" method="post">
-										<input size="50" type="text" name="categoryName"
-											placeholder="내기제목을 입력하세요"> <input
-											class="btn btn-xs btn-default" type="submit" value="검색">
-									</form>
-								
+								<form action="" method="post">
+									<input size="50" type="text" name="categoryName"
+										placeholder="내기제목을 입력하세요"> <input
+										class="btn btn-xs btn-default" type="submit" value="검색">
+								</form>
 							</h1>
 						</div>
 						<div class="post-content clearfix">
@@ -83,31 +81,29 @@
 											<th class="text-center">상태</th>
 										</tr>
 									</thead>
-									<tr>
-										<td align="center">1</td>
-										<td align="center">LG VS SK</td>
-										<td align="center">구창환</td>
-										<td align="center">진행중</td>
-									</tr>
-									<tr>
-										<td align="center">2</td>
-										<td align="center">두산 VS 기아</td>
-										<td align="center">허준호</td>
-										<td align="center">진행중</td>
-									</tr>
+									<c:forEach var="list" items="${BetList }">
+										<tr>
+											<td align="center">${list.betId }</td>
+											<td align="center"><a
+											href="BetOfOneDetail.do?betId=${list.betId}"
+											class="list-group-item hidden-xs">${list.title }</a></td>
+											<td align="center">${list.betOwner }</td>
+											<td align="center">${list.state }</td>
+										</tr>
+									</c:forEach>
 								</table>
 							</div>
 						</div>
 					</div>
 					<c:choose>
 					<c:when test="${loginUser ne null }">
-											<div align="right"><a href="BetCreate.jsp"><button type="button"
+											<div align="right"><a href="registBet.do"><button type="button"
 												class="btn btn btn-warning">내기생성</button></a></div>
 					</c:when>
 					
 				</c:choose>
 
-												
+
 
 
 
@@ -139,8 +135,8 @@
 								<h2>회원</h2>
 								<div class="contentarea" align="center">
 									<form action="logout.do" method="post">
-										<label>${loginUser.name }님 환영합니다.</label><br>
-										<br> <label>포인트 : ${loginUser.point }p</label> <br></br>
+										<label>${loginUser.name }님 환영합니다.</label><br> <br> <label>포인트
+											: ${loginUser.point }p</label> <br></br>
 										<button type="submit" class="btn btn btn-warning">logout</button>
 										<a href="#"><button type="button"
 												class="btn btn btn-warning">MyPage</button></a>

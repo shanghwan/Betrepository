@@ -83,8 +83,8 @@
 										</tr>
 										<tr>
 											<th>공개여부</th>
-											<td><input type="radio" name="openCheck" value="공개">공개
-												<input type="radio" name="openCheck" value="비공개">비공개</td>
+											<td><input type="radio" name="openCheck" value="Y">공개
+												<input type="radio" name="openCheck" value="N">비공개</td>
 										</tr>
 
 										<tr>
@@ -98,9 +98,9 @@
 
 										<tr id="indivisual1">
 											<th>포인트방식</th>
-											<td><input type="radio" name="pointCheck" value="올인">올인
-												<input type="radio" name="pointCheck" value="자유">자유
-												<input type="radio" name="pointCheck" value="고정">고정</td>
+											<td><input type="radio" name="pointCheck" value="ALLIN">올인
+												<input type="radio" name="pointCheck" value="FREE">자유
+												<input type="radio" name="pointCheck" value="LOCK">고정</td>
 										</tr>
 								</table>
 								<br>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="store.mapper.RecordMapper">
+  
+  <insert id="create" parameterType="Record">
+  	INSERT INTO record_tb(userId, win, lose, draw)
+  	VALUES(#{userId}, #{win}, #{lose}, #{draw})
+  </insert>
+  
+  <select id="search" parameterType="String" resultType="Record">
+  SELECT userId, win, lose, draw
+  FROM record_tb WHERE userId = #{userId}
+  </select>
+  
+  <update id="update">
+  	UPDATE record_tb
+  	set win = #{win},
+  	lose = #{lose},
+  	draw = #{draw}
+  	WHERE userId = #{userId}
+  </update>
+  
+  <delete id="delete">
+  	DELETE FROM record_tb
+  	WHERE userId = #{userId}
+  </delete>
+  
+  <select id="winSearch">
+  SELECT userId, win, lose, draw, 
+  FROM record_tb WHERE userId = #{userId}
+  </select>
+  
+  <select id="loseSearch"></select>
+  
+  <select id="totalSearch"></select>
+  
+  <select id="rateSearch"></select>
+  
+  </mapper>

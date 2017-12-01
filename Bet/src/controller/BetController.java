@@ -54,6 +54,8 @@ public class BetController {
 
 	}
 	
+	
+	
 	@RequestMapping("/BetDetail.do")
 	public ModelAndView BetDetail(String betId){
 		Bet bet = betService.findByBetId(betId);
@@ -62,12 +64,32 @@ public class BetController {
 		Team teamA = teamService.findByTeamName(betId, teamName);
 		teamName = "B";
 		Team teamB = teamService.findByTeamName(betId, teamName);
-		ModelAndView modelAndView = new ModelAndView("detailBet.jsp");
-		modelAndView.addObject("bet", bet);
-		modelAndView.addObject("list", list);
-		modelAndView.addObject("teamA", teamA);
-		modelAndView.addObject("teamB", teamB);
-		return modelAndView;
+		
+		if(bet.getBetWay().equals("one")) {
+			ModelAndView modelAndView = new ModelAndView("detailBetOfOne.jsp");
+			modelAndView.addObject("bet", bet);
+			modelAndView.addObject("list", list);
+			modelAndView.addObject("teamA", teamA);
+			modelAndView.addObject("teamB", teamB);
+			return modelAndView;
+		}
+		else if(bet.getBetWay().equals("team")){
+			ModelAndView modelAndView = new ModelAndView("detailBetOfTeam.jsp");
+			modelAndView.addObject("bet", bet);
+			modelAndView.addObject("list", list);
+			modelAndView.addObject("teamA", teamA);
+			modelAndView.addObject("teamB", teamB);
+			return modelAndView;
+		}
+		else {
+			ModelAndView modelAndView = new ModelAndView("detailBetOfAll.jsp");
+			modelAndView.addObject("bet", bet);
+			modelAndView.addObject("list", list);
+			modelAndView.addObject("teamA", teamA);
+			modelAndView.addObject("teamB", teamB);
+			return modelAndView;
+		}
+		
 	}
 	
 	@RequestMapping("/BetlistByState.do")
@@ -86,7 +108,6 @@ public class BetController {
 			
 			return "redirect:index.jsp";
 		}
-		
 		return "BetCreate.jsp";
 	}
 	
@@ -103,6 +124,7 @@ public class BetController {
 		
 		String betId = betService.registBet(bet);
 		
+
 		return "redirect:BetDetail.do?betId=" + betId;
 	}
 	
