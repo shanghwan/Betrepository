@@ -153,9 +153,7 @@ h2.page-title:after {
 
 
 table {
-    width: 100%;
     border: 1px solid #dddddd;
-    margin-bottom: 15px;
 }
 
 table tr th {
@@ -196,9 +194,7 @@ select {
     height: 25px;
 }
 
-form {
-    padding: 20px 25px;
-}
+
 
 .contents-wrap form {
     border-radius: 5px;

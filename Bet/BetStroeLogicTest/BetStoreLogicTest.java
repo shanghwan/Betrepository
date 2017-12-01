@@ -11,15 +11,13 @@ import store.BetStore;
 import store.logic.BetStoreLogic;
 
 public class BetStoreLogicTest {
-	
+
 	private BetStore store;
-	
 
 	@Before
 	public void setUp() {
 		store = new BetStoreLogic();
 	}
-
 //	@Test
 //	public void testCreate() {
 //		Date date = new Date(2017/11/11);
@@ -68,43 +66,43 @@ public class BetStoreLogicTest {
 	@Test
 	public void testSearchAll() {
 		
-//		List<Bet> list = store.searchAll();
-//		assertEquals(2, list.size());
-//		assertEquals("1", list.get(0).getBetId());
+		List<Bet> list = store.searchAllBet();
+		assertEquals(2, list.size());
+		assertEquals("1", list.get(0).getBetId());
 		
 	}
 
-	@Test
-	public void testSearchByBetId() {
-		
-		Bet bet = store.searchByBetId("1");
-		assertNotNull(bet);
-		assertEquals("1", bet.getBetId());
-		
-	}
-
-	@Test
-	public void testSearchByBetOwner() {
-	}
-
-	@Test
-	public void testSearchByTitle() {
-	}
-
-	@Test
-	public void testSearchByState() {
-	}
-
-	@Test
-	public void testSearchByBetWay() {
-	}
-
-	@Test
-	public void testUpdate() {
-	}
-
-	@Test
-	public void testDelete() {
-	}
-
-}
+// @Test
+// public void testSearchByBetId() {
+//
+// Bet bet = store.searchByBetId("1");
+// assertNotNull(bet);
+// assertEquals("1", bet.getBetId());
+//
+// }
+//
+// @Test
+// public void testSearchByBetOwner() {
+// }
+//
+// @Test
+// public void testSearchByTitle() {
+// }
+//
+// @Test
+// public void testSearchByState() {
+// }
+//
+// @Test
+// public void testSearchByBetWay() {
+// }
+//
+// @Test
+// public void testUpdate() {
+// }
+//
+// @Test
+// public void testDelete() {
+// }
+//
+ }

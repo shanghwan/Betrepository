@@ -23,26 +23,7 @@
 					<a href="index.jsp"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
-				<c:choose>
-					<c:when test="${loginUser eq null || loginUser.userId eq 'admin'}">
-						<ul id="nav">
-							<li><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
-							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
-							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
-							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
-						</ul>
-					</c:when>
-					<c:otherwise>
-						<ul id="nav">
-							<li><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
-							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
-							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
-							<li><a href="BetOfOnelistByState.do?state=대기">Preseason game</a></li>
-							<li><a href="#">Rank</a></li>
-							<li><a href="attendance.jsp">Attendance</a></li>
-						</ul>
-					</c:otherwise>
-				</c:choose>
+				<%@ include file="menu.jsp"%>
 			</div>
 			<!-- // end #header -->
 			<div id="banner">
@@ -244,7 +225,7 @@
 								<div class="contentarea" align="center">
 									<form action="logout.do" method="post">
 										<label>${loginUser.name }님 환영합니다.</label><br>
-										<br> <label>포인트 : ${loginUser.point }p</label> <br></br>
+										<br><label><a href="pointList.do">포인트</a>: ${loginUser.point }</label> <br></br>
 										<button type="submit" class="btn btn btn-warning">logout</button>
 										<a href="adminpage.jsp"><button type="button"
 												class="btn btn btn-warning">admin Page</button></a>
@@ -261,7 +242,7 @@
 								<div class="contentarea" align="center">
 									<form action="logout.do" method="post">
 										<label>${loginUser.name }님 환영합니다.</label><br>
-										<br> <label>포인트 : ${loginUser.point }p</label> <br></br>
+										<br> <label><a href="pointList.do">포인트</a>: ${loginUser.point }p</label> <br></br>
 										<button type="submit" class="btn btn btn-warning">logout</button>
 										<a href="mypage.jsp"><button type="button"
 												class="btn btn btn-warning">MyPage</button></a>

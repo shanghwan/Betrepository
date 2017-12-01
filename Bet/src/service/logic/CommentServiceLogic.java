@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import domain.Comment;
@@ -13,6 +14,7 @@ import store.logic.CommentStoreLogic;
 
 @Service
 public class CommentServiceLogic implements CommentService {
+	@Autowired
 	private CommentStore commentStore;
 
 	public CommentServiceLogic() {
