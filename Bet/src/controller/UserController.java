@@ -45,7 +45,7 @@ public class UserController {
 		if (loginUser != null && loginUser.getPassword().equals(password)) {
 			session.setAttribute("userId", loginUser.getUserId());
 			session.setAttribute("loginUser", loginUser);
-			return "redirect:index.jsp";
+			return "index.jsp";
 		} else {
 			session.invalidate();
 			return "redirect:signUp.jsp";

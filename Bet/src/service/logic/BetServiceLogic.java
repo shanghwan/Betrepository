@@ -37,11 +37,11 @@ public class BetServiceLogic implements BetService {
 		bet.setStartDate(today);
 
 		if (bet.getBetWay().equals("all")) {
-			bet.setPointCheck("lock");
+			bet.setPointCheck("LOCK");
 			bet.setPoint(10);
 		}
 
-		if (bet.getPointCheck().equals("allin")) {
+		if (bet.getPointCheck().equals("ALLIN")) {
 			bet.setPoint(user.getPoint());
 		}
 
