@@ -38,7 +38,8 @@
 		vote = #{vote}
 		WHERE playerId = #{playerId}
 	</update>
-
+	
+	
 	<delete id="delete" parameterType="HashMap">
 		DELETE FROM player_tb
 		WHERE

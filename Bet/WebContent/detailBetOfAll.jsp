@@ -60,7 +60,14 @@
 			<a href="createBetReport.do?betId=${bet.betId }"
 				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">신고</a>
 			<br>
-
+			
+			<c:forEach items="${list }" var="list">
+			<c:if test="${userId eq list }">
+				<div align="left">
+					<a href="gamestart.do?userId=${userId }&betId=${bet.betId}"><button type="submit" class="btn btn btn-warning">참여하기</button></a>
+				</div>
+			</c:if>
+			</c:forEach>
 			<div align="right">
 				<br> 종료날짜 : ${bet.endDate} <br> 내기장 아이디 : ${bet.betOwner }
 				<Br> 포인트 : ${bet.point }<br> 참여한 아이디 : <select>

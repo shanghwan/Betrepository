@@ -41,19 +41,21 @@ public class BetServiceLogic implements BetService {
 	public String registBet(Bet bet) {
 		Date today = new Date(Calendar.getInstance().getTimeInMillis());
 		User user = userStore.searchByUserId(bet.getBetOwner());
-
+		
 		bet.setStartDate(today);
-
+		bet.setState("대기");
+		
 		if (bet.getBetWay().equals("all")) {
+			bet.setState("진행");
 			bet.setPointCheck("LOCK");
 			bet.setPoint(10);
 		}
 		if (bet.getPointCheck().equals("ALLIN")) {
 			bet.setPoint(user.getPoint());
 		}
-
+		
 		// point 처리해야함
-
+		
 		String betId = betStore.create(bet);
 
 		Team team = new Team();
@@ -112,6 +114,7 @@ public class BetServiceLogic implements BetService {
 
 	@Override
 	public void modify(Bet bet) {
+		betStore.update(bet);
 	}
 
 	@Override
