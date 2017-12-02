@@ -20,13 +20,19 @@
 		#{point})
 	</insert>
 
+	<select id="searchPoint" parameterType="String" resultType="Point" resultMap="PointMap">
+		SELECT pointId, userId, receiverId, pointDate, type, point
+		FROM point_tb
+		WHERE userId = #{userId}
+	</select>
+
 	<select id="searchAll" parameterType="String" resultType="Point" resultMap="PointMap">
 		SELECT pointId, userId, receiverId, pointDate, type, point
 		FROM point_tb
 		WHERE userId = #{userId}
 	</select>
 
-	<update id="gift" parameterType="String">
+	<update id="update" parameterType="String">
 		UPDATE point_tb
 		SET pointId = #{pointId},
 		    userId = #{userId},

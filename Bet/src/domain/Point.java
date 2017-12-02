@@ -15,7 +15,7 @@ public class Point {
 	public Point() {
 	}
 
-	public Point(String pointId, String userId, String receiverId, String point, String sendPoint, Date pointDate,
+	public Point(String pointId, String userId, String receiverId, String point, /* String sendPoint, */ Date pointDate,
 			String type) {
 		super();
 		this.pointId = pointId;
