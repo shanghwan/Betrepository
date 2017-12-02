@@ -60,12 +60,7 @@
 			<a href="createBetReport.do?betId=${bet.betId }"
 				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">신고</a>
 			<br>
-			<c:if test="${userId eq bet.betOwner }">
-				<div align="left">
-					<button type="submit" class="btn btn btn-warning"
-						onclick="showPopup();">초대하기</button>
-				</div>
-			</c:if>
+			
 			<c:forEach items="${list }" var="list">
 			<c:if test="${userId eq list }">
 				<div align="left">

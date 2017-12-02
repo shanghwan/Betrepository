@@ -33,8 +33,9 @@ public class TeamServiceLogic implements TeamService{
 
 	@Override
 	public List<Team> findTeamByBetId(String betId) {
-		// TODO Auto-generated method stub
+		
 		return teamStore.searchByBetId(betId);
+		
 	}
 
 	@Override
@@ -53,6 +54,11 @@ public class TeamServiceLogic implements TeamService{
 	public Team findByTeamName(String betId, String teamName) {
 		Team team = teamStore.searchByTeamName(betId, teamName);
 		List<Player> players = playerStore.searchByTeamId(team.getTeamId(), betId);
+		for(Player p : players) {
+			if(p.getPosition().equals("leader")) {
+				team.setLeader(p);
+			}
+		}
 		team.setPlayers(players);
 		return team;
 	}

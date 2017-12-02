@@ -11,6 +11,5 @@ public interface PlayerStore {
 	List<Player> searchByTeamId(String teamId,String betId);
 	void update(Player player);
 	void delete(String userId, String betId);
-	
 
 }

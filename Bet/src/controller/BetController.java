@@ -140,17 +140,7 @@ public class BetController {
 		return "BetFail.do";
 	}
 	
-	@RequestMapping(value="/gamestart.do")
-	public String gamestart(String userId, String betId, Model model) {
-		
-		Bet bet = betService.findByBetId(betId);
-		model.addAttribute("bet", bet);
-		
-		
-		//modify
-		
-		return "detailBet.jsp";
-	}
+
 	
 	
 	

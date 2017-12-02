@@ -1,5 +1,7 @@
 package service.logic;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,9 @@ import service.BetService;
 import service.GameService;
 import service.PlayerService;
 import service.TeamService;
+import store.BetStore;
+import store.CommentStore;
+import store.TeamStore;
 import store.UserStore;
 
 
@@ -26,6 +31,11 @@ public class GameServiceLogic implements GameService{
 	private BetService betService;
 	@Autowired
 	private UserStore userStore;
+	@Autowired
+	private TeamStore teamStore;
+	@Autowired
+	private CommentStore commentStore;
+	
 	
 
 	@Override
@@ -93,4 +103,41 @@ public class GameServiceLogic implements GameService{
 		return playerService.registPlayer(player);
 	}
 
+	@Override
+	public String gameReady(String betId, String teamId) {
+		int gameStart = 0;
+		
+		Team team = teamStore.search(teamId);
+		
+		if(team.getStart().equals("Y")) {
+			team.setStart("N");
+			teamStore.update(team);
+		}else if(team.getStart().equals("N")) {
+			team.setStart("Y");
+			teamStore.update(team);
+		}
+		List<Team> list = teamStore.searchByBetId(betId);
+		for(Team t : list) {
+			if(t.getStart().equals("Y")) {
+				gameStart++;
+			}
+		}
+		
+		if(gameStart==2) {
+			return gameStart(betId);
+		}
+		return "true";
+	}
+
+	@Override
+	public String gameStart(String betId) {
+		Bet bet = betService.findByBetId(betId);
+		bet.setState("진행");
+		bet.setPhotoA("null");
+		bet.setPhotoB("null");
+		//comment 삭제 추가해야함
+		betService.modify(bet);
+		return betId;
+	}
+	
 }

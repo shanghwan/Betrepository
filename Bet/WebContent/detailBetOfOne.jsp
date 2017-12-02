@@ -60,35 +60,62 @@
 			<a href="createBetReport.do?betId=${bet.betId }"
 				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">신고</a>
 			<br>
-			<c:if test="${userId eq bet.betOwner }">
-				<div align="left">
-					<button type="submit" class="btn btn btn-warning"
-						onclick="showPopup();">초대하기</button>
-				</div>
-			</c:if>
+			<div align="left">
+				<c:if test="${bet.state eq '대기' }">
+					<c:if test="${userId eq bet.betOwner }">
+
+						<button type="submit" class="btn btn btn-warning"
+							onclick="showPopup();">초대하기</button>
+
+					</c:if>
+				</c:if>
+			</div>
 			<c:forEach items="${list }" var="list">
-			<c:if test="${userId eq list }">
-				<div align="left">
-					<a href="gamestart.do?userId=${userId }&betId=${bet.betId}"><button type="submit" class="btn btn btn-warning">참여하기</button></a>
-				</div>
-			</c:if>
+				<c:if test="${userId eq list }">
+					<div align="left">
+						<a href="gamestart.do?userId=${userId }&betId=${bet.betId}"><button
+								type="submit" class="btn btn btn-warning">참여하기</button></a>
+					</div>
+				</c:if>
 			</c:forEach>
+
+			<div align="center">
+				<c:if test="${bet.state eq '대기' }">
+					<c:if test="${userId eq teamA.leader.userId }">
+						<form action="gameReady.do" method="post">
+							<input type="hidden" name="betId" value="${bet.betId }">
+							<input type="hidden" name="teamId" value="${teamA.teamId }">
+							<c:choose>
+								<c:when test="${teamA.start eq 'N' }">
+									<input type="submit" class="btn btn btn-warning" value="준비완료">
+								</c:when>
+								<c:when test="${teamA.start eq 'Y' }">
+									<input type="submit" class="btn btn btn-warning" value="준비해제">
+								</c:when>
+							</c:choose>
+						</form>
+					</c:if>
+
+					<c:if test="${userId eq teamB.leader.userId }">
+						<form action="gameReady.do" method="post">
+							<input type="hidden" name="betId" value="${bet.betId }">
+							<input type="hidden" name="teamId" value="${teamB.teamId }">
+							<c:choose>
+								<c:when test="${teamB.start eq 'N' }">
+									<input type="submit" class="btn btn btn-warning" value="준비완료">
+								</c:when>
+								<c:when test="${teamB.start eq 'Y' }">
+									<input type="submit" class="btn btn btn-warning" value="준비해제">
+								</c:when>
+							</c:choose>
+						</form>
+					</c:if>
+				</c:if>
+			</div>
 			<div align="right">
 				<br> 종료날짜 : ${bet.endDate} <br> 내기장 아이디 : ${bet.betOwner }
-				<Br> 포인트 : ${bet.point }<br> 참여한 아이디 : <select>
-					<option selected>A팀</option>
-					<c:forEach items="${team }" var="teamA" varStatus="sts">
-						<option value="${team.players.userName }">
-						</option>
-					</c:forEach>
-					
-					
-				</select><select>
-					<option selected>B팀</option>
-					<option>옵션1</option>
-					<option>옵션2</option>
-					<option>옵션3</option>
-				</select>
+				<Br> 포인트 : ${bet.point }<br>
+
 			</div>
 
 			<div id="main" class="clearfix">
@@ -130,17 +157,18 @@
 							</tr>
 						</table>
 					</c:forEach>
+					<c:if test="${bet.state eq '대기' }">
 					<div align="center">
 						<form action="gameJoin.do" method="post">
-						<input type="hidden" name="betId" value="${bet.betId }">
+							<input type="hidden" name="betId" value="${bet.betId }">
 							<textarea name="pointBet" placeholder="배팅할 포인트 입력"></textarea>
-							
-							<input type="radio" name="teamName" value="A">Team A
-                            <input type="radio" name="teamName" value="B">Team B
-                            
-							<input type="submit" class="btn btn btn-warning" value="참여">
+
+							<input type="radio" name="teamName" value="A">Team A <input
+								type="radio" name="teamName" value="B">Team B <input
+								type="submit" class="btn btn btn-warning" value="참여">
 						</form>
 					</div>
+					</c:if>
 
 					<div class="panel-footer">
 						<div class="write_area">
@@ -187,7 +215,7 @@
 			</div>
 		</div>
 
-
+	
 
 		<div id="footer">
 			<p>
