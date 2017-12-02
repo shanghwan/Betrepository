@@ -141,6 +141,16 @@
 									name="open" value="B">Team B</td>
 							</tr>
 						</table>
+						
+						ATeam :
+						<c:forEach var="a" items="${teamA.players }">
+						${a.userId } <c:if test="${userId eq teamA.leader.userId }">[X]</c:if>,
+						</c:forEach>
+						<br>
+						BTeam : 
+						<c:forEach var="p" items="${teamB.players }">
+						${p.userId } <c:if test="${userId eq teamA.leader.userId }">[X]</c:if>,
+						</c:forEach>
 
 						<div align="center">
 							<button type="submit" class="btn btn btn-warning">투표하기</button>
