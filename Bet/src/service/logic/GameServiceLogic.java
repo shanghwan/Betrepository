@@ -49,6 +49,7 @@ public class GameServiceLogic implements GameService{
 		player.setPoint(point);
 		player.setPosition("member");
 		player.setTeamId(team.getTeamId());
+		player.setVote(teamName);
 		
 		return playerService.registPlayer(player);
 	}

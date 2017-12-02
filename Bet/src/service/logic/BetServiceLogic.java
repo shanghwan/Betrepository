@@ -52,7 +52,7 @@ public class BetServiceLogic implements BetService {
 		String betId = betStore.create(bet);
 
 		Team team = new Team();
-
+		
 		team.setBetId(betId);
 		team.setTeamName("A");
 		String teamId = teamService.registTeam(team);
