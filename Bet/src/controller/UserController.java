@@ -126,6 +126,11 @@ public class UserController {
 
 		User loginUser = userService.findByUserId(userId);
 
+		// userService.findByUserId(userId);
+		// attendacneService.registAttendance(attendance);
+		// session.setAttribute("loginUser", loginUser);
+		// return "attendance.jsp";
+
 		List<Attendance> list = attendacneService.findAttendance(userId);
 
 		Date d = new Date();
@@ -138,13 +143,13 @@ public class UserController {
 				if (sdf.format(d).toString().equals((a.getAttendanceDate().toString()))) {
 					break;
 				} else {
-//					attendacneService.registAttendance(attendance);
+					attendacneService.registAttendance(attendance);
 				}
 			}
 		}
 
-		session.setAttribute("loginUser", loginUser);
-		return "redirect:attendance.jsp";
+		session.setAttribute("loginUser", loginUser.getPoint());
+		return "attendance.jsp";
 	}
 
 	@RequestMapping(value = "/invite.do")
