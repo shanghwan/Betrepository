@@ -31,24 +31,37 @@ public class BetStoreLogic implements BetStore{
 	}
 
 	@Override
-	public List<Bet> searchAll() {
+	public List<Bet> searchAllBet() {
 		
 		SqlSession session = BetSessionFactory.getinstance().getSession();
 		List<Bet> list = null;
 		
 		try {
 			BetMapper mapper = session.getMapper(BetMapper.class);
-			list = mapper.searchAll();
+			list = mapper.searchAllBet();
 		}finally {
 			session.close();
 		}
 		
 		return list;
 	}
+	
 
 	@Override
 	public Bet searchByBetId(String betId) {
-		return null;
+		
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		
+		Bet bet = null;
+		
+		try {
+			BetMapper mapper = session.getMapper(BetMapper.class);
+			bet = mapper.searchByBetId(betId);
+		}finally {
+			session.close();
+		}
+		
+		return bet;
 	}
 
 	@Override
@@ -63,22 +76,62 @@ public class BetStoreLogic implements BetStore{
 
 	@Override
 	public List<Bet> searchByState(String state) {
-		return null;
+		
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		List<Bet> list = null;
+		
+		try {
+			BetMapper mapper = session.getMapper(BetMapper.class);
+			list = mapper.searchByState(state);
+		}finally {
+			session.close();
+		}
+		return list;
 	}
 
 	@Override
 	public List<Bet> searchByBetWay(String betWay) {
-		return null;
+		
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		List<Bet> list = null;
+		
+		try {
+			BetMapper mapper = session.getMapper(BetMapper.class);
+			list = mapper.searchByBetWay(betWay);
+		}finally {
+			session.close();
+		}
+		
+		return list;
 	}
 
 	@Override
 	public void update(Bet bet) {
-		
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		try {
+			BetMapper mapper = session.getMapper(BetMapper.class);
+			mapper.update(bet);
+			session.commit();
+		}finally {
+			session.close();
+		}
 	}
 
 	@Override
 	public void delete(String betId) {
 		
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		
+		try {
+			BetMapper mapper = session.getMapper(BetMapper.class);
+			mapper.delete(betId);
+			session.commit();
+		}finally {
+			session.close();
+		}
+		
 	}
+
+
 
 }

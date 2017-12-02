@@ -1,6 +1,6 @@
 package store;
 
-public class AttendanceStore {
+public interface AttendanceStore {
 
-//	String create()
+	abstract <Attendance> String create(Attendance attendance);
 }

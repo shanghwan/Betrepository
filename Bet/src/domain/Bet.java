@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 public class Bet {
-	
+
 	private String betId;
 	private String title;
 	private String state;
@@ -14,30 +14,25 @@ public class Bet {
 	private String photoB;
 	private String betOwner;
 	private int point;
-	private Date endDate;
+	private String endDate;
 	private Date startDate;
 	private String openCheck;
 	private int aVote;
 	private int bVote;
 	private String pointCheck;
-	
+
 	private List<Comment> comments;
-	
-	public Bet() {}
-	
-	
+
+	public Bet() {
+	}
 
 	public String getPointCheck() {
 		return pointCheck;
 	}
 
-
-
 	public void setPointCheck(String pointCheck) {
 		this.pointCheck = pointCheck;
 	}
-
-
 
 	public String getBetId() {
 		return betId;
@@ -111,11 +106,11 @@ public class Bet {
 		this.point = point;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 
@@ -158,10 +153,5 @@ public class Bet {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
-
-
-	
-	
-	
 
 }
