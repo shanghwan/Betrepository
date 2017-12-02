@@ -14,6 +14,7 @@ import domain.Team;
 import domain.User;
 import service.BetService;
 import service.TeamService;
+import store.BetStateStore;
 import store.BetStore;
 import store.PlayerStore;
 import store.UserStore;
@@ -70,7 +71,7 @@ public class BetServiceLogic implements BetService {
 
 		team.setTeamName("B");
 		teamService.registTeam(team);
-
+		
 		return betId;
 	}
 

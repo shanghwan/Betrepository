@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="description" content="Project Description" />
 <meta name="keywords" content="Project Keywords" />
-<title>친구초대</title>
+<title>회원초대</title>
 <style>
 .green_window {
 	display: inline-block;

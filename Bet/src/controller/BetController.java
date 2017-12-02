@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Bet;
+import domain.BetState;
 import domain.Comment;
 import domain.Invite;
 import domain.User;
 import domain.Team;
 import service.BetService;
+import service.BetStateService;
 import service.CommentService;
 import service.InviteService;
 import service.TeamService;
@@ -33,6 +35,8 @@ public class BetController {
 	private InviteService inviteService;
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private BetStateService betStateService;
 	
 	@RequestMapping("/Betlist.do")
 	public ModelAndView Betlist(String betWay){
@@ -143,8 +147,6 @@ public class BetController {
 		
 		
 		inviteService.removeInvite(userId, betId);
-		
-		
 		return "BetFail.do";
 	}
 	
@@ -155,23 +157,21 @@ public class BetController {
 		model.addAttribute("bet", bet);
 		
 		
-		//modify
-		
 		return "detailBet.jsp";
 	}
 	
-	
-	
-	
-
-	private String getPhotoFile(Part part) {
-		String photoFile = null;
-		String contentDispositionHeader = part.getHeader("content-disposition");
-		String[] elements = contentDispositionHeader.split(";");
-		for(String element : elements) {
-			photoFile = element.substring(element.indexOf("=")+ 1);
-			photoFile = photoFile.trim().replace("\"", "");
-		}
-		return photoFile;
+	@RequestMapping(value="/betStateList.do")
+	public String betStateList(String userId, String state, Model model) {
+		
+		List<BetState> list = betStateService.findBetState(userId, state);
+		model.addAttribute("list", list);
+		
+		return "betstate.jsp";
 	}
+	
+	
+	
+	
+	
+	
 }

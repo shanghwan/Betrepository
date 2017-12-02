@@ -9,7 +9,7 @@
 <meta name="keywords" content="Project Keywords" />
 <title>BetOfOne</title>
 <link href="resources/css/style6.css" rel="stylesheet" type="text/css" />
-<link href="resources/css/style8.css" rel="stylesheet" type="text/css" />
+<link href="resources/css/style10.css" rel="stylesheet" type="text/css" />
 
 
 
@@ -69,7 +69,15 @@
 			<c:forEach items="${list }" var="list">
 			<c:if test="${userId eq list }">
 				<div align="left">
-					<a href="gamestart.do?userId=${userId }&betId=${bet.betId}"><button type="submit" class="btn btn btn-warning">참여하기</button></a>
+						<form action="gameJoin.do" method="post">
+						<input type="hidden" name="betId" value="${bet.betId }">
+							 <input type="text" name="pointBet" placeholder="포인트 입력 " size="12"></input>
+							
+							<input type="radio" name="teamName" value="A">Team A
+                            <input type="radio" name="teamName" value="B">Team B
+                            
+							<button type="submit" class="btn btn btn-warning">참여하기</button>
+						</form>
 				</div>
 			</c:if>
 			</c:forEach>
@@ -96,22 +104,38 @@
 					<h1 class="page-title" align="center">${bet.title }</h1>
 					<h3 class="page-title" align="left">${bet.content }</h3>
 					<form action="#" method="post">
+					<center>
 						<table>
 							<tr>
 								<td><img src="resources/images/betofall.jpg"
 									alt="Banner Image 1" /><br> <br> <input type="radio"
-									name="open" value="공개">공개</td>
+									name="open" value="A">Team A
+								</td>
+								
 								<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>
 								<td><img src="resources/images/betofall.jpg"
 									alt="Banner Image 1" /><br> <br> <input type="radio"
-									name="open" value="비공개">비공개</td>
+									name="open" value="B">Team B</td>
 							</tr>
 						</table>
-
+						</center>
+						
+						
+						ATeam :
+						<c:forEach var="a" items="${teamA.players }">
+						${a.userId } <c:if test="${userId eq teamA.leader.userId }">[X]</c:if>,
+						</c:forEach>
+						<br>
+						BTeam : 
+						<c:forEach var="p" items="${teamB.players }">
+						${p.userId } <c:if test="${userId eq teamA.leader.userId }">[X]</c:if>,
+						</c:forEach>
+						
+						
 						<div align="center">
 							<button type="submit" class="btn btn btn-warning">투표하기</button>
 						</div>
-
+								
 					</form>
 
 					              <c:forEach var="comment" items="${bet.comments }">

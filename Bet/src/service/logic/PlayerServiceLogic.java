@@ -51,4 +51,9 @@ public class PlayerServiceLogic implements PlayerService{
 		
 	}
 
+	@Override
+	public List<Player> findByUserId(String userId) {
+		return playerStore.searchByUserId(userId);
+	}
+
 }

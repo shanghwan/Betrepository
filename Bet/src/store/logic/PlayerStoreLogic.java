@@ -89,4 +89,21 @@ public class PlayerStoreLogic implements PlayerStore {
 		}
 	}
 
+	@Override
+	public List<Player> searchByUserId(String userId) {
+		
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		
+		List<Player> list = null;
+		
+		try {
+			PlayerMapper mapper = session.getMapper(PlayerMapper.class);
+			list = mapper.searchByUserId(userId);
+		}finally {
+			session.close();
+		}
+		
+		return list;
+	}
+
 }
