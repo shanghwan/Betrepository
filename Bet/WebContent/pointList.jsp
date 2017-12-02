@@ -77,9 +77,9 @@
 									<form action="gitfPoint.do" method="post">
 										<label>${loginUser.name }님의 포인트는 ${loginUser.point }P</label>
 										<br></br> 
-										<input size="15" type="text" class="input_text" name="userId" placeholder="아이디" /> </span>							
+										<input size="15" type="text" class="input_text" name="receiverId" placeholder="아이디" /> </span>							
 										<a>에게</a>
-											<input size="10" type="text" name="categoryName" placeholder="포인트"> 
+											<input size="10" type="text" name="point" placeholder="포인트"> 
 											<a>P 를</a>
 											<input class="btn btn-xs btn-default" type="submit" value="선물하기♥">
 										<span class="green_window">

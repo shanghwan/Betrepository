@@ -16,8 +16,7 @@
 		</selectKey>
 		INSERT INTO point_tb(pointId, userId, receiverId, pointDate, type,
 		point)
-		VALUES(#{pointId}, #{userId}, #{receiverId}, SYSDATE, #{type},
-		#{point})
+		VALUES(#{pointId}, #{userId}, #{receiverId}, SYSDATE, #{type},#{point})
 	</insert>
 
 	<select id="searchPoint" parameterType="String" resultType="Point" resultMap="PointMap">

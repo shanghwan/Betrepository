@@ -11,12 +11,11 @@ public interface PointStore {
 
 	List<Point> searchAll(String userId);
 
-	String gift(Point point);
 	//
 	void update(Point point);
-	
+
 	//
-	Point searchPoint(String userId); 
+	Point searchPoint(String userId);
 
 	void delete(String userId);
 

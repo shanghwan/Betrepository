@@ -44,20 +44,6 @@ public class PointStoreLogic implements PointStore {
 	}
 
 	@Override
-	public String gift(Point point) {
-		SqlSession session = BetSessionFactory.getinstance().getSession();
-
-		try {
-			PointMapper mapper = session.getMapper(PointMapper.class);
-			mapper.gift(point);
-			session.commit();
-		} finally {
-			session.close();
-		}
-		return point.getPointId();
-	}
-
-	@Override
 	public void delete(String userId) {
 		SqlSession session = BetSessionFactory.getinstance().getSession();
 		try {
@@ -79,6 +65,7 @@ public class PointStoreLogic implements PointStore {
 		} finally {
 			session.close();
 		}
+		// return point.getPointId();
 	}
 
 	@Override
@@ -93,4 +80,5 @@ public class PointStoreLogic implements PointStore {
 		}
 		return point;
 	}
+
 }

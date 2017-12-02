@@ -7,20 +7,12 @@ import domain.User;
 
 public interface PointService {
 
-	void registPoint(Point point); // 내역등록
+	String registPoint(Point point); // 내역등록
 
 	List<Point> findAllPoint(String userId); // 내역조회
 
-	void removePoint(String userId);
+	void removePoint(String userId); //탈퇴
 
-	String presentPoint(Point point);
-
-	String attendance(Point point);
-
-	String singUp(Point point);
-
-	String result(Point point); // 내기승패
-
-	// type별로.. if문대신..?
+	void updatePoint(Point point);
 
 }

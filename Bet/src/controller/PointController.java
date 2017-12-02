@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Point;
@@ -37,21 +36,41 @@ public class PointController {
 		return modelAndView;
 	}
 
-	// @RequestMapping(value = "/gitfPoint.do", method=RequestMethod.POST)
-	// public ModelAndView GiftPoint(String point, HttpSession session) {
-	// session.getAttribute("userId");
-	// String userId = (String)session.getAttribute("userId");
-	// pointService.presentPoint(point);
-	// session.setAttribute("pointId", pointId);
+	@RequestMapping(value = "/gitfPoint.do", method = RequestMethod.POST)
+	public ModelAndView GiftPoint(Point point, HttpSession session, HttpServletRequest req) {
+		String userId = (String) req.getSession().getAttribute("userId");
+		String receiverId = (String) session.getAttribute("receiverId");
+
+		User user = userService.findByUserId(userId);
+
+		if (receiverId != null) {
+			point.setType("gift");
+
+			pointService.updatePoint(point);
+			session.setAttribute("point", point);
+
+		} else if (receiverId == null) {
+			point.setType("chulcheck");
+
+		} else if (receiverId == null) {
+			point.setType("signUp");
+
+		} else if (receiverId == null) {
+			point.setType("result");
+		}
+
+		ModelAndView modelAndView = new ModelAndView("pointList.jsp");
+
+		return modelAndView;
+	}
+
+	// String userId = (String) req.getSession().getAttribute("userId");
 	//
 	//
+	// List<Attendance> list = attendacneService.findAttendance(userId);
 	//
-	//
-	// ModelAndView modelAndView = new ModelAndView("pointList.jsp");
-	//
-	//
-	//
-	// return modelAndView;
+	// session.setAttribute("loginUser", loginUser.getPoint());
+	// return "attendance.jsp";
 	// }
 
 }

@@ -12,8 +12,6 @@ public interface PointMapper {
 
 	Point searchPoint(String userId);
 
-	void gift(Point point);
-
 	void delete(String userId);
 
 	void update(Point point);
