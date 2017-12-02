@@ -19,7 +19,19 @@
 		WHERE
 		userId = #{userId}
 	</delete>
+	
+	<select id="search" resultType="Attendance">
+	SELECT attendanceId, userId, attendanceDate
+		FROM attendance_tb
+		WHERE userId = #{userId}
+	</select>
 
+
+	<!-- <select id="searchByUserId" resultType="Attendance">
+	SELECT attendanceId, userId, attendanceDate
+		FROM attendance_tb
+		WHERE userId = #{userId}
+	</select> -->
 
 
 </mapper>

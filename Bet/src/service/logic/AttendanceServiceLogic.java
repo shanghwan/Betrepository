@@ -3,6 +3,7 @@ package service.logic;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.Enumeration;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,14 @@ public class AttendanceServiceLogic implements AttendanceService {
 	@Override
 	public void removeAttendance(String userId) {
 		attendanceStore.delete(userId);
+	}
+
+
+
+
+	@Override
+	public List<Attendance> findAttendance(String userId) {
+		return attendanceStore.search(userId);
 	}
 
 }

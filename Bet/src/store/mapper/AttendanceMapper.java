@@ -8,7 +8,9 @@ import domain.Attendance;
 public interface AttendanceMapper {
 
 	void create(Attendance attendance);
+
 	void delete(String userId);
-	List<String> search (String userId);
-	
+
+	List<Attendance> search(String userId);
+
 }

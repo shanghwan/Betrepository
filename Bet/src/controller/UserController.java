@@ -1,6 +1,7 @@
 package controller;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -124,10 +125,24 @@ public class UserController {
 		String userId = (String) req.getSession().getAttribute("userId");
 
 		User loginUser = userService.findByUserId(userId);
-		attendacneService.registAttendance(attendance);
 
-//		session.invalidate();
-		
+		List<Attendance> list = attendacneService.findAttendance(userId);
+
+		Date d = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		if (list.size() == 0) {
+			attendacneService.registAttendance(attendance);
+		} else {
+			for (Attendance a : list) {
+				if (sdf.format(d).toString().equals((a.getAttendanceDate().toString()))) {
+					break;
+				} else {
+//					attendacneService.registAttendance(attendance);
+				}
+			}
+		}
+
 		session.setAttribute("loginUser", loginUser);
 		return "redirect:attendance.jsp";
 	}
