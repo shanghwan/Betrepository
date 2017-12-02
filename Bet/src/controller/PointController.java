@@ -48,15 +48,23 @@ public class PointController {
 
 			pointService.updatePoint(point);
 			session.setAttribute("point", point);
+			ModelAndView modelAndView = new ModelAndView("pointList.jsp");
+
 
 		} else if (receiverId == null) {
 			point.setType("chulcheck");
+			ModelAndView modelAndView = new ModelAndView("pointList.jsp");
+
 
 		} else if (receiverId == null) {
 			point.setType("signUp");
+			ModelAndView modelAndView = new ModelAndView("pointList.jsp");
+
 
 		} else if (receiverId == null) {
 			point.setType("result");
+			ModelAndView modelAndView = new ModelAndView("pointList.jsp");
+
 		}
 
 		ModelAndView modelAndView = new ModelAndView("pointList.jsp");
