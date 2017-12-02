@@ -7,15 +7,15 @@ public class Point {
 	private String pointId;
 	private String userId;
 	private String receiverId;
-	private String point;
-	private String sendPoint;
+	private int point;
+	private int sendPoint;
 	private Date pointDate;
 	private String type;
 
 	public Point() {
 	}
 
-	public Point(String pointId, String userId, String receiverId, String point, /* String sendPoint, */ Date pointDate,
+	public Point(String pointId, String userId, String receiverId, int point, /* int sendPoint, */ Date pointDate,
 			String type) {
 		super();
 		this.pointId = pointId;
@@ -51,19 +51,19 @@ public class Point {
 		this.receiverId = receiverId;
 	}
 
-	public String getPoint() {
+	public int getPoint() {
 		return point;
 	}
 
-	public void setPoint(String point) {
+	public void setPoint(int point) {
 		this.point = point;
 	}
 
-	public String getSendPoint() {
+	public int getSendPoint() {
 		return sendPoint;
 	}
 
-	public void setSendPoint(String sendPoint) {
+	public void setSendPoint(int sendPoint) {
 		this.sendPoint = sendPoint;
 	}
 
