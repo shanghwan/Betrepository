@@ -13,7 +13,6 @@ import service.BetService;
 import service.GameService;
 import service.PlayerService;
 import service.TeamService;
-import store.BetStore;
 import store.CommentStore;
 import store.TeamStore;
 import store.UserStore;
@@ -67,6 +66,7 @@ public class GameServiceLogic implements GameService{
 		player.setPoint(point);
 		player.setUserId(userId);
 		player.setPosition("leader");
+		player.setVote("N");
 		
 		if(bet.getPointCheck().equals("LOCK")) {
 			player.setPoint(bet.getPoint());

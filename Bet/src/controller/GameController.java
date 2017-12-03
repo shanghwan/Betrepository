@@ -55,5 +55,10 @@ public class GameController {
 		gameService.gameReady(betId, teamId);
 		return "BetDetail.do";
 	}
-
+	
+	@RequestMapping(value = "/betVote.do", method = RequestMethod.GET)
+	public String gameVote(String betId, String vote) {
+		return null;
+	}
+	
 }

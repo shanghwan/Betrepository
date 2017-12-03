@@ -14,12 +14,11 @@ import domain.Team;
 import domain.User;
 import service.BetService;
 import service.TeamService;
-import store.BetStateStore;
 import store.BetStore;
-import store.PlayerStore;
-import store.UserStore;
 import store.CommentStore;
 import store.InviteStore;
+import store.PlayerStore;
+import store.UserStore;
 
 @Service
 public class BetServiceLogic implements BetService {
@@ -69,6 +68,7 @@ public class BetServiceLogic implements BetService {
 		player.setPoint(bet.getPoint());
 		player.setTeamId(teamId);
 		player.setUserId(user.getUserId());
+		player.setVote("N");
 		playerStore.create(player);
 
 		team.setTeamName("B");
@@ -93,13 +93,13 @@ public class BetServiceLogic implements BetService {
 	}
 
 	@Override
-	public List<Bet> findByOwner(String betOwner) {
-		return null;
+	public List<Bet> findByOwner(String betOwner, String betWay) {
+		return betStore.searchByBetOwner(betOwner, betWay);
 	}
 
 	@Override
-	public List<Bet> findByTitle(String title) {
-		return null;
+	public List<Bet> findByTitle(String title, String betWay) {
+		return betStore.searchByTitle(title, betWay);
 	}
 
 	@Override

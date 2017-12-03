@@ -37,6 +37,10 @@
 		window.open("BetFail.do?betId=${bet.betId}", "a",
 				"width=500, height=300, left=100, top=50");
 	}
+	function showPopup1() {
+		window.open("BetReport.do?target=${bet.betId}&userId=${userId}", "a",
+				"width=500, height=300, left=100, top=50");
+	}
 </script>
 </head>
 
@@ -52,22 +56,13 @@
 			</div>
 			<!-- // end #header -->
 			<div id="banner">
-				<h1 class="page-title">BetOf${bet.betWay }(${bet.betId })</h1>
+				<h1 class="page-title">BetOfAll(${bet.betId })</h1>
 			</div>
 			<!-- // end #banner -->
 			<a href="${ctx }/article/recommend.do?articleId=${article.articleId}"
 				class="glyphicon glyphicon-cog pull-right" style="padding: 10px">추천</a>
-			<a href="createBetReport.do?betId=${bet.betId }"
-				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">신고</a>
-			<br>
-			
-			<c:forEach items="${list }" var="list">
-			<c:if test="${userId eq list }">
-				<div align="left">
-					<a href="gamestart.do?userId=${userId }&betId=${bet.betId}"><button type="submit" class="btn btn btn-warning">참여하기</button></a>
-				</div>
-			</c:if>
-			</c:forEach>
+			<a class="glyphicon glyphicon-trash pull-right" style="padding: 10px"
+				onclick="showPopup1();">신고</a> <br>
 			<div align="right">
 				<br> 종료날짜 : ${bet.endDate} <br> 내기장 아이디 : ${bet.betOwner }
 				<Br> 포인트 : ${bet.point }<br> 참여한 아이디 : <select>
@@ -76,8 +71,8 @@
 						<option value="${team.players.userName }">
 						</option>
 					</c:forEach>
-					
-					
+
+
 				</select><select>
 					<option selected>B팀</option>
 					<option>옵션1</option>
@@ -91,26 +86,23 @@
 					<h1 class="page-title" align="center">${bet.title }</h1>
 					<h3 class="page-title" align="left">${bet.content }</h3>
 					<form action="gameJoin.do" method="post">
-					<input type="hidden" name="betId" value="${bet.betId }">
-					<input type="hidden" name="pointBet" value="${bet.point }">
+						<input type="hidden" name="betId" value="${bet.betId }"> <input
+							type="hidden" name="pointBet" value="${bet.point }">
 						<table>
 							<tr>
 								<td><img src="resources/images/betofall.jpg"
 									alt="Banner Image 1" /><br> <br> <input type="radio"
 									name="teamName" value="A">A<br>
-									
 								<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>
 								<td><img src="resources/images/betofall.jpg"
 									alt="Banner Image 1" /><br> <br> <input type="radio"
-									name="teamName" value="B">B<br>
-
-									</td>
+									name="teamName" value="B">B<br></td>
 							</tr>
 						</table>
 
 						<div align="center">
 							<input type="submit" class="btn btn btn-warning" value="투표하기">
-							
+
 						</div>
 
 					</form>
@@ -131,7 +123,7 @@
 							</tr>
 						</table>
 					</c:forEach>
-					
+
 
 				</div>
 			</div>

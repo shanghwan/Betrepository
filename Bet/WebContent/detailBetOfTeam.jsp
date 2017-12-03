@@ -37,6 +37,10 @@
 		window.open("BetFail.do?betId=${bet.betId}", "a",
 				"width=500, height=300, left=100, top=50");
 	}
+	function showPopup1() {
+		window.open("BetReport.do?target=${bet.betId}&userId=${userId}", "a",
+				"width=500, height=300, left=100, top=50");
+	}
 </script>
 </head>
 
@@ -57,30 +61,21 @@
 			<!-- // end #banner -->
 			<a href="${ctx }/article/recommend.do?articleId=${article.articleId}"
 				class="glyphicon glyphicon-cog pull-right" style="padding: 10px">추천</a>
-			<a href="createBetReport.do?betId=${bet.betId }"
-				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">신고</a>
-			<br>
-			<c:if test="${userId eq bet.betOwner }">
-				<div align="left">
+			<a class="glyphicon glyphicon-trash pull-right" style="padding: 10px"
+				onclick="showPopup1();">신고</a> <br>
+			<c:if test="${bet.state eq '대기' }">
+				<c:if test="${userId eq bet.betOwner }">
 					<button type="submit" class="btn btn btn-warning"
 						onclick="showPopup();">초대하기</button>
-				</div>
+				</c:if>
+				<form action="gameJoin.do" method="post">
+					<input type="hidden" name="betId" value="${bet.betId }"> <input
+						type="text" name="pointBet" placeholder="포인트 입력 " size="12"></input>
+					<input type="radio" name="teamName" value="A">Team A <input
+						type="radio" name="teamName" value="B">Team B
+					<button type="submit" class="btn btn btn-warning">참여하기</button>
+				</form>
 			</c:if>
-			<c:forEach items="${list }" var="list">
-			<c:if test="${userId eq list }">
-				<div align="left">
-						<form action="gameJoin.do" method="post">
-						<input type="hidden" name="betId" value="${bet.betId }">
-							 <input type="text" name="pointBet" placeholder="포인트 입력 " size="12"></input>
-							
-							<input type="radio" name="teamName" value="A">Team A
-                            <input type="radio" name="teamName" value="B">Team B
-                            
-							<button type="submit" class="btn btn btn-warning">참여하기</button>
-						</form>
-				</div>
-			</c:if>
-			</c:forEach>
 			<div align="right">
 				<br> 종료날짜 : ${bet.endDate} <br> 내기장 아이디 : ${bet.betOwner }
 				<Br> 포인트 : ${bet.point }<br> 참여한 아이디 : <select>
@@ -89,8 +84,8 @@
 						<option value="${team.players.userName }">
 						</option>
 					</c:forEach>
-					
-					
+
+
 				</select><select>
 					<option selected>B팀</option>
 					<option>옵션1</option>
@@ -104,107 +99,106 @@
 					<h1 class="page-title" align="center">${bet.title }</h1>
 					<h3 class="page-title" align="left">${bet.content }</h3>
 					<form action="#" method="post">
-					<center>
-						<table>
-							<tr>
-								<td><img src="resources/images/betofall.jpg"
-									alt="Banner Image 1" /><br> <br> <input type="radio"
-									name="open" value="A">Team A
-								</td>
-								
-								<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>
-								<td><img src="resources/images/betofall.jpg"
-									alt="Banner Image 1" /><br> <br> <input type="radio"
-									name="open" value="B">Team B</td>
-							</tr>
-						</table>
+						<center>
+							<table>
+								<tr>
+									<td><img src="resources/images/betofall.jpg"
+										alt="Banner Image 1" /><br> <br> <input
+										type="radio" name="open" value="A">Team A</td>
+
+									<td><img src="resources/images/vs.png"
+										alt="Banner Image 1" /></td>
+									<td><img src="resources/images/betofall.jpg"
+										alt="Banner Image 1" /><br> <br> <input
+										type="radio" name="open" value="B">Team B</td>
+								</tr>
+							</table>
 						</center>
-						
-						
+
+
 						ATeam :
 						<c:forEach var="a" items="${teamA.players }">
-						${a.userId } <c:if test="${userId eq teamA.leader.userId }">[X]</c:if>,
+						${a.userId } <c:if test="${userId eq teamA.leader.userId }"><a href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${a.userId }&betWay=${bet.betWay}">[X]</a></c:if>,
 						</c:forEach>
-						<br>
-						BTeam : 
+						<br> BTeam :
 						<c:forEach var="p" items="${teamB.players }">
-						${p.userId } <c:if test="${userId eq teamA.leader.userId }">[X]</c:if>,
+						${p.userId } <c:if test="${userId eq teamB.leader.userId }"><a href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${p.userId }&betWay=${bet.betWay}">[X]</a></c:if>,
 						</c:forEach>
-						
-						
+
+
 						<div align="center">
 							<button type="submit" class="btn btn btn-warning">투표하기</button>
 						</div>
-								
+
 					</form>
 
-					              <c:forEach var="comment" items="${bet.comments }">
-                  <table class="table" style="font-size: 13px; padding: 20px;">
-                     <tr>
-                        <td><strong>${comment.userId }</strong></td>
-                        <td class="text-right">${comment.regDate }<a
-                           class="glyphicon glyphicon-trash"
-                           href="removeComment.do?betId=${bet.betId} &commentId=${comment.commentId}"></a>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>
-                           <p class="txt">${comment.content }</p> <%--    
+					<c:forEach var="comment" items="${bet.comments }">
+						<table class="table" style="font-size: 13px; padding: 20px;">
+							<tr>
+								<td><strong>${comment.userId }</strong></td>
+								<td class="text-right">${comment.regDate }<a
+									class="glyphicon glyphicon-trash"
+									href="removeComment.do?betId=${bet.betId} &commentId=${comment.commentId}"></a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p class="txt">${comment.content }</p> <%--    
                            <p style="padding: 20px">${comment.contents }
                               <c:if test="${comment.photo ne null }">
                                  <img src="/photo/123${comment.photo }">
                               </c:if>
                            </p> --%>
-                        </td>
-                     </tr>
-                  </table>
-               </c:forEach>
-               
-               
-               
-               
-               
-
-               <div class="panel-footer">
-                  <div class="write_area">
-                     <form action="registComment.do" method="post">
-                        <input type="hidden" name="betId" value="${bet.betId }">
-                        <textarea class="input_write_comment" name="content"
-                           placeholder="댓글쓰기"></textarea>
-                           <br><br><br>
-                        <div class="form-group">
-                           <label class="col-lg-2 control-label">이미지</label>
-                           <div class="col-lg-10">
-                              <input type="file" name="photo" class="form-control">
-                           </div>
-                        </div>
-                        <input type="submit" class="comment_submit" value="전송">
+								</td>
+							</tr>
+						</table>
+					</c:forEach>
 
 
-                     </form>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <!-- // end #content -->
-      </div>
 
-      <c:forEach var="comment" items="${article.comments }">
-         <table class="table" style="font-size: 13px; padding: 20px;">
-            <tr>
-               <td><strong>${comment.nickname }</strong></td>
-               <td class="text-right">${comment.commentDate }<a
-                  class="glyphicon glyphicon-trash"
-                  href="removeComment.do?betId=${bet.betId} &commentId=${comment.commentId}"></a>
-               </td>
-            </tr>
-            <tr>
-               <td colspan="2">
-                  <p class="txt">${comment.comments }</p>
-               </td>
-            </tr>
-         </table>
-      </c:forEach>
+
+
+
+					<div class="panel-footer">
+						<div class="write_area">
+							<form action="registComment.do" method="post">
+								<input type="hidden" name="betId" value="${bet.betId }">
+								<textarea class="input_write_comment" name="content"
+									placeholder="댓글쓰기"></textarea>
+								<br> <br> <br>
+								<div class="form-group">
+									<label class="col-lg-2 control-label">이미지</label>
+									<div class="col-lg-10">
+										<input type="file" name="photo" class="form-control">
+									</div>
+								</div>
+								<input type="submit" class="comment_submit" value="전송">
+
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- // end #content -->
+		</div>
+
+		<c:forEach var="comment" items="${article.comments }">
+			<table class="table" style="font-size: 13px; padding: 20px;">
+				<tr>
+					<td><strong>${comment.nickname }</strong></td>
+					<td class="text-right">${comment.commentDate }<a
+						class="glyphicon glyphicon-trash"
+						href="removeComment.do?betId=${bet.betId} &commentId=${comment.commentId}"></a>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<p class="txt">${comment.comments }</p>
+					</td>
+				</tr>
+			</table>
+		</c:forEach>
 
 
 

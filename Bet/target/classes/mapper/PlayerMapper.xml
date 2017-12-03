@@ -12,7 +12,7 @@
 		INSERT INTO player_tb(playerId, betId, teamId, userId, position,
 		point, vote )
 		VALUES(#{playerId}, #{betId}, #{teamId}, #{userId},
-		#{position}, #{point}, 'N' )
+		#{position}, #{point}, #{vote} )
 	</insert>
 
 	<select id="searchByPlayerId" parameterType="string" resultType="Player">
