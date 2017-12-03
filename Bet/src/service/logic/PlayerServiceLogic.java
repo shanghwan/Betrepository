@@ -17,38 +17,32 @@ public class PlayerServiceLogic implements PlayerService{
 	
 	@Override
 	public String registPlayer(Player player) {
-		// TODO Auto-generated method stub
 		return playerStore.create(player);
 	}
 
 	@Override
 	public Player findPlayer(String playerId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Player> findByTeamId(String teamId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void modifyPlayer(Player player) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void removePlayer(String playerId) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void removePlayer(String betId, String userId) {
-		// TODO Auto-generated method stub
-		
+		playerStore.delete(userId, betId);
 	}
 
 	@Override

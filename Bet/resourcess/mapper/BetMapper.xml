@@ -80,6 +80,20 @@
 		startDate ,endDate , openCheck , pointCheck , point, aVote, bVote, betOwner
 		FROM bet_tb WHERE betId = #{betId}
 	</select>
+	
+	<select id="searchByBetOwner" parameterType="HashMap" resultType="Bet" resultMap="BetMap">
+		select betId, state, title, content, photoA , photoB , betWay ,
+		startDate ,endDate , openCheck , pointCheck , point, aVote, bVote, betOwner
+		FROM bet_tb WHERE betOwner = #{betOwner} and betWay = #{betWay}
+	</select>
+	
+		<select id="searchByTitle" parameterType="HashMap" resultType="Bet" resultMap="BetMap">
+		select betId, state, title, content, photoA , photoB , betWay ,
+		startDate ,endDate , openCheck , pointCheck , point, aVote, bVote, betOwner
+		FROM bet_tb WHERE title like '%'||#{title}||'%' and betWay = #{betWay}
+	</select>
+	
+	
 
 	<select id="searchByState" parameterType="String" resultType="Bet"
 		resultMap="BetMap">
@@ -131,6 +145,5 @@
 				WHERE betId = #{betId}
 			</otherwise>
 		</choose>
-
 	</update>
 </mapper>

@@ -37,6 +37,10 @@
 		window.open("BetFail.do?betId=${bet.betId}", "a",
 				"width=500, height=300, left=100, top=50");
 	}
+	function showPopup1() {
+		window.open("BetReport.do?target=${bet.betId}&userId=${userId}", "a",
+				"width=500, height=300, left=100, top=50");
+	}
 </script>
 </head>
 
@@ -57,34 +61,22 @@
 			<!-- // end #banner -->
 			<a href="${ctx }/article/recommend.do?articleId=${article.articleId}"
 				class="glyphicon glyphicon-cog pull-right" style="padding: 10px">추천</a>
-			<a href="createBetReport.do?betId=${bet.betId }"
-				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">신고</a>
-			<br>
-			<div align="left">
-				<c:if test="${bet.state eq '대기' }">
-					<c:if test="${userId eq bet.betOwner }">
-
-						<button type="submit" class="btn btn btn-warning"
-							onclick="showPopup();">초대하기</button>
-
-					</c:if>
-				</c:if>
-			</div>
-			<c:forEach items="${list }" var="list">
-			
+			<a class="glyphicon glyphicon-trash pull-right" style="padding: 10px"
+				onclick="showPopup1();">신고</a> <br>
 			<c:if test="${bet.state eq '대기' }">
-					<div align="center">
-						<form action="gameJoin.do" method="post">
-							<input type="hidden" name="betId" value="${bet.betId }">
-							<input type="text" name="pointBet" placeholder="포인트 입력 " size="12"></input>
+				<c:if test="${userId eq bet.betOwner }">
+					<button type="submit" class="btn btn btn-warning"
+						onclick="showPopup();">초대하기</button>
+				</c:if>
+				<form action="gameJoin.do" method="post">
+					<input type="hidden" name="betId" value="${bet.betId }"> <input
+						type="text" name="pointBet" placeholder="포인트 입력 " size="12"></input>
 
-							<input type="radio" name="teamName" value="A">Team A <input
-								type="radio" name="teamName" value="B">Team B 
-								<button type="submit" class="btn btn btn-warning">참여하기</button>
-						</form>
-					</div>
-					</c:if>
-			</c:forEach>
+					<input type="radio" name="teamName" value="A">Team A <input
+						type="radio" name="teamName" value="B">Team B
+					<button type="submit" class="btn btn btn-warning">참여하기</button>
+				</form>
+			</c:if>
 
 			<div align="center">
 				<c:if test="${bet.state eq '대기' }">
@@ -141,15 +133,14 @@
 									name="open" value="B">Team B</td>
 							</tr>
 						</table>
-						
+
 						ATeam :
 						<c:forEach var="a" items="${teamA.players }">
-						${a.userId } <c:if test="${userId eq teamA.leader.userId }">[X]</c:if>,
+						${a.userId } <c:if test="${userId eq teamA.leader.userId or userId eq bet.betOwner }"><a href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${a.userId }&betWay=${bet.betWay}">[X]</a></c:if>,
 						</c:forEach>
-						<br>
-						BTeam : 
+						<br> BTeam :
 						<c:forEach var="p" items="${teamB.players }">
-						${p.userId } <c:if test="${userId eq teamA.leader.userId }">[X]</c:if>,
+						${p.userId } <c:if test="${userId eq teamB.leader.userId or userId eq bet.betOwner }"><a href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${p.userId }&betWay=${bet.betWay}">[X]</a></c:if>,
 						</c:forEach>
 
 						<div align="center">
@@ -208,7 +199,7 @@
 			</div>
 		</div>
 
-	
+
 
 		<div id="footer">
 			<p>

@@ -1,5 +1,6 @@
 package store.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import domain.Bet;
@@ -10,9 +11,9 @@ public interface BetMapper {
 
 	Bet searchByBetId(String betId);
 
-	List<Bet> searchByBetOwner(String betOwner);
+	List<Bet> searchByBetOwner(HashMap<String, String> map);
 
-	List<Bet> searchByTitle(String title);
+	List<Bet> searchByTitle(HashMap<String, String> map);
 
 	List<Bet> searchByState(String state);
 
