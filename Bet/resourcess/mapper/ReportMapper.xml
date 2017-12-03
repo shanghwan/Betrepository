@@ -6,19 +6,31 @@
 <mapper namespace="store.mapper.ReportBetMapper">
 
 	<resultMap type="Report" id="ReportMap">
-		<id property="id" column="reportId" />
-		<result property="reportbetId" column="target" />
-		<result property="reportContent" column="reason" />
-		<result property="reportBetDate" column="regDate" />
+		<result property="target" column="reportbetId" />
+		<result property="reason" column="reportContent" />
 	</resultMap>
+	
+
 
 	<insert id="create" parameterType="Report">
 		<selectKey keyProperty="reportId" resultType="String" order="BEFORE">
 			SELECT reportbet_seq.nextval FROM dual
 		</selectKey>
-		INSERT INTO reportBet_tb(reportId, userId, target, reason, regDate)
-		values(#{reportId}, #{userId}, #{target}, #{reason}, #{regDate})
+		INSERT INTO reportBet_tb(reportId, userId, reportbetId, reportContent, reportBetDate)
+		values(#{reportId}, #{userId}, #{target}, #{reason}, SYSDATE)
 	</insert>
+	
+	<select id="searchByAllBetReport" resultType="Report" resultMap="ReportMap">
+	SELECT reportId, userId, reportbetId, reportContent, reportBetDate FROM reportBet_tb
+	</select>
+	
+	<delete id="delete" parameterType="String">
+	DELETE from reportBet_tb WHERE reportId = #{reportId}
+	</delete>
+	
+	<delete id="deleteAllByTarget" parameterType="String">
+	DELETE from reportBet_tb WHERE reportbetId = #{target}
+	</delete>
 
 
 </mapper>

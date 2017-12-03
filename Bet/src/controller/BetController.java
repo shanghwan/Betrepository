@@ -13,20 +13,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Bet;
+import domain.BetState;
+import domain.Comment;
+import domain.Invite;
+import domain.User;
 import domain.Team;
 import service.BetService;
+import service.BetStateService;
+import service.CommentService;
 import service.InviteService;
 import service.TeamService;
 
 @Controller
 public class BetController {
-	
+
 	@Autowired
 	private BetService betService;
+	@Autowired
+	private CommentService commentService;
 	@Autowired
 	private InviteService inviteService;
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private BetStateService betStateService;
 	
 	@RequestMapping("/Betlist.do")
 	public ModelAndView Betlist(String betWay){
@@ -36,16 +46,16 @@ public class BetController {
 			ModelAndView modelAndView = new ModelAndView("BetOfOne.jsp");
 			modelAndView.addObject("BetList", list);
 			return modelAndView;
-		}else if(betWay.equals("all")) {
+		} else if (betWay.equals("all")) {
 			ModelAndView modelAndView = new ModelAndView("BetOfAll.jsp");
 			modelAndView.addObject("BetList", list);
 			return modelAndView;
-		}else {
+		} else {
 			ModelAndView modelAndView = new ModelAndView("BetOfTeam.jsp");
 			modelAndView.addObject("BetList", list);
 			return modelAndView;
 		}
-		
+
 	}
 	
 	
@@ -107,6 +117,8 @@ public class BetController {
 	
 	@RequestMapping(value="/registBet.do", method=RequestMethod.POST)
 	public String registBet(Bet bet, HttpSession session) {
+		
+		
 		String userId = (String)session.getAttribute("userId");
 		
 		bet.setBetOwner(userId);
@@ -135,8 +147,6 @@ public class BetController {
 		
 		
 		inviteService.removeInvite(userId, betId);
-		
-		
 		return "BetFail.do";
 	}
 	
@@ -147,23 +157,21 @@ public class BetController {
 		model.addAttribute("bet", bet);
 		
 		
-		//modify
-		
 		return "detailBet.jsp";
 	}
 	
-	
-	
-	
-
-	private String getPhotoFile(Part part) {
-		String photoFile = null;
-		String contentDispositionHeader = part.getHeader("content-disposition");
-		String[] elements = contentDispositionHeader.split(";");
-		for(String element : elements) {
-			photoFile = element.substring(element.indexOf("=")+ 1);
-			photoFile = photoFile.trim().replace("\"", "");
-		}
-		return photoFile;
+	@RequestMapping(value="/betStateList.do")
+	public String betStateList(String userId, String state, Model model) {
+		
+		List<BetState> list = betStateService.findBetState(userId, state);
+		model.addAttribute("list", list);
+		
+		return "betstate.jsp";
 	}
+	
+	
+	
+	
+	
+	
 }

@@ -20,7 +20,6 @@ public class GameController {
 	private TeamService teamService;
 	@Autowired
 	private BetService betService;
-	
 	@Autowired
 	private GameService gameService;
 
@@ -48,7 +47,12 @@ public class GameController {
 			gameService.joinBetOfTeam(userId, teamName, betId, point);
 			return "BetDetail.do";
 		}
-
+		return "BetDetail.do";
+	}
+	
+	@RequestMapping(value = "/gameReady.do", method = RequestMethod.POST)
+	public String gameReady(String betId, String teamId) {
+		gameService.gameReady(betId, teamId);
 		return "BetDetail.do";
 	}
 

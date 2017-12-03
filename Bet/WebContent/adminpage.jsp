@@ -21,7 +21,7 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="index.jsp"><h1>내기의 神</h1></a>
+					<a href="main.jsp"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 						<ul id="nav">
@@ -46,7 +46,7 @@
 							<div class="post-summary" align="center">
 								<ul id="nav">
 									<li class="active"><a href="adminpage.jsp">회원신고</a></li>
-									<li><a href="adminpageBet.jsp">내기신고</a></li>
+									<li><a href="adminpageBet.do">내기신고</a></li>
 								</ul>
 							</div>
 						</div>
@@ -83,16 +83,7 @@
 				<!-- // end #content -->
 				<div id="sidebar">
 					<div class="widget widget-search">
-						<h2>회원</h2>
-						<div class="contentarea" align="center">
-							<form action="logout.do" method="post">
-								<label>${loginUser.name }님 환영합니다.</label><br> <br> <label>포인트
-									: ${loginUser.point }p</label> <br></br>
-								<button type="submit" class="btn btn btn-warning">logout</button>
-								<a href="mypage.jsp"><button type="button"
-										class="btn btn btn-warning">MyPage</button></a>
-							</form>
-						</div>
+						<%@ include file="usermenu.jsp"%>
 					</div>
 				</div>
 

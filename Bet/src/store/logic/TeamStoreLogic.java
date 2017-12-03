@@ -83,6 +83,8 @@ public class TeamStoreLogic implements TeamStore{
 
 	@Override
 	public Team searchByTeamName(String betId, String teamName) {
+		
+		
 		SqlSession session = BetSessionFactory.getinstance().getSession();
 		HashMap<String, String> map = new HashMap<>();
 		Team team = null;
@@ -91,8 +93,9 @@ public class TeamStoreLogic implements TeamStore{
 			map.put("betId", betId);
 			map.put("teamName", teamName);
 			team = mapper.searchByTeamName(map);
-		} finally {
 			session.commit();
+		} finally {
+			session.close();
 		}
 		return team;
 	}

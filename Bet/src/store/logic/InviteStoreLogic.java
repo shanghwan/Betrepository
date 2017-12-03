@@ -84,4 +84,19 @@ public class InviteStoreLogic implements InviteStore{
 		return list;
 	}
 
+	@Override
+	public void deletebyBetId(String betId) {
+		
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		
+		try {
+			InviteMapper mapper = session.getMapper(InviteMapper.class);
+			mapper.deletebyBetId(betId);
+			session.commit();
+		}finally {
+			session.close();
+		}
+		
+	}
+
 }

@@ -9,7 +9,7 @@ public class Report {
 	private String target;
 	private String division;
 	private String reason;
-	private Date regDate;
+	private Date reportbetdate;
 	
 	public Report() {}
 
@@ -53,12 +53,12 @@ public class Report {
 		this.reason = reason;
 	}
 
-	public Date getRegDate() {
-		return regDate;
+	public Date getreportbetdate() {
+		return reportbetdate;
 	}
 
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setreportbetdate(Date reportbetdate) {
+		this.reportbetdate = reportbetdate;
 	}
 	
 	

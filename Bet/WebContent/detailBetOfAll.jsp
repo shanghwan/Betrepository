@@ -45,7 +45,7 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="index.jsp"><h1>내기의 神</h1></a>
+					<a href="main.jsp"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 				<%@ include file="menu.jsp"%>
@@ -60,12 +60,7 @@
 			<a href="createBetReport.do?betId=${bet.betId }"
 				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">신고</a>
 			<br>
-			<c:if test="${userId eq bet.betOwner }">
-				<div align="left">
-					<button type="submit" class="btn btn btn-warning"
-						onclick="showPopup();">초대하기</button>
-				</div>
-			</c:if>
+			
 			<c:forEach items="${list }" var="list">
 			<c:if test="${userId eq list }">
 				<div align="left">
@@ -102,12 +97,13 @@
 							<tr>
 								<td><img src="resources/images/betofall.jpg"
 									alt="Banner Image 1" /><br> <br> <input type="radio"
-									name="teamName" value="A">A
-									</td>
+									name="teamName" value="A">A<br>
+									
 								<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>
 								<td><img src="resources/images/betofall.jpg"
 									alt="Banner Image 1" /><br> <br> <input type="radio"
-									name="teamName" value="B">B
+									name="teamName" value="B">B<br>
+
 									</td>
 							</tr>
 						</table>
@@ -137,18 +133,6 @@
 					</c:forEach>
 					
 
-					<div class="panel-footer">
-						<div class="write_area">
-							<form action="registComment.do" method="post">
-								<input type="hidden" name="betId" value="${bet.betId }">
-								<textarea class="input_write_comment" name="comment"
-									placeholder="댓글쓰기"></textarea>
-								<input type="hidden" name="comment" value="${bet.betId }">
-
-								<input type="submit" class="comment_submit" value="전송">
-							</form>
-						</div>
-					</div>
 				</div>
 			</div>
 			<!-- // end #content -->

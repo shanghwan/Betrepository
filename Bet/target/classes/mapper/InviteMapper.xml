@@ -19,8 +19,12 @@
   </delete>
   
   <select id="searchByAllInviteByUserId" parameterType="String" resultType="Invite">
-  SELECT * FROM invite_tb WHERE INVITEUSERID = #{inviteUserId}
+  SELECT INVITEUSERID, betId FROM invite_tb WHERE INVITEUSERID = #{inviteUserId}
   </select>
+  
+  <delete id="deletebyBetId" parameterType="String">
+  delete from invite_tb WHERE betId = #{betId}
+  </delete>
     
   
   

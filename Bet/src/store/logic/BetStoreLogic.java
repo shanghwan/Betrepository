@@ -107,11 +107,28 @@ public class BetStoreLogic implements BetStore{
 
 	@Override
 	public void update(Bet bet) {
-		
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		try {
+			BetMapper mapper = session.getMapper(BetMapper.class);
+			mapper.update(bet);
+			session.commit();
+		}finally {
+			session.close();
+		}
 	}
 
 	@Override
 	public void delete(String betId) {
+		
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		
+		try {
+			BetMapper mapper = session.getMapper(BetMapper.class);
+			mapper.delete(betId);
+			session.commit();
+		}finally {
+			session.close();
+		}
 		
 	}
 
