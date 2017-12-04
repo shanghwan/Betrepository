@@ -6,4 +6,6 @@ public interface GameService {
 	String joinBetOfAll(String userId,String teamName, String betId);
 	String gameReady(String betId, String teamId);
 	String gameStart(String betId);
+	String voteGame(String betId, String userId, String vote);
+	String gameEnd(String betId,String vote);
 }

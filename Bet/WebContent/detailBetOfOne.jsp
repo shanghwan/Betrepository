@@ -121,16 +121,22 @@
 				<div id="page">
 					<h1 class="page-title" align="center">${bet.title }</h1>
 					<h3 class="page-title" align="left">${bet.content }</h3>
-					<form action="#" method="post">
+					<form action="betVote.do" method="post">
+					<input type="hidden" name="betId" value="${bet.betId }">
 						<table>
 							<tr>
 								<td><img src="resources/images/betofall.jpg"
-									alt="Banner Image 1" /><br> <br> <input type="radio"
-									name="open" value="A">Team A</td>
+									alt="Banner Image 1" /><br> <br> 
+									<c:if test="${bet.state eq '진행'}">
+									<c:if test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
+									<input type="radio"
+									name="vote" value="A">Team A</c:if></c:if></td>
 								<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>
 								<td><img src="resources/images/betofall.jpg"
-									alt="Banner Image 1" /><br> <br> <input type="radio"
-									name="open" value="B">Team B</td>
+									alt="Banner Image 1" /><br> <br> 
+									<c:if test="${bet.state eq '진행'}">
+									<c:if test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
+									<input type="radio"	name="vote" value="B">Team B</c:if></c:if></td>
 							</tr>
 						</table>
 
@@ -143,11 +149,16 @@
 						${p.userId } <c:if test="${userId eq teamB.leader.userId or userId eq bet.betOwner }"><a href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${p.userId }&betWay=${bet.betWay}">[X]</a></c:if>,
 						</c:forEach>
 
+						<c:if test="${bet.state eq '진행'}">
+						<c:if test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
 						<div align="center">
 							<button type="submit" class="btn btn btn-warning">투표하기</button>
 						</div>
-
+						</c:if></c:if>
 					</form>
+						
+						
+						
 
 					<c:forEach var="comment" items="${bet.comments }">
 						<table class="table" style="font-size: 13px; padding: 20px;">

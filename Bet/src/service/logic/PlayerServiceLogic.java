@@ -32,7 +32,7 @@ public class PlayerServiceLogic implements PlayerService{
 
 	@Override
 	public void modifyPlayer(Player player) {
-		
+		playerStore.update(player);
 	}
 
 	@Override
@@ -48,6 +48,11 @@ public class PlayerServiceLogic implements PlayerService{
 	@Override
 	public List<Player> findByUserId(String userId) {
 		return playerStore.searchByUserId(userId);
+	}
+
+	@Override
+	public Player findByBetId(String betId,String userId) {
+		return playerStore.searchByBetId(betId,userId);
 	}
 
 }

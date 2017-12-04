@@ -40,7 +40,6 @@ public class PlayerStoreLogic implements PlayerStore {
 		} finally {
 			session.close();
 		}
-
 		return player;
 	}
 
@@ -93,17 +92,46 @@ public class PlayerStoreLogic implements PlayerStore {
 	public List<Player> searchByUserId(String userId) {
 		
 		SqlSession session = BetSessionFactory.getinstance().getSession();
-		
 		List<Player> list = null;
-		
 		try {
 			PlayerMapper mapper = session.getMapper(PlayerMapper.class);
 			list = mapper.searchByUserId(userId);
 		}finally {
 			session.close();
 		}
-		
 		return list;
+	}
+
+	@Override
+	public Player searchByBetId(String userId, String betId) {
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		HashMap<String, String> map = new HashMap<>();
+		Player player = null;
+		try {
+			PlayerMapper mapper = session.getMapper(PlayerMapper.class);
+			map.put("userId", userId);
+			map.put("betId", betId);
+			player = mapper.searchByBetId(map);
+		} finally {
+			session.close();
+		}
+		return player;
+	}
+
+	@Override
+	public int voteCount(String betId, String vote) {
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		HashMap<String, String> map = new HashMap<>();
+		int result=0;
+		try {
+			PlayerMapper mapper = session.getMapper(PlayerMapper.class);
+			map.put("vote", vote);
+			map.put("betId", betId);
+			result = mapper.voteCount(map);
+		} finally {
+			session.close();
+		}
+		return result;
 	}
 
 }

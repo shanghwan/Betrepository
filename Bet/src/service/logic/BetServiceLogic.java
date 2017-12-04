@@ -16,6 +16,8 @@ import service.BetService;
 import service.TeamService;
 import store.BetStateStore;
 import store.BetStore;
+import store.CommentStore;
+import store.InviteStore;
 import store.PlayerStore;
 import store.UserStore;
 import store.CommentStore;
@@ -59,7 +61,7 @@ public class BetServiceLogic implements BetService {
 		String betId = betStore.create(bet);
 
 		Team team = new Team();
-
+		
 		team.setBetId(betId);
 		team.setTeamName("A");
 		String teamId = teamService.registTeam(team);
@@ -69,6 +71,7 @@ public class BetServiceLogic implements BetService {
 		player.setPoint(bet.getPoint());
 		player.setTeamId(teamId);
 		player.setUserId(user.getUserId());
+		player.setVote("N");
 		playerStore.create(player);
 
 		team.setTeamName("B");
@@ -88,7 +91,10 @@ public class BetServiceLogic implements BetService {
 		Bet bet = betStore.searchByBetId(betId);
 		List<Comment> list = CommentStore.searchAll(betId);
 		bet.setComments(list);
-
+		int A = playerStore.voteCount(betId, "A");
+		int B = playerStore.voteCount(betId, "B");
+		bet.setaVote(A);
+		bet.setbVote(B);
 		return bet;
 	}
 

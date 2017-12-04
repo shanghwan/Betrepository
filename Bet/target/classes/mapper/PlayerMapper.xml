@@ -13,6 +13,7 @@
 		point, vote )
 		VALUES(#{playerId}, #{betId}, #{teamId}, #{userId},
 		#{position}, #{point}, 'N' )
+		#{position}, #{point}, #{vote} )
 	</insert>
 
 	<select id="searchByPlayerId" parameterType="string" resultType="Player">
@@ -31,14 +32,19 @@
 
 	<update id="update" parameterType="Player">
 		UPDATE player_tb
-		set teamId =
-		#{teamId},
+		set teamId = #{teamId},
 		position = #{position},
 		point = #{point},
 		vote = #{vote}
 		WHERE playerId = #{playerId}
 	</update>
 	
+	<select id="searchByBetId" parameterType="HashMap" resultType="Player">
+	SELECT playerId, betId, teamId, userId, position, point, vote
+		FROM
+		player_tb
+		WHERE betId = #{betId} AND userId = #{userId}
+	</select>
 	
 	<delete id="delete" parameterType="HashMap">
 		DELETE FROM player_tb
@@ -52,5 +58,9 @@
 		player_tb
 		WHERE userId = #{userId}
 	</select>
-
+	
+	<select id="voteCount" parameterType="HashMap" resultType="Int">
+		select count(vote) from player_tb where betId = #{betId} and vote = #{vote}
+	</select>
+	
 </mapper>
