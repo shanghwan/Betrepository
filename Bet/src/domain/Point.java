@@ -3,23 +3,24 @@ package domain;
 import java.sql.Date;
 
 public class Point {
-	
+
 	private String pointId;
 	private String userId;
 	private String receiverId;
 	private int point;
-	private Date regDate;
+	private Date pointDate;
 	private String type;
-	
-	public Point() {}
-	
-	public Point(String pointId, String userId, String receiverId, int point, Date regDate, String type) {
+
+	public Point() {
+	}
+
+	public Point(String pointId, String userId, String receiverId, int point, Date pointDate, String type) {
 		super();
 		this.pointId = pointId;
 		this.userId = userId;
 		this.receiverId = receiverId;
 		this.point = point;
-		this.regDate = regDate;
+		this.pointDate = pointDate;
 		this.type = type;
 	}
 
@@ -55,12 +56,12 @@ public class Point {
 		this.point = point;
 	}
 
-	public Date getRegDate() {
-		return regDate;
+	public Date getPointDate() {
+		return pointDate;
 	}
 
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setPointDate(Date pointDate) {
+		this.pointDate = pointDate;
 	}
 
 	public String getType() {
@@ -70,7 +71,5 @@ public class Point {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
 
 }

@@ -17,10 +17,6 @@ public class CommentServiceLogic implements CommentService {
 	@Autowired
 	private CommentStore commentStore;
 
-	public CommentServiceLogic() {
-		commentStore = new CommentStoreLogic();
-	}
-
 	@Override
 	public void registComment(Comment comment) {
 		Date today = new Date(Calendar.getInstance().getTimeInMillis());

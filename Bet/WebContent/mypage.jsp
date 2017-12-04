@@ -10,18 +10,16 @@
 <title>BetOfOne</title>
 <link href="resources/css/style5.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/style4.css" rel="stylesheet" type="text/css" />
-<!--[if IE]><link href="resources/css/style-ie.css" rel="stylesheet" type="text/css" /><![endif]-->
 <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="resources/js/site.js"></script>
 </head>
-
 <body>
 	<div id="wrapper">
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="index.jsp"><h1>내기의 神</h1></a>
+					<a href="main.jsp"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 				<%@ include file="menu.jsp"%>
@@ -41,8 +39,8 @@
 							<div class="post-summary" align="center">
 								<ul id="nav">
 									<li class="active"><a href="mypage.jsp">회원수정</a></li>
-									<li><a href="#">내기목록</a></li>
-									<li><a href="#">포인트내역</a></li>
+									<li><a href="betStateList.do?userId=${userId }&state=대기  ">내기목록</a></li>
+									<li><a href="pointList.do">포인트내역</a></li>
 									<li><a href="userDeletepassword.jsp">회원탈퇴</a></li>
 									<li><a href="inviteList.do">초대목록</a></li>
 								</ul>
@@ -76,16 +74,7 @@
 				<!-- // end #content -->
 				<div id="sidebar">
 					<div class="widget widget-search">
-						<h2>회원</h2>
-						<div class="contentarea" align="center">
-							<form action="logout.do" method="post">
-								<label>${loginUser.name }님 환영합니다.</label><br> <br> <label>포인트
-									: ${loginUser.point }p</label> <br></br>
-								<button type="submit" class="btn btn btn-warning">logout</button>
-								<a href="mypage.jsp"><button type="button"
-										class="btn btn btn-warning">MyPage</button></a>
-							</form>
-						</div>
+						<%@ include file="usermenu.jsp"%>
 					</div>
 				</div>
 

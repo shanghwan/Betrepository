@@ -6,39 +6,64 @@
 <mapper namespace="store.mapper.PlayerMapper">
 
 	<insert id="create" parameterType="Player">
-		<selectKey keyProperty="playerId" resultType="string"
-			order="BEFORE">
+		<selectKey keyProperty="playerId" resultType="string" order="BEFORE">
 			SELECT player_seq.nextval FROM dual
 		</selectKey>
-		INSERT INTO player_tb(playerId, betId, teamId, userId, position, point, vote )
-		VALUES(#{playerId}, #{betId}, #{teamId}, #{userId}, #{position}, #{point}, 'N' )
+		INSERT INTO player_tb(playerId, betId, teamId, userId, position, point, vote)
+		VALUES(#{playerId}, #{betId}, #{teamId}, #{userId},	#{position}, #{point}, #{vote} )
 	</insert>
 
 	<select id="searchByPlayerId" parameterType="string" resultType="Player">
 		SELECT playerId, betId, teamId, userId, position, point, vote
-		FROM player_tb
+		FROM
+		player_tb
 		WHERE playerId = #{playerId}
 	</select>
-	
+
 	<select id="searchByTeamId" parameterType="HashMap" resultType="Player">
 		SELECT playerId, betId, teamId, userId, position, point, vote
-		FROM player_tb
+		FROM
+		player_tb
 		WHERE teamId = #{teamId} AND betId = #{betId}
 	</select>
-	
+
 	<update id="update" parameterType="Player">
 		UPDATE player_tb
 		set teamId = #{teamId},
-			position = #{position},
-			point = #{point},
-			vote = #{vote}
+		position = #{position},
+		point = #{point},
+		vote = #{vote}
 		WHERE playerId = #{playerId}
 	</update>
 	
+	<select id="searchByBetId" parameterType="HashMap" resultType="Player">
+	SELECT playerId, betId, teamId, userId, position, point, vote
+		FROM
+		player_tb
+		WHERE betId = #{betId} AND userId = #{userId}
+	</select>
 	
-	<delete id="delete" parameterType="HashMap">
+	<delete id="deleteByBetIdAndUserId" parameterType="HashMap">
 		DELETE FROM player_tb
-		WHERE userId = #{userId} AND betId = #{betId}
+		WHERE
+		userId = #{userId} AND betId = #{betId}
 	</delete>
-
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM player_tb
+		WHERE
+		playerId = #{playerId}
+	</delete>
+	
+	<select id="searchByUserId" parameterType="String" resultType="Player">
+		SELECT playerId, betId, teamId, userId, position, point, vote
+		FROM
+		player_tb
+		WHERE userId = #{userId}
+	</select>
+	
+	<select id="voteCount" parameterType="HashMap" resultType="Int">
+		select count(vote) from player_tb where betId = #{betId} and vote = #{vote}
+	</select>
+	
 </mapper>

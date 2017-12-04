@@ -10,7 +10,6 @@
 <title>BetOfOne</title>
 <link href="resources/css/style.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/style2.css" rel="stylesheet" type="text/css" />
-<!--[if IE]><link href="resources/css/style-ie.css" rel="stylesheet" type="text/css" /><![endif]-->
 <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="resources/js/site.js"></script>
@@ -21,7 +20,7 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="index.jsp"><h1>내기의 神</h1></a>
+					<a href="main.jsp"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 				<%@ include file="menu.jsp"%>
@@ -95,43 +94,7 @@
 
 				</div>
 				<!-- // end #content -->
-				<c:choose>
-					<c:when test="${loginUser eq null }">
-						<div id="sidebar">
-							<div class="widget widget-search">
-								<h2>Login</h2>
-								<div class="contentarea" align="center">
-									<form action="login.do" method="post">
-										&nbsp;&nbsp;ID : <input type="text" name="userId"
-											placeholder="아이디" size="12"></input><br /> PW : <input
-											type="password" name="password" placeholder="패스워드" size="12"></input><br></br>
-										<button type="submit" class="btn btn btn-warning">로그인</button>
-										<a href="signUp.jsp"><button type="button"
-												class="btn btn btn-warning">회원 가입</button></a>
-
-									</form>
-								</div>
-							</div>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<div id="sidebar">
-							<div class="widget widget-search">
-								<h2>회원</h2>
-								<div class="contentarea" align="center">
-									<form action="logout.do" method="post">
-										<label>${loginUser.name }님 환영합니다.</label><br> <br> <label>포인트
-											: ${loginUser.point }p</label> <br></br>
-										<button type="submit" class="btn btn btn-warning">logout</button>
-										<a href="mypage.jsp"><button type="button"
-												class="btn btn btn-warning">MyPage</button></a>
-
-									</form>
-								</div>
-							</div>
-						</div>
-					</c:otherwise>
-				</c:choose>
+				<%@ include file="usermenu.jsp"%>
 			</div>
 			<div id="footer">
 				<p>

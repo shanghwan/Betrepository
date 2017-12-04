@@ -6,10 +6,11 @@ import domain.Report;
 
 public interface ReportBetStore {
 	
-	String create(Report report);
+	void create(Report report);
 	Report search(String reportId);
 	List<Report> searchByAllReportByBetId(String betId);
 	List<Report> searchByTarget(String target);
+	List<Report> searchByAllBetReport();
 	void delete(String reportId);
 	void deleteAllByTarget(String target);
 	

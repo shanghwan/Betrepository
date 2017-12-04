@@ -3,6 +3,7 @@ package store;
 import java.util.List;
 
 import domain.Point;
+import domain.User;
 
 public interface PointStore {
 
@@ -10,7 +11,14 @@ public interface PointStore {
 
 	List<Point> searchAll(String userId);
 
-	String gift(Point point);
+	//
+	void update(Point point);
+
+	//
+	Point searchPoint(String userId);
+
+	//
+	Point searchReceiver(String receiverId);
 
 	void delete(String userId);
 

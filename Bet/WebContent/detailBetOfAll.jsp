@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="description" content="Project Description" />
 <meta name="keywords" content="Project Keywords" />
-<title>BetOfOne</title>
+<title>BetOfAll</title>
 <link href="resources/css/style6.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/style8.css" rel="stylesheet" type="text/css" />
 
@@ -37,6 +37,10 @@
 		window.open("BetFail.do?betId=${bet.betId}", "a",
 				"width=500, height=300, left=100, top=50");
 	}
+	function showPopup1() {
+		window.open("BetReport.do?target=${bet.betId}&userId=${userId}", "a",
+				"width=500, height=300, left=100, top=50");
+	}
 </script>
 </head>
 
@@ -45,71 +49,49 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="index.jsp"><h1>내기의 神</h1></a>
+					<a href="main.jsp"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 				<%@ include file="menu.jsp"%>
 			</div>
 			<!-- // end #header -->
 			<div id="banner">
-				<h1 class="page-title">BetOf${bet.betWay }(${bet.betId })</h1>
+				<h1 class="page-title">[${bet.betId }]&nbsp;${bet.title }</h1>
 			</div>
 			<!-- // end #banner -->
+			<c:if test="${bet.state eq '대기' and bet.betOwner eq userId}">
 			<a href="${ctx }/article/recommend.do?articleId=${article.articleId}"
-				class="glyphicon glyphicon-cog pull-right" style="padding: 10px">추천</a>
-			<a href="createBetReport.do?betId=${bet.betId }"
-				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">신고</a>
-			<br>
-			
-			<c:forEach items="${list }" var="list">
-			<c:if test="${userId eq list }">
-				<div align="left">
-					<a href="gamestart.do?userId=${userId }&betId=${bet.betId}"><button type="submit" class="btn btn btn-warning">참여하기</button></a>
-				</div>
-			</c:if>
-			</c:forEach>
+				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">삭제</a>
+				</c:if>
+			<a class="glyphicon glyphicon-cog pull-right" style="padding: 10px"
+				onclick="showPopup1();">신고</a> <br>
 			<div align="right">
-				<br> 종료날짜 : ${bet.endDate} <br> 내기장 아이디 : ${bet.betOwner }
-				<Br> 포인트 : ${bet.point }<br> 참여한 아이디 : <select>
-					<option selected>A팀</option>
-					<c:forEach items="${team }" var="teamA" varStatus="sts">
-						<option value="${team.players.userName }">
-						</option>
-					</c:forEach>
-					
-					
-				</select><select>
-					<option selected>B팀</option>
-					<option>옵션1</option>
-					<option>옵션2</option>
-					<option>옵션3</option>
-				</select>
+				<br> 종료날짜 : ${bet.endDate} <br> 상태 : ${bet.state} <br> 내기장 아이디 : ${bet.betOwner }
+            <br> 내기 방식 : BetOf${bet.betWay } <br> 포인트 방식 : ${bet.pointCheck } <br> <c:if test="${bet.pointCheck eq 'LOCK' }">내기포인트 : ${bet.point }</c:if>
+
 			</div>
 
 			<div id="main" class="clearfix">
 				<div id="page">
-					<h1 class="page-title" align="center">${bet.title }</h1>
-					<h3 class="page-title" align="left">${bet.content }</h3>
+					<h3 class="page-title" align="center">${bet.content }</h3><br>
 					<form action="gameJoin.do" method="post">
-					<input type="hidden" name="betId" value="${bet.betId }">
-					<input type="hidden" name="pointBet" value="${bet.point }">
+						<input type="hidden" name="betId" value="${bet.betId }"> <input
+							type="hidden" name="pointBet" value="${bet.point }">
 						<table>
 							<tr>
 								<td><img src="resources/images/betofall.jpg"
 									alt="Banner Image 1" /><br> <br> <input type="radio"
-									name="teamName" value="A">A
-									</td>
+									name="teamName" value="A">A<br>
 								<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>
 								<td><img src="resources/images/betofall.jpg"
 									alt="Banner Image 1" /><br> <br> <input type="radio"
-									name="teamName" value="B">B
-									</td>
+									name="teamName" value="B">B<br></td>
 							</tr>
 						</table>
 
 						<div align="center">
 							<input type="submit" class="btn btn btn-warning" value="투표하기">
-							
+
 						</div>
 
 					</form>
@@ -130,20 +112,8 @@
 							</tr>
 						</table>
 					</c:forEach>
-					
 
-					<div class="panel-footer">
-						<div class="write_area">
-							<form action="registComment.do" method="post">
-								<input type="hidden" name="betId" value="${bet.betId }">
-								<textarea class="input_write_comment" name="comment"
-									placeholder="댓글쓰기"></textarea>
-								<input type="hidden" name="comment" value="${bet.betId }">
 
-								<input type="submit" class="comment_submit" value="전송">
-							</form>
-						</div>
-					</div>
 				</div>
 			</div>
 			<!-- // end #content -->
