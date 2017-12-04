@@ -3,13 +3,20 @@ package service;
 import java.util.List;
 
 import domain.Point;
+import domain.Team;
 import domain.User;
 
 public interface PointService {
 
 	String registPoint(Point point); // 내역등록
 
-	String gamePoint(Point point, String teamId);
+	//
+	String betAllGamePoint(Point point, Team team);
+
+	// String betOneGamePoint(Point point, String teamId);
+
+	//
+	String betTeamGamePoint(Point point, Team team);
 
 	List<Point> findAllPoint(String userId); // 내역조회
 

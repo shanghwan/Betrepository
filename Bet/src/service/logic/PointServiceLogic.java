@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import domain.Bet;
 import domain.Point;
 import domain.Team;
 import domain.User;
@@ -60,36 +61,49 @@ public class PointServiceLogic implements PointService {
 		} else if (point.getReceiverId().equals(null)) {
 			point.setType("signUp");
 
-		} else if (point.getReceiverId().equals(null)) {
-			point.setType("win");
-
 		}
 		return null;
 	}
 
 	@Override
-	public String gamePoint(Point point, String teamId) {
-		Team team = teamStore.search(teamId);
+	public String betAllGamePoint(Point point, Team team) {
+		// 포인트방식없음
+		return null;
+	}
+
+	@Override
+	public String betTeamGamePoint(Point point, Team team) {
+		// 팀하고 원하고 같이.player.size로 해결할 예정
+
+		Bet bet = new Bet();
+		team = teamStore.search(team.getTeamId());
 		team.getBetId();
 		team.getTeamName();
 		team.getResult();
-		
-		//내기방식에 따라서(올/팀/원)
-		
 
-		if (point.getReceiverId().equals(null)) {
-			if (point.getType().equals("win")) {
-				// 내기방에 있는 a,b
-				// 승자팀 찾아와
-				//포인트방식에 따라서(올인/프리/고정)
-				// 팀의 포인트를 2배
-				// 그 팀에 속한 개인에 건 포인트수치에 2배
-			} else if (point.getType().equals("lose")) {
-				// 패자팀 찿아와
-				// 포인트소멸
-				// 각 유저마자 건 포인트 제각각
+		// 내기방식에 따라서(올/팀/원)
+		if (bet.getBetWay().equals("one")) {
+
+			if (point.getReceiverId().equals(null)) {
+				if (point.getType().equals("win")) {
+					// 내기방에 있는 a,b
+					// 승자팀 찾아와
+					// 포인트방식에 따라서(올인/프리/고정)
+					// 팀의 포인트를 2배
+					// 그 팀에 속한 개인에 건 포인트수치에 2배
+				} else if (point.getType().equals("lose")) {
+					// 패자팀 찿아와
+					// 포인트소멸
+					// 각 유저마자 건 포인트 제각각
+				}
 			}
+
+		} else if (bet.getBetWay().equals("all")) {
+
+		} else if (bet.getBetWay().equals("team")) {
+
 		}
+
 		return null;
 	}
 
