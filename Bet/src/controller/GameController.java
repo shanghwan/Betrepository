@@ -56,9 +56,12 @@ public class GameController {
 		return "BetDetail.do";
 	}
 	
-	@RequestMapping(value = "/betVote.do", method = RequestMethod.GET)
-	public String gameVote(String betId, String vote) {
-		return null;
+	@RequestMapping(value = "/betVote.do", method = RequestMethod.POST)
+	public String gameVote(String betId, String vote, HttpSession session) {
+		String userId = (String) session.getAttribute("userId");
+//		System.out.println("체크"+betId + " " +vote);
+		gameService.voteGame(betId, userId, vote);
+		return "BetDetail.do";
 	}
 	
 }

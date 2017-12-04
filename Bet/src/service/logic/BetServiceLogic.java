@@ -88,7 +88,10 @@ public class BetServiceLogic implements BetService {
 		Bet bet = betStore.searchByBetId(betId);
 		List<Comment> list = CommentStore.searchAll(betId);
 		bet.setComments(list);
-
+		int A = playerStore.voteCount(betId, "A");
+		int B = playerStore.voteCount(betId, "B");
+		bet.setaVote(A);
+		bet.setbVote(B);
 		return bet;
 	}
 

@@ -121,7 +121,8 @@
 				<div id="page">
 					<h1 class="page-title" align="center">${bet.title }</h1>
 					<h3 class="page-title" align="left">${bet.content }</h3>
-					<form action="#" method="post">
+					<form action="betVote.do" method="post">
+					<input type="hidden" name="betId" value="${bet.betId }">
 						<table>
 							<tr>
 								<td><img src="resources/images/betofall.jpg"
