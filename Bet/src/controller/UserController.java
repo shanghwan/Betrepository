@@ -151,7 +151,7 @@ public class UserController {
 		session.setAttribute("loginUser", loginUser.getPoint());
 		return "attendance.jsp";
 	}
-
+//Bet/target/m2e-wtp/web-resources/META-INF/maven/Bet/Bet/pom.proper
 	@RequestMapping(value = "/invite.do")
 	public String invite(String userId, String betId, Model model) {
 
