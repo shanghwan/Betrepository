@@ -26,6 +26,7 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
 	private AttendanceService attendanceService;
 	@Autowired
 	private BetService betService; 
