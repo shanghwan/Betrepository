@@ -66,4 +66,11 @@
 		select count(vote) from player_tb where betId = #{betId} and vote = #{vote}
 	</select>
 	
+	
+	<select id="searchPointByTeamId" parameterType="String" resultType="Player">
+		SELECT playerId, betId, teamId, userId, position, point, vote
+		FROM player_tb
+		WHERE teamId = #{teamId}
+	</select>
+	
 </mapper>

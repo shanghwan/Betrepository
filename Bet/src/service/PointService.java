@@ -22,6 +22,4 @@ public interface PointService {
 
 	void removePoint(String userId); // 탈퇴
 
-	void updatePoint(Point point);
-
 }

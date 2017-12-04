@@ -32,8 +32,8 @@ public class PointServiceLogic implements PointService {
 	private PlayerStore playerStore;
 	@Autowired
 	private BetStore betStore;
-	// @Autowired
-	// private AttendanceStore attendanceStore;
+	@Autowired
+	private AttendanceStore attendanceStore;
 
 	@Override
 	public String registPoint(Point point) {
@@ -68,6 +68,13 @@ public class PointServiceLogic implements PointService {
 	@Override
 	public String betAllGamePoint(Point point, Team team) {
 		// 포인트방식없음
+		if (point.getReceiverId().equals(null)) {
+			if (team.getResult().equals("win")) {
+
+			} else if (team.getResult().equals("lose")) {
+
+			}
+		}
 		return null;
 	}
 
@@ -81,29 +88,63 @@ public class PointServiceLogic implements PointService {
 		team.getTeamName();
 		team.getResult();
 
-		// 내기방식에 따라서(올/팀/원)
-		if (bet.getBetWay().equals("one")) {
+		if (bet.getBetWay().equals("고정")) {
 
-			if (point.getReceiverId().equals(null)) {
-				if (point.getType().equals("win")) {
-					// 내기방에 있는 a,b
-					// 승자팀 찾아와
-					// 포인트방식에 따라서(올인/프리/고정)
-					// 팀의 포인트를 2배
-					// 그 팀에 속한 개인에 건 포인트수치에 2배
-				} else if (point.getType().equals("lose")) {
-					// 패자팀 찿아와
-					// 포인트소멸
-					// 각 유저마자 건 포인트 제각각
-				}
+			if (team.getResult().equals("WIN")) {
+				team.getTeamName(); // a하고 b
+				Team teamW = teamStore.searchByTeamName(team.getBetId(), team.getTeamName());
+				// teamW.setTotalPoint(totalPoint);
+				// 내기방에 있는 a,b
+				// 승자팀 찾아와
+				// 팀의 포인트를 2배
+				// 그 팀에 속한 개인에 건 포인트수치에 2배
+			} else if (team.getResult().equals("lose")) {
+				team.getResult();
+				team.getTeamName();
+				// 패자팀 찿아와
+				// 포인트소멸
+				// 각 유저마자 건 포인트 제각각
 			}
-
-		} else if (bet.getBetWay().equals("all")) {
-
-		} else if (bet.getBetWay().equals("team")) {
-
 		}
 
+		if (bet.getBetWay().equals("프리")) {
+
+			if (team.getResult().equals("win")) {
+				team.getResult();
+				team.getTeamName();
+
+			} else if (team.getResult().equals("lose")) {
+				team.getResult();
+				team.getTeamName();
+
+			}
+		}
+
+		if (bet.getBetWay().equals("올인")) {
+			User user = userStore.searchByUserId(point.getUserId()); // 유저내역에 포인트 가져와
+			user.setPoint(0); // 보유 포인트를 전부걸어 0으로만듬
+			userStore.update(user);// 유저내역 변경
+
+			// 상대방 포인트도 포인트가져와서 보유포인트 0으로 만듬.
+			User user2 = userStore.searchByUserId(point.getUserId());
+			user2.setPoint(0);
+			userStore.update(user2);
+
+			if (team.getResult().equals("win")) {
+				// 내기방, 팀아이디를 찾아서
+				Team teamW = teamStore.searchByTeamName(team.getBetId(), team.getTeamName());
+				// 이겼을 경우 내 포인트의 2배를 준다
+				teamW.setTotalPoint(user.getPoint() * 2);
+				// teamW.setTotalPoint(playerStore.s);
+				userStore.update(user);
+				pointStore.create(point);
+
+			} else if (team.getResult().equals("lose")) {
+				// 졌을때 포인트를 0으로 만듬.
+				Team teamL = teamStore.searchByTeamName(team.getBetId(), team.getTeamName());
+				playerStore.sear
+			}
+		}
 		return null;
 	}
 
@@ -115,11 +156,6 @@ public class PointServiceLogic implements PointService {
 	@Override
 	public void removePoint(String userId) {
 		pointStore.delete(userId);
-	}
-
-	@Override
-	public void updatePoint(Point point) {
-
 	}
 
 }

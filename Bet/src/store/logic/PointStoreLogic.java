@@ -56,19 +56,6 @@ public class PointStoreLogic implements PointStore {
 	}
 
 	@Override
-	public void update(Point point) {
-		SqlSession session = BetSessionFactory.getinstance().getSession();
-		try {
-			PointMapper mapper = session.getMapper(PointMapper.class);
-			mapper.update(point);
-			session.commit();
-		} finally {
-			session.close();
-		}
-		// return point.getPointId();
-	}
-
-	@Override
 	public Point searchPoint(String userId) {
 		SqlSession session = BetSessionFactory.getinstance().getSession();
 		Point point = null;

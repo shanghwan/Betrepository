@@ -16,9 +16,6 @@ public interface PointMapper {
 	void delete(String userId);
 
 	//
-	void update(Point point);
-
-	//
 	Point searchReceiver(String receiverId);
 
 }

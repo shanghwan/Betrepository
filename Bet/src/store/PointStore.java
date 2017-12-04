@@ -12,9 +12,6 @@ public interface PointStore {
 	List<Point> searchAll(String userId);
 
 	//
-	void update(Point point);
-
-	//
 	Point searchPoint(String userId);
 
 	//
