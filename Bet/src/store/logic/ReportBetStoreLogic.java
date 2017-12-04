@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import domain.Report;
 import store.ReportBetStore;
+import store.mapper.BetMapper;
 import store.mapper.ReportBetMapper;
 
 @Repository
@@ -14,7 +15,7 @@ public class ReportBetStoreLogic implements ReportBetStore{
 	
 
 	@Override
-	public String create(Report report) {
+	public void create(Report report) {
 		
 		SqlSession session = BetSessionFactory.getinstance().getSession();
 		
@@ -25,55 +26,22 @@ public class ReportBetStoreLogic implements ReportBetStore{
 		}finally {
 			session.close();
 		}
-		
-		return report.getReportId();
 	}
+	
 
 	@Override
 	public Report search(String reportId) {
-		
-		SqlSession session = BetSessionFactory.getinstance().getSession();
-		Report report = null;
-		
-		try {
-			ReportBetMapper mapper = session.getMapper(ReportBetMapper.class);
-			report = mapper.search(reportId);
-			
-		}finally {
-			session.close();
-		}
-		return report;
+		return null;
 	}
 
 	@Override
 	public List<Report> searchByAllReportByBetId(String betId) {
-		
-		SqlSession session = BetSessionFactory.getinstance().getSession();
-		List<Report> list = null;
-		
-		try {
-			ReportBetMapper mapper = session.getMapper(ReportBetMapper.class);
-			list = mapper.searchByAllReportByBetId(betId);
-		}finally {
-			session.close();
-		}
-		
-		return list;
+		return null;
 	}
 
 	@Override
 	public List<Report> searchByTarget(String target) {
-		SqlSession session = BetSessionFactory.getinstance().getSession();
-		List<Report> list = null;
-		
-		try {
-			ReportBetMapper mapper = session.getMapper(ReportBetMapper.class);
-			list = mapper.searchByTarget(target);
-		}finally {
-			session.close();
-		}
-		
-		return list;
+		return null;
 	}
 
 	@Override
@@ -88,7 +56,6 @@ public class ReportBetStoreLogic implements ReportBetStore{
 		}finally {
 			session.close();
 		}
-		
 	}
 
 	@Override
@@ -104,5 +71,22 @@ public class ReportBetStoreLogic implements ReportBetStore{
 			session.close();
 		}
 		
+	}
+
+
+	@Override
+	public List<Report> searchByAllBetReport() {
+		
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		List<Report> list = null;
+		
+		try {
+			ReportBetMapper mapper = session.getMapper(ReportBetMapper.class);
+			list = mapper.searchByAllBetReport();
+		}finally {
+			session.close();
+		}
+		
+		return list;
 	}
 }

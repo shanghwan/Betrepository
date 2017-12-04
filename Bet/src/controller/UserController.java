@@ -12,34 +12,38 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import domain.Attendance;
 import domain.Bet;
 import domain.Invite;
+import domain.Report;
 import domain.User;
 import service.AttendanceService;
 import service.BetService;
 import service.InviteService;
+import service.ReportService;
 import service.UserService;
 
 @Controller
 public class UserController {
 
 	@Autowired
-	private AttendanceService attendacneService;
-	@Autowired
 	private UserService userService;
+	@Autowired
+	private AttendanceService attendanceService;
 	@Autowired
 	private BetService betService;
 	@Autowired
 	private InviteService inviteService;
+	@Autowired
+	private ReportService reportService;
 
 	@RequestMapping(value = "/Userregist.do", method = RequestMethod.POST)
 	public String join(User user) {
+
 		userService.regist(user);
 
-		return "redirect:index.jsp";
+		return "redirect:main.jsp";
 	}
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
@@ -50,7 +54,7 @@ public class UserController {
 		if (loginUser != null && loginUser.getPassword().equals(password)) {
 			session.setAttribute("userId", loginUser.getUserId());
 			session.setAttribute("loginUser", loginUser);
-			return "redirect:index.jsp";
+			return "redirect:main.jsp";
 		} else {
 			session.invalidate();
 			return "redirect:signUp.jsp";
@@ -119,39 +123,6 @@ public class UserController {
 		return "BetFail.jsp";
 	}
 
-	@RequestMapping(value = "/attendance.do", method = RequestMethod.POST)
-	public String attendance(HttpServletRequest req, HttpSession session, Attendance attendance) {
-
-		String userId = (String) req.getSession().getAttribute("userId");
-
-		User loginUser = userService.findByUserId(userId);
-
-		// userService.findByUserId(userId);
-		// attendacneService.registAttendance(attendance);
-		// session.setAttribute("loginUser", loginUser);
-		// return "attendance.jsp";
-
-		List<Attendance> list = attendacneService.findAttendance(userId);
-
-		Date d = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-		if (list.size() == 0) {
-			attendacneService.registAttendance(attendance);
-		} else {
-			for (Attendance a : list) {
-				if (sdf.format(d).toString().equals((a.getAttendanceDate().toString()))) {
-					break;
-				} else {
-					attendacneService.registAttendance(attendance);
-				}
-			}
-		}
-
-		session.setAttribute("loginUser", loginUser.getPoint());
-		return "attendance.jsp";
-	}
-//Bet/target/m2e-wtp/web-resources/META-INF/maven/Bet/Bet/pom.proper
 	@RequestMapping(value = "/invite.do")
 	public String invite(String userId, String betId, Model model) {
 
@@ -169,6 +140,42 @@ public class UserController {
 
 		model.addAttribute("list", list);
 		return "inviteList.jsp";
+	}
+
+	@RequestMapping(value = "/adminpageBet.do")
+	public String adminpageBet(Model model) {
+
+		List<Report> list = reportService.findAllBetReport();
+
+		model.addAttribute("BetList", list);
+
+		return "adminpageBet.jsp";
+	}
+
+	@RequestMapping(value = "/registattendance.do", method = RequestMethod.POST)
+	public String registattendance(HttpSession session, String userId, Attendance attendance) {
+
+		User loginUser = userService.findByUserId(userId);
+
+		Date d = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		List<Attendance> list = attendanceService.findAttendance(userId);
+
+		if (list.size() == 0) {
+			attendanceService.registAttendance(attendance);
+		} else {
+			for (Attendance a : list) {
+				if (sdf.format(d).toString().equals((a.getAttendanceDate().toString()))) {
+					break;
+				} else {
+					attendanceService.registAttendance(attendance);
+				}
+			}
+		}
+
+		session.setAttribute("loginUser", loginUser);
+		return "attendance.jsp";
 	}
 
 }

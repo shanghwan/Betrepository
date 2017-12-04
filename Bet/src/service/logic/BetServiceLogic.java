@@ -14,10 +14,14 @@ import domain.Team;
 import domain.User;
 import service.BetService;
 import service.TeamService;
+import store.BetStateStore;
 import store.BetStore;
+import store.CommentStore;
+import store.InviteStore;
 import store.PlayerStore;
 import store.UserStore;
 import store.CommentStore;
+import store.InviteStore;
 
 @Service
 public class BetServiceLogic implements BetService {
@@ -32,28 +36,32 @@ public class BetServiceLogic implements BetService {
 	private PlayerStore playerStore;
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private InviteStore inviteStore;
 
 	@Override
 	public String registBet(Bet bet) {
 		Date today = new Date(Calendar.getInstance().getTimeInMillis());
 		User user = userStore.searchByUserId(bet.getBetOwner());
-
+		
 		bet.setStartDate(today);
-
+		bet.setState("대기");
+		
 		if (bet.getBetWay().equals("all")) {
-			bet.setPointCheck("lock");
+			bet.setState("진행");
+			bet.setPointCheck("LOCK");
 			bet.setPoint(10);
 		}
-		if (bet.getPointCheck().equals("allin")) {
+		if (bet.getPointCheck().equals("ALLIN")) {
 			bet.setPoint(user.getPoint());
 		}
-
+		
 		// point 처리해야함
-
+		
 		String betId = betStore.create(bet);
 
 		Team team = new Team();
-
+		
 		team.setBetId(betId);
 		team.setTeamName("A");
 		String teamId = teamService.registTeam(team);
@@ -63,11 +71,12 @@ public class BetServiceLogic implements BetService {
 		player.setPoint(bet.getPoint());
 		player.setTeamId(teamId);
 		player.setUserId(user.getUserId());
+		player.setVote("N");
 		playerStore.create(player);
 
 		team.setTeamName("B");
 		teamService.registTeam(team);
-
+		
 		return betId;
 	}
 
@@ -82,18 +91,21 @@ public class BetServiceLogic implements BetService {
 		Bet bet = betStore.searchByBetId(betId);
 		List<Comment> list = CommentStore.searchAll(betId);
 		bet.setComments(list);
-
+		int A = playerStore.voteCount(betId, "A");
+		int B = playerStore.voteCount(betId, "B");
+		bet.setaVote(A);
+		bet.setbVote(B);
 		return bet;
 	}
 
 	@Override
-	public List<Bet> findByOwner(String betOwner) {
-		return null;
+	public List<Bet> findByOwner(String betOwner, String betWay) {
+		return betStore.searchByBetOwner(betOwner, betWay);
 	}
 
 	@Override
-	public List<Bet> findByTitle(String title) {
-		return null;
+	public List<Bet> findByTitle(String title, String betWay) {
+		return betStore.searchByTitle(title, betWay);
 	}
 
 	@Override
@@ -108,10 +120,12 @@ public class BetServiceLogic implements BetService {
 
 	@Override
 	public void modify(Bet bet) {
+		betStore.update(bet);
 	}
 
 	@Override
 	public void removeBet(String betId) {
+		inviteStore.deletebyBetId(betId);
 		betStore.delete(betId);
 		teamService.removeTeam(betId);
 	}

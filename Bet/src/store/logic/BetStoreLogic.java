@@ -1,5 +1,6 @@
 package store.logic;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -65,13 +66,39 @@ public class BetStoreLogic implements BetStore{
 	}
 
 	@Override
-	public List<Bet> searchByBetOwner(String betOwner) {
-		return null;
+	public List<Bet> searchByBetOwner(String betOwner, String betWay) {
+		
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		HashMap<String, String> map = new HashMap<>();
+		List<Bet> list = null;
+		
+		try {
+			BetMapper mapper = session.getMapper(BetMapper.class);
+			map.put("betOwner", betOwner);
+			map.put("betWay", betWay);
+			list = mapper.searchByBetOwner(map);
+		}finally {
+			session.close();
+		}
+		
+		return list;
 	}
 
 	@Override
-	public List<Bet> searchByTitle(String title) {
-		return null;
+	public List<Bet> searchByTitle(String title, String betWay) {
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		List<Bet> list = null;
+		HashMap<String, String> map = new HashMap<>();
+		
+		try {
+			BetMapper mapper = session.getMapper(BetMapper.class);
+			map.put("title", title);
+			map.put("betWay", betWay);
+			list = mapper.searchByTitle(map);
+		}finally {
+			session.close();
+		}
+		return list;
 	}
 
 	@Override
@@ -107,11 +134,28 @@ public class BetStoreLogic implements BetStore{
 
 	@Override
 	public void update(Bet bet) {
-		
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		try {
+			BetMapper mapper = session.getMapper(BetMapper.class);
+			mapper.update(bet);
+			session.commit();
+		}finally {
+			session.close();
+		}
 	}
 
 	@Override
 	public void delete(String betId) {
+		
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		
+		try {
+			BetMapper mapper = session.getMapper(BetMapper.class);
+			mapper.delete(betId);
+			session.commit();
+		}finally {
+			session.close();
+		}
 		
 	}
 

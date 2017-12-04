@@ -1,18 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="java.util.Calendar"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="description" content="Project Description" />
 <meta name="keywords" content="Project Keywords" />
-<title>attedance</title>
-<link href="resources/css/style.css" rel="stylesheet" type="text/css" />
-<link href="resources/css/style2.css" rel="stylesheet" type="text/css" />
-<!--[if IE]><link href="resources/css/style-ie.css" rel="stylesheet" type="text/css" /><![endif]-->
+<title>BetOfOne</title>
+<link href="resources/css/style5.css" rel="stylesheet" type="text/css" />
+<link href="resources/css/style4.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="resources/js/site.js"></script>
@@ -23,257 +20,89 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="index.jsp"><h1>내기의 神</h1></a>
+					<a href="main.jsp"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
-				<%@ include file="menu.jsp"%>
+						<ul id="nav">
+							<li><a href="Betlist.do?betWay=one">BetOfOne</a></li>
+							<li><a href="Betlist.do?betWay=all">BetOfAll</a></li>
+							<li><a href="Betlist.do?betWay=team">BetOfTeam</a></li>
+							<li><a href="BetlistByState.do?state=대기">preseason game</a></li>
+						</ul>
 			</div>
 			<!-- // end #header -->
 			<div id="banner">
-				<h1 class="page-title">Attendance</h1>
+				<h1 class="page-title">관리페이지</h1>
 			</div>
-			<c:choose>
-					<c:when test="${loginUser eq null }">
-						<div id="sidebar">
-							<div class="widget widget-search">
-								<h2>Login</h2>
-								<div class="contentarea" align="center">
-									<form action="login.do" method="post">
-										&nbsp;&nbsp;ID : <input type="text" name="userId"
-											placeholder="아이디" size="12"></input><br /> PW : <input
-											type="password" name="password" placeholder="패스워드" size="12"></input><br></br>
-										<button type="submit" class="btn btn btn-warning">로그인</button>
-										<a href="signUp.jsp"><button type="button"
-												class="btn btn btn-warning">회원 가입</button></a>
-
-									</form>
-								</div>
-							</div>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<div id="sidebar">
-							<div class="widget widget-search">
-								<h2>회원</h2>
-								<div class="contentarea" align="center">
-									<form action="logout.do" method="post">
-										<label>${loginUser.name }님 환영합니다.</label><br>
-										<br> <label>포인트 : ${loginUser.point }p</label> <br></br>
-										<button type="submit" class="btn btn btn-warning">logout</button>
-										<a href="#"><button type="button"
-												class="btn btn btn-warning">MyPage</button></a>
-
-									</form>
-								</div>
-							</div>
-						</div>
-					</c:otherwise>
-				</c:choose>
 			<!-- // end #banner -->
 			<div id="main" class="clearfix">
 				<div id="content">
-			
-			<%
-Calendar cal = Calendar.getInstance();
- 
-String strYear = request.getParameter("year");
-String strMonth = request.getParameter("month");
- 
-int year = cal.get(Calendar.YEAR);
-int month = cal.get(Calendar.MONTH);
-int date = cal.get(Calendar.DATE);
- 
-if(strYear != null)
-{
-  year = Integer.parseInt(strYear);
-  month = Integer.parseInt(strMonth);
- 
-}else{
- 
-}
-//년도/월 셋팅
-cal.set(year, month, 1);
- 
-int startDay = cal.getMinimum(java.util.Calendar.DATE);
-int endDay = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
-int start = cal.get(java.util.Calendar.DAY_OF_WEEK);
-int newLine = 0;
- 
-//오늘 날짜 저장.
-Calendar todayCal = Calendar.getInstance();
-SimpleDateFormat sdf = new SimpleDateFormat("yyyMMdd");
-int intToday = Integer.parseInt(sdf.format(todayCal.getTime()));
- 
- 
-%>
-					
-
-												
- 
-</head>
-</body>
-
- 
-
-<!--날짜 네비게이션  -->
-<table width="100%" border="0" cellspacing="1" cellpadding="1" id="KOO" bgcolor="#F3F9D7" style="border:1px solid #CED99C">
- 
-<tr>
-<td height="60">
- 
-       <table width="100%" border="0" cellspacing="0" cellpadding="0">
-       <tr>
-             <td height="10">
-             </td>
-       </tr>
-      
-       <tr>
-             <td align="center" >
-                    <a href="<c:url value='/CalendarExam2.jsp' />?year=<%=year-1%>&amp;month=<%=month%>" target="_self">
-                           <b>&lt;&lt;</b><!-- 이전해 -->
-                    </a>
-                    <%if(month > 0 ){ %>
-                    <a href="<c:url value='/CalendarExam2.jsp' />?year=<%=year%>&amp;month=<%=month-1%>" target="_self">
-                           <b>&lt;</b><!-- 이전달 -->
-                    </a>
-                    <%} else {%>
-                           <b>&lt;</b>
-                    <%} %>
-                    &nbsp;&nbsp;
-                    <%=year%>년
-                   
-                    <%=month+1%>월
-                    &nbsp;&nbsp;
-                    <%if(month < 11 ){ %>
-                    <a href="<c:url value='/CalendarExam2.jsp' />?year=<%=year%>&amp;month=<%=month+1%>" target="_self">
-                           <!-- 다음달 --><b>&gt;</b>
-                    </a>
-                    <%}else{%>
-                           <b>&gt;</b>
-                    <%} %>
-                    <a href="<c:url value='/CalendarExam2.jsp' />?year=<%=year+1%>&amp;month=<%=month%>" target="_self">
-                           <!-- 다음해 --><b>&gt;&gt;</b>
-                    </a>
-             </td>
-       </tr>
-       </table>
- 
-</td>
-</tr>
-</table>
-<br>
-<table border="0" cellspacing="1" cellpadding="1" bgcolor="#FFFFFF">
-<THEAD>
-<TR bgcolor="#CECECE">
-       <TD width='100px'>
-       <DIV align="center"><font color="red">일</font></DIV>
-       </TD>
-       <TD width='100px'>
-       <DIV align="center">월</DIV>
-       </TD>
-       <TD width='100px'>
-       <DIV align="center">화</DIV>
-       </TD>
-       <TD width='100px'>
-       <DIV align="center">수</DIV>
-       </TD>
-       <TD width='100px'>
-       <DIV align="center">목</DIV>
-       </TD>
-       <TD width='100px'>
-       <DIV align="center">금</DIV>
-       </TD>
-       <TD width='100px'>
-       <DIV align="center"><font color="#529dbc">토</font></DIV>
-       </TD>
-</TR>
-</THEAD>
-<TBODY>
-<TR>
+					<div class="post">
+						<div class="post-content clearfix">
+							<div class="post-thumb"></div>
 
 
-<form action="attendance.do?userId=${userId }" method="post">
-<input type="submit"  value="출석체크"></form>
-                  
-
-
-
-
-
-<%
- 
-//처음 빈공란 표시
-for(int index = 1; index < start ; index++ )
-{
-  out.println("<TD >&nbsp;</TD>");
-  newLine++;
-}
- 
-for(int index = 1; index <= endDay; index++)
-{
-       String color = "";
- 
-       if(newLine == 0){          color = "RED";
-       }else if(newLine == 6){    color = "#529dbc";
-       }else{                     color = "BLACK"; };
- 
-       String sUseDate = Integer.toString(year); 
-       sUseDate += Integer.toString(month+1).length() == 1 ? "0" + Integer.toString(month+1) : Integer.toString(month+1);
-       sUseDate += Integer.toString(index).length() == 1 ? "0" + Integer.toString(index) : Integer.toString(index);
- 
-       int iUseDate = Integer.parseInt(sUseDate);
-      
-      
-       String backColor = "#EFEFEF";
-       if(iUseDate == intToday ) {
-             backColor = "#c9c9c9";
-       }
-       out.println("<TD valign='top' align='left' height='92px' bgcolor='"+backColor+"' nowrap>");
-       %>
-       <font color='<%=color%>'>
-             <%=index %>
-       </font>
- 
-       <%
-      
-       out.println("<BR>");
-       out.println(iUseDate);
-       out.println("<BR>");
-      
-      
-       //기능 제거 
-       out.println("</TD>");
-       newLine++;
- 
-       if(newLine == 7)
-       {
-         out.println("</TR>");
-         if(index <= endDay)
-         {
-           out.println("<TR>");
-         }
-         newLine=0;
-       }
-}
-//마지막 공란 LOOP
-while(newLine > 0 && newLine < 7)
-{
-  out.println("<TD>&nbsp;</TD>");
-  newLine++;
-}
-%>
-
-
-
+							<div class="post-summary" align="center">
+								<ul id="nav">
+									<li class="active"><a href="adminpage.jsp">회원신고</a></li>
+									<li><a href="adminpageBet.do">내기신고</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="table-responsive">
+						<form action="pwok.do" method="post">
+							<table border="1">
+									<colgroup>
+										<col width="150" />
+										<col width="300" />
+										<col width="100" />
+									</colgroup>
+									<thead>
+										<tr>
+											<th class="text-center">회원아이디</th>
+											<th class="text-center">신고자</th>
+											<th class="text-center">신고사유</th>
+										</tr>
+									</thead>
+									<c:forEach var="list" items="${BetList }">
+										<tr>
+											<td align="center">${list.betId }</td>
+											<td align="center"><a
+											href="BetDetail.do?betId=${list.betId}"
+											class="list-group-item hidden-xs">${list.title }</a></td>
+											<td align="center">${list.betOwner }</td>
+											<td align="center">${list.state }</td>
+										</tr>
+									</c:forEach>
+								</table>
+							</form>
+						</div>
+					</div>
 				</div>
 				<!-- // end #content -->
-				
+				<div id="sidebar">
+					<div class="widget widget-search">
+						<%@ include file="usermenu.jsp"%>
+					</div>
+				</div>
+
 			</div>
-			
+			<div id="footer">
+				<p>
+					&copy; copyright 2012 <a href="htp://www.dkntemplates.com"
+						title="Dkntemplates">www.dkntemplates.com</a> All right reserved
+				</p>
+
+				<!-- Please don't remove my backlink -->
+				<p>
+					Free Web Design Templates by <a href="http://www.dkntemplates.com"
+						title="Dkntemplates">Dkntemplates.com</a>
+				</p>
+				<!-- Please don't remove my backlink -->
+
+			</div>
 			<!-- // end #footer -->
 		</div>
-		
-		
 		<!-- // end #container -->
 	</div>
 	<!-- // end #wrapper -->

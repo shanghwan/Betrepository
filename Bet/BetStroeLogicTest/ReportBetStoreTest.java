@@ -24,11 +24,13 @@ public class ReportBetStoreTest {
 		
 		Report re = new Report();
 		Date date = new Date(1992/07/04);
+		
+		
 		re.setReportId("1");
 		re.setUserId("koo");
 		re.setTarget("2");
 		re.setReason("멍청이");
-		re.setRegDate(date);
+		re.setreportbetdate(date);
 		
 		store.create(re);
 		

@@ -32,7 +32,7 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="index.jsp"><h1>내기의 神</h1></a>
+					<a href="main.jsp"> <h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 				<%@ include file="menu.jsp"%>
@@ -83,8 +83,8 @@
 										</tr>
 										<tr>
 											<th>공개여부</th>
-											<td><input type="radio" name="openCheck" value="공개">공개
-												<input type="radio" name="openCheck" value="비공개">비공개</td>
+											<td><input type="radio" name="openCheck" value="Y">공개
+												<input type="radio" name="openCheck" value="N">비공개</td>
 										</tr>
 
 										<tr>
@@ -98,9 +98,9 @@
 
 										<tr id="indivisual1">
 											<th>포인트방식</th>
-											<td><input type="radio" name="pointCheck" value="올인">올인
-												<input type="radio" name="pointCheck" value="자유">자유
-												<input type="radio" name="pointCheck" value="고정">고정</td>
+											<td><input type="radio" name="pointCheck" value="ALLIN">올인
+												<input type="radio" name="pointCheck" value="FREE">자유
+												<input type="radio" name="pointCheck" value="LOCK">고정</td>
 										</tr>
 								</table>
 								<br>
@@ -113,60 +113,7 @@
 					</div>
 				</div>
 				<!-- // end #content -->
-				<c:choose>
-					<c:when test="${loginUser eq null }">
-						<div id="sidebar">
-							<div class="widget widget-search">
-								<h2>Login</h2>
-								<div class="contentarea" align="center">
-									<form action="login.do" method="post">
-										&nbsp;&nbsp;ID : <input type="text" name="userId"
-											placeholder="아이디 " size="12"></input><br /> PW : <input
-											type="password" name="password" placeholder="패스워드" size="12"></input><br></br>
-										<button type="submit" class="btn btn btn-warning">로그인</button>
-										<a href="signUp.jsp"><button type="button"
-												class="btn btn btn-warning">회원 가입</button></a>
-
-									</form>
-								</div>
-							</div>
-						</div>
-					</c:when>
-					<c:when test="${loginUser.userId eq 'admin'}">
-						<div id="sidebar">
-							<div class="widget widget-search">
-								<h2>회원</h2>
-								<div class="contentarea" align="center">
-									<form action="logout.do" method="post">
-										<label>${loginUser.name }님 환영합니다.</label><br> <br> <label>포인트
-											: ${loginUser.point }p</label> <br></br>
-										<button type="submit" class="btn btn btn-warning">logout</button>
-										<a href="adminpage.jsp"><button type="button"
-												class="btn btn btn-warning">admin Page</button></a>
-
-									</form>
-								</div>
-							</div>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<div id="sidebar">
-							<div class="widget widget-search">
-								<h2>회원</h2>
-								<div class="contentarea" align="center">
-									<form action="logout.do" method="post">
-										<label>${loginUser.name }님 환영합니다.</label><br> <br> <label>포인트
-											: ${loginUser.point }p</label> <br></br>
-										<button type="submit" class="btn btn btn-warning">logout</button>
-										<a href="mypage.jsp"><button type="button"
-												class="btn btn btn-warning">MyPage</button></a>
-
-									</form>
-								</div>
-							</div>
-						</div>
-					</c:otherwise>
-				</c:choose>
+				<%@ include file="usermenu.jsp"%>
 			</div>
 			<div id="footer">
 				<p>

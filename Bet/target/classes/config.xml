@@ -15,6 +15,8 @@
 		<typeAlias type="domain.Player" alias="Player"/>
 		<typeAlias type="domain.Invite" alias="Invite"/>
 		<typeAlias type="domain.Team" alias="Team"/>
+		<typeAlias type="domain.BetState" alias="BetState"/>
+		<typeAlias type="domain.Attendance" alias="Attendance"/>
 	</typeAliases>
 
 	<environments default="development">
@@ -39,6 +41,7 @@
 		<mapper resource="mapper/ReportMapper.xml" />
 		<mapper resource="mapper/AttendanceMapper.xml" />
 		<mapper resource="mapper/TeamMapper.xml" />
+		<mapper resource="mapper/AttendanceMapper.xml" />
 	</mappers>
 
 </configuration>

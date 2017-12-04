@@ -14,36 +14,15 @@
 <script type="text/javascript" src="resources/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="resources/js/site.js"></script>
 </head>
-
 <body>
 	<div id="wrapper">
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="index.jsp"><h1>내기의 神</h1></a>
+					<a href="main.jsp"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
-				<c:choose>
-				<c:when test="${loginUser eq null }">
-				<ul id="nav">
-					<li><a href="BetOfOne.jsp">BetOfOne</a></li>
-					<li><a href="#">BetOfAll</a></li>
-					<li><a href="#">BetOfTeam</a></li>
-					<li><a href="#">preseason game</a></li>
-				</ul>
-				</c:when>
-				<c:otherwise>
-				<ul id="nav">
-					<li><a href="BetOfOne.jsp">BetOfOne</a></li>
-					<li><a href="#">BetOfAll</a></li>
-					<li><a href="#">BetOfTeam</a></li>
-					<li><a href="#">Preseason game</a></li>
-					<li><a href="#">MyPage</a></li>
-					<li><a href="#">Rank</a></li>
-					<li><a href="#">Attendance</a></li>
-				</ul>
-				</c:otherwise>
-				</c:choose>
+				<%@ include file="menu.jsp"%>
 			</div>
 			<!-- // end #header -->
 			<div id="banner">
@@ -78,7 +57,7 @@
 					<div class="post">
 						<div class="post-head">
 							<h1>
-								<a href="#" title="Welcome to Dkntemplates">Welcome to
+								<a href="Betlist.do?betWay=all" title="Welcome to Dkntemplates">Welcome to
 									BetOfAll</a>
 							</h1>
 						</div>
@@ -90,7 +69,7 @@
 								<table border="1">
 									<colgroup>
 										<col width="100" />
-										<col width="*" />
+										<col width="120" />
 										<col width="100" />
 										<col width="100" />
 										<col width="100" />
@@ -117,7 +96,7 @@
 									</tr>
 								</table>
 								<p>
-									<a href="#">Readmore ...</a>
+									<a href="Betlist.do?betWay=all">Readmore ...</a>
 								</p>
 							</div>
 						</div>
@@ -126,7 +105,7 @@
 					<div class="post">
 						<div class="post-head">
 							<h1>
-								<a href="#" title="Another Post Title">Welcome to BetOfOne</a>
+								<a href="Betlist.do?betWay=one" title="Another Post Title">Welcome to BetOfOne</a>
 							</h1>
 						</div>
 						<div class="post-content clearfix">
@@ -137,7 +116,7 @@
 								<table border="1">
 									<colgroup>
 										<col width="100" />
-										<col width="*" />
+										<col width="120" />
 										<col width="100" />
 										<col width="100" />
 										<col width="100" />
@@ -164,7 +143,7 @@
 									</tr>
 								</table>
 								<p>
-									<a href="#">Readmore ...</a>
+									<a href="Betlist.do?betWay=one">Readmore ...</a>
 								</p>
 							</div>
 						</div>
@@ -173,7 +152,7 @@
 					<div class="post">
 						<div class="post-head">
 							<h1>
-								<a href="#" title="Another Post Title">Welcome to BetOfTeam</a>
+								<a href="Betlist.do?betWay=team" title="Another Post Title">Welcome to BetOfTeam</a>
 							</h1>
 						</div>
 						<div class="post-content clearfix">
@@ -184,7 +163,7 @@
 								<table border="1">
 									<colgroup>
 										<col width="100" />
-										<col width="*" />
+										<col width="120" />
 										<col width="100" />
 										<col width="100" />
 										<col width="100" />
@@ -211,7 +190,7 @@
 									</tr>
 								</table>
 								<p>
-									<a href="#">Readmore ...</a>
+									<a href="Betlist.do?betWay=team">Readmore ...</a>
 								</p>
 							</div>
 						</div>
@@ -219,44 +198,7 @@
 					</div>
 				</div>
 				<!-- // end #content -->
-				<c:choose>
-					<c:when test="${loginUser eq null }">
-						<div id="sidebar">
-							<div class="widget widget-search">
-								<h2>Login</h2>
-								<div class="contentarea" align="center">
-									<form action="login.do" method="post">
-										&nbsp;&nbsp;ID : <input type="text" name="userId"
-											placeholder="아이디 " size="12"></input><br /> PW : <input
-											type="password" name="password" placeholder="패스워드" size="12"></input><br></br>
-										<button type="submit" class="btn btn btn-warning">로그인</button>
-										<a href="signUp.jsp"><button type="button"
-												class="btn btn btn-warning">회원 가입</button></a>
-
-									</form>
-								</div>
-							</div>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<div id="sidebar">
-							<div class="widget widget-search">
-								<h2>회원</h2>
-								<div class="contentarea" align="center">
-									<form action="logout.do" method="post">
-										<label>${loginUser.name }님 환영합니다.</label><br><br>
-										<label>포인트 : ${loginUser.point }p</label>
-										<br></br>
-										<button type="submit" class="btn btn btn-warning">로그아웃</button>
-										<a href="signUp.jsp"><button type="button"
-												class="btn btn btn-warning">회원 가입</button></a>
-
-									</form>
-								</div>
-							</div>
-						</div>
-					</c:otherwise>
-				</c:choose>
+				<%@ include file="usermenu.jsp"%>
 			</div>
 			<div id="footer">
 				<p>
