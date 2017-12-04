@@ -56,20 +56,20 @@
 			</div>
 			<!-- // end #header -->
 			<div id="banner">
-				<h1 class="page-title">BetOfOne(${bet.betId })</h1>
+				<h1 class="page-title">[${bet.betId }]&nbsp;${bet.title }</h1>
 			</div>
 			<!-- // end #banner -->
+			<c:if test="${bet.state eq '대기' and bet.betOwner eq userId}">
 			<a href="${ctx }/article/recommend.do?articleId=${article.articleId}"
-				class="glyphicon glyphicon-cog pull-right" style="padding: 10px">추천</a>
-			<a class="glyphicon glyphicon-trash pull-right" style="padding: 10px"
+				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">삭제</a>
+				</c:if>
+			<a class="glyphicon glyphicon-cog pull-right" style="padding: 10px"
 				onclick="showPopup1();">신고</a> <br>
 			<c:if test="${bet.state eq '대기' }">
 				<c:if test="${userId eq bet.betOwner }">
 					<button type="submit" class="btn btn btn-warning"
 						onclick="showPopup();">초대하기</button>
 				</c:if>
-				
-				
 				<form action="gameJoin.do" method="post">
 					<input type="hidden" name="betId" value="${bet.betId }"> <input
 						type="text" name="pointBet" placeholder="포인트 입력 " size="12"></input>
@@ -78,7 +78,6 @@
 						type="radio" name="teamName" value="B">Team B
 					<button type="submit" class="btn btn btn-warning">참여하기</button>
 				</form>
-				
 			</c:if>
 
 			<div align="center">
@@ -115,15 +114,15 @@
 				</c:if>
 			</div>
 			<div align="right">
-				<br> 종료날짜 : ${bet.endDate} <br> 내기장 아이디 : ${bet.betOwner }
-				<Br> 포인트 : ${bet.point }<br>
+            <br> 종료날짜 : ${bet.endDate} <br> 상태 : ${bet.state} <br> 내기장 아이디 : ${bet.betOwner }
+            <br> 내기 방식 : BetOf${bet.betWay } <br> 포인트 방식 : ${bet.pointCheck } <br> <c:if test="${bet.pointCheck eq 'LOCK' }">내기포인트 : ${bet.point }</c:if>
 
-			</div>
+         </div>
 
 			<div id="main" class="clearfix">
 				<div id="page">
-					<h1 class="page-title" align="center">${bet.title }</h1>
-					<h3 class="page-title" align="left">${bet.content }</h3>
+					<h3 class="page-title" align="center">${bet.content }</h3><br>
+					
 					<form action="betVote.do" method="post">
 					<input type="hidden" name="betId" value="${bet.betId }">
 						<table>
@@ -142,16 +141,6 @@
 									<input type="radio"	name="vote" value="B">Team B</c:if></c:if></td>
 							</tr>
 						</table>
-
-						ATeam :
-						<c:forEach var="a" items="${teamA.players }">
-						${a.userId } <c:if test="${userId eq teamA.leader.userId or userId eq bet.betOwner }"><a href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${a.userId }&betWay=${bet.betWay}">[X]</a></c:if>,
-						</c:forEach>
-						<br> BTeam :
-						<c:forEach var="p" items="${teamB.players }">
-						${p.userId } <c:if test="${userId eq teamB.leader.userId or userId eq bet.betOwner }"><a href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${p.userId }&betWay=${bet.betWay}">[X]</a></c:if>,
-						</c:forEach>
-
 						<c:if test="${bet.state eq '진행'}">
 						<c:if test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
 						<div align="center">
@@ -159,6 +148,22 @@
 						</div>
 						</c:if></c:if>
 					</form>
+						
+						
+						TEAM A :
+						<c:forEach var="a" items="${teamA.players }">
+						
+						&nbsp;${a.userId }&nbsp;(${a.point }&nbsp;Point) <c:if test="${userId eq bet.betOwner and bet.state eq '대기' or userId eq teamA.leader.userId and bet.state eq '대기'}">
+						<a href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${a.userId }&betWay=${bet.betWay}">[X]</a></c:if>,
+						
+						</c:forEach>
+						<br> TEAM B :
+						<c:forEach var="p" items="${teamB.players }">
+						
+						&nbsp;${p.userId }&nbsp;(${p.point }&nbsp;Point) <c:if test="${userId eq bet.betOwner and bet.state eq '대기' or userId eq teamB.leader.userId and bet.state eq '대기'}">
+						<a href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${p.userId }&betWay=${bet.betWay}">[X]</a></c:if>,
+						
+						</c:forEach>
 						
 						
 						
