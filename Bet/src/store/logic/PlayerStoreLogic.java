@@ -72,7 +72,7 @@ public class PlayerStoreLogic implements PlayerStore {
 	}
 
 	@Override
-	public void delete(String userId, String betId) {
+	public void deleteByBetIdAndUserId(String userId, String betId) {
 		SqlSession session = BetSessionFactory.getinstance().getSession();
 
 		HashMap<String, String> map = new HashMap<>();
@@ -81,7 +81,7 @@ public class PlayerStoreLogic implements PlayerStore {
 			PlayerMapper mapper = session.getMapper(PlayerMapper.class);
 			map.put("userId", userId);
 			map.put("betId", betId);
-			mapper.delete(map);
+			mapper.deleteByBetIdAndUserId(map);
 			session.commit();
 		} finally {
 			session.close();
@@ -132,6 +132,19 @@ public class PlayerStoreLogic implements PlayerStore {
 			session.close();
 		}
 		return result;
+	}
+
+	@Override
+	public void delete(String playerId) {
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		try {
+			PlayerMapper mapper = session.getMapper(PlayerMapper.class);
+			
+			mapper.delete(playerId);
+			session.commit();
+		} finally {
+			session.close();
+		}
 	}
 
 }

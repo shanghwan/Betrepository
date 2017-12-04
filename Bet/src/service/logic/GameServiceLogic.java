@@ -57,6 +57,14 @@ public class GameServiceLogic implements GameService {
 		Player player = new Player();
 		Bet bet = betService.findByBetId(betId);
 		User user = userStore.searchByUserId(userId);
+		if(team.getLeader() != null && !(team.getLeader().getUserId().equals(userId)) ) {
+			return "false";
+		}
+			// 내기에 참여중인 나를 삭제
+			playerService.removePlayerByBetIdAndUserId(betId, userId);
+			
+		
+		// 나를 내기에 새로 참여 등록
 
 		player.setBetId(betId);
 		player.setTeamId(team.getTeamId());
@@ -81,6 +89,10 @@ public class GameServiceLogic implements GameService {
 		Bet bet = betService.findByBetId(betId);
 		User user = userStore.searchByUserId(userId);
 
+		// 내기에 참여중인 나를 삭제
+		playerService.removePlayerByBetIdAndUserId(betId, userId);
+
+		// 나를 내기에 새로 참여 등록
 		player.setBetId(betId);
 		player.setTeamId(team.getTeamId());
 		player.setPoint(point);
@@ -148,7 +160,7 @@ public class GameServiceLogic implements GameService {
 		Player player = playerStore.searchByBetId(userId, betId);
 		player.setVote(vote);
 		playerStore.update(player);
-		
+
 		int result = 0;
 		result = playerStore.voteCount(betId, vote);
 		if (result > 1) {
@@ -169,23 +181,23 @@ public class GameServiceLogic implements GameService {
 		if (bet.getPhotoB() == null) {
 			bet.setPhotoB("null");
 		}
-		
+
 		betService.modify(bet);
-		if(vote.equals("A")) {
+		if (vote.equals("A")) {
 			Team teamW = teamService.findByTeamName(betId, vote);
-			
+
 			teamW.setResult("WIN");
 			teamStore.update(teamW);
 			String teamName = "B";
 			Team teamL = teamService.findByTeamName(betId, teamName);
 			teamL.setResult("LOSE");
 			teamStore.update(teamL);
-			
-			//포인트 처리 서비스 호출 2개 teamW,teamL
-			//전적 기록
-		
+
+			// 포인트 처리 서비스 호출 2개 teamW,teamL
+			// 전적 기록
+
 		}
-		if(vote.equals("B")) {
+		if (vote.equals("B")) {
 			Team teamW = teamService.findByTeamName(betId, vote);
 			teamW.setResult("WIN");
 			teamStore.update(teamW);
@@ -193,12 +205,12 @@ public class GameServiceLogic implements GameService {
 			Team teamL = teamService.findByTeamName(betId, teamName);
 			teamL.setResult("LOSE");
 			teamStore.update(teamL);
-			
-			//포인트 처리 서비스 호출 2개 teamW,teamL
-			//전적 기록
-		
+
+			// 포인트 처리 서비스 호출 2개 teamW,teamL
+			// 전적 기록
+
 		}
-		
+
 		return betId;
 	}
 

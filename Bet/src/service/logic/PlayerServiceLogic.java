@@ -37,12 +37,12 @@ public class PlayerServiceLogic implements PlayerService{
 
 	@Override
 	public void removePlayer(String playerId) {
-		
+		playerStore.delete(playerId);
 	}
 
 	@Override
-	public void removePlayer(String betId, String userId) {
-		playerStore.delete(userId, betId);
+	public void removePlayerByBetIdAndUserId(String betId, String userId) {
+		playerStore.deleteByBetIdAndUserId(userId, betId);
 	}
 
 	@Override

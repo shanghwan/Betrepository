@@ -12,7 +12,8 @@ public interface PlayerStore {
 	List<Player> searchByUserId(String userId);
 	List<Player> searchByTeamId(String teamId,String betId);
 	void update(Player player);
-	void delete(String userId, String betId);
+	void deleteByBetIdAndUserId(String userId, String betId);
+	void delete(String playerId);
 	int voteCount(String betId, String vote);
 
 }

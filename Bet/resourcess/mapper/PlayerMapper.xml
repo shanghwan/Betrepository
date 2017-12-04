@@ -43,10 +43,16 @@
 		WHERE betId = #{betId} AND userId = #{userId}
 	</select>
 	
-	<delete id="delete" parameterType="HashMap">
+	<delete id="deleteByBetIdAndUserId" parameterType="HashMap">
 		DELETE FROM player_tb
 		WHERE
 		userId = #{userId} AND betId = #{betId}
+	</delete>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM player_tb
+		WHERE
+		playerId = #{playerId}
 	</delete>
 	
 	<select id="searchByUserId" parameterType="String" resultType="Player">
