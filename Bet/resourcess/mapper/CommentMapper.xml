@@ -6,7 +6,8 @@
 <mapper namespace="store.mapper.CommentMapper">
 
    <resultMap type="Comment" id="CommentMap">
-      <id property="id" column="comment_id" />
+      <result property="content" column="COMMENTS"/>
+      <result property="photo" column="COMMENTPHOTO"/>
    </resultMap>
 
    <insert id="create" parameterType="Comment">
@@ -24,9 +25,8 @@
       WHERE commentId = #{commentId}
    </select>
 
-   <select id="searchAll" parameterType="String" resultType="Comment">
-      SELECT commentId, betId, userId, content, photo, RegDate
-      FROM comment_tb
+   <select id="searchAll" parameterType="String" resultType="Comment" resultMap="CommentMap">
+      SELECT commentId, betId, userId, content, photo, RegDate FROM comment_tb
       WHERE betId = #{betId}
    </select>
 
