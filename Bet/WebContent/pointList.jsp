@@ -74,7 +74,7 @@
 						<div class="post">
 							<div class="post-head">
 								<h1>
-									<form action="gitfPoint.do" method="post">
+									<form action="giftPoint.do?userId=${userId }" method="post">
 										<label>${loginUser.name }님의 포인트는 ${loginUser.point }P</label>
 										<br></br> 
 										<input size="15" type="text" class="input_text" name="receiverId" placeholder="아이디" /> </span>							
@@ -82,7 +82,6 @@
 											<input size="10" type="text" name="point" placeholder="포인트"> 
 											<a>P 를</a>
 											<input class="btn btn-xs btn-default" type="submit" value="선물하기♥">
-										<span class="green_window">
 									</form>
 								</h1>
 							</div>
@@ -112,7 +111,6 @@
 											<td align="center">${point.type }</td>
 											<td align="center">${point.point }</td>
 											<c:choose>
-												<%-- <c:when test="${point.receiverId eq '(null)'}"> --%>
 												<c:when test="${null eq point.receiverId}">
 													<td align="center">-</td>
 												</c:when>

@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import domain.Bet;
 import domain.Invite;
+import domain.Report;
 import domain.User;
 import service.AttendanceService;
 import service.BetService;
 import service.InviteService;
+import service.ReportService;
 import service.UserService;
 
 @Controller
@@ -24,17 +26,21 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	private AttendanceService attendanceService;
+//	@Autowired
+//	private AttendanceService attendanceService;
 	@Autowired
 	private BetService betService; 
 	@Autowired
 	private InviteService inviteService;
+	@Autowired
+	private ReportService reportService;
 
 	@RequestMapping(value="/Userregist.do", method = RequestMethod.POST)
 	public String join(User user) {
+		
 		userService.regist(user);
 
-		return "redirect:index.jsp";
+		return "redirect:main.jsp";
 	}
 
 	@RequestMapping(value="/login.do", method = RequestMethod.POST)
@@ -45,7 +51,7 @@ public class UserController {
 		if (loginUser != null && loginUser.getPassword().equals(password)) {
 			session.setAttribute("userId", loginUser.getUserId());
 			session.setAttribute("loginUser", loginUser);
-			return "redirect:index.jsp";
+			return "redirect:main.jsp";
 		} else {
 			session.invalidate();
 			return "redirect:signUp.jsp";
@@ -135,7 +141,15 @@ public class UserController {
 	}
 	
 	
-	
+		@RequestMapping(value="/adminpageBet.do")
+		public String adminpageBet(Model model) {
+			
+			List<Report> list = reportService.findAllBetReport();
+			
+			model.addAttribute("BetList", list);
+			
+			return "adminpageBet.jsp";
+		}
 		
 	
 	

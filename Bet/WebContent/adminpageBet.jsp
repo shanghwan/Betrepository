@@ -21,7 +21,7 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="index.jsp"><h1>내기의 神</h1></a>
+					<a href="main.jsp"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 						<ul id="nav">
@@ -46,7 +46,7 @@
 							<div class="post-summary" align="center">
 								<ul id="nav">
 									<li><a href="adminpage.jsp">회원신고</a></li>
-									<li class="active"><a href="adminpageBet.jsp">내기신고</a></li>
+									<li class="active"><a href="adminpageBet.do">내기신고</a></li>
 								</ul>
 							</div>
 						</div>
@@ -55,25 +55,27 @@
 							<table border="1">
 									<colgroup>
 										<col width="100" />
-										<col width="300" />
+										<col width="100" />
+										<col width="250" />
+										<col width="100" />
 										<col width="100" />
 									</colgroup>
 									<thead>
 										<tr>
 											<th class="text-center">내기번호</th>
-											<th class="text-center">제목</th>
 											<th class="text-center">신고자</th>
 											<th class="text-center">신고사유</th>
+											<th class="text-center">날짜</th>
+											<th class="text-center">내역삭제</th>
 										</tr>
 									</thead>
 									<c:forEach var="list" items="${BetList }">
 										<tr>
-											<td align="center">${list.betId }</td>
-											<td align="center"><a
-											href="BetDetail.do?betId=${list.betId}"
-											class="list-group-item hidden-xs">${list.title }</a></td>
-											<td align="center">${list.betOwner }</td>
-											<td align="center">${list.state }</td>
+											<td align="center">${list.target }</td>
+											<td align="center">${list.userId }</td>
+											<td align="center"><a href="BetDetail.do?betId=${list.target}">${list.reason }</a></td>
+											<td align="center">${list.reportbetdate }</td>
+											<td align="center"><a href="deleteBetReport.do?reportId=${list.reportId }"><button type="button" class="btn btn btn-warning">X</button></a></td>
 										</tr>
 									</c:forEach>
 								</table>
@@ -84,16 +86,7 @@
 				<!-- // end #content -->
 				<div id="sidebar">
 					<div class="widget widget-search">
-						<h2>회원</h2>
-						<div class="contentarea" align="center">
-							<form action="logout.do" method="post">
-								<label>${loginUser.name }님 환영합니다.</label><br> <br> <label>포인트
-									: ${loginUser.point }p</label> <br></br>
-								<button type="submit" class="btn btn btn-warning">logout</button>
-								<a href="mypage.jsp"><button type="button"
-										class="btn btn btn-warning">MyPage</button></a>
-							</form>
-						</div>
+						<%@ include file="usermenu.jsp"%>
 					</div>
 				</div>
 

@@ -18,6 +18,4 @@ public interface UserMapper {
 
 	void delete(String userId);
 
-	User searchPoint(String userId);
-
 }

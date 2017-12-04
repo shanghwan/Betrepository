@@ -47,7 +47,6 @@ public class PlayerStoreLogic implements PlayerStore {
 	@Override
 	public List<Player> searchByTeamId(String teamId, String betId) {
 		SqlSession session = BetSessionFactory.getinstance().getSession();
-
 		HashMap<String, String> map = new HashMap<>();
 		List<Player> players = null;
 		try {
@@ -88,6 +87,23 @@ public class PlayerStoreLogic implements PlayerStore {
 		} finally {
 			session.close();
 		}
+	}
+
+	@Override
+	public List<Player> searchByUserId(String userId) {
+		
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		
+		List<Player> list = null;
+		
+		try {
+			PlayerMapper mapper = session.getMapper(PlayerMapper.class);
+			list = mapper.searchByUserId(userId);
+		}finally {
+			session.close();
+		}
+		
+		return list;
 	}
 
 }

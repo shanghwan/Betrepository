@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Bet;
+import domain.BetState;
 import domain.Comment;
 import domain.Invite;
 import domain.User;
 import domain.Team;
 import service.BetService;
+import service.BetStateService;
 import service.CommentService;
 import service.InviteService;
 import service.TeamService;
@@ -33,6 +35,8 @@ public class BetController {
 	private InviteService inviteService;
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private BetStateService betStateService;
 	
 	@RequestMapping("/Betlist.do")
 	public ModelAndView Betlist(String betWay){
@@ -54,6 +58,8 @@ public class BetController {
 
 	}
 	
+	
+	
 	@RequestMapping("/BetDetail.do")
 	public ModelAndView BetDetail(String betId){
 		Bet bet = betService.findByBetId(betId);
@@ -63,12 +69,31 @@ public class BetController {
 		teamName = "B";
 		Team teamB = teamService.findByTeamName(betId, teamName);
 		
-		ModelAndView modelAndView = new ModelAndView("detailBet.jsp");
-		modelAndView.addObject("bet", bet);
-		modelAndView.addObject("list", list);
-		modelAndView.addObject("teamA", teamA);
-		modelAndView.addObject("teamB", teamB);
-		return modelAndView;
+		if(bet.getBetWay().equals("one")) {
+			ModelAndView modelAndView = new ModelAndView("detailBetOfOne.jsp");
+			modelAndView.addObject("bet", bet);
+			modelAndView.addObject("list", list);
+			modelAndView.addObject("teamA", teamA);
+			modelAndView.addObject("teamB", teamB);
+			return modelAndView;
+		}
+		else if(bet.getBetWay().equals("team")){
+			ModelAndView modelAndView = new ModelAndView("detailBetOfTeam.jsp");
+			modelAndView.addObject("bet", bet);
+			modelAndView.addObject("list", list);
+			modelAndView.addObject("teamA", teamA);
+			modelAndView.addObject("teamB", teamB);
+			return modelAndView;
+		}
+		else {
+			ModelAndView modelAndView = new ModelAndView("detailBetOfAll.jsp");
+			modelAndView.addObject("bet", bet);
+			modelAndView.addObject("list", list);
+			modelAndView.addObject("teamA", teamA);
+			modelAndView.addObject("teamB", teamB);
+			return modelAndView;
+		}
+		
 	}
 	
 	@RequestMapping("/BetlistByState.do")
@@ -87,12 +112,13 @@ public class BetController {
 			
 			return "redirect:index.jsp";
 		}
-		
 		return "BetCreate.jsp";
 	}
 	
 	@RequestMapping(value="/registBet.do", method=RequestMethod.POST)
 	public String registBet(Bet bet, HttpSession session) {
+		
+		
 		String userId = (String)session.getAttribute("userId");
 		
 		bet.setBetOwner(userId);
@@ -102,6 +128,7 @@ public class BetController {
 		
 		String betId = betService.registBet(bet);
 		
+
 		return "redirect:BetDetail.do?betId=" + betId;
 	}
 	
@@ -120,8 +147,6 @@ public class BetController {
 		
 		
 		inviteService.removeInvite(userId, betId);
-		
-		
 		return "BetFail.do";
 	}
 	
@@ -132,23 +157,21 @@ public class BetController {
 		model.addAttribute("bet", bet);
 		
 		
-		//modify
-		
 		return "detailBet.jsp";
 	}
 	
-	
-	
-	
-
-	private String getPhotoFile(Part part) {
-		String photoFile = null;
-		String contentDispositionHeader = part.getHeader("content-disposition");
-		String[] elements = contentDispositionHeader.split(";");
-		for(String element : elements) {
-			photoFile = element.substring(element.indexOf("=")+ 1);
-			photoFile = photoFile.trim().replace("\"", "");
-		}
-		return photoFile;
+	@RequestMapping(value="/betStateList.do")
+	public String betStateList(String userId, String state, Model model) {
+		
+		List<BetState> list = betStateService.findBetState(userId, state);
+		model.addAttribute("list", list);
+		
+		return "betstate.jsp";
 	}
+	
+	
+	
+	
+	
+	
 }

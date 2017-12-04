@@ -14,10 +14,12 @@ import domain.Team;
 import domain.User;
 import service.BetService;
 import service.TeamService;
+import store.BetStateStore;
 import store.BetStore;
-import store.CommentStore;
 import store.PlayerStore;
 import store.UserStore;
+import store.CommentStore;
+import store.InviteStore;
 
 @Service
 public class BetServiceLogic implements BetService {
@@ -32,24 +34,28 @@ public class BetServiceLogic implements BetService {
 	private PlayerStore playerStore;
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private InviteStore inviteStore;
 
 	@Override
 	public String registBet(Bet bet) {
 		Date today = new Date(Calendar.getInstance().getTimeInMillis());
 		User user = userStore.searchByUserId(bet.getBetOwner());
-
+		
 		bet.setStartDate(today);
-
+		bet.setState("대기");
+		
 		if (bet.getBetWay().equals("all")) {
-			bet.setPointCheck("lock");
-			bet.setPoint("10");
+			bet.setState("진행");
+			bet.setPointCheck("LOCK");
+			bet.setPoint(10);
 		}
-		if (bet.getPointCheck().equals("allin")) {
+		if (bet.getPointCheck().equals("ALLIN")) {
 			bet.setPoint(user.getPoint());
 		}
-
+		
 		// point 처리해야함
-
+		
 		String betId = betStore.create(bet);
 
 		Team team = new Team();
@@ -67,7 +73,7 @@ public class BetServiceLogic implements BetService {
 
 		team.setTeamName("B");
 		teamService.registTeam(team);
-
+		
 		return betId;
 	}
 
@@ -108,10 +114,12 @@ public class BetServiceLogic implements BetService {
 
 	@Override
 	public void modify(Bet bet) {
+		betStore.update(bet);
 	}
 
 	@Override
 	public void removeBet(String betId) {
+		inviteStore.deletebyBetId(betId);
 		betStore.delete(betId);
 		teamService.removeTeam(betId);
 	}

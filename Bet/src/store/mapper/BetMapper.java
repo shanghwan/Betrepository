@@ -5,9 +5,7 @@ import java.util.List;
 import domain.Bet;
 
 public interface BetMapper {
-
 	void create(Bet bet);
-
 	List<Bet> searchAllBet();
 
 	Bet searchByBetId(String betId);

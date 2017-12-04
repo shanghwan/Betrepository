@@ -8,6 +8,7 @@ public interface InviteStore {
 	
 	void create(String userId, String betId);
 	void delete(String userId, String betId);
+	void deletebyBetId(String betId);
 	List<String> searchByAllInviteByBetId(String betId);
 	List<Invite> searchByAllInviteByUserId(String userId);
 

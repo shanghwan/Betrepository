@@ -13,7 +13,7 @@ public class Bet {
 	private String photoA;
 	private String photoB;
 	private String betOwner;
-	private String point;
+	private int point;
 	private String endDate;
 	private Date startDate;
 	private String openCheck;
@@ -98,11 +98,11 @@ public class Bet {
 		this.betOwner = betOwner;
 	}
 
-	public String getPoint() {
+	public int getPoint() {
 		return point;
 	}
 
-	public void setPoint(String point) {
+	public void setPoint(int point) {
 		this.point = point;
 	}
 

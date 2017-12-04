@@ -10,10 +10,15 @@ public interface PointMapper {
 
 	List<Point> searchAll(String userId);
 
+	//
 	Point searchPoint(String userId);
 
 	void delete(String userId);
 
+	//
 	void update(Point point);
+
+	//
+	Point searchReceiver(String receiverId);
 
 }

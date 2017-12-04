@@ -7,30 +7,25 @@
 
 	<resultMap type="Comment" id="CommentMap">
 		<id property="id" column="comment_id" />
-		<result property="commentId" column="id" />
-		<result property="content" column="comments" />
-		<result property="photo" column="commentPhoto" />
-		<result property="regDate" column="commentRegDate" />
 	</resultMap>
-
 
 	<insert id="create" parameterType="Comment">
 		<selectKey keyProperty="commentId" resultType="String" order="BEFORE">
 			SELECT comment_seq.nextval FROM dual
 		</selectKey>
-		INSERT INTO comment_tb(id, betId, userId, comments, commentPhoto,commentRegDate)
+		INSERT INTO comment_tb(commentId, betId, userId, content, photo, RegDate)
 		VALUES(#{commentId}, #{betId}, #{userId}, #{content}, #{photo}, SYSDATE)
 	</insert>
 
 	<select id="search" parameterType="String" resultType="Comment"
 		resultMap="CommentMap">
-		SELECT id, betId, userId, comments, commentPhoto, commentRegDate
+		SELECT commentId, betId, userId, content, photo, RegDate
 		FROM comment_tb
-		WHERE id = #{commentId}
+		WHERE commentId = #{commentId}
 	</select>
 
 	<select id="searchAll" parameterType="String" resultType="Comment">
-		SELECT id, betId, userId, comments, commentPhoto, commentRegDate
+		SELECT commentId, betId, userId, content, photo, RegDate
 		FROM comment_tb
 		WHERE betId = #{betId}
 	</select>
@@ -38,6 +33,6 @@
 	<delete id="delete" parameterType="String">
 		DELETE FROM comment_tb
 		WHERE
-		id = #{commentId}
+		commentId = #{commentId}
 	</delete>
 </mapper>

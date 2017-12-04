@@ -6,7 +6,7 @@ public class Player {
 	private String userId;
 	private String teamId;
 	private String position;
-	private String point;
+	private int point;
 	private String vote;
 	private String betId;
 	
@@ -14,7 +14,7 @@ public class Player {
 
 	
 
-	public Player(String playerId, String userId, String teamId, String position, String point, String vote,
+	public Player(String playerId, String userId, String teamId, String position, int point, String vote,
 			String betId) {
 		super();
 		this.playerId = playerId;
@@ -60,11 +60,11 @@ public class Player {
 		this.position = position;
 	}
 
-	public String getPoint() {
+	public int getPoint() {
 		return point;
 	}
 
-	public void setPoint(String point) {
+	public void setPoint(int point) {
 		this.point = point;
 	}
 

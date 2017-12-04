@@ -10,6 +10,7 @@ public interface InviteMapper {
 	
 	void create(Map<String, Object> map);
 	void delete(Map<String, Object> map);
+	void deletebyBetId(String betId);
 	List<String> searchByAllInviteByBetId(String betId);
 	List<Invite> searchByAllInviteByUserId(String userId);
 

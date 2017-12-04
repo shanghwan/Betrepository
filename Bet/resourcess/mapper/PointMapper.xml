@@ -14,9 +14,8 @@
 		<selectKey keyProperty="pointId" resultType="String" order="BEFORE">
 			SELECT point_seq.nextval FROM dual
 		</selectKey>
-		INSERT INTO point_tb(pointId, userId, receiverId, pointDate, type,
-		point)
-		VALUES(#{pointId}, #{userId}, #{receiverId}, SYSDATE, #{type},#{point})
+		INSERT INTO point_tb(pointId, userId, receiverId, pointDate, type,	point)
+		VALUES(#{pointId}, #{userId}, #{receiverId}, SYSDATE, #{type}, #{point})
 	</insert>
 
 	<select id="searchPoint" parameterType="String" resultType="Point" resultMap="PointMap">
@@ -29,7 +28,7 @@
 		SELECT pointId, userId, receiverId, pointDate, type, point
 		FROM point_tb
 		WHERE userId = #{userId}
-	</select>
+	</select>	
 
 	<update id="update" parameterType="String">
 		UPDATE point_tb
@@ -47,4 +46,6 @@
 		WHERE
 		userId = #{userId}
 	</delete>
+	
+	
 </mapper>

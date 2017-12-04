@@ -81,4 +81,16 @@ public class PointStoreLogic implements PointStore {
 		return point;
 	}
 
+	@Override
+	public Point searchReceiver(String receiverId) {
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		Point point = null;
+		try {
+			PointMapper mapper = session.getMapper(PointMapper.class);
+			point = mapper.searchReceiver(receiverId);
+		} finally {
+			session.close();
+		}
+		return point;
+	}
 }

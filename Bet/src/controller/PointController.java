@@ -1,5 +1,7 @@
 package controller;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,49 +38,29 @@ public class PointController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/gitfPoint.do", method = RequestMethod.POST)
-	public ModelAndView GiftPoint(Point point, HttpSession session, HttpServletRequest req) {
-		String userId = (String) req.getSession().getAttribute("userId");
-		String receiverId = (String) session.getAttribute("receiverId");
+//	@RequestMapping(value = "/pointList.do", method = RequestMethod.POST)
+//	public ModelAndView attendancePoint(Point point, HttpSession session) {
+//
+//		pointService.registPoint(point);
+//
+//		return null;
+//	}
 
-		User user = userService.findByUserId(userId);
+	@RequestMapping(value = "/giftPoint.do", method = RequestMethod.POST)
+	public ModelAndView GiftPoint(Point point, HttpSession session) {
 
-		if (receiverId != null) {
-			point.setType("gift");
+		pointService.registPoint(point);
 
-			pointService.updatePoint(point);
-			session.setAttribute("point", point);
-			ModelAndView modelAndView = new ModelAndView("pointList.jsp");
-
-
-		} else if (receiverId == null) {
-			point.setType("chulcheck");
-			ModelAndView modelAndView = new ModelAndView("pointList.jsp");
-
-
-		} else if (receiverId == null) {
-			point.setType("signUp");
-			ModelAndView modelAndView = new ModelAndView("pointList.jsp");
-
-
-		} else if (receiverId == null) {
-			point.setType("result");
-			ModelAndView modelAndView = new ModelAndView("pointList.jsp");
-
-		}
-
-		ModelAndView modelAndView = new ModelAndView("pointList.jsp");
+		ModelAndView modelAndView = new ModelAndView("pointList.do");
 
 		return modelAndView;
 	}
-
-	// String userId = (String) req.getSession().getAttribute("userId");
-	//
-	//
-	// List<Attendance> list = attendacneService.findAttendance(userId);
-	//
-	// session.setAttribute("loginUser", loginUser.getPoint());
-	// return "attendance.jsp";
-	// }
+//
+//	@RequestMapping(value = "/pointList.do", method = RequestMethod.POST)
+//	public ModelAndView gamePoint(Point point) {
+//
+//		return null;
+//
+//	}
 
 }

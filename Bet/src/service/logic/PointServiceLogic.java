@@ -11,6 +11,8 @@ import domain.Point;
 import domain.Team;
 import domain.User;
 import service.PointService;
+import store.AttendanceStore;
+import store.BetStore;
 import store.PlayerStore;
 import store.PointStore;
 import store.TeamStore;
@@ -18,6 +20,7 @@ import store.UserStore;
 
 @Service
 public class PointServiceLogic implements PointService {
+
 	@Autowired
 	private PointStore pointStore;
 	@Autowired
@@ -26,21 +29,68 @@ public class PointServiceLogic implements PointService {
 	private TeamStore teamStore;
 	@Autowired
 	private PlayerStore playerStore;
+	@Autowired
+	private BetStore betStore;
+	// @Autowired
+	// private AttendanceStore attendanceStore;
 
 	@Override
 	public String registPoint(Point point) {
 		Date today = new Date(Calendar.getInstance().getTimeInMillis());
 		point.setPointDate(today);
-		User user = userStore.searchByUserId(point.getUserId());
-		point.setPointId(point.getPointId());
-		point.setUserId(point.getUserId());
-		point.setReceiverId(point.getReceiverId());
-		point.setPointDate(point.getPointDate());
-		point.setType(point.getType());
-		point.setPoint(point.getPoint());
-		pointStore.update(point);
 
-		return pointStore.create(point);
+		if (!point.getReceiverId().equals(null)) {
+			String type = "gift";
+			point.setType(type);
+
+			User user = userStore.searchByUserId(point.getUserId());
+			user.setPoint(user.getPoint() - point.getPoint());
+			userStore.update(user);
+
+			User user1 = userStore.searchByUserId(point.getReceiverId());
+			user1.setPoint(user.getPoint() + point.getPoint());
+			userStore.update(user1);
+
+			return pointStore.create(point);
+
+		} else if (point.getReceiverId().equals(null)) {
+			point.setType("chulcheck");
+			// User user = userStore.searchByUserId(attendance.getUserId());
+
+		} else if (point.getReceiverId().equals(null)) {
+			point.setType("signUp");
+
+		} else if (point.getReceiverId().equals(null)) {
+			point.setType("win");
+
+		}
+		return null;
+	}
+
+	@Override
+	public String gamePoint(Point point, String teamId) {
+		Team team = teamStore.search(teamId);
+		team.getBetId();
+		team.getTeamName();
+		team.getResult();
+		
+		//내기방식에 따라서(올/팀/원)
+		
+
+		if (point.getReceiverId().equals(null)) {
+			if (point.getType().equals("win")) {
+				// 내기방에 있는 a,b
+				// 승자팀 찾아와
+				//포인트방식에 따라서(올인/프리/고정)
+				// 팀의 포인트를 2배
+				// 그 팀에 속한 개인에 건 포인트수치에 2배
+			} else if (point.getType().equals("lose")) {
+				// 패자팀 찿아와
+				// 포인트소멸
+				// 각 유저마자 건 포인트 제각각
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -53,53 +103,9 @@ public class PointServiceLogic implements PointService {
 		pointStore.delete(userId);
 	}
 
-	/*
-	 * @Override public String presentPoint(Point point) { User user =
-	 * userStore.searchByUserId(point.getUserId()); User receiverUser =
-	 * userStore.searchByUserId(point.getReceiverId());
-	 * 
-	 * String sendPoint = user.getPoint(); user.setPoint(receiverUser.getPoint());
-	 * receiverUser.setPoint(sendPoint);
-	 * 
-	 * return pointStore.gift(point); }
-	 */
-	
-//	@Override
-//	public String registAttendance(Attendance attendance) {
-//		Date today = new Date(Calendar.getInstance().getTimeInMillis());
-//		attendance.setAttendanceDate(today);
-//		User user = userStore.searchByUserId(attendance.getUserId());
-//		user.setPoint(user.getPoint() + 100);
-//		// pointStore.create(point)
-//		userStore.update(user);
-//		return attendanceStore.create(attendance);
-//	}
-
 	@Override
 	public void updatePoint(Point point) {
-		
-		if (point.getType() == "gift") {
-			User user = userStore.searchByUserId(point.getUserId());
-			user.setPoint(user.getPoint() + 10);// 내포인트꺼내서 다시 셋팅
-			user = userStore.searchByUserId(point.getReceiverId());
-			user.setPoint(user.getPoint() + 10);
-			userStore.update(user);
-			pointStore.create(point);
 
-		} else if (point.getType() == "chulcheck") {
-			User user = userStore.searchByUserId(point.getUserId());
-			user.setPoint(user.getPoint() + 100);
-			userStore.update(user);
-			pointStore.create(point);
-
-		} else if (point.getType() == "signUp") {
-			User user = userStore.searchByUserId(point.getUserId());
-			user.setPoint(user.getPoint() + 300);
-			userStore.update(user);
-
-		} else if (point.getType() == "result") {
-			// 승패에 따라서 포인트부여해야함.
-
-		}
 	}
+
 }

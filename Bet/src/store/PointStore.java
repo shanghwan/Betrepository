@@ -17,6 +17,9 @@ public interface PointStore {
 	//
 	Point searchPoint(String userId);
 
+	//
+	Point searchReceiver(String receiverId);
+
 	void delete(String userId);
 
 }
