@@ -38,14 +38,6 @@ public class PointController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/pointList.do", method = RequestMethod.POST)
-	public ModelAndView attendancePoint(Point point, HttpSession session) {
-
-		pointService.registPoint(point);
-
-		return null;
-	}
-
 	@RequestMapping(value = "/giftPoint.do", method = RequestMethod.POST)
 	public ModelAndView GiftPoint(Point point, HttpSession session) {
 
@@ -56,11 +48,5 @@ public class PointController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/pointList.do", method = RequestMethod.POST)
-	public ModelAndView gamePoint(Point point) {
-
-		return null;
-
-	}
 
 }

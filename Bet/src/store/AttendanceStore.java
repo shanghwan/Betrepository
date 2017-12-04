@@ -1,6 +1,15 @@
 package store;
 
+import java.util.List;
+
+import domain.Attendance;
+
 public interface AttendanceStore {
 
-	abstract <Attendance> String create(Attendance attendance);
+	String create(Attendance attendance);
+
+	void delete(String userId);
+
+	List<Attendance> search(String userId);
+
 }

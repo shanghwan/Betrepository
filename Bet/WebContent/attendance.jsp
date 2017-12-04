@@ -12,6 +12,7 @@
 <title>attedance</title>
 <link href="resources/css/style.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/style2.css" rel="stylesheet" type="text/css" />
+<!--[if IE]><link href="resources/css/style-ie.css" rel="stylesheet" type="text/css" /><![endif]-->
 <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="resources/js/site.js"></script>
@@ -158,11 +159,8 @@
 							</THEAD>
 							<TBODY>
 								<TR>
-									<center>
-										<a href="attendance.do" onclick="{$action_attend}"><img
-											src="http://img.echosting.cafe24.com/skin/base_ko_KR/calendar/btn_attend.gif"
-											alt="출석체크" /></a>
-									</center>
+									<form action="registattendance.do?userId=${userId }" method="post">
+										<input type="submit" class="btn btn btn-warning" value="출석체크"></form>
 									<br>
 									<br>
 
