@@ -68,6 +68,8 @@
 					<button type="submit" class="btn btn btn-warning"
 						onclick="showPopup();">초대하기</button>
 				</c:if>
+				
+				
 				<form action="gameJoin.do" method="post">
 					<input type="hidden" name="betId" value="${bet.betId }"> <input
 						type="text" name="pointBet" placeholder="포인트 입력 " size="12"></input>
@@ -76,6 +78,7 @@
 						type="radio" name="teamName" value="B">Team B
 					<button type="submit" class="btn btn btn-warning">참여하기</button>
 				</form>
+				
 			</c:if>
 
 			<div align="center">
