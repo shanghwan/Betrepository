@@ -10,7 +10,6 @@
 <title>BetOfOne</title>
 <link href="resources/css/style5.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/style4.css" rel="stylesheet" type="text/css" />
-<!--[if IE]><link href="resources/css/style-ie.css" rel="stylesheet" type="text/css" /><![endif]-->
 <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="resources/js/site.js"></script>

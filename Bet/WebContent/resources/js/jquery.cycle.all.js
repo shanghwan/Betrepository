@@ -1,5 +1,4 @@
 /*!
- * jQuery Cycle Plugin (with Transition Definitions)
  * Examples and documentation at: http://jquery.malsup.com/cycle/
  * Copyright (c) 2007-2010 M. Alsup
  * Version: 2.9999 (13-NOV-2011)

@@ -12,8 +12,6 @@
 <link href="resources/css/style8.css" rel="stylesheet" type="text/css" />
 
 
-
-
 <link href="resources/css2/bootstrap_modify.css" rel="stylesheet"
 	type="text/css" />
 <link href="resources/css2/bootstrap.css" rel="stylesheet"
@@ -133,7 +131,6 @@
                      </tr>
                   </table>
 
-			</c:if>
 			<c:forEach items="${list }" var="list">
 				<c:if test="${userId eq list }">
 					<div align="left">
