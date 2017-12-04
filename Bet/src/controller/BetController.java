@@ -3,7 +3,6 @@ package controller;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import domain.Bet;
 import domain.BetState;
-import domain.Comment;
-import domain.Invite;
-import domain.User;
 import domain.Team;
 import service.BetService;
 import service.BetStateService;
