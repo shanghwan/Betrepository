@@ -64,4 +64,5 @@ public class GameController {
 		return "BetDetail.do";
 	}
 	
+
 }

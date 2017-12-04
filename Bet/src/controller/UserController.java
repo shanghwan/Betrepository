@@ -26,7 +26,8 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	private AttendanceService attendanceService;
+//	@Autowired
+//	private AttendanceService attendanceService;
 	@Autowired
 	private BetService betService; 
 	@Autowired
@@ -36,6 +37,7 @@ public class UserController {
 
 	@RequestMapping(value="/Userregist.do", method = RequestMethod.POST)
 	public String join(User user) {
+		
 		userService.regist(user);
 
 		return "redirect:main.jsp";

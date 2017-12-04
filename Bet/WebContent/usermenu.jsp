@@ -22,23 +22,6 @@
 						</div>
 					</c:when>
 					<c:when test="${loginUser.userId eq 'admin'}">
-						<div id="sidebar">
-							<div class="widget widget-search">
-								<h2>회원</h2>
-								<div class="contentarea" align="center">
-									<form action="logout.do" method="post">
-										<label>${loginUser.name }님 환영합니다.</label><br> <br> <label>포인트
-											: ${loginUser.point }p</label> <br></br>
-										<button type="submit" class="btn btn btn-warning">logout</button>
-										<a href="adminpage.jsp"><button type="button"
-												class="btn btn btn-warning">admin Page</button></a>
-
-									</form>
-								</div>
-							</div>
-						</div>
-					</c:when>
-					<c:when test="${loginUser.userId eq 'admin'}">
 					<div id="sidebar">
 							<div class="widget widget-search">
 								<h2>회원</h2>
@@ -61,7 +44,7 @@
 								<h2>회원</h2>
 								<div class="contentarea" align="center">
 									<form action="logout.do" method="post">
-										<label>${loginUser.name }님 환영합니다.</label><br> <br> <label>포인트
+										<label>${loginUser.name }님 환영합니다.</label><br> <br> <label><a href="pointList.do">포인트</a>
 											: ${loginUser.point }p</label> <br></br>
 										<button type="submit" class="btn btn btn-warning">logout</button>
 										<a href="mypage.jsp"><button type="button"

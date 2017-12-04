@@ -14,4 +14,5 @@ public interface PlayerStore {
 	void update(Player player);
 	void delete(String userId, String betId);
 	int voteCount(String betId, String vote);
+
 }

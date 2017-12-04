@@ -20,7 +20,9 @@ public class ReportController {
 	private ReportService reportService;
 	
 	@RequestMapping("/BetReport.do")
-	public ModelAndView BetReport(String target, String userId){
+	public ModelAndView BetReport(String target, HttpSession session){
+		
+		String userId = (String)session.getAttribute("userId");
 		
 		ModelAndView modelAndView = new ModelAndView("BetReportRegist.jsp");
 		modelAndView.addObject("target", target);

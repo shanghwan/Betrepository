@@ -234,7 +234,27 @@
          </p>
          <!-- Please don't remove my backlink -->
 
-      </div>
-      <!-- // end #footer -->
-   </div>
-   <!-- // end #container -->
+
+				</div>
+				<!-- // end #content -->
+<%@ include file="usermenu.jsp"%>
+			</div>
+			<div id="footer">
+				<p>
+					&copy; copyright 2012 <a href="htp://www.dkntemplates.com"
+						title="Dkntemplates">www.dkntemplates.com</a> All right reserved
+				</p>
+
+				<!-- Please don't remove my backlink -->
+				<p>
+					Free Web Design Templates by <a href="http://www.dkntemplates.com"
+						title="Dkntemplates">Dkntemplates.com</a>
+				</p>
+				<!-- Please don't remove my backlink -->
+
+			</div>
+			<!-- // end #footer -->
+		</div>
+		<!-- // end #container -->
+	</div>
+	<!-- // end #wrapper -->

@@ -14,28 +14,38 @@
 		<selectKey keyProperty="pointId" resultType="String" order="BEFORE">
 			SELECT point_seq.nextval FROM dual
 		</selectKey>
-		INSERT INTO point_tb(pointId, userId, receiverId, pointDate, type,
-		point)
-		VALUES(#{pointId}, #{userId}, #{receiverId}, SYSDATE, #{type},
-		#{point})
+		INSERT INTO point_tb(pointId, userId, receiverId, pointDate, type,	point)
+		VALUES(#{pointId}, #{userId}, #{receiverId}, SYSDATE, #{type}, #{point})
 	</insert>
+
+	<select id="searchPoint" parameterType="String" resultType="Point" resultMap="PointMap">
+		SELECT pointId, userId, receiverId, pointDate, type, point
+		FROM point_tb
+		WHERE userId = #{userId}
+	</select>
 
 	<select id="searchAll" parameterType="String" resultType="Point" resultMap="PointMap">
 		SELECT pointId, userId, receiverId, pointDate, type, point
 		FROM point_tb
 		WHERE userId = #{userId}
-	</select>
+	</select>	
 
-	<select id="gift" parameterType="String" resultType="Point"
-		resultMap="PointMap">
-		SELECT pointId, userId, receiverId, pointDate, type, point
-		FROM point_tb
+	<update id="update" parameterType="String">
+		UPDATE point_tb
+		SET pointId = #{pointId},
+		    userId = #{userId},
+		    receiverId = #{receiverId}
+		    pointDate #{pointDate}
+		    type = {type}
+		    point = {point}		
 		WHERE userId = #{userId}
-	</select>
+	</update>
 
 	<delete id="delete" parameterType="String">
 		DELETE FROM point_tb
 		WHERE
 		userId = #{userId}
 	</delete>
+	
+	
 </mapper>

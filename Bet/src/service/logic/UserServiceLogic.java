@@ -8,35 +8,40 @@ import org.springframework.validation.annotation.Validated;
 
 import domain.User;
 import service.UserService;
+import store.PointStore;
 import store.UserStore;
+
 @Service
-public class UserServiceLogic implements UserService{
-	
+public class UserServiceLogic implements UserService {
+
 	@Autowired
 	private UserStore userStore;
+	@Autowired
+	private PointStore pointStore;
 
 	@Override
 	public User login(User user) {
 		
 		User readerUser = null;
 		
-		if(validate(user)) {
+	
+		if (validate(user)) {
 			readerUser = userStore.searchByUserId(user.getUserId());
 		}
 		return readerUser;
-		
+
 	}
-	
+
 	private boolean validate(User user) {
-	      if (user == null) {
-	         throw new RuntimeException("사용자 정보가 없습니다.");
-	      } else if (user.getUserId() == null || user.getUserId().isEmpty()) {
-	         throw new RuntimeException("ID가 없습니다.");
-	      } else if (user.getPassword() == null || user.getPassword().isEmpty()) {
-	         throw new RuntimeException("비밀번호가 없습니다.");
-	      }
-	      return true;
-	   }
+		if (user == null) {
+			throw new RuntimeException("사용자 정보가 없습니다.");
+		} else if (user.getUserId() == null || user.getUserId().isEmpty()) {
+			throw new RuntimeException("ID가 없습니다.");
+		} else if (user.getPassword() == null || user.getPassword().isEmpty()) {
+			throw new RuntimeException("비밀번호가 없습니다.");
+		}
+		return true;
+	}
 
 	@Override
 	public void regist(User user) {
@@ -45,9 +50,9 @@ public class UserServiceLogic implements UserService{
 
 	@Override
 	public void modifyUser(User user) {
-		
+
 		userStore.update(user);
-		
+
 	}
 
 	@Override
@@ -77,7 +82,7 @@ public class UserServiceLogic implements UserService{
 
 	@Override
 	public void removeFriend(String userId) {
-		
+
 	}
 
 }
