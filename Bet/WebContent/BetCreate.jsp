@@ -107,7 +107,6 @@
 								<div align="right">
 									<button type="submit" class="btn btn btn-warning">내기생성</button>
 								</div>
-
 							</form>
 						</div>
 					</div>

@@ -14,6 +14,7 @@ import service.TeamService;
 import store.BetStore;
 import store.InviteStore;
 import store.ReportBetStore;
+import store.ReportUserStore;
 
 @Service
 public class ReportServiceLogic implements ReportService{
@@ -26,12 +27,14 @@ public class ReportServiceLogic implements ReportService{
 	private InviteStore inviteStore;
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private ReportUserStore reportUserStore;
 	
 	
 	@Override
 	public void registBetReport(Report report) {
 		Date today = new Date(Calendar.getInstance().getTimeInMillis());
-		report.setreportbetdate(today);
+		report.setreportdate(today);
 		reportBetStore.create(report);
 	}
 
@@ -43,7 +46,7 @@ public class ReportServiceLogic implements ReportService{
 
 	@Override
 	public List<Report> findAllUserReport() {
-		return null;
+		return reportUserStore.searchByAllUserReport();
 	}
 
 	@Override
@@ -78,6 +81,13 @@ public class ReportServiceLogic implements ReportService{
 	@Override
 	public void removeUserReport(String reportId) {
 		
+	}
+
+	@Override
+	public void registUserReport(Report report) {
+		Date today = new Date(Calendar.getInstance().getTimeInMillis());
+		report.setreportdate(today);
+		reportUserStore.create(report);
 	}
 
 }

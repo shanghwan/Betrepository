@@ -44,7 +44,7 @@
 
 							<div class="post-summary" align="center">
 								<ul id="nav">
-									<li class="active"><a href="adminpage.jsp">회원신고</a></li>
+									<li class="active"><a href="adminpage.do">회원신고</a></li>
 									<li><a href="adminpageBet.do">내기신고</a></li>
 								</ul>
 							</div>
@@ -53,25 +53,28 @@
 						<form action="pwok.do" method="post">
 							<table border="1">
 									<colgroup>
-										<col width="150" />
-										<col width="300" />
+										<col width="100" />
+										<col width="120" />
+										<col width="250" />
+										<col width="100" />
 										<col width="100" />
 									</colgroup>
 									<thead>
 										<tr>
-											<th class="text-center">회원아이디</th>
 											<th class="text-center">신고자</th>
-											<th class="text-center">신고사유</th>
+											<th class="text-center">신고대상</th>
+											<th class="text-center">사유</th>
+											<th class="text-center">날짜</th>
+											<th class="text-center">내역삭제</th>
 										</tr>
 									</thead>
 									<c:forEach var="list" items="${BetList }">
 										<tr>
-											<td align="center">${list.betId }</td>
-											<td align="center"><a
-											href="BetDetail.do?betId=${list.betId}"
-											class="list-group-item hidden-xs">${list.title }</a></td>
-											<td align="center">${list.betOwner }</td>
-											<td align="center">${list.state }</td>
+											<td align="center">${list.userId }</a></td>
+											<td align="center"><a href="#" class="list-group-item hidden-xs">${list.target }</a></td>
+											<td align="center">${list.reason }</td>
+											<td align="center">${list.reportdate }</td>
+											<td align="center"><a href="#"><button type="button" class="btn btn btn-warning">X</button></a></td>
 										</tr>
 									</c:forEach>
 								</table>

@@ -31,8 +31,6 @@
 		<selectKey keyProperty="betId" resultType="string" order="BEFORE">
 			select bet_seq.nextval from dual
 		</selectKey>
-
-		
 				insert into bet_tb
 				(betId, state, title, content, photoA , photoB , betWay ,
 				startDate ,endDate , openCheck , pointCheck , point, betOwner)
@@ -40,8 +38,6 @@
 				#{photoB},
 				#{betWay}, SYSDATE, #{endDate}, #{openCheck}, #{pointCheck}, #{point},
 				#{betOwner})
-		
-
 	</insert>
 
 
@@ -79,8 +75,6 @@
 				UPDATE bet_tb
 				set title = #{title},
 				content = #{content},
-				photoA = #{photoA},
-				photoB = #{photoB},
 				point = #{point},
 				state = #{state},
 				pointCheck = #{pointCheck}

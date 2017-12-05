@@ -112,7 +112,7 @@ public class BetController {
 		String userId = (String) session.getAttribute("userId");
 		if (userId == null) {
 
-			return "redirect:index.jsp";
+			return "redirect:main.jsp";
 		}
 		return "BetCreate.jsp";
 	}
@@ -128,7 +128,7 @@ public class BetController {
 		bet.setPhotoB("null");
 
 		String betId = betService.registBet(bet);
-		return "redirect:BetDetail.do?betId=" + betId;
+		return "BetDetail.do?betId=" + betId;
 	}
 
 	@RequestMapping(value = "/BetFail.do")
@@ -216,10 +216,4 @@ public class BetController {
 			}
 		}
 	}
-	
-	
-	
-	
-	
-	
 }

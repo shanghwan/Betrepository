@@ -1,6 +1,5 @@
 package service.logic;
 
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,10 +40,10 @@ public class BetServiceLogic implements BetService {
 	public String registBet(Bet bet) {
 		Date today = new Date(Calendar.getInstance().getTimeInMillis());
 		User user = userStore.searchByUserId(bet.getBetOwner());
-		
+
 		bet.setStartDate(today);
 		bet.setState("대기");
-		
+
 		if (bet.getBetWay().equals("All")) {
 			bet.setState("진행");
 			bet.setPointCheck("LOCK");
@@ -53,20 +52,20 @@ public class BetServiceLogic implements BetService {
 		if (bet.getPointCheck().equals("ALLIN")) {
 			bet.setPoint(user.getPoint());
 		}
-		
+
 		// point 처리해야함
-		
+
 		String betId = betStore.create(bet);
 
 		Team team = new Team();
-		
+
 		team.setBetId(betId);
 		team.setTeamName("A");
 		teamService.registTeam(team);
 
 		team.setTeamName("B");
 		teamService.registTeam(team);
-		
+
 		return betId;
 	}
 
@@ -77,9 +76,13 @@ public class BetServiceLogic implements BetService {
 
 	@Override
 	public Bet findByBetId(String betId) {
-
+		Date today = new Date(Calendar.getInstance().getTimeInMillis());
 		Bet bet = betStore.searchByBetId(betId);
-		
+		int com = bet.getEndDate().compareTo(today);
+		if (com <= 0) {
+			bet.setState("종료");
+			betStore.update(bet);
+		}
 		List<Comment> list = CommentStore.searchAll(betId);
 		bet.setComments(list);
 		int A = playerStore.voteCount(betId, "A");
@@ -101,44 +104,24 @@ public class BetServiceLogic implements BetService {
 
 	@Override
 	public List<Bet> findByState(String state) {
-		
-		//
-		
-		if(state.equals("대기")) {
-		List<Bet> list =  betStore.searchByState(state);
-		return list;
-		
-		}else {
-		List<Bet> list =  betStore.searchByState(state);
-		Date today = new Date(Calendar.getInstance().getTimeInMillis());
-		List<Bet> add = new ArrayList<>();
-		
-		for(Bet bet1 : list) {
-			String betId = bet1.getBetId();
-			Bet bet = betStore.searchByBetId(betId);
-			System.out.println(betId);
-			int com = bet.getEndDate().compareTo(today);
-			if(com == 0) {
-				bet.setState("종료");
-				betStore.update(bet);
-				add.add(bet);
-			}else if(com <0) {
-				bet.setState("종료");
-				betStore.update(bet);
-				add.add(bet);
-			}else {
-				bet.setState("종료");
-				betStore.update(bet);
-				add.add(bet);
-			}
-		}
-		return add;
-		}
+		return betStore.searchByState(state);
 	}
 
 	@Override
 	public List<Bet> findByBetWay(String betWay) {
-		return betStore.searchByBetWay(betWay);
+		List<Bet> list = betStore.searchByBetWay(betWay);
+		Date today = new Date(Calendar.getInstance().getTimeInMillis());
+
+		for (Bet bet1 : list) {
+			String betId = bet1.getBetId();
+			Bet bet = betStore.searchByBetId(betId);
+			int com = bet.getEndDate().compareTo(today);
+			if (com <= 0) {
+				bet.setState("종료");
+				betStore.update(bet);
+			}
+		}
+		return list;
 	}
 
 	@Override

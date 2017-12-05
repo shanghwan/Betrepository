@@ -122,7 +122,6 @@ public class UserController {
 		model.addAttribute("bet", bet);
 		return "BetFail.jsp";
 	}
-
 	@RequestMapping(value = "/invite.do")
 	public String invite(String userId, String betId, Model model) {
 
@@ -140,6 +139,15 @@ public class UserController {
 
 		model.addAttribute("list", list);
 		return "inviteList.jsp";
+	}
+	
+	
+		
+	@RequestMapping(value = "/adminpage.do")
+	public String adminpage(Model model) {
+		List<Report> list = reportService.findAllUserReport();
+		model.addAttribute("BetList", list);
+		return "adminpage.jsp";
 	}
 
 	@RequestMapping(value = "/adminpageBet.do")
