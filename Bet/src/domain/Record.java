@@ -3,12 +3,12 @@ package domain;
 public class Record {
 	
 	private String userId;
-	private String record;
 	private int total;
 	private int win;
 	private int draw;
 	private int lose;
 	private int rate;
+	private int rank;
 	
 	
 	public Record() {
@@ -20,12 +20,7 @@ public class Record {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getRecord() {
-		return record;
-	}
-	public void setRecord(String record) {
-		this.record = record;
-	}
+	
 	public int getTotal() {
 		return total;
 	}
@@ -56,8 +51,11 @@ public class Record {
 	public void setRate(int rate) {
 		this.rate = rate;
 	}
-	
-	
-	
+	public int getRank() {
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
 	
 }

@@ -69,7 +69,9 @@ public class UserServiceLogic implements UserService {
 
 	@Override
 	public List<User> findByPoint() {
-		return null;
+		
+		List<User> list = userStore.searchByPoint();
+		return list;
 	}
 
 	@Override
