@@ -24,7 +24,7 @@
 		SELECT playerId, betId, teamId, userId, position, point, vote
 		FROM
 		player_tb
-		WHERE teamId = #{teamId} AND betId = #{betId}
+		WHERE teamId = #{teamId} AND betId = #{betId} order by playerId asc
 	</select>
 
 	<update id="update" parameterType="Player">

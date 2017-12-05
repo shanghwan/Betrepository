@@ -12,4 +12,5 @@ public interface TeamService {
 	void modifyTeam(Team team);
 	void removeTeam(String betId);
 	Team findByTeamName(String betId, String teamName);
+	void removePlayerByTeam(String userId,String betId, String teamId);
 }

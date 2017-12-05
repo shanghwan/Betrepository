@@ -12,7 +12,6 @@ import domain.Point;
 import domain.Team;
 import domain.User;
 import service.PointService;
-import store.AttendanceStore;
 import store.BetStore;
 import store.PlayerStore;
 import store.PointStore;
@@ -82,7 +81,7 @@ public class PointServiceLogic implements PointService {
 		team.getResult();
 
 		// 내기방식에 따라서(올/팀/원)
-		if (bet.getBetWay().equals("one")) {
+		if (bet.getBetWay().equals("One")) {
 
 			if (point.getReceiverId().equals(null)) {
 				if (point.getType().equals("win")) {
@@ -98,9 +97,9 @@ public class PointServiceLogic implements PointService {
 				}
 			}
 
-		} else if (bet.getBetWay().equals("all")) {
+		} else if (bet.getBetWay().equals("All")) {
 
-		} else if (bet.getBetWay().equals("team")) {
+		} else if (bet.getBetWay().equals("Team")) {
 
 		}
 

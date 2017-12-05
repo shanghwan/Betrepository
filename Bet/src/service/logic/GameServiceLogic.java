@@ -42,7 +42,7 @@ public class GameServiceLogic implements GameService {
 		Player player = new Player();
 		int point = 10;
 		
-		//내기에 참여했는지 확인하고 삭제해야함
+		
 		playerService.removePlayerByBetIdAndUserId(betId, userId);
 		
 		player.setBetId(betId);
@@ -87,20 +87,22 @@ public class GameServiceLogic implements GameService {
 
 	@Override
 	public String joinBetOfTeam(String userId, String teamName, String betId, int point) {
+
+		// 내기에 참여중인 나를 삭제
+		playerService.removePlayerByBetIdAndUserId(betId, userId);
+		
 		Team team = teamService.findByTeamName(betId, teamName);
 		Player player = new Player();
 		Bet bet = betService.findByBetId(betId);
 		User user = userStore.searchByUserId(userId);
-
-		// 내기에 참여중인 나를 삭제
-		playerService.removePlayerByBetIdAndUserId(betId, userId);
-
+	
 		// 나를 내기에 새로 참여 등록
 		player.setBetId(betId);
 		player.setTeamId(team.getTeamId());
 		player.setPoint(point);
 		player.setUserId(userId);
 		player.setPosition("member");
+		player.setVote("N");
 
 		if (team.getPlayers().isEmpty()) {
 			player.setPosition("leader");

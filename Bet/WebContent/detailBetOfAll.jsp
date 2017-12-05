@@ -93,8 +93,31 @@
 							<input type="submit" class="btn btn btn-warning" value="투표하기">
 
 						</div>
-
 					</form>
+					<c:if test="${bet.state eq '종료'}">
+						WINNER TEAM : 
+						<c:choose>
+								<c:when test="${teamA.result eq 'WIN' }">
+									 A
+								</c:when>
+								<c:when test="${teamB.result eq 'WIN' }">
+									 B
+								</c:when>
+								<c:otherwise>
+									 DRAW
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+						<br>
+						TEAM A :
+						<c:forEach var="a" items="${teamA.players }">
+						&nbsp;${a.userId }&nbsp;(${a.point }&nbsp;Point) ,
+						</c:forEach>
+						<br> TEAM B :
+						<c:forEach var="p" items="${teamB.players }">
+						&nbsp;${p.userId }&nbsp;(${p.point }&nbsp;Point) ,
+						</c:forEach>
+					
 
 					<c:forEach var="comment" items="${bet.comments }">
 						<table class="table" style="font-size: 13px; padding: 20px;">

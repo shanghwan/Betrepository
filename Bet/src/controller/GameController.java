@@ -32,13 +32,13 @@ public class GameController {
 
 		// 큰 if 필요 (내기현황불러서 내가 이 내기에 참여했는지 체크)
 
-		if (bet.getBetWay().equals("one")) {
+		if (bet.getBetWay().equals("One")) {
 			gameService.joinBetOfOne(userId, teamName, betId, point);
 			return "BetDetail.do";
-		} else if (bet.getBetWay().equals("all")) {
+		} else if (bet.getBetWay().equals("All")) {
 			gameService.joinBetOfAll(userId, teamName, betId);
 			return "BetDetail.do";
-		} else if (bet.getBetWay().equals("team")) {
+		} else if (bet.getBetWay().equals("Team")) {
 			gameService.joinBetOfTeam(userId, teamName, betId, point);
 			return "BetDetail.do";
 		}

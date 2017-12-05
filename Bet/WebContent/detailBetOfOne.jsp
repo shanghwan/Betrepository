@@ -148,8 +148,21 @@
 						</div>
 						</c:if></c:if>
 					</form>
-						
-						
+						<c:if test="${bet.state eq '종료'}">
+						WINNER TEAM : 
+						<c:choose>
+								<c:when test="${teamA.result eq 'WIN' }">
+									 A
+								</c:when>
+								<c:when test="${teamB.result eq 'WIN' }">
+									 B
+								</c:when>
+								<c:otherwise>
+									 DRAW
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+						<br>
 						TEAM A :
 						<c:forEach var="a" items="${teamA.players }">
 						

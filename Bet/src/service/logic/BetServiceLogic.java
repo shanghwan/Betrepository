@@ -9,19 +9,15 @@ import org.springframework.stereotype.Service;
 
 import domain.Bet;
 import domain.Comment;
-import domain.Player;
 import domain.Team;
 import domain.User;
 import service.BetService;
 import service.TeamService;
-import store.BetStateStore;
 import store.BetStore;
 import store.CommentStore;
 import store.InviteStore;
 import store.PlayerStore;
 import store.UserStore;
-import store.CommentStore;
-import store.InviteStore;
 
 @Service
 public class BetServiceLogic implements BetService {
@@ -47,7 +43,7 @@ public class BetServiceLogic implements BetService {
 		bet.setStartDate(today);
 		bet.setState("대기");
 		
-		if (bet.getBetWay().equals("all")) {
+		if (bet.getBetWay().equals("All")) {
 			bet.setState("진행");
 			bet.setPointCheck("LOCK");
 			bet.setPoint(10);
@@ -64,15 +60,7 @@ public class BetServiceLogic implements BetService {
 		
 		team.setBetId(betId);
 		team.setTeamName("A");
-		String teamId = teamService.registTeam(team);
-		Player player = new Player();
-		player.setBetId(betId);
-		player.setPosition("leader");
-		player.setPoint(bet.getPoint());
-		player.setTeamId(teamId);
-		player.setUserId(user.getUserId());
-		player.setVote("N");
-		playerStore.create(player);
+		teamService.registTeam(team);
 
 		team.setTeamName("B");
 		teamService.registTeam(team);

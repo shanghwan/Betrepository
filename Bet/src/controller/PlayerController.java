@@ -20,10 +20,10 @@ public class PlayerController {
 	private PlayerService playerService;
 	
 	
-	@RequestMapping(value = "/deleteplayerByTeamA.do")
-	public ModelAndView deleteplayerByTeamA(String userId, String betId, String betWay) {
+	@RequestMapping(value = "/deleteplayerByTeam.do")
+	public ModelAndView deletePlayerByTeam(String userId, String betId, String teamId) {
 		
-		playerService.removePlayerByBetIdAndUserId(betId, userId);
+		teamService.removePlayerByTeam(userId, betId, teamId);
 		
 		ModelAndView modelAndView = new ModelAndView("BetDetail.do");
 		return modelAndView;
