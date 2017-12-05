@@ -54,17 +54,20 @@ public class TeamServiceLogic implements TeamService {
 		Team team = teamStore.searchByTeamName(betId, teamName);
 
 		List<Player> players = playerStore.searchByTeamId(team.getTeamId(), betId);
+
 		for (Player p : players) {
+			int playerPoint = p.getPoint();
+			int temp = 0;
+			temp += playerPoint;
+			playerPoint++;
+			team.setTotalPoint(temp);
+
 			if (p.getPosition().equals("leader")) {
 				team.setLeader(p);
-				//
 			}
 		}
-		team.setPlayers(players);
 
-		
-		//String pp = playerStore.searchByPlayerId(PlayerId)
-		// 포인트-플레이어포인트합산해서 팀.셋토탈포인트해서 팀불럿을때 토탈포인트넣기
+		team.setPlayers(players);
 		return team;
 	}
 

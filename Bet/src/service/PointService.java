@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+import domain.Player;
 import domain.Point;
 import domain.Team;
 import domain.User;
@@ -21,5 +22,7 @@ public interface PointService {
 	List<Point> findAllPoint(String userId); // 내역조회
 
 	void removePoint(String userId); // 탈퇴
+
+	String betTeamGamePoint(Point point, Team team, Player player);
 
 }
