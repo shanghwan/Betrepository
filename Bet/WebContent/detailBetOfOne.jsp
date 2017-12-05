@@ -40,8 +40,8 @@
 				"width=500, height=300, left=100, top=50");
 	}
 	function showPopup2() {
-		window.open("UserReport.do?target=${bet.betOwner}&userId=${userId}", "a",
-				"width=500, height=300, left=100, top=50");
+		window.open("UserReport.do?target=${bet.betOwner}&userId=${userId}",
+				"a", "width=500, height=300, left=100, top=50");
 	}
 </script>
 </head>
@@ -61,10 +61,7 @@
 				<h1 class="page-title">[${bet.betId }]&nbsp;${bet.title }</h1>
 			</div>
 			<!-- // end #banner -->
-			<c:if test="${bet.state eq '대기' and bet.betOwner eq userId}">
-			<a href="${ctx }/article/recommend.do?articleId=${article.articleId}"
-				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">삭제</a>
-				</c:if>
+
 			<a class="glyphicon glyphicon-cog pull-right" style="padding: 10px"
 				onclick="showPopup1();">신고</a> <br>
 			<c:if test="${bet.state eq '대기' }">
@@ -116,29 +113,50 @@
 				</c:if>
 			</div>
 			<div align="right">
-            <br> 종료날짜 : ${bet.endDate} <br> 상태 : ${bet.state} <br> 내기장 아이디 : ${bet.betOwner }<a onclick="showPopup2();">[신고]</a> <br>
-            <br> 내기 방식 : BetOf${bet.betWay } <br> 포인트 방식 : ${bet.pointCheck } <br> <c:if test="${bet.pointCheck eq 'LOCK' }">내기포인트 : ${bet.point }</c:if>
+				<br> 종료날짜 : ${bet.endDate} <br> 상태 : ${bet.state} <br>
+				내기장 아이디 : ${bet.betOwner }<a onclick="showPopup2();">[신고]</a> <br>
+				<br> 내기 방식 : BetOf${bet.betWay } <br> 포인트 방식 :
+				${bet.pointCheck } <br>
+				<c:if test="${bet.pointCheck eq 'LOCK' }">내기포인트 : ${bet.point }</c:if>
 
-         </div>
+			</div>
 
 			<div id="main" class="clearfix">
 				<div id="page">
-					<h3 class="page-title" align="center">${bet.content }</h3><br>
+					<h3 class="page-title" align="center">${bet.content }</h3>
+					<br>
+					
+					<c:if test="${bet.state eq '대기' }">
+					<form action="Image.do" method="POST" enctype="multipart/form-data">
+						<input type="hidden" name="betId" value="${bet.betId }">
+						<input type="file" name="photoA" />
+						<button type="submit" value="올리기">올리기</button>
+					</form>
+					
+					<form action="Image.do" method="POST" enctype="multipart/form-data">
+										
+											<input type="hidden" name="betId" value="${bet.betId }">
+											<input type="file" name="photoB" />
+											<button type="submit">올리기</button>
+										
+					</form> 
+					</c:if>		
+									
+									
 					<form action="betVote.do" method="post">
 						<input type="hidden" name="betId" value="${bet.betId }">
 						<table>
 							<tr>
 								<td><img src="resources/images/betofall.jpg"
-									alt="Banner Image 1" /><br> <br> <c:if
-										test="${bet.state eq '진행'}">
-										<c:if
-											test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
-											<input type="radio" name="vote" value="A">Team A</c:if>
+									alt="Banner Image 1" /><br> <br>
+									<c:if test="${bet.state eq '진행'}">
+										<c:if test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
+											<input type="radio" name="vote" value="A">Team A
+											</c:if>
 									</c:if></td>
 								<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>
-								<td><img src="resources/images/betofall.jpg"
-									alt="Banner Image 1" /><br> <br> <c:if
-										test="${bet.state eq '진행'}">
+								<td><img src="resources/images/betofall.jpg" alt="Banner Image 1" /><br> <br>
+									<c:if test="${bet.state eq '진행'}">
 										<c:if
 											test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
 											<input type="radio" name="vote" value="B">Team B</c:if>
@@ -154,38 +172,43 @@
 							</c:if>
 						</c:if>
 					</form>
-						<c:if test="${bet.state eq '종료'}">
+					<c:if test="${bet.state eq '종료'}">
 						WINNER TEAM : 
 						<c:choose>
-								<c:when test="${teamA.result eq 'WIN' }">
+							<c:when test="${teamA.result eq 'WIN' }">
 									 A
 								</c:when>
-								<c:when test="${teamB.result eq 'WIN' }">
+							<c:when test="${teamB.result eq 'WIN' }">
 									 B
 								</c:when>
-								<c:otherwise>
+							<c:otherwise>
 									 DRAW
 								</c:otherwise>
-							</c:choose>
-						</c:if>
-						<br>
-						TEAM A :
-						<c:forEach var="a" items="${teamA.players }">
+						</c:choose>
+					</c:if>
+					<br> TEAM A :
+					<c:forEach var="a" items="${teamA.players }">
 						
-						&nbsp;${a.userId }&nbsp;(${a.point }&nbsp;Point) <c:if test="${userId eq bet.betOwner and bet.state eq '대기' or userId eq teamA.leader.userId and bet.state eq '대기'}">
-						<a href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${a.userId }&betWay=${bet.betWay}">[X]</a></c:if>,
-						
-						</c:forEach>
-						<br> TEAM B :
-						<c:forEach var="p" items="${teamB.players }">
-						
-						&nbsp;${p.userId }&nbsp;(${p.point }&nbsp;Point) <c:if test="${userId eq bet.betOwner and bet.state eq '대기' or userId eq teamB.leader.userId and bet.state eq '대기'}">
-						<a href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${p.userId }&betWay=${bet.betWay}">[X]</a></c:if>,
+						&nbsp;${a.userId }&nbsp;(${a.point }&nbsp;Point) <c:if
+							test="${userId eq bet.betOwner and bet.state eq '대기' or userId eq teamA.leader.userId and bet.state eq '대기'}">
+							<a
+								href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${a.userId }&betWay=${bet.betWay}">[X]</a>
+						</c:if>,
 						
 						</c:forEach>
+					<br> TEAM B :
+					<c:forEach var="p" items="${teamB.players }">
 						
+						&nbsp;${p.userId }&nbsp;(${p.point }&nbsp;Point) <c:if
+							test="${userId eq bet.betOwner and bet.state eq '대기' or userId eq teamB.leader.userId and bet.state eq '대기'}">
+							<a
+								href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${p.userId }&betWay=${bet.betWay}">[X]</a>
+						</c:if>,
 						
-						
+						</c:forEach>
+
+
+
 
 					<c:forEach var="comment" items="${bet.comments }">
 						<table class="table" style="font-size: 13px; padding: 20px;">

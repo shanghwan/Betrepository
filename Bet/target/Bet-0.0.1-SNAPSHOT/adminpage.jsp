@@ -7,10 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="description" content="Project Description" />
 <meta name="keywords" content="Project Keywords" />
-<title>BetOfOne</title>
+<title>관리자</title>
 <link href="resources/css/style5.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/style4.css" rel="stylesheet" type="text/css" />
-<!--[if IE]><link href="resources/css/style-ie.css" rel="stylesheet" type="text/css" /><![endif]-->
 <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="resources/js/site.js"></script>
@@ -21,14 +20,14 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="index.jsp"><h1>내기의 神</h1></a>
+					<a href="main.jsp"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 						<ul id="nav">
-							<li><a href="BetOfOnelist.do?betWay=one">BetOfOne</a></li>
-							<li><a href="BetOfOnelist.do?betWay=all">BetOfAll</a></li>
-							<li><a href="BetOfOnelist.do?betWay=team">BetOfTeam</a></li>
-							<li><a href="BetOfOnelistByState.do?state=대기">preseason game</a></li>
+							<li><a href="Betlist.do?betWay=one">BetOfOne</a></li>
+							<li><a href="Betlist.do?betWay=all">BetOfAll</a></li>
+							<li><a href="Betlist.do?betWay=team">BetOfTeam</a></li>
+							<li><a href="BetlistByState.do?state=대기">preseason game</a></li>
 						</ul>
 			</div>
 			<!-- // end #header -->
@@ -45,8 +44,8 @@
 
 							<div class="post-summary" align="center">
 								<ul id="nav">
-									<li class="active"><a href="adminpage.jsp">회원신고</a></li>
-									<li><a href="adminpageBet.jsp">내기신고</a></li>
+									<li class="active"><a href="adminpage.do">회원신고</a></li>
+									<li><a href="adminpageBet.do">내기신고</a></li>
 								</ul>
 							</div>
 						</div>
@@ -54,27 +53,32 @@
 						<form action="pwok.do" method="post">
 							<table border="1">
 									<colgroup>
-										<col width="150" />
-										<col width="300" />
+										<col width="100" />
+										<col width="120" />
+										<col width="250" />
+										<col width="100" />
 										<col width="100" />
 									</colgroup>
 									<thead>
 										<tr>
-											<th class="text-center">회원아이디</th>
 											<th class="text-center">신고자</th>
-											<th class="text-center">신고사유</th>
+											<th class="text-center">신고대상</th>
+											<th class="text-center">사유</th>
+											<th class="text-center">날짜</th>
+											<th class="text-center">내역삭제</th>
 										</tr>
 									</thead>
 									<c:forEach var="list" items="${BetList }">
 										<tr>
-											<td align="center">${list.betId }</td>
-											<td align="center"><a
-											href="BetOfOneDetail.do?betId=${list.betId}"
-											class="list-group-item hidden-xs">${list.title }</a></td>
-											<td align="center">${list.betOwner }</td>
-											<td align="center">${list.state }</td>
+											<td align="center">${list.userId }</a></td>
+											<td align="center"><a href="findBetByUserId.do?betOwner=${list.target } " class="list-group-item hidden-xs">${list.target }</a></td>
+											<td align="center">${list.reason }</td>
+											<td align="center">${list.reportdate }</td>
+											<td align="center"><a href="#"><button type="button" class="btn btn btn-warning">X</button></a></td>
 										</tr>
 									</c:forEach>
+									
+									
 								</table>
 							</form>
 						</div>
@@ -83,16 +87,7 @@
 				<!-- // end #content -->
 				<div id="sidebar">
 					<div class="widget widget-search">
-						<h2>회원</h2>
-						<div class="contentarea" align="center">
-							<form action="logout.do" method="post">
-								<label>${loginUser.name }님 환영합니다.</label><br> <br> <label>포인트
-									: ${loginUser.point }p</label> <br></br>
-								<button type="submit" class="btn btn btn-warning">logout</button>
-								<a href="mypage.jsp"><button type="button"
-										class="btn btn btn-warning">MyPage</button></a>
-							</form>
-						</div>
+						<%@ include file="usermenu.jsp"%>
 					</div>
 				</div>
 

@@ -6,33 +6,46 @@
 <mapper namespace="store.mapper.PointMapper">
 
 	<resultMap type="Point" id="PointMap">
-		<id property="id" column="point_id" />		
+		<id property="id" column="point_id" />
 		<result property="regDate" column="PointgDate" />
 	</resultMap>
 
 	<insert id="create" parameterType="Point">
-		<selectKey keyProperty="pointtId" resultType="String" order="BEFORE">
+		<selectKey keyProperty="pointId" resultType="String" order="BEFORE">
 			SELECT point_seq.nextval FROM dual
 		</selectKey>
-		INSERT INTO point_tb(pointId, userId, receiverId, pointDate, type, point)
+		INSERT INTO point_tb(pointId, userId, receiverId, pointDate, type,	point)
 		VALUES(#{pointId}, #{userId}, #{receiverId}, SYSDATE, #{type}, #{point})
 	</insert>
 
-	<select id="searchAll" parameterType="String" resultType="Point">
-		SELECT pointId, userId, receiverId, pointDate, type, point
-		FROM point_tb
-		WHERE userId = #{userId}
-	</select>	
-	
-	<select id="gift" parameterType="String" resultType="Point"
-		resultMap="PointMap">
+	<select id="searchPoint" parameterType="String" resultType="Point" resultMap="PointMap">
 		SELECT pointId, userId, receiverId, pointDate, type, point
 		FROM point_tb
 		WHERE userId = #{userId}
 	</select>
 
+	<select id="searchAll" parameterType="String" resultType="Point" resultMap="PointMap">
+		SELECT pointId, userId, receiverId, pointDate, type, point
+		FROM point_tb
+		WHERE userId = #{userId}
+	</select>	
+
+	<update id="update" parameterType="String">
+		UPDATE point_tb
+		SET pointId = #{pointId},
+		    userId = #{userId},
+		    receiverId = #{receiverId}
+		    pointDate #{pointDate}
+		    type = {type}
+		    point = {point}		
+		WHERE userId = #{userId}
+	</update>
+
 	<delete id="delete" parameterType="String">
 		DELETE FROM point_tb
-		WHERE userId = #{userId}
+		WHERE
+		userId = #{userId}
 	</delete>
+	
+	
 </mapper>

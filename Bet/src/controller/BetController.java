@@ -1,9 +1,14 @@
 package controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Bet;
@@ -64,8 +71,10 @@ public class BetController {
 
 	
 	@RequestMapping("/BetDetail.do")
-	public ModelAndView BetDetail(String betId) {
-		Bet bet = betService.findByBetId(betId);
+	public ModelAndView BetDetail(String betId){
+		
+		
+		 Bet bet = betService.findByBetId(betId);
 		List<String> list = inviteService.findByAllInviteByBetId(betId);
 		String teamName = "A";
 		Team teamA = teamService.findByTeamName(betId, teamName);
@@ -129,6 +138,75 @@ public class BetController {
 
 		String betId = betService.registBet(bet);
 		return "BetDetail.do?betId=" + betId;
+	}
+	
+	@RequestMapping(value = "/Image.do", method = RequestMethod.POST)
+	public ModelAndView Image(String betId, MultipartHttpServletRequest file) throws IOException {
+		
+		
+		  Bet bet = betService.findByBetId(betId);
+		  String realFolder = "c:\\" + File.separator + "tempFiles";
+	      File dir = new File(realFolder);
+	      if (!dir.isDirectory()) {
+	         dir.mkdirs();
+	      }
+	      
+	      MultipartFile petImage = file.getFile("photoA");
+	      if (petImage == null && petImage.getOriginalFilename().equals("")) {
+	         
+	      } else{
+	         // 파일 중복명 처리
+	         String genId = UUID.randomUUID().toString();
+	         // 본래 파일명
+	         String originalfileName = petImage.getOriginalFilename();
+	         // 저장되는 파일 이름
+	         String saveFileName = genId + "." + originalfileName;
+
+	         File saveFile = new File(dir.getAbsolutePath() + File.separator + saveFileName);
+
+	         byte[] bytes = petImage.getBytes();
+
+	         BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(saveFile));
+	         out.write(bytes);
+	         out.close();
+	         
+	         
+	         bet.setPhotoA(saveFileName);
+	 		 betService.modify(bet);
+
+	      }
+		
+		List<String> list = inviteService.findByAllInviteByBetId(betId);
+		String teamName = "A";
+		Team teamA = teamService.findByTeamName(betId, teamName);
+		teamName = "B";
+		Team teamB = teamService.findByTeamName(betId, teamName);
+		
+		if(bet.getBetWay().equals("One")) {
+			ModelAndView modelAndView = new ModelAndView("detailBetOfOne.jsp");
+			modelAndView.addObject("bet", bet);
+			modelAndView.addObject("list", list);
+			modelAndView.addObject("teamA", teamA);
+			modelAndView.addObject("teamB", teamB);
+			return modelAndView;
+		}
+		else if(bet.getBetWay().equals("Team")){
+			ModelAndView modelAndView = new ModelAndView("detailBetOfTeam.jsp");
+			modelAndView.addObject("bet", bet);
+			modelAndView.addObject("list", list);
+			modelAndView.addObject("teamA", teamA);
+			modelAndView.addObject("teamB", teamB);
+			return modelAndView;
+		}
+		else {
+			ModelAndView modelAndView = new ModelAndView("detailBetOfAll.jsp");
+			modelAndView.addObject("bet", bet);
+			modelAndView.addObject("list", list);
+			modelAndView.addObject("teamA", teamA);
+			modelAndView.addObject("teamB", teamB);
+			return modelAndView;
+		}
+		
 	}
 
 	@RequestMapping(value = "/BetFail.do")

@@ -41,6 +41,10 @@
 		window.open("BetReport.do?target=${bet.betId}&userId=${userId}", "a",
 				"width=500, height=300, left=100, top=50");
 	}
+	function showPopup2() {
+		window.open("UserReport.do?target=${bet.betOwner}&userId=${userId}", "a",
+				"width=500, height=300, left=100, top=50");
+	}
 </script>
 </head>
 
@@ -66,7 +70,7 @@
 			<a class="glyphicon glyphicon-cog pull-right" style="padding: 10px"
 				onclick="showPopup1();">신고</a> <br>
 			<div align="right">
-				<br> 종료날짜 : ${bet.endDate} <br> 상태 : ${bet.state} <br> 내기장 아이디 : ${bet.betOwner }
+				<br> 종료날짜 : ${bet.endDate} <br> 상태 : ${bet.state} <br> 내기장 아이디 : ${bet.betOwner }<a onclick="showPopup2();">[신고]</a>
             <br> 내기 방식 : BetOf${bet.betWay } <br> 포인트 방식 : ${bet.pointCheck } <br> <c:if test="${bet.pointCheck eq 'LOCK' }">내기포인트 : ${bet.point }</c:if>
 
 			</div>

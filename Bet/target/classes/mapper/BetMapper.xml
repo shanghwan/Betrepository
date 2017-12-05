@@ -67,6 +67,13 @@
 		 ,endDate , pointCheck , point, betOwner
 		FROM bet_tb WHERE state = #{state}
 	</select>
+	
+	<select id="searchByUserId" parameterType="String" resultType="Bet"	resultMap="BetMap">
+		select betId, state, title, content, betWay , pointCheck , betOwner
+		FROM bet_tb WHERE betOwner = #{betOwner}
+	</select>
+	
+	
 
 	<update id="update" parameterType="Bet">
 		
@@ -77,6 +84,5 @@
 				state = #{state},
 				pointCheck = #{pointCheck}
 				WHERE betId = #{betId}
-		
 	</update>
 </mapper>

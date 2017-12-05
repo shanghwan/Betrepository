@@ -17,5 +17,6 @@
 	<context:component-scan base-package="store.logic"/>
 	<context:component-scan base-package="domain" />
 	
+ 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
 </beans>

@@ -10,7 +10,9 @@ public interface BetMapper {
 	List<Bet> searchAllBet();
 
 	Bet searchByBetId(String betId);
-
+	
+	List<Bet> searchByUserId(String betOwner);
+	
 	List<Bet> searchByBetOwner(HashMap<String, String> map);
 
 	List<Bet> searchByTitle(HashMap<String, String> map);
