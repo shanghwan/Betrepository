@@ -1,5 +1,7 @@
 package service;
 
+import domain.Bet;
+
 public interface GameService {
 	String joinBetOfOne(String userId, String teamName, String betId, int point);
 
@@ -14,4 +16,6 @@ public interface GameService {
 	String voteGame(String betId, String userId, String vote);
 
 	String gameEnd(String betId, String vote);
+
+	String timeEndGame(Bet bet);
 }

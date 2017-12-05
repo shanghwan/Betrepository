@@ -1,5 +1,10 @@
 package controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 
@@ -7,9 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Bet;
 import domain.Comment;
+import service.BetService;
 import service.CommentService;
 
 @Controller
@@ -20,26 +29,57 @@ public class CommentController {
 
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private BetService betService;
 
 	@RequestMapping(value = "/registComment.do", method = RequestMethod.POST)
-	public ModelAndView registComment(HttpSession session, Comment comment) {
+	public String registComment(HttpSession session, Comment comment) {
+
 		String userId = (String) session.getAttribute("userId");
-	
+
 		comment.setUserId(userId);
-		comment.setContent(comment.getContent());
-		comment.setBetId(comment.getBetId());
+		betService.findByBetId(comment.getBetId());
+//		comment.setBetId(comment.getBetId());
+		System.out.println(comment.getBetId());
 
-		commentService.registComment(comment);
+		String commentId = commentService.registComment(comment);
 
-		ModelAndView modelAndView = new ModelAndView("detailBetOfOne.jsp");
+		return "redirect:BetDetail.do";
+	}
 
-		modelAndView.addObject("comment", comment);
+	@RequestMapping(value = "/uploadFile.do", method = RequestMethod.POST)
+	public ModelAndView uploadHandler(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
 
-		return modelAndView;
+		if (!file.isEmpty()) {
+			try {
+				byte[] bytes = file.getBytes();
+
+				File dir = new File("c:\\" + File.separator + "tempFiles");
+				if (!dir.exists()) {
+					dir.mkdirs();
+				}
+				File saveFile = new File(dir.getAbsolutePath() + File.separator + name);
+
+				BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(saveFile));
+
+				out.write(bytes);
+				out.close();
+
+				ModelAndView modelAndView = new ModelAndView("detailBetOfOne.jsp");
+				modelAndView.addObject("img", "/images/" + name);
+
+				return modelAndView;
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 	@RequestMapping(value = "/removeComment.do")
 	public ModelAndView deleteComment(Comment comment, String commentId) {
+
 		commentService.removeComment(commentId);
 
 		ModelAndView modelAndView = new ModelAndView("BetDetail.do");

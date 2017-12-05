@@ -94,7 +94,8 @@ public class PointServiceLogic implements PointService {
 		String userId = player.getUserId();
 		String result = team.getResult();
 
-		if (bet.getBetWay().equals("고정")) {
+		// 내기방식에 따라서(올/팀/원)
+		if (bet.getBetWay().equals("One")) {
 
 			if (team.getResult().equals("WIN")) {
 				team.getTeamName();
@@ -103,6 +104,11 @@ public class PointServiceLogic implements PointService {
 				team.getResult();
 				team.getTeamName();
 			}
+
+		} else if (bet.getBetWay().equals("All")) {
+
+		} else if (bet.getBetWay().equals("Team")) {
+
 		}
 
 		if (bet.getBetWay().equals("프리")) {

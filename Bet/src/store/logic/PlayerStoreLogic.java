@@ -30,13 +30,13 @@ public class PlayerStoreLogic implements PlayerStore {
 	}
 
 	@Override
-	public Player searchByPlayerId(String PlayerId) {
+	public Player searchByPlayerId(String playerId) {
 
 		SqlSession session = BetSessionFactory.getinstance().getSession();
 		Player player = null;
 		try {
 			PlayerMapper mapper = session.getMapper(PlayerMapper.class);
-			player = mapper.searchByPlayerId(PlayerId);
+			player = mapper.searchByPlayerId(playerId);
 		} finally {
 			session.close();
 		}

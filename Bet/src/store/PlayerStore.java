@@ -8,7 +8,7 @@ public interface PlayerStore {
 
 	String create(Player player);
 
-	Player searchByPlayerId(String PlayerId);
+	Player searchByPlayerId(String playerId);
 
 	Player searchByBetId(String userId, String betId);
 

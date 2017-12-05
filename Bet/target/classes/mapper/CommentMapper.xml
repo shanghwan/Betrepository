@@ -7,7 +7,7 @@
 
 	<resultMap type="Comment" id="CommentMap">
 		<id property="id" column="comment_id" />
-		<result property="photo" column="COMMENTPHOTO"/>
+		<result property="photo" column="commentPhoto"/>
 	</resultMap>
 
 	<insert id="create" parameterType="Comment">

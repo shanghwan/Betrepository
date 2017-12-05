@@ -21,4 +21,5 @@ public interface PlayerService {
 	void removePlayerByBetIdAndUserId(String betId, String userId);
 
 	Player findByBetId(String betId, String userId);
+
 }

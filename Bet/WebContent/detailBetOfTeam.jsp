@@ -7,9 +7,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="description" content="Project Description" />
 <meta name="keywords" content="Project Keywords" />
-<title>BetOfOne</title>
+<title>BetOfTeam</title>
 <link href="resources/css/style6.css" rel="stylesheet" type="text/css" />
-<link href="resources/css/style10.css" rel="stylesheet" type="text/css" />
+<link href="resources/css/style8.css" rel="stylesheet" type="text/css" />
+
 
 
 
@@ -56,12 +57,14 @@
 			</div>
 			<!-- // end #header -->
 			<div id="banner">
-				<h1 class="page-title">BetOfTeam(${bet.betId })</h1>
+				<h1 class="page-title">[${bet.betId }]&nbsp;${bet.title }</h1>
 			</div>
 			<!-- // end #banner -->
+			<c:if test="${bet.state eq '대기' and bet.betOwner eq userId}">
 			<a href="${ctx }/article/recommend.do?articleId=${article.articleId}"
-				class="glyphicon glyphicon-cog pull-right" style="padding: 10px">추천</a>
-			<a class="glyphicon glyphicon-trash pull-right" style="padding: 10px"
+				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">삭제</a>
+				</c:if>
+			<a class="glyphicon glyphicon-cog pull-right" style="padding: 10px"
 				onclick="showPopup1();">신고</a> <br>
 			<c:if test="${bet.state eq '대기' }">
 				<c:if test="${userId eq bet.betOwner }">
@@ -71,30 +74,56 @@
 				<form action="gameJoin.do" method="post">
 					<input type="hidden" name="betId" value="${bet.betId }"> <input
 						type="text" name="pointBet" placeholder="포인트 입력 " size="12"></input>
+
 					<input type="radio" name="teamName" value="A">Team A <input
 						type="radio" name="teamName" value="B">Team B
 					<button type="submit" class="btn btn btn-warning">참여하기</button>
 				</form>
 			</c:if>
-			<div align="right">
-				<br> 종료날짜 : ${bet.endDate} <br> 내기장 아이디 : ${bet.betOwner }
-				<Br> 포인트 : ${bet.point }<br> 참여한 아이디 : <select>
-					<option selected>A팀</option>
-					<c:forEach items="${team }" var="teamA" varStatus="sts">
-						<option value="${team.players.userName }"></option>
-					</c:forEach>
 
 
-				</select><select>
-					<option selected>B팀</option>
-					<option>옵션1</option>
-					<option>옵션2</option>
-					<option>옵션3</option>
-				</select>
+			<div align="center">
+				<c:if test="${bet.state eq '대기' }">
+					<c:if test="${userId eq teamA.leader.userId }">
+						<form action="gameReady.do" method="post">
+							<input type="hidden" name="betId" value="${bet.betId }">
+							<input type="hidden" name="teamId" value="${teamA.teamId }">
+							<c:choose>
+								<c:when test="${teamA.start eq 'N' }">
+									<input type="submit" class="btn btn btn-warning" value="준비완료">
+								</c:when>
+								<c:when test="${teamA.start eq 'Y' }">
+									<input type="submit" class="btn btn btn-warning" value="준비해제">
+								</c:when>
+							</c:choose>
+						</form>
+					</c:if>
+
+					<c:if test="${userId eq teamB.leader.userId }">
+						<form action="gameReady.do" method="post">
+							<input type="hidden" name="betId" value="${bet.betId }">
+							<input type="hidden" name="teamId" value="${teamB.teamId }">
+							<c:choose>
+								<c:when test="${teamB.start eq 'N' }">
+									<input type="submit" class="btn btn btn-warning" value="준비완료">
+								</c:when>
+								<c:when test="${teamB.start eq 'Y' }">
+									<input type="submit" class="btn btn btn-warning" value="준비해제">
+								</c:when>
+							</c:choose>
+						</form>
+					</c:if>
+				</c:if>
 			</div>
+			<div align="right">
+            <br> 종료날짜 : ${bet.endDate} <br> 상태 : ${bet.state} <br> 내기장 아이디 : ${bet.betOwner }
+            <br> 내기 방식 : BetOf${bet.betWay } <br> 포인트 방식 : ${bet.pointCheck } <br> <c:if test="${bet.pointCheck eq 'LOCK' }">내기포인트 : ${bet.point }</c:if>
+
+         </div>
 
 			<div id="main" class="clearfix">
 				<div id="page">
+<<<<<<< HEAD
 					<h1 class="page-title" align="center">${bet.title }</h1>
 					<h3 class="page-title" align="left">${bet.content }</h3>
 					<form action="#" method="post">
@@ -131,11 +160,69 @@
 						</c:forEach>
 
 
+=======
+					<h3 class="page-title" align="center">${bet.content }</h3><br>
+					
+					<form action="betVote.do" method="post">
+					<input type="hidden" name="betId" value="${bet.betId }">
+						<table>
+							<tr>
+								<td><img src="resources/images/betofall.jpg"
+									alt="Banner Image 1" /><br> <br> 
+									<c:if test="${bet.state eq '진행'}">
+									<c:if test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
+									<input type="radio"
+									name="vote" value="A">Team A</c:if></c:if></td>
+								<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>
+								<td><img src="resources/images/betofall.jpg"
+									alt="Banner Image 1" /><br> <br> 
+									<c:if test="${bet.state eq '진행'}">
+									<c:if test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
+									<input type="radio"	name="vote" value="B">Team B</c:if></c:if></td>
+							</tr>
+						</table>
+						<c:if test="${bet.state eq '진행'}">
+						<c:if test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
+>>>>>>> branch 'junho' of https://github.com/shanghwan/Betrepository.git
 						<div align="center">
 							<button type="submit" class="btn btn btn-warning">투표하기</button>
 						</div>
-
+						</c:if></c:if>
 					</form>
+						<c:if test="${bet.state eq '종료'}">
+						WINNER TEAM : 
+						<c:choose>
+								<c:when test="${teamA.result eq 'WIN' }">
+									 A
+								</c:when>
+								<c:when test="${teamB.result eq 'WIN' }">
+									 B
+								</c:when>
+								<c:otherwise>
+									 DRAW
+								</c:otherwise>
+							</c:choose>
+						</c:if><br>
+						A Leader : ${teamA.leader.userId }<br>
+						B Leader : ${teamB.leader.userId }						
+						<br>
+						TEAM A : 
+						<c:forEach var="a" items="${teamA.players }">
+						
+						&nbsp;${a.userId }&nbsp;(${a.point }&nbsp;Point) <c:if test="${userId eq bet.betOwner and bet.state eq '대기' or userId eq teamA.leader.userId and bet.state eq '대기'}">
+						<a href="deleteplayerByTeam.do?betId=${bet.betId }&userId=${a.userId }&teamId=${teamA.teamId}">[X]</a></c:if>,
+						
+						</c:forEach>
+						<br> TEAM B :
+						<c:forEach var="p" items="${teamB.players }">
+						
+						&nbsp;${p.userId }&nbsp;(${p.point }&nbsp;Point) <c:if test="${userId eq bet.betOwner and bet.state eq '대기' or userId eq teamB.leader.userId and bet.state eq '대기'}">
+						<a href="deleteplayerByTeam.do?betId=${bet.betId }&userId=${p.userId }&teamId=${teamB.teamId}">[X]</a></c:if>,
+						
+						</c:forEach>
+						
+						
+						
 
 					<c:forEach var="comment" items="${bet.comments }">
 						<table class="table" style="font-size: 13px; padding: 20px;">
@@ -147,18 +234,14 @@
 								</td>
 							</tr>
 							<tr>
-								<td>
-									<p class="txt">${comment.content }</p> <%--    
-                           <p style="padding: 20px">${comment.contents }
-                              <c:if test="${comment.photo ne null }">
-                                 <img src="/photo/123${comment.photo }">
-                              </c:if>
-                           </p> --%>
+								<td colspan="2">
+									<p class="txt">${comment.content }</p>
 								</td>
 							</tr>
 						</table>
 					</c:forEach>
 
+<<<<<<< HEAD
 					<div class="panel-footer">
 						<div class="write_area">
 							<form action="registComment.do" method="post">
@@ -176,6 +259,8 @@
 							</form>
 						</div>
 					</div>
+=======
+>>>>>>> branch 'junho' of https://github.com/shanghwan/Betrepository.git
 				</div>
 			</div>
 			<!-- // end #content -->
@@ -197,6 +282,17 @@
 				</tr>
 			</table>
 		</c:forEach>
+
+		<div class="panel-footer">
+			<div class="write_area">
+				<form action="registComment.do" method="post">
+					<input type="hidden" name="betId" value="${bet.betId }">
+					<textarea class="input_write_comment" name="comments"
+						placeholder="댓글쓰기"></textarea>
+					<input type="submit" class="comment_submit" value="전송">
+				</form>
+			</div>
+		</div>
 
 
 
