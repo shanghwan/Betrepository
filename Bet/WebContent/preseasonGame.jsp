@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="description" content="Project Description" />
 <meta name="keywords" content="Project Keywords" />
-<title>BetOfOne</title>
+<title>내기의신</title>
 <link href="resources/css/style.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/style2.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
@@ -47,44 +47,44 @@
 			</div>
 			<!-- // end #header -->
 			<div id="banner">
-				<h1 class="page-title">preseason game</h1>
+				<h1 class="page-title">Join Game</h1>
 			</div>
 			<!-- // end #banner -->
 			<div id="main" class="clearfix">
 				<div id="content">
 					<div class="post">
 						<div class="post-head">
-							<select onChange="change(this.options[this.selectedIndex].value)">
-								<option>::: 검색조건 :::</option>
-								<option value="selectBox01">내기번호</option>
-								<option value="selectBox02">내기장</option>
-								<option value="selectBox03">내기제목</option>
-							</select>
-							<div id=view1 style="display: none;">
-								<form action="findBet.do">
-									<input type="hidden" name="betWay" value="${betWay }">
-									<input size="50" type="text" name="betId"
-										placeholder="내기번호을 입력하세요"> <input
-										class="btn btn-xs btn-default" type="submit" value="검색">
-								</form>
-							</div>
-							<div id=view2 style="display: none;">
-								<form action="findBet.do">
-									<input type="hidden" name="betWay" value="${betWay }">
-									<input size="50" type="text" name="betOwner"
-										placeholder="내기장을 입력하세요"> <input
-										class="btn btn-xs btn-default" type="submit" value="검색">
-								</form>
-							</div>
-							<div id=view3 style="display: none;">
-								<form action="findBet.do">
-									<input type="hidden" name="betWay" value="${betWay }">
-									<input size="50" type="text" name="title"
-										placeholder="내기제목을 입력하세요"> <input
-										class="btn btn-xs btn-default" type="submit" value="검색">
-								</form>
-							</div>
-						</div>
+                     <select onChange="change(this.options[this.selectedIndex].value)">
+                        <option>::: 검색조건 :::</option>
+                        <option value="selectBox01">내기번호</option>
+                        <option value="selectBox02">내기장</option>
+                        <option value="selectBox03">내기제목</option>
+                     </select>
+                     <div id=view1 style="display: none;">
+                        <form action="findBet.do">
+                           <input type="hidden" name="betWay" value="${betWay }">
+                           <input size="50" type="text" name="betId"
+                              placeholder="내기번호을 입력하세요"> <input
+                              class="btn btn-xs btn-default" type="submit" value="검색">
+                        </form>
+                     </div>
+                     <div id=view2 style="display: none;">
+                        <form action="findBet.do">
+                           <input type="hidden" name="betWay" value="${betWay }">
+                           <input size="50" type="text" name="betOwner"
+                              placeholder="내기장을 입력하세요"> <input
+                              class="btn btn-xs btn-default" type="submit" value="검색">
+                        </form>
+                     </div>
+                     <div id=view3 style="display: none;">
+                        <form action="findBet.do">
+                           <input type="hidden" name="betWay" value="${betWay }">
+                           <input size="50" type="text" name="title"
+                              placeholder="내기제목을 입력하세요"> <input
+                              class="btn btn-xs btn-default" type="submit" value="검색">
+                        </form>
+                     </div>
+                  </div>
 						<div class="post-content clearfix">
 							<div class="post-thumb"></div>
 							<div class="post-summary">

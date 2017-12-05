@@ -15,8 +15,6 @@ public class Bet {
 	private String betOwner;
 	private int point;
 	private Date endDate;
-	private Date startDate;
-	private String openCheck;
 	private int aVote;
 	private int bVote;
 	private String pointCheck;
@@ -114,21 +112,6 @@ public class Bet {
 		this.endDate = endDate;
 	}
 
-	public Date getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public String getOpenCheck() {
-		return openCheck;
-	}
-
-	public void setOpenCheck(String openCheck) {
-		this.openCheck = openCheck;
-	}
 
 	public int getaVote() {
 		return aVote;
