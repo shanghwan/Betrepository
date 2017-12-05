@@ -54,7 +54,7 @@
 			</div>
 			<!-- // end #header -->
 			<div id="banner">
-				<h1 class="page-title">BetOfOne(${bet.betId })</h1>
+				<h1 class="page-title">(${bet.betId })${bet.title }</h1>
 			</div>
 			<!-- // end #banner -->
 			<a href="${ctx }/article/recommend.do?articleId=${article.articleId}"
@@ -113,15 +113,14 @@
 				</c:if>
 			</div>
 			<div align="right">
-				<br> 종료날짜 : ${bet.endDate} <br> 내기장 아이디 : ${bet.betOwner }
-				<Br> 포인트 : ${bet.point }<br>
+				<br>상태 : [${bet.state}중] <br> 종료날짜 : ${bet.endDate} <br> 내기장 아이디 : ${bet.betOwner }
+				<br> 포인트 방식 : ${bet.pointCheck } <br> 내기 방식 : BetOf${bet.betWay } <br> <c:if test="${bet.pointCheck eq 'LOCK' }">포인트 : ${bet.point }</c:if>
 
 			</div>
 
 			<div id="main" class="clearfix">
 				<div id="page">
-					<h1 class="page-title" align="center">${bet.title }</h1>
-					<h3 class="page-title" align="left">${bet.content }</h3>
+					<h3 class="page-title" align="center">${bet.content }</h3>
 					<form action="betVote.do" method="post">
 						<input type="hidden" name="betId" value="${bet.betId }">
 						<table>
@@ -157,22 +156,17 @@
 					ATeam :
 					<c:forEach var="a" items="${teamA.players }">
                   
-                  ${a.userId } <c:if
-							test="${userId eq bet.betOwner and bet.state eq '대기'}">
-							<c:if test="${userId eq bet.betOwner }">
-								<a
-									href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${a.userId }&betWay=${bet.betWay}">[X]</a>
+                  ${a.userId }(${a.point }p) <c:if test="${userId eq bet.betOwner and bet.state eq '대기'}">
+							<c:if test="${userId eq bet.betOwner }"> <a href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${a.userId }&betWay=${bet.betWay}">[X]</a>
 							</c:if>,
                   </c:if>
 					</c:forEach>
 					<br> BTeam :
 					<c:forEach var="p" items="${teamB.players }">
                   
-                  ${p.userId } <c:if
-							test="${userId eq bet.betOwner and bet.state eq '대기'}">
+                  ${p.userId }(${p.point }p) <c:if test="${userId eq bet.betOwner and bet.state eq '대기'}">
 							<c:if test="${userId eq bet.betOwner }">
-								<a
-									href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${p.userId }&betWay=${bet.betWay}">[X]</a>
+								<a href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${p.userId }&betWay=${bet.betWay}">[X]</a>
 							</c:if>,
                   </c:if>
 					</c:forEach>
@@ -248,24 +242,4 @@
 
 		</div>
 		<!-- // end #content -->
-		<%@ include file="usermenu.jsp"%>
 	</div>
-	<div id="footer">
-		<p>
-			&copy; copyright 2012 <a href="htp://www.dkntemplates.com"
-				title="Dkntemplates">www.dkntemplates.com</a> All right reserved
-		</p>
-
-		<!-- Please don't remove my backlink -->
-		<p>
-			Free Web Design Templates by <a href="http://www.dkntemplates.com"
-				title="Dkntemplates">Dkntemplates.com</a>
-		</p>
-		<!-- Please don't remove my backlink -->
-
-	</div>
-	<!-- // end #footer -->
-	</div>
-	<!-- // end #container -->
-	</div>
-	<!-- // end #wrapper -->

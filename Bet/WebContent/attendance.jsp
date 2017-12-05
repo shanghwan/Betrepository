@@ -66,6 +66,7 @@
 						Calendar todayCal = Calendar.getInstance();
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyMMdd");
 						int intToday = Integer.parseInt(sdf.format(todayCal.getTime()));
+						
 					%>
 
 
@@ -178,7 +179,9 @@
 												color = "RED";
 											} else if (newLine == 6) {
 												color = "#529dbc";
-											} else {
+											
+											} 
+												else {
 												color = "BLACK";
 											}
 											;
@@ -193,13 +196,14 @@
 
 											String backColor = "#EFEFEF";
 											if (iUseDate == intToday) {
+												
 												backColor = "#c9c9c9";
 											}
 											out.println("<TD valign='top' align='left' height='92px' bgcolor='" + backColor + "' nowrap>");
 									%>
-									<font color='<%=color%>'> <%=index%>
-									</font>
-
+									
+									<font color='<%=color%>'> <%=index%></font>
+									
 									<%
 										out.println("<BR>");
 											out.println(iUseDate);
@@ -210,6 +214,7 @@
 											newLine++;
 
 											if (newLine == 7) {
+												
 												out.println("</TR>");
 												if (index <= endDay) {
 													out.println("<TR>");
@@ -225,16 +230,3 @@
 									%>
 
 
-
-									</div>
-									<!-- // end #content -->
-
-									</div>
-
-									<!-- // end #footer -->
-									</div>
-
-
-									<!-- // end #container -->
-									</div>
-									<!-- // end #wrapper -->

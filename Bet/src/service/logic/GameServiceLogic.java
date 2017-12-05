@@ -1,5 +1,7 @@
 package service.logic;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,6 +174,8 @@ public class GameServiceLogic implements GameService {
 
 	@Override
 	public String gameEnd(String betId, String vote) {
+		
+		
 		Bet bet = betService.findByBetId(betId);
 
 		bet.setState("종료");
@@ -183,6 +187,8 @@ public class GameServiceLogic implements GameService {
 		}
 
 		betService.modify(bet);
+		
+		
 		if (vote.equals("A")) {
 			Team teamW = teamService.findByTeamName(betId, vote);
 

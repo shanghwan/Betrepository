@@ -1,5 +1,8 @@
 package controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -15,12 +18,14 @@ import domain.Bet;
 import domain.BetState;
 import domain.Comment;
 import domain.Invite;
+import domain.Player;
 import domain.User;
 import domain.Team;
 import service.BetService;
 import service.BetStateService;
 import service.CommentService;
 import service.InviteService;
+import service.PlayerService;
 import service.TeamService;
 
 @Controller
@@ -39,6 +44,7 @@ public class BetController {
 	
 	@RequestMapping("/Betlist.do")
 	public ModelAndView Betlist(String betWay){
+		
 		List<Bet> list = betService.findByBetWay(betWay);
 		
 		if(betWay.equals("one")) {

@@ -13,6 +13,26 @@
 <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="resources/js/site.js"></script>
+<SCRIPT>
+	function change(style) {
+
+		if (style == "selectBox01") {
+			view1.style.display = "inline"
+			view2.style.display = "none"
+			view3.style.display = "none"
+		}
+		if (style == "selectBox02") {
+			view1.style.display = "none"
+			view2.style.display = "inline"
+			view3.style.display = "none"
+		}
+		if (style == "selectBox03") {
+			view1.style.display = "none"
+			view2.style.display = "none"
+			view3.style.display = "inline"
+		}
+	}
+</SCRIPT>
 </head>
 
 <body>
@@ -34,13 +54,36 @@
 				<div id="content">
 					<div class="post">
 						<div class="post-head">
-							<h1>
-								<form action="" method="post">
-									<input size="50" type="text" name="categoryName"
+							<select onChange="change(this.options[this.selectedIndex].value)">
+								<option>::: 검색조건 :::</option>
+								<option value="selectBox01">내기번호</option>
+								<option value="selectBox02">내기장</option>
+								<option value="selectBox03">내기제목</option>
+							</select>
+							<div id=view1 style="display: none;">
+								<form action="findBet.do">
+									<input type="hidden" name="betWay" value="${betWay }">
+									<input size="50" type="text" name="betId"
+										placeholder="내기번호을 입력하세요"> <input
+										class="btn btn-xs btn-default" type="submit" value="검색">
+								</form>
+							</div>
+							<div id=view2 style="display: none;">
+								<form action="findBet.do">
+									<input type="hidden" name="betWay" value="${betWay }">
+									<input size="50" type="text" name="betOwner"
+										placeholder="내기장을 입력하세요"> <input
+										class="btn btn-xs btn-default" type="submit" value="검색">
+								</form>
+							</div>
+							<div id=view3 style="display: none;">
+								<form action="findBet.do">
+									<input type="hidden" name="betWay" value="${betWay }">
+									<input size="50" type="text" name="title"
 										placeholder="내기제목을 입력하세요"> <input
 										class="btn btn-xs btn-default" type="submit" value="검색">
 								</form>
-							</h1>
+							</div>
 						</div>
 						<div class="post-content clearfix">
 							<div class="post-thumb"></div>

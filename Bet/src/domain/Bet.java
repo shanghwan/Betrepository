@@ -14,7 +14,7 @@ public class Bet {
 	private String photoB;
 	private String betOwner;
 	private int point;
-	private String endDate;
+	private Date endDate;
 	private Date startDate;
 	private String openCheck;
 	private int aVote;
@@ -106,11 +106,11 @@ public class Bet {
 		this.point = point;
 	}
 
-	public String getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 

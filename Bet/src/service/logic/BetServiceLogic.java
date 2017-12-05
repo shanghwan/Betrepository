@@ -1,6 +1,8 @@
 package service.logic;
 
+
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -89,6 +91,7 @@ public class BetServiceLogic implements BetService {
 	public Bet findByBetId(String betId) {
 
 		Bet bet = betStore.searchByBetId(betId);
+		
 		List<Comment> list = CommentStore.searchAll(betId);
 		bet.setComments(list);
 		int A = playerStore.voteCount(betId, "A");
@@ -110,7 +113,39 @@ public class BetServiceLogic implements BetService {
 
 	@Override
 	public List<Bet> findByState(String state) {
-		return betStore.searchByState(state);
+		
+		//
+		
+		if(state.equals("대기")) {
+		List<Bet> list =  betStore.searchByState(state);
+		return list;
+		
+		}else {
+		List<Bet> list =  betStore.searchByState(state);
+		Date today = new Date(Calendar.getInstance().getTimeInMillis());
+		List<Bet> add = new ArrayList<>();
+		
+		for(Bet bet1 : list) {
+			String betId = bet1.getBetId();
+			Bet bet = betStore.searchByBetId(betId);
+			System.out.println(betId);
+			int com = bet.getEndDate().compareTo(today);
+			if(com == 0) {
+				bet.setState("종료");
+				betStore.update(bet);
+				add.add(bet);
+			}else if(com <0) {
+				bet.setState("종료");
+				betStore.update(bet);
+				add.add(bet);
+			}else {
+				bet.setState("종료");
+				betStore.update(bet);
+				add.add(bet);
+			}
+		}
+		return add;
+		}
 	}
 
 	@Override

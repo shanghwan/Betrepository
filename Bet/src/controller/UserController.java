@@ -153,7 +153,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/registattendance.do", method = RequestMethod.POST)
-	public String registattendance(HttpSession session, String userId, Attendance attendance) {
+	public String registattendance(HttpSession session, String userId, Attendance attendance, Model model) {
 
 		User loginUser = userService.findByUserId(userId);
 
@@ -173,7 +173,7 @@ public class UserController {
 				}
 			}
 		}
-
+		model.addAttribute("list", list);
 		session.setAttribute("loginUser", loginUser);
 		return "attendance.jsp";
 	}
