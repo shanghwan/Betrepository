@@ -24,20 +24,25 @@ public class CommentController {
 	@RequestMapping(value = "/registComment.do", method = RequestMethod.POST)
 	public ModelAndView registComment(HttpSession session, Comment comment) {
 		String userId = (String) session.getAttribute("userId");
+	
 		comment.setUserId(userId);
-		comment.setContent(comment.getContent()); //이부분 넣는게 맞는지 궁금
+		comment.setContent(comment.getContent());
 		comment.setBetId(comment.getBetId());
 
 		commentService.registComment(comment);
-		ModelAndView modelAndView = new ModelAndView("detailBet.jsp");
+
+		ModelAndView modelAndView = new ModelAndView("detailBetOfOne.jsp");
+
 		modelAndView.addObject("comment", comment);
+
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/removeComment.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/removeComment.do")
 	public ModelAndView deleteComment(Comment comment, String commentId) {
 		commentService.removeComment(commentId);
-		ModelAndView modelAndView = new ModelAndView("detailBet.jsp");
+
+		ModelAndView modelAndView = new ModelAndView("BetDetail.do");
 		return modelAndView;
 	}
 

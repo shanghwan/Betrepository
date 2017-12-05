@@ -29,19 +29,17 @@ public class BetController {
 	@Autowired
 	private BetService betService;
 	@Autowired
-	private CommentService commentService;
-	@Autowired
 	private InviteService inviteService;
 	@Autowired
 	private TeamService teamService;
 	@Autowired
 	private BetStateService betStateService;
-	
+
 	@RequestMapping("/Betlist.do")
-	public ModelAndView Betlist(String betWay){
+	public ModelAndView Betlist(String betWay) {
 		List<Bet> list = betService.findByBetWay(betWay);
-		
-		if(betWay.equals("one")) {
+
+		if (betWay.equals("one")) {
 			ModelAndView modelAndView = new ModelAndView("BetOfOne.jsp");
 			modelAndView.addObject("BetList", list);
 			return modelAndView;
@@ -56,8 +54,7 @@ public class BetController {
 		}
 	}
 
-	
-	@RequestMapping("/BetDetail.do")
+	@RequestMapping("/d.do")
 	public ModelAndView BetDetail(String betId) {
 		Bet bet = betService.findByBetId(betId);
 		List<String> list = inviteService.findByAllInviteByBetId(betId);
@@ -65,24 +62,22 @@ public class BetController {
 		Team teamA = teamService.findByTeamName(betId, teamName);
 		teamName = "B";
 		Team teamB = teamService.findByTeamName(betId, teamName);
-		
-		if(bet.getBetWay().equals("one")) {
+
+		if (bet.getBetWay().equals("one")) {
 			ModelAndView modelAndView = new ModelAndView("detailBetOfOne.jsp");
 			modelAndView.addObject("bet", bet);
 			modelAndView.addObject("list", list);
 			modelAndView.addObject("teamA", teamA);
 			modelAndView.addObject("teamB", teamB);
 			return modelAndView;
-		}
-		else if(bet.getBetWay().equals("team")){
+		} else if (bet.getBetWay().equals("team")) {
 			ModelAndView modelAndView = new ModelAndView("detailBetOfTeam.jsp");
 			modelAndView.addObject("bet", bet);
 			modelAndView.addObject("list", list);
 			modelAndView.addObject("teamA", teamA);
 			modelAndView.addObject("teamB", teamB);
 			return modelAndView;
-		}
-		else {
+		} else {
 			ModelAndView modelAndView = new ModelAndView("detailBetOfAll.jsp");
 			modelAndView.addObject("bet", bet);
 			modelAndView.addObject("list", list);
@@ -90,7 +85,7 @@ public class BetController {
 			modelAndView.addObject("teamB", teamB);
 			return modelAndView;
 		}
-		
+
 	}
 
 	@RequestMapping("/BetlistByState.do")
@@ -113,9 +108,9 @@ public class BetController {
 
 	@RequestMapping(value = "/registBet.do", method = RequestMethod.POST)
 	public String registBet(Bet bet, HttpSession session) {
-		
-		String userId = (String)session.getAttribute("userId");
-		
+
+		String userId = (String) session.getAttribute("userId");
+
 		bet.setBetOwner(userId);
 
 		bet.setPhotoA("null");
@@ -162,58 +157,53 @@ public class BetController {
 
 	@RequestMapping(value = "/findBet.do")
 	public String findBet(String betId, String betOwner, String title, Model model, String betWay) {
-		
-		if(betId != null) {
+
+		if (betId != null) {
 			Bet bet = betService.findByBetId(betId);
-			if(betWay.equals("one")) {
+			if (betWay.equals("one")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("bet", bet);
 				return "BetOfOne.jsp";
-			}else if(betWay.equals("all")) {
+			} else if (betWay.equals("all")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("bet", bet);
 				return "BetOfAll.jsp";
-			}else {
+			} else {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("bet", bet);
 				return "BetOfTeam.jsp";
 			}
-		}else if(betOwner != null) {
+		} else if (betOwner != null) {
 			List<Bet> list = betService.findByOwner(betOwner, betWay);
-			if(betWay.equals("one")) {
+			if (betWay.equals("one")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("list", list);
 				return "BetOfOne.jsp";
-			}else if(betWay.equals("all")) {
+			} else if (betWay.equals("all")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("list", list);
 				return "BetOfAll.jsp";
-			}else {
+			} else {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("list", list);
 				return "BetOfTeam.jsp";
 			}
-		}else {
+		} else {
 			List<Bet> list1 = betService.findByTitle(title, betWay);
-			if(betWay.equals("one")) {
+			if (betWay.equals("one")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("list1", list1);
 				return "BetOfOne.jsp";
-			}else if(betWay.equals("all")) {
+			} else if (betWay.equals("all")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("list1", list1);
 				return "BetOfAll.jsp";
-			}else {
+			} else {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("list1", list1);
 				return "BetOfTeam.jsp";
 			}
 		}
 	}
-	
-	
-	
-	
-	
-	
+
 }

@@ -176,13 +176,12 @@
 							</c:if>,
                   </c:if>
 					</c:forEach>
-
-
-
+					<br> <br> <br>
 
 					<c:forEach var="comment" items="${bet.comments }">
 						<table class="table" style="font-size: 13px; padding: 20px;">
 							<tr>
+								<td>${comment.commentId }</td>
 								<td><strong>${comment.userId }</strong></td>
 								<td class="text-right">${comment.regDate }<a
 									class="glyphicon glyphicon-trash"
@@ -190,82 +189,56 @@
 								</td>
 							</tr>
 							<tr>
-								<td colspan="2">
-									<p class="txt">${comment.content }</p>
+								<td>
+									<p class="txt">${comment.content }</p> <%-- 	<p style="padding: 20px">${comment.contents } --%>
+									<c:if test="${comment.photo ne null }">
+										<img src="${comment.photo }">
+									</c:if>
+									</p>
 								</td>
 							</tr>
 						</table>
 					</c:forEach>
 
+					<div class="panel-footer">
+						<div class="write_area">
+							<form
+								action="registComment.do?betId=${bet.betId }&commentId=${comment.commentId}"
+								method="post">
+								<%-- <input type="hidden" name="betId" value="${bet.betId }"> --%>
+								<textarea class="input_write_comment" name="content"
+									placeholder="댓글쓰기"></textarea>
+								<br> <br> <br>
+								<div class="form-group">
+									<label class="col-lg-2 control-label">이미지</label>
+									<div class="col-lg-10">
+										<input type="file" name="photo" class="form-control">
+									</div>
+								</div>
+								<input type="submit" class="comment_submit" value="전송">
+							</form>
+						</div>
+					</div>
+
+
+					<!-- // end #content -->
 				</div>
+				<div id="footer">
+					<p>
+						&copy; copyright 2012 <a href="htp://www.dkntemplates.com"
+							title="Dkntemplates">www.dkntemplates.com</a> All right reserved
+					</p>
+
+					<!-- Please don't remove my backlink -->
+					<p>
+						Free Web Design Templates by <a href="http://www.dkntemplates.com"
+							title="Dkntemplates">Dkntemplates.com</a>
+					</p>
+					<!-- Please don't remove my backlink -->
+
+				</div>
+				<!-- // end #footer -->
 			</div>
-			<!-- // end #content -->
+			<!-- // end #container -->
 		</div>
-
-		<c:forEach var="comment" items="${article.comments }">
-			<table class="table" style="font-size: 13px; padding: 20px;">
-				<tr>
-					<td><strong>${comment.nickname }</strong></td>
-					<td class="text-right">${comment.commentDate }<a
-						class="glyphicon glyphicon-trash"
-						href="removeComment.do?betId=${bet.betId} &commentId=${comment.commentId}"></a>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<p class="txt">${comment.comments }</p>
-					</td>
-				</tr>
-			</table>
-		</c:forEach>
-
-		<div class="panel-footer">
-			<div class="write_area">
-				<form action="registComment.do" method="post">
-					<input type="hidden" name="betId" value="${bet.betId }">
-					<textarea class="input_write_comment" name="comments"
-						placeholder="댓글쓰기"></textarea>
-					<input type="submit" class="comment_submit" value="전송">
-				</form>
-			</div>
-		</div>
-
-
-
-		<div id="footer">
-			<p>
-				&copy; copyright 2012 <a href="htp://www.dkntemplates.com"
-					title="Dkntemplates">www.dkntemplates.com</a> All right reserved
-			</p>
-
-			<!-- Please don't remove my backlink -->
-			<p>
-				Free Web Design Templates by <a href="http://www.dkntemplates.com"
-					title="Dkntemplates">Dkntemplates.com</a>
-			</p>
-			<!-- Please don't remove my backlink -->
-
-
-		</div>
-		<!-- // end #content -->
-		<%@ include file="usermenu.jsp"%>
-	</div>
-	<div id="footer">
-		<p>
-			&copy; copyright 2012 <a href="htp://www.dkntemplates.com"
-				title="Dkntemplates">www.dkntemplates.com</a> All right reserved
-		</p>
-
-		<!-- Please don't remove my backlink -->
-		<p>
-			Free Web Design Templates by <a href="http://www.dkntemplates.com"
-				title="Dkntemplates">Dkntemplates.com</a>
-		</p>
-		<!-- Please don't remove my backlink -->
-
-	</div>
-	<!-- // end #footer -->
-	</div>
-	<!-- // end #container -->
-	</div>
-	<!-- // end #wrapper -->
+		<!-- // end #wrapper -->

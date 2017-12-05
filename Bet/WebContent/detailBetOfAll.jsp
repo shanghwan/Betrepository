@@ -123,11 +123,8 @@
 							</tr>
 						</table>
 					</c:forEach>
-
-
 				</div>
-			</div>
-			<!-- // end #content -->
+			</div>			
 		</div>
 
 		<c:forEach var="comment" items="${article.comments }">

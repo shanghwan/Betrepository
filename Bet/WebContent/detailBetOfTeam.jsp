@@ -81,8 +81,7 @@
 				<Br> 포인트 : ${bet.point }<br> 참여한 아이디 : <select>
 					<option selected>A팀</option>
 					<c:forEach items="${team }" var="teamA" varStatus="sts">
-						<option value="${team.players.userName }">
-						</option>
+						<option value="${team.players.userName }"></option>
 					</c:forEach>
 
 
@@ -118,11 +117,17 @@
 
 						ATeam :
 						<c:forEach var="a" items="${teamA.players }">
-						${a.userId } <c:if test="${userId eq teamA.leader.userId }"><a href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${a.userId }&betWay=${bet.betWay}">[X]</a></c:if>,
+						${a.userId } <c:if test="${userId eq teamA.leader.userId }">
+								<a
+									href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${a.userId }&betWay=${bet.betWay}">[X]</a>
+							</c:if>,
 						</c:forEach>
 						<br> BTeam :
 						<c:forEach var="p" items="${teamB.players }">
-						${p.userId } <c:if test="${userId eq teamB.leader.userId }"><a href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${p.userId }&betWay=${bet.betWay}">[X]</a></c:if>,
+						${p.userId } <c:if test="${userId eq teamB.leader.userId }">
+								<a
+									href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${p.userId }&betWay=${bet.betWay}">[X]</a>
+							</c:if>,
 						</c:forEach>
 
 
@@ -154,11 +159,6 @@
 						</table>
 					</c:forEach>
 
-
-
-
-
-
 					<div class="panel-footer">
 						<div class="write_area">
 							<form action="registComment.do" method="post">
@@ -173,8 +173,6 @@
 									</div>
 								</div>
 								<input type="submit" class="comment_submit" value="전송">
-
-
 							</form>
 						</div>
 					</div>
