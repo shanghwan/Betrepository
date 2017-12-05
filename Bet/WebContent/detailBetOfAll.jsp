@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="description" content="Project Description" />
 <meta name="keywords" content="Project Keywords" />
-<title>BetOfOne</title>
+<title>BetOfAll</title>
 <link href="resources/css/style6.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/style8.css" rel="stylesheet" type="text/css" />
 
@@ -56,35 +56,24 @@
 			</div>
 			<!-- // end #header -->
 			<div id="banner">
-				<h1 class="page-title">BetOfAll(${bet.betId })</h1>
+				<h1 class="page-title">[${bet.betId }]&nbsp;${bet.title }</h1>
 			</div>
 			<!-- // end #banner -->
+			<c:if test="${bet.state eq '대기' and bet.betOwner eq userId}">
 			<a href="${ctx }/article/recommend.do?articleId=${article.articleId}"
-				class="glyphicon glyphicon-cog pull-right" style="padding: 10px">추천</a>
-			<a class="glyphicon glyphicon-trash pull-right" style="padding: 10px"
+				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">삭제</a>
+				</c:if>
+			<a class="glyphicon glyphicon-cog pull-right" style="padding: 10px"
 				onclick="showPopup1();">신고</a> <br>
 			<div align="right">
-				<br> 종료날짜 : ${bet.endDate} <br> 내기장 아이디 : ${bet.betOwner }
-				<Br> 포인트 : ${bet.point }<br> 참여한 아이디 : <select>
-					<option selected>A팀</option>
-					<c:forEach items="${team }" var="teamA" varStatus="sts">
-						<option value="${team.players.userName }">
-						</option>
-					</c:forEach>
+				<br> 종료날짜 : ${bet.endDate} <br> 상태 : ${bet.state} <br> 내기장 아이디 : ${bet.betOwner }
+            <br> 내기 방식 : BetOf${bet.betWay } <br> 포인트 방식 : ${bet.pointCheck } <br> <c:if test="${bet.pointCheck eq 'LOCK' }">내기포인트 : ${bet.point }</c:if>
 
-
-				</select><select>
-					<option selected>B팀</option>
-					<option>옵션1</option>
-					<option>옵션2</option>
-					<option>옵션3</option>
-				</select>
 			</div>
 
 			<div id="main" class="clearfix">
 				<div id="page">
-					<h1 class="page-title" align="center">${bet.title }</h1>
-					<h3 class="page-title" align="left">${bet.content }</h3>
+					<h3 class="page-title" align="center">${bet.content }</h3><br>
 					<form action="gameJoin.do" method="post">
 						<input type="hidden" name="betId" value="${bet.betId }"> <input
 							type="hidden" name="pointBet" value="${bet.point }">
@@ -104,8 +93,31 @@
 							<input type="submit" class="btn btn btn-warning" value="투표하기">
 
 						</div>
-
 					</form>
+					<c:if test="${bet.state eq '종료'}">
+						WINNER TEAM : 
+						<c:choose>
+								<c:when test="${teamA.result eq 'WIN' }">
+									 A
+								</c:when>
+								<c:when test="${teamB.result eq 'WIN' }">
+									 B
+								</c:when>
+								<c:otherwise>
+									 DRAW
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+						<br>
+						TEAM A :
+						<c:forEach var="a" items="${teamA.players }">
+						&nbsp;${a.userId }&nbsp;(${a.point }&nbsp;Point) ,
+						</c:forEach>
+						<br> TEAM B :
+						<c:forEach var="p" items="${teamB.players }">
+						&nbsp;${p.userId }&nbsp;(${p.point }&nbsp;Point) ,
+						</c:forEach>
+					
 
 					<c:forEach var="comment" items="${bet.comments }">
 						<table class="table" style="font-size: 13px; padding: 20px;">

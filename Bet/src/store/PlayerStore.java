@@ -7,7 +7,7 @@ import domain.Player;
 public interface PlayerStore {
 	
 	String create(Player player);
-	Player searchByPlayerId(String PlayerId);
+	Player searchByPlayerId(String playerId);
 	Player searchByBetId(String userId, String betId);
 	List<Player> searchByUserId(String userId);
 	List<Player> searchByTeamId(String teamId,String betId);

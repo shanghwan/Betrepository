@@ -90,10 +90,10 @@
 										<tr>
 											<th>BetOf</th>
 											<td><input type="radio" name="betWay"
-												onClick="display1()" value="one">One <input
-												type="radio" name="betWay" onClick="display1()" value="team">Team
+												onClick="display1()" value="One">One <input
+												type="radio" name="betWay" onClick="display1()" value="Team">Team
 												<input type="radio" name="betWay" onclick="display2()"
-												value="all">All</td>
+												value="All">All</td>
 										</tr>
 
 										<tr id="indivisual1">

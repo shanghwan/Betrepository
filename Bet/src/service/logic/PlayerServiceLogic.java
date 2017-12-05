@@ -22,7 +22,7 @@ public class PlayerServiceLogic implements PlayerService{
 
 	@Override
 	public Player findPlayer(String playerId) {
-		return null;
+		return playerStore.searchByPlayerId(playerId);
 	}
 
 	@Override
@@ -54,4 +54,6 @@ public class PlayerServiceLogic implements PlayerService{
 	public Player findByBetId(String betId,String userId) {
 		return playerStore.searchByBetId(betId,userId);
 	}
+
+	
 }

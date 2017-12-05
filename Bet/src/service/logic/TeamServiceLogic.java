@@ -27,8 +27,16 @@ public class TeamServiceLogic implements TeamService{
 
 	@Override
 	public Team findTeam(String teamId) {
+		Team team = teamStore.search(teamId);
+		List<Player> players = playerStore.searchByTeamId(team.getTeamId(), team.getBetId());
+		for(Player p : players) {
+			if(p.getPosition().equals("leader")) {
+				team.setLeader(p);
+			}
+		}
+		team.setPlayers(players);
+		return team;
 		
-		return teamStore.search(teamId);
 	}
 
 	@Override
@@ -61,6 +69,20 @@ public class TeamServiceLogic implements TeamService{
 		}
 		team.setPlayers(players);
 		return team;
+	}
+
+	@Override
+	public void removePlayerByTeam(String userId, String betId, String teamId) {
+		playerStore.deleteByBetIdAndUserId(userId, betId);
+		Team team = findTeam(teamId);
+		if(team.getPlayers().size()>0) {
+			if(team.getLeader()==null) {
+				String playerId = team.getPlayers().get(0).getPlayerId();
+				Player player = playerStore.searchByPlayerId(playerId);
+				player.setPosition("leader");
+				playerStore.update(player);
+			}
+		}
 	}
 	
 }
