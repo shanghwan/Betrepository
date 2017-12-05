@@ -12,6 +12,7 @@ import domain.Comment;
 import domain.Team;
 import domain.User;
 import service.BetService;
+import service.GameService;
 import service.TeamService;
 import store.BetStore;
 import store.CommentStore;
@@ -34,13 +35,13 @@ public class BetServiceLogic implements BetService {
 	private TeamService teamService;
 	@Autowired
 	private InviteStore inviteStore;
+	@Autowired
+	private GameService gameService;
 
 	@Override
 	public String registBet(Bet bet) {
-		Date today = new Date(Calendar.getInstance().getTimeInMillis());
 		User user = userStore.searchByUserId(bet.getBetOwner());
 		
-		bet.setStartDate(today);
 		bet.setState("대기");
 		
 		if (bet.getBetWay().equals("All")) {
@@ -75,8 +76,14 @@ public class BetServiceLogic implements BetService {
 
 	@Override
 	public Bet findByBetId(String betId) {
-
+		Date today = new Date(Calendar.getInstance().getTimeInMillis());
 		Bet bet = betStore.searchByBetId(betId);
+		int com = bet.getEndDate().compareTo(today);
+	      if (com <= 0) {
+	        //내기 종료 메소드
+	    	  gameService.timeEndGame(bet);
+	      }
+		
 		List<Comment> list = CommentStore.searchAll(betId);
 		bet.setComments(list);
 		int A = playerStore.voteCount(betId, "A");
@@ -103,7 +110,16 @@ public class BetServiceLogic implements BetService {
 
 	@Override
 	public List<Bet> findByBetWay(String betWay) {
-		return betStore.searchByBetWay(betWay);
+		List<Bet> betList = betStore.searchByBetWay(betWay);
+		Date today = new Date(Calendar.getInstance().getTimeInMillis());
+		
+		for(Bet b : betList) {
+			int eq = b.getEndDate().compareTo(today);
+			if(eq <=0) {
+				 gameService.timeEndGame(b);
+			}
+		}
+		return betList;
 	}
 
 	@Override

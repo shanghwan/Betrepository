@@ -74,6 +74,7 @@
 			<div id="main" class="clearfix">
 				<div id="page">
 					<h3 class="page-title" align="center">${bet.content }</h3><br>
+					<c:if test="${bet.state eq '진행' }">
 					<form action="gameJoin.do" method="post">
 						<input type="hidden" name="betId" value="${bet.betId }"> <input
 							type="hidden" name="pointBet" value="${bet.point }">
@@ -94,6 +95,7 @@
 
 						</div>
 					</form>
+					</c:if>
 					<c:if test="${bet.state eq '종료'}">
 						WINNER TEAM : 
 						<c:choose>

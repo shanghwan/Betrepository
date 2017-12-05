@@ -78,15 +78,10 @@
 										<tr>
 											<th>종료날짜</th>
 											<td><input id="endDate" name="endDate"
-												class="form-control" type="text" placeholder="YYMMDD"
+												class="form-control" type="Date" placeholder="YYMMDD"
 												size="50"></td>
 										</tr>
-										<tr>
-											<th>공개여부</th>
-											<td><input type="radio" name="openCheck" value="Y">공개
-												<input type="radio" name="openCheck" value="N">비공개</td>
-										</tr>
-
+										
 										<tr>
 											<th>BetOf</th>
 											<td><input type="radio" name="betWay"
