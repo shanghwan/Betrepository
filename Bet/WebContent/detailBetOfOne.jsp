@@ -26,7 +26,6 @@
 
 
 
-<!--[if IE]><link href="resources/css/style-ie.css" rel="stylesheet" type="text/css" /><![endif]-->
 <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="resources/js/site.js"></script>
@@ -127,18 +126,19 @@
 					<br>
 					
 					<c:if test="${bet.state eq '대기' }">
-					<form action="Image.do" method="POST" enctype="multipart/form-data">
+					<form action="ImageA.do" method="POST" enctype="multipart/form-data">
 						<input type="hidden" name="betId" value="${bet.betId }">
-						<input type="file" name="photoA" />
+						<input type="file" name="photoA" >
 						<button type="submit" value="올리기">올리기</button>
 					</form>
 					
-					<form action="Image.do" method="POST" enctype="multipart/form-data">
+					<form action="ImageA.do" method="POST" enctype="multipart/form-data">
 										
 											<input type="hidden" name="betId" value="${bet.betId }">
 											<input type="file" name="photoB" />
 											<button type="submit">올리기</button>
-										
+											
+											
 					</form> 
 					</c:if>		
 									
@@ -147,8 +147,19 @@
 						<input type="hidden" name="betId" value="${bet.betId }">
 						<table>
 							<tr>
-								<td><img src="resources/images/betofall.jpg"
-									alt="Banner Image 1" /><br> <br>
+								<td>
+								
+								
+								
+            <div class="row">
+                  <div class="4u">
+                        <img class="imgs" src="/images/${bet.photoA }" />
+                  </div>
+            </div>
+            <br> <br>
+            
+            
+            
 									<c:if test="${bet.state eq '진행'}">
 										<c:if test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
 											<input type="radio" name="vote" value="A">Team A

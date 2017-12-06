@@ -140,31 +140,38 @@ public class BetController {
 		return "BetDetail.do?betId=" + betId;
 	}
 	
-	@RequestMapping(value = "/Image.do", method = RequestMethod.POST)
-	public ModelAndView Image(String betId, MultipartHttpServletRequest file) throws IOException {
+	@RequestMapping(value = "/ImageA.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView ImageA(String betId, MultipartHttpServletRequest file) throws IOException {
 		
 		
 		  Bet bet = betService.findByBetId(betId);
+		  List<String> list = inviteService.findByAllInviteByBetId(betId);
+		  String teamName = "A";
+		  Team teamA = teamService.findByTeamName(betId, teamName);
+		  teamName = "B";
+		  Team teamB = teamService.findByTeamName(betId, teamName);
+		  
+		  
 		  String realFolder = "c:\\" + File.separator + "tempFiles";
 	      File dir = new File(realFolder);
 	      if (!dir.isDirectory()) {
 	         dir.mkdirs();
 	      }
 	      
-	      MultipartFile petImage = file.getFile("photoA");
-	      if (petImage == null && petImage.getOriginalFilename().equals("")) {
+	      MultipartFile photoA = file.getFile("photoA");
+	      if (photoA == null && photoA.getOriginalFilename().equals("")) {
 	         
 	      } else{
 	         // 파일 중복명 처리
 	         String genId = UUID.randomUUID().toString();
 	         // 본래 파일명
-	         String originalfileName = petImage.getOriginalFilename();
+	         String originalfileName = photoA.getOriginalFilename();
 	         // 저장되는 파일 이름
 	         String saveFileName = genId + "." + originalfileName;
 
 	         File saveFile = new File(dir.getAbsolutePath() + File.separator + saveFileName);
 
-	         byte[] bytes = petImage.getBytes();
+	         byte[] bytes = photoA.getBytes();
 
 	         BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(saveFile));
 	         out.write(bytes);
@@ -172,15 +179,10 @@ public class BetController {
 	         
 	         
 	         bet.setPhotoA(saveFileName);
+	         bet.setPhotoB("null");
 	 		 betService.modify(bet);
-
 	      }
 		
-		List<String> list = inviteService.findByAllInviteByBetId(betId);
-		String teamName = "A";
-		Team teamA = teamService.findByTeamName(betId, teamName);
-		teamName = "B";
-		Team teamB = teamService.findByTeamName(betId, teamName);
 		
 		if(bet.getBetWay().equals("One")) {
 			ModelAndView modelAndView = new ModelAndView("detailBetOfOne.jsp");

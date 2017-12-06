@@ -80,6 +80,8 @@
 				UPDATE bet_tb
 				set title = #{title},
 				content = #{content},
+				photoA = #{photoA},
+				photoB = #{photoB},
 				point = #{point},
 				state = #{state},
 				pointCheck = #{pointCheck}
