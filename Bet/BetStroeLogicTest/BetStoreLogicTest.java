@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.sql.Date;
 import java.util.List;
@@ -52,10 +52,8 @@ public class BetStoreLogicTest {
 		bet.setPhotoA("null");
 		bet.setPhotoB("null");
 		bet.setBetWay("1");
-		bet.setStartDate(date);
 		bet.setPointCheck("1");
 //		bet.setEndDate(date2);
-		bet.setOpenCheck("1");
 		bet.setPoint(100);
 		
 		store.create(bet);

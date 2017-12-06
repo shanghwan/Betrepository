@@ -78,22 +78,17 @@
 										<tr>
 											<th>종료날짜</th>
 											<td><input id="endDate" name="endDate"
-												class="form-control" type="text" placeholder="YYMMDD"
+												class="form-control" type="Date" placeholder="YYMMDD"
 												size="50"></td>
 										</tr>
-										<tr>
-											<th>공개여부</th>
-											<td><input type="radio" name="openCheck" value="Y">공개
-												<input type="radio" name="openCheck" value="N">비공개</td>
-										</tr>
-
+										
 										<tr>
 											<th>BetOf</th>
 											<td><input type="radio" name="betWay"
-												onClick="display1()" value="one">One <input
-												type="radio" name="betWay" onClick="display1()" value="team">Team
+												onClick="display1()" value="One">One <input
+												type="radio" name="betWay" onClick="display1()" value="Team">Team
 												<input type="radio" name="betWay" onclick="display2()"
-												value="all">All</td>
+												value="All">All</td>
 										</tr>
 
 										<tr id="indivisual1">
@@ -107,7 +102,6 @@
 								<div align="right">
 									<button type="submit" class="btn btn btn-warning">내기생성</button>
 								</div>
-
 							</form>
 						</div>
 					</div>

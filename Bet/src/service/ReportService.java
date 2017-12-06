@@ -8,6 +8,7 @@ import domain.User;
 public interface ReportService {
 	
 	void registBetReport(Report report);
+	void registUserReport(Report report);
 	List<Report> findAllBetReport();
 	List<Report> findAllUserReport();
 	Report findByBetReportId(String reportId);

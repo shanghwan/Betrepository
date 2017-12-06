@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="description" content="Project Description" />
 <meta name="keywords" content="Project Keywords" />
-<title>BetOfOne</title>
+<title>내기의신</title>
 <link href="resources/css/style5.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/style4.css" rel="stylesheet" type="text/css" />
 <!--[if IE]><link href="resources/css/style-ie.css" rel="stylesheet" type="text/css" /><![endif]-->
@@ -47,7 +47,7 @@
 								<ul id="nav">
 									<li><a href="betStateList.do?userId=${userId }&state=대기">시작 전</a></li>
 									<li><a href="betStateList.do?userId=${userId }&state=진행">진행 중</a></li>
-									<li><a href="betStateList.do?userId=${userId }&state=종료">진행 종료</a></li>
+									<li><a href="betStateList.do?userId=${userId }&state=종료">종료</a></li>
 								</ul>
 							</div>
 						</div>

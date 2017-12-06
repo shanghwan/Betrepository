@@ -19,6 +19,17 @@ public class ReportController {
 	@Autowired
 	private ReportService reportService;
 	
+	
+		
+	@RequestMapping("/UserReport.do")
+	public ModelAndView UserReport(String target, String userId){
+		
+		ModelAndView modelAndView = new ModelAndView("UserReportRegist.jsp");
+		modelAndView.addObject("target", target);
+		modelAndView.addObject("userId", userId);
+		return modelAndView;
+	}
+	
 	@RequestMapping("/BetReport.do")
 	public ModelAndView BetReport(String target, HttpSession session){
 		
@@ -27,6 +38,16 @@ public class ReportController {
 		ModelAndView modelAndView = new ModelAndView("BetReportRegist.jsp");
 		modelAndView.addObject("target", target);
 		modelAndView.addObject("userId", userId);
+		return modelAndView;
+	}
+	
+	
+		
+	@RequestMapping("/createUserReport.do")
+	public ModelAndView createUserReport(Report report){
+		reportService.registUserReport(report);
+			
+		ModelAndView modelAndView = new ModelAndView("BetReportRegist.jsp");
 		return modelAndView;
 	}
 	

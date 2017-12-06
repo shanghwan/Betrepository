@@ -7,8 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import domain.Report;
 import store.ReportBetStore;
+import store.ReportUserStore;
 import store.mapper.BetMapper;
 import store.mapper.ReportBetMapper;
+import store.mapper.ReportUserMapper;
 
 @Repository
 public class ReportBetStoreLogic implements ReportBetStore{

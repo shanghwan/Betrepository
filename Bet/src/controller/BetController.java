@@ -1,5 +1,8 @@
 package controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -15,12 +18,14 @@ import domain.Bet;
 import domain.BetState;
 import domain.Comment;
 import domain.Invite;
+import domain.Player;
 import domain.User;
 import domain.Team;
 import service.BetService;
 import service.BetStateService;
 import service.CommentService;
 import service.InviteService;
+import service.PlayerService;
 import service.TeamService;
 
 @Controller
@@ -39,13 +44,14 @@ public class BetController {
 	
 	@RequestMapping("/Betlist.do")
 	public ModelAndView Betlist(String betWay){
+		
 		List<Bet> list = betService.findByBetWay(betWay);
 		
-		if(betWay.equals("one")) {
+		if(betWay.equals("One")) {
 			ModelAndView modelAndView = new ModelAndView("BetOfOne.jsp");
 			modelAndView.addObject("BetList", list);
 			return modelAndView;
-		} else if (betWay.equals("all")) {
+		} else if (betWay.equals("All")) {
 			ModelAndView modelAndView = new ModelAndView("BetOfAll.jsp");
 			modelAndView.addObject("BetList", list);
 			return modelAndView;
@@ -66,7 +72,7 @@ public class BetController {
 		teamName = "B";
 		Team teamB = teamService.findByTeamName(betId, teamName);
 		
-		if(bet.getBetWay().equals("one")) {
+		if(bet.getBetWay().equals("One")) {
 			ModelAndView modelAndView = new ModelAndView("detailBetOfOne.jsp");
 			modelAndView.addObject("bet", bet);
 			modelAndView.addObject("list", list);
@@ -74,7 +80,7 @@ public class BetController {
 			modelAndView.addObject("teamB", teamB);
 			return modelAndView;
 		}
-		else if(bet.getBetWay().equals("team")){
+		else if(bet.getBetWay().equals("Team")){
 			ModelAndView modelAndView = new ModelAndView("detailBetOfTeam.jsp");
 			modelAndView.addObject("bet", bet);
 			modelAndView.addObject("list", list);
@@ -106,7 +112,7 @@ public class BetController {
 		String userId = (String) session.getAttribute("userId");
 		if (userId == null) {
 
-			return "redirect:index.jsp";
+			return "redirect:main.jsp";
 		}
 		return "BetCreate.jsp";
 	}
@@ -122,7 +128,7 @@ public class BetController {
 		bet.setPhotoB("null");
 
 		String betId = betService.registBet(bet);
-		return "redirect:BetDetail.do?betId=" + betId;
+		return "BetDetail.do?betId=" + betId;
 	}
 
 	@RequestMapping(value = "/BetFail.do")
@@ -165,11 +171,11 @@ public class BetController {
 		
 		if(betId != null) {
 			Bet bet = betService.findByBetId(betId);
-			if(betWay.equals("one")) {
+			if(betWay.equals("One")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("bet", bet);
 				return "BetOfOne.jsp";
-			}else if(betWay.equals("all")) {
+			}else if(betWay.equals("All")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("bet", bet);
 				return "BetOfAll.jsp";
@@ -180,11 +186,11 @@ public class BetController {
 			}
 		}else if(betOwner != null) {
 			List<Bet> list = betService.findByOwner(betOwner, betWay);
-			if(betWay.equals("one")) {
+			if(betWay.equals("One")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("list", list);
 				return "BetOfOne.jsp";
-			}else if(betWay.equals("all")) {
+			}else if(betWay.equals("All")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("list", list);
 				return "BetOfAll.jsp";
@@ -195,11 +201,11 @@ public class BetController {
 			}
 		}else {
 			List<Bet> list1 = betService.findByTitle(title, betWay);
-			if(betWay.equals("one")) {
+			if(betWay.equals("One")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("list1", list1);
 				return "BetOfOne.jsp";
-			}else if(betWay.equals("all")) {
+			}else if(betWay.equals("All")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("list1", list1);
 				return "BetOfAll.jsp";

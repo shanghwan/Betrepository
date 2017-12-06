@@ -15,15 +15,13 @@
 		<result property="photoB" column="photeB" />
 		<result property="point" column="point" />
 		<result property="endDate" column="endDate" />
-		<result property="startDate" column="startDate" />
-		<result property="openCheck" column="openCheck" />
 		<result property="pointCheck" column="pointCheck" />
 		<result property="betOwner" column="betOwner" />
 	</resultMap>
 
 	<select id="searchByBetWay" resultType="Bet" resultMap="BetMap">
 		select betId, state, title, content, photoA , photoB , betWay ,
-		startDate ,endDate , openCheck , pointCheck , point, betOwner
+		endDate , pointCheck , point, betOwner
 		FROM bet_tb WHERE betWay =#{betWay} and (state = '진행' or state = '종료')
 	</select>
 
@@ -31,17 +29,13 @@
 		<selectKey keyProperty="betId" resultType="string" order="BEFORE">
 			select bet_seq.nextval from dual
 		</selectKey>
-
-		
 				insert into bet_tb
-				(betId, state, title, content, photoA , photoB , betWay ,
-				startDate ,endDate , openCheck , pointCheck , point, betOwner)
+				(betId, state, title, content, photoA , photoB , betWay 
+				 ,endDate , pointCheck , point, betOwner)
 				values(#{betId}, #{state}, #{title}, #{content}, #{photoA},
 				#{photoB},
-				#{betWay}, SYSDATE, #{endDate}, #{openCheck}, #{pointCheck}, #{point},
+				#{betWay}, #{endDate}, #{pointCheck}, #{point},
 				#{betOwner})
-		
-
 	</insert>
 
 
@@ -49,19 +43,19 @@
 	<select id="searchByBetId" parameterType="String" resultType="Bet"
 		resultMap="BetMap">
 		select betId, state, title, content, photoA , photoB , betWay ,
-		startDate ,endDate , openCheck , pointCheck , point, betOwner
+		 endDate , pointCheck , point, betOwner
 		FROM bet_tb WHERE betId = #{betId}
 	</select>
 	
 	<select id="searchByBetOwner" parameterType="HashMap" resultType="Bet" resultMap="BetMap">
 		select betId, state, title, content, photoA , photoB , betWay ,
-		startDate ,endDate , openCheck , pointCheck , point, betOwner
+		 endDate , pointCheck , point, betOwner
 		FROM bet_tb WHERE betOwner = #{betOwner} and betWay = #{betWay}
 	</select>
 	
 		<select id="searchByTitle" parameterType="HashMap" resultType="Bet" resultMap="BetMap">
 		select betId, state, title, content, photoA , photoB , betWay ,
-		startDate ,endDate , openCheck , pointCheck , point, betOwner
+		 endDate , pointCheck , point, betOwner
 		FROM bet_tb WHERE title like '%'||#{title}||'%' and betWay = #{betWay}
 	</select>
 	
@@ -69,8 +63,8 @@
 
 	<select id="searchByState" parameterType="String" resultType="Bet"
 		resultMap="BetMap">
-		select betId, state, title, content, photoA , photoB , betWay ,
-		startDate ,endDate , openCheck , pointCheck , point, betOwner
+		select betId, state, title, content, photoA , photoB , betWay 
+		 ,endDate , pointCheck , point, betOwner
 		FROM bet_tb WHERE state = #{state}
 	</select>
 
@@ -79,8 +73,6 @@
 				UPDATE bet_tb
 				set title = #{title},
 				content = #{content},
-				photoA = #{photoA},
-				photoB = #{photoB},
 				point = #{point},
 				state = #{state},
 				pointCheck = #{pointCheck}

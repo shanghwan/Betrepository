@@ -1,6 +1,7 @@
 package service.logic;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -9,19 +10,16 @@ import org.springframework.stereotype.Service;
 
 import domain.Bet;
 import domain.Comment;
-import domain.Player;
 import domain.Team;
 import domain.User;
 import service.BetService;
+import service.GameService;
 import service.TeamService;
-import store.BetStateStore;
 import store.BetStore;
 import store.CommentStore;
 import store.InviteStore;
 import store.PlayerStore;
 import store.UserStore;
-import store.CommentStore;
-import store.InviteStore;
 
 @Service
 public class BetServiceLogic implements BetService {
@@ -38,16 +36,15 @@ public class BetServiceLogic implements BetService {
 	private TeamService teamService;
 	@Autowired
 	private InviteStore inviteStore;
+	@Autowired
+	private GameService gameService;
 
 	@Override
 	public String registBet(Bet bet) {
-		Date today = new Date(Calendar.getInstance().getTimeInMillis());
 		User user = userStore.searchByUserId(bet.getBetOwner());
-		
-		bet.setStartDate(today);
 		bet.setState("대기");
-		
-		if (bet.getBetWay().equals("all")) {
+
+		if (bet.getBetWay().equals("All")) {
 			bet.setState("진행");
 			bet.setPointCheck("LOCK");
 			bet.setPoint(10);
@@ -55,28 +52,20 @@ public class BetServiceLogic implements BetService {
 		if (bet.getPointCheck().equals("ALLIN")) {
 			bet.setPoint(user.getPoint());
 		}
-		
+
 		// point 처리해야함
-		
+
 		String betId = betStore.create(bet);
 
 		Team team = new Team();
-		
+
 		team.setBetId(betId);
 		team.setTeamName("A");
-		String teamId = teamService.registTeam(team);
-		Player player = new Player();
-		player.setBetId(betId);
-		player.setPosition("leader");
-		player.setPoint(bet.getPoint());
-		player.setTeamId(teamId);
-		player.setUserId(user.getUserId());
-		player.setVote("N");
-		playerStore.create(player);
+		teamService.registTeam(team);
 
 		team.setTeamName("B");
 		teamService.registTeam(team);
-		
+
 		return betId;
 	}
 
@@ -87,8 +76,14 @@ public class BetServiceLogic implements BetService {
 
 	@Override
 	public Bet findByBetId(String betId) {
-
+		Date today = new Date(Calendar.getInstance().getTimeInMillis());
 		Bet bet = betStore.searchByBetId(betId);
+		int com = bet.getEndDate().compareTo(today);
+	      if (com <= 0) {
+	        //내기 종료 메소드
+	    	  gameService.timeEndGame(bet);
+	      }
+		
 		List<Comment> list = CommentStore.searchAll(betId);
 		bet.setComments(list);
 		int A = playerStore.voteCount(betId, "A");
@@ -115,7 +110,16 @@ public class BetServiceLogic implements BetService {
 
 	@Override
 	public List<Bet> findByBetWay(String betWay) {
-		return betStore.searchByBetWay(betWay);
+		List<Bet> betList = betStore.searchByBetWay(betWay);
+		Date today = new Date(Calendar.getInstance().getTimeInMillis());
+		
+		for(Bet b : betList) {
+			int eq = b.getEndDate().compareTo(today);
+			if(eq <=0) {
+				 gameService.timeEndGame(b);
+			}
+		}
+		return betList;
 	}
 
 	@Override

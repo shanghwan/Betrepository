@@ -42,6 +42,8 @@ public class GameServiceLogic implements GameService {
 		Player player = new Player();
 		int point = 10;
 
+		playerService.removePlayerByBetIdAndUserId(betId, userId);
+
 		player.setBetId(betId);
 		player.setUserId(userId);
 		player.setPoint(point);
@@ -57,13 +59,12 @@ public class GameServiceLogic implements GameService {
 		Player player = new Player();
 		Bet bet = betService.findByBetId(betId);
 		User user = userStore.searchByUserId(userId);
-		if(team.getLeader() != null && !(team.getLeader().getUserId().equals(userId)) ) {
+		if (team.getLeader() != null && !(team.getLeader().getUserId().equals(userId))) {
 			return "false";
 		}
-			// 내기에 참여중인 나를 삭제
-			playerService.removePlayerByBetIdAndUserId(betId, userId);
-			
-		
+		// 내기에 참여중인 나를 삭제
+		playerService.removePlayerByBetIdAndUserId(betId, userId);
+
 		// 나를 내기에 새로 참여 등록
 
 		player.setBetId(betId);
@@ -85,12 +86,14 @@ public class GameServiceLogic implements GameService {
 	@Override
 	public String joinBetOfTeam(String userId, String teamName, String betId, int point) {
 		Team team = teamService.findByTeamName(betId, teamName);
+
+		// 내기에 참여중인 나를 삭제
+//		playerService.removePlayerByBetIdAndUserId(betId, userId);
+		teamService.removePlayerByTeam(userId, betId, team.getTeamId());
+
 		Player player = new Player();
 		Bet bet = betService.findByBetId(betId);
 		User user = userStore.searchByUserId(userId);
-
-		// 내기에 참여중인 나를 삭제
-		playerService.removePlayerByBetIdAndUserId(betId, userId);
 
 		// 나를 내기에 새로 참여 등록
 		player.setBetId(betId);
@@ -98,6 +101,7 @@ public class GameServiceLogic implements GameService {
 		player.setPoint(point);
 		player.setUserId(userId);
 		player.setPosition("member");
+		player.setVote("N");
 
 		if (team.getPlayers().isEmpty()) {
 			player.setPosition("leader");
@@ -172,6 +176,8 @@ public class GameServiceLogic implements GameService {
 
 	@Override
 	public String gameEnd(String betId, String vote) {
+		
+		
 		Bet bet = betService.findByBetId(betId);
 
 		bet.setState("종료");
@@ -183,6 +189,8 @@ public class GameServiceLogic implements GameService {
 		}
 
 		betService.modify(bet);
+		
+		
 		if (vote.equals("A")) {
 			Team teamW = teamService.findByTeamName(betId, vote);
 
@@ -210,8 +218,30 @@ public class GameServiceLogic implements GameService {
 			// 전적 기록
 
 		}
-
 		return betId;
+	}
+
+	@Override
+	public String timeEndGame(Bet bet) {
+		bet.setState("종료");
+		if (bet.getPhotoA() == null) {
+			bet.setPhotoA("null");
+		}
+		if (bet.getPhotoB() == null) {
+			bet.setPhotoB("null");
+		}
+
+		betService.modify(bet);
+		
+		List<Team> teams = teamService.findTeamByBetId(bet.getBetId());
+		for(Team t : teams) {
+			t.setResult("DRAW");
+			teamStore.update(t);
+			//포인트 처리 서비스 호출
+			//전적 기록
+		}
+
+		return bet.getBetId();
 	}
 
 }

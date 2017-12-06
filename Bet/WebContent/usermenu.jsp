@@ -30,7 +30,7 @@
 										<label>${loginUser.name }님 환영합니다.</label><br>
 										<br><label><a href="pointList.do">포인트</a>: ${loginUser.point }</label> <br></br>
 										<button type="submit" class="btn btn btn-warning">logout</button>
-										<a href="adminpage.jsp"><button type="button"
+										<a href="adminpage.do"><button type="button"
 												class="btn btn btn-warning">admin Page</button></a>
 
 									</form>

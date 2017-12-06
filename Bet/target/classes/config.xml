@@ -40,7 +40,7 @@
 		<mapper resource="mapper/CommentMapper.xml" />
 		<mapper resource="mapper/PointMapper.xml" />
 		<mapper resource="mapper/ReportMapper.xml" />
-		<mapper resource="mapper/AttendanceMapper.xml" />
+		<mapper resource="mapper/ReportUserMapper.xml" />
 		<mapper resource="mapper/TeamMapper.xml" />
 		<mapper resource="mapper/AttendanceMapper.xml" />
 		<mapper resource="mapper/RecordMapper.xml" />
