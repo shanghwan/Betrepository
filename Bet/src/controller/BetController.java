@@ -211,9 +211,4 @@ public class BetController {
 		}
 	}
 	
-	
-	
-	
-	
-	
 }
