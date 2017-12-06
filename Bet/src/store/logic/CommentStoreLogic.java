@@ -23,7 +23,7 @@ public class CommentStoreLogic implements CommentStore {
 		} finally {
 			session.close();
 		}
-		return comment.getCommentId();
+		return comment.getBetId();
 	}
 
 	@Override

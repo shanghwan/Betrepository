@@ -22,13 +22,13 @@
 		resultMap="CommentMap">
 		SELECT commentId, betId, userId, content, photo, RegDate
 		FROM comment_tb
-		WHERE commentId = #{commentId}
+		WHERE commentId = #{commentId} 
 	</select>
 
 	<select id="searchAll" parameterType="String" resultType="Comment">
 		SELECT commentId, betId, userId, content, photo, RegDate
 		FROM comment_tb
-		WHERE betId = #{betId}
+		WHERE betId = #{betId} order by commentId asc
 	</select>
 
 	<delete id="delete" parameterType="String">

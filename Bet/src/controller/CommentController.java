@@ -29,8 +29,6 @@ public class CommentController {
 
 	@Autowired
 	private CommentService commentService;
-	@Autowired
-	private BetService betService;
 
 	@RequestMapping(value = "/registComment.do", method = RequestMethod.POST)
 	public String registComment(HttpSession session, Comment comment) {
@@ -38,13 +36,9 @@ public class CommentController {
 		String userId = (String) session.getAttribute("userId");
 
 		comment.setUserId(userId);
-		betService.findByBetId(comment.getBetId());
-//		comment.setBetId(comment.getBetId());
-		System.out.println(comment.getBetId());
+		String betId = commentService.registComment(comment);
 
-		String commentId = commentService.registComment(comment);
-
-		return "redirect:BetDetail.do";
+		return "redirect:BetDetail.do?betId=" + betId;
 	}
 
 	@RequestMapping(value = "/uploadFile.do", method = RequestMethod.POST)

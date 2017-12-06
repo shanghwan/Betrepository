@@ -205,10 +205,12 @@
 							</tr>
 							<tr>
 								<td>
-									<p class="txt">${clist.content }</p> <%-- 	<p style="padding: 20px">${comment.contents } --%>
+									<p class="txt">${clist.content }</p> 
+									<%-- 	<p style="padding: 20px">${comment.contents } --%>
 									<c:if test="${clist.photo ne null }">
 										<img src="${clist.photo }">
 									</c:if> <!-- </p> -->
+									
 								</td>
 							</tr>
 						</table>

@@ -38,12 +38,9 @@
 				#{betOwner})
 	</insert>
 
-
-
 	<select id="searchByBetId" parameterType="String" resultType="Bet"
 		resultMap="BetMap">
-		select betId, state, title, content, photoA , photoB , betWay ,
-		 endDate , pointCheck , point, betOwner
+		select betId, state, title, content, photoA , photoB , betWay , endDate , pointCheck , point, betOwner
 		FROM bet_tb WHERE betId = #{betId}
 	</select>
 	
