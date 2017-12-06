@@ -1,7 +1,5 @@
 package service.logic;
 
-import java.sql.Date;
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,11 +85,12 @@ public class GameServiceLogic implements GameService {
 
 	@Override
 	public String joinBetOfTeam(String userId, String teamName, String betId, int point) {
+		Team team = teamService.findByTeamName(betId, teamName);
 
 		// 내기에 참여중인 나를 삭제
-		playerService.removePlayerByBetIdAndUserId(betId, userId);
+//		playerService.removePlayerByBetIdAndUserId(betId, userId);
+		teamService.removePlayerByTeam(userId, betId, team.getTeamId());
 
-		Team team = teamService.findByTeamName(betId, teamName);
 		Player player = new Player();
 		Bet bet = betService.findByBetId(betId);
 		User user = userStore.searchByUserId(userId);
