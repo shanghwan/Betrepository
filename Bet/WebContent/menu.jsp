@@ -18,8 +18,9 @@
 			<li><a href="Betlist.do?betWay=Team">BetOfTeam</a></li>
 			<li><a href="Betlist.do?betWay=All">BetOfAll</a></li>
 			<li><a href="BetlistByState.do?state=대기">Join</a></li>
-			<li><a href="#">Rank</a></li>
+			<li><a href="rateRank.do">Rank</a></li>
 			<li><a href="attendance.jsp">Attendance</a></li>
 		</ul>
 	</c:otherwise>
 </c:choose>
+

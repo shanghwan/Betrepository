@@ -21,7 +21,7 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="main.jsp"><h1>내기의 神</h1></a>
+					<a href="main.do"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 				<%@ include file="menu.jsp"%>
@@ -47,7 +47,7 @@
 								<ul id="nav">
 									<li><a href="betStateList.do?userId=${userId }&state=대기">시작 전</a></li>
 									<li><a href="betStateList.do?userId=${userId }&state=진행">진행 중</a></li>
-									<li><a href="betStateList.do?userId=${userId }&state=종료">진행 종료</a></li>
+									<li><a href="betStateList.do?userId=${userId }&state=종료">종료</a></li>
 								</ul>
 							</div>
 						</div>

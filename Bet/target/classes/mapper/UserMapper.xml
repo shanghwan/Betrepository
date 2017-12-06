@@ -23,10 +23,9 @@
 		WHERE name = #{name}
 	</select>
 
-	<select id="searchByPoint">
-		SELECT userId, password, name, point
-		FROM user_tb
-		WHERE point = #{point}
+	<select id="searchByPoint" resultType="User">
+		<![CDATA[SELECT userId, password, name, point FROM(SELECT  userId, password, name, point from user_tb order by point desc) 
+		where ROWNUM <=10]]>
 	</select>
 
 	<update id="update" parameterType="User">

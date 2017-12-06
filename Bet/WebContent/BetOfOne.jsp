@@ -37,11 +37,12 @@
 </head>
 
 <body>
+
    <div id="wrapper">
       <div id="container">
          <div id="header" class="clearfix">
             <div id="logo">
-               <a href="main.jsp"><h1>내기의 神</h1></a>
+               <a href="main.do"><h1>내기의 神</h1></a>
                <p>what's up</p>
             </div>
             <%@ include file="menu.jsp"%>
@@ -114,6 +115,7 @@
                                     <td align="center">${bet.state }</td>
                                  </tr>
                               </c:if>
+
 
                               <c:forEach items="${list }" var="list">
                                  <tr>

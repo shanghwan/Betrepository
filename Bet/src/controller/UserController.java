@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import domain.Attendance;
 import domain.Bet;
 import domain.Invite;
+import domain.Record;
 import domain.Report;
 import domain.User;
 import service.AttendanceService;
 import service.BetService;
 import service.InviteService;
+import service.RecordService;
 import service.ReportService;
 import service.UserService;
 
@@ -37,6 +39,9 @@ public class UserController {
 	private InviteService inviteService;
 	@Autowired
 	private ReportService reportService;
+	@Autowired
+	private RecordService recordService;
+
 
 	@RequestMapping(value = "/Userregist.do", method = RequestMethod.POST)
 	public String join(User user) {
@@ -45,6 +50,19 @@ public class UserController {
 
 		return "redirect:main.jsp";
 	}
+	
+	@RequestMapping(value = "/main.do")
+	public String main(Model model, HttpSession session) {
+		
+		String userId = (String) session.getAttribute("userId");
+		Record recordUser = recordService.findRecord(userId);
+
+		model.addAttribute("recordUser",recordUser);
+		
+		return "main.jsp";
+	}
+	
+	
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login(User user, HttpSession session, String password) {
@@ -54,7 +72,7 @@ public class UserController {
 		if (loginUser != null && loginUser.getPassword().equals(password)) {
 			session.setAttribute("userId", loginUser.getUserId());
 			session.setAttribute("loginUser", loginUser);
-			return "redirect:main.jsp";
+			return "main.do";
 		} else {
 			session.invalidate();
 			return "redirect:signUp.jsp";
@@ -184,6 +202,56 @@ public class UserController {
 		model.addAttribute("list", list);
 		session.setAttribute("loginUser", loginUser);
 		return "attendance.jsp";
+	}
+	
+	@RequestMapping(value = "/rateRank.do")
+	public String rateRank(Model model) {
+
+		List<Record> list = recordService.findByRate();
+
+		model.addAttribute("RateList", list);
+
+		return "rateRank.jsp";
+	}
+	
+	@RequestMapping(value = "/totalRank.do")
+	public String totalRank(Model model) {
+
+		List<Record> list = recordService.findByTotal();
+
+		model.addAttribute("RateList", list);
+
+		return "totalRank.jsp";
+	}
+	
+	@RequestMapping(value = "/pointRank.do")
+	public String pointRank(Model model) {
+
+		List<User> list = userService.findByPoint();
+
+		model.addAttribute("pointList", list);
+
+		return "pointRank.jsp";
+	}
+	
+	@RequestMapping(value = "/winRank.do")
+	public String winRank(Model model) {
+
+		List<Record> list = recordService.findByWin();
+
+		model.addAttribute("winList", list);
+
+		return "winRank.jsp";
+	}
+	
+	@RequestMapping(value = "/loseRank.do")
+	public String loseRank(Model model) {
+
+		List<Record> list = recordService.findByLose();
+
+		model.addAttribute("loseList", list);
+
+		return "loseRank.jsp";
 	}
 
 }

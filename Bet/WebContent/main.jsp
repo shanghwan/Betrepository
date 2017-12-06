@@ -19,7 +19,7 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="main.jsp"><h1>내기의 神</h1></a>
+					<a href="main.do"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 				<%@ include file="menu.jsp"%>
@@ -199,6 +199,7 @@
 				</div>
 				<!-- // end #content -->
 				<%@ include file="usermenu.jsp"%>
+				<%@ include file="userRecord.jsp"%>
 			</div>
 			<div id="footer">
 				<p>
