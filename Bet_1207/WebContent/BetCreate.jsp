@@ -105,10 +105,7 @@ tr td p.error {
 								<c:if test="${userId ne 'admin' }">
 								<table>
 									<colgroup>
-										<col width="90" />
-										<col width="*" />
-										<col width="100" />
-										<col width="100" />
+										<col width="150" />
 										<col width="100" />
 									</colgroup>
 									
@@ -133,19 +130,19 @@ tr td p.error {
 										<tr>
 											<th>종료날짜</th>
 											<td><input id="endDate" name="endDate"
-												class="form-control validate endDate" type="Date" placeholder="YYMMDD"
-												size="50"></td>
+												class="form-control validate endDate" type="Date" placeholder="YYMMDD" size="50">(필수)</td>
 										</tr>
 										
 										<tr>
 											<th>BetOf</th>
-											<td><input type="radio" name="betWay" onClick="display1()" value="One" class="one team all">One 
+											<td><input type="radio" name="betWay" onClick="display1()" value="One" class="validate one team all">One 
 												<input type="radio" name="betWay" onClick="display1()" value="Team">Team
 												<input type="radio" name="betWay" onclick="display2()" value="All">All</td>
 										</tr>
 										<tr>
 											<th>포인트방식</th>
-											<td id="indivisual1"><input type="radio" name="pointCheck"  value="ALLIN" class="one team all">올인 
+											<td id="indivisual1">
+												<input type="radio" name="pointCheck"  value="ALLIN">올인 
 												<input type="radio" name="pointCheck"  value="FREE">자유
 												<input type="radio" name="pointCheck"  value="LOCK">고정</td>
 										</tr>
@@ -173,14 +170,9 @@ tr td p.error {
 					Free Web Design Templates by <a href="http://www.dkntemplates.com"
 						title="Dkntemplates">Dkntemplates.com</a>
 				</p>
-				<!-- Please don't remove my backlink -->
-
 			</div>
-			<!-- // end #footer -->
 		</div>
-		<!-- // end #container -->
 	</div>
-	<!-- // end #wrapper -->
 	
 	
 <script type="text/javascript">
@@ -208,18 +200,8 @@ $("form").submit(function(){
             }
        });
        
-       //메일 검사
-       $(this).filter(".endDate").each(function() {
-    	   if($(this).val() == ""){
-               $(this).before("<p class='error'>필수 항목 입니다. </p>");
-               $(this).before("<p class='error'>종료날짜를 입력해주세요. </p>");
-            }
-       });
-       
        $(":radio").filter(".one").each(function() {
-              if($(":radio[name=" +  $(this).attr("name") + "]:checked").length==0){
                  $(this).before("<p class='error'>필수 선택 항목입니다. </p>");
-              }
         });
        
     });

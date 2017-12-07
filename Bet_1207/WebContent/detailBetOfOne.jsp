@@ -70,13 +70,13 @@
 					<button type="submit" class="btn btn btn-warning"
 						onclick="showPopup();">초대하기</button>
 				</c:if>
-				<form action="gameJoin.do" method="post">
+				<form action="gameJoin.do" method="post" name="sub1">
 					<input type="hidden" name="betId" value="${bet.betId }"> <input
-						type="text" name="pointBet" placeholder="포인트 입력 " size="12"></input>
-
-					<input type="radio" name="teamName" value="A">Team A <input
+						type="text" name="pointBet" placeholder="포인트 입력 " size="12" id="pointBet"></input>
+					
+					<input type="radio" name="teamName" value="A" id="teamName">Team A <input
 						type="radio" name="teamName" value="B">Team B
-					<button type="submit" class="btn btn btn-warning">참여하기</button>
+					<button type="button" class="btn btn btn-warning btn3">참여하기</button>
 				</form>
 			</c:if>
 
@@ -234,7 +234,16 @@
 				</form>
 			</div>
 		</div>
-
+<script type="text/javascript">
+$('.btn3').click(function(){
+	if (document.getElementById("pointBet").value == "") {
+         alert("포인트를 입력해주세요");
+	}else if($(":radio[name=" +  $(teamName).attr("name") + "]:checked").length==0){
+		alert("팀을 선택해주세요");
+	}else
+		   document.sub1.submit();
+	})
+</script>
 
 
 		<div id="footer">

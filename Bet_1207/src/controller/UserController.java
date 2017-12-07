@@ -4,9 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,6 +55,11 @@ public class UserController {
 	public String main(Model model, HttpSession session) {
 		
 		String userId = (String) session.getAttribute("userId");
+		
+		if(userId == null) {
+			return "redirect:index.jsp";
+		}
+		
 		Record recordUser = recordService.findRecord(userId);
 
 		model.addAttribute("recordUser",recordUser);
@@ -67,13 +70,14 @@ public class UserController {
 	
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String login(User user, HttpSession session, String password) {
+	public String login(User user, HttpSession session, String password, Model model) {
 
 		User loginUser = userService.login(user);
 
 		if (loginUser != null && loginUser.getPassword().equals(password)) {
 			session.setAttribute("userId", loginUser.getUserId());
 			session.setAttribute("loginUser", loginUser);
+
 			return "main.do";
 		} else {
 			session.invalidate();
