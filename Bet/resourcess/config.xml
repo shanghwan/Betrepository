@@ -16,7 +16,9 @@
 		<typeAlias type="domain.Team" alias="Team" />
 		<typeAlias type="domain.BetState" alias="BetState" />
 		<typeAlias type="domain.Attendance" alias="Attendance" />
+
 	</typeAliases>
+
 
 	<environments default="development">
 		<environment id="development">

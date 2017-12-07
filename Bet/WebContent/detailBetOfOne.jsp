@@ -127,20 +127,39 @@
 					<h3 class="page-title" align="center">${bet.content }</h3>
 					<br>
 
+					<c:if test="${bet.state eq '대기' }">
+						<form action="ImageA.do" method="POST" enctype="multipart/form-data">
+							<input type="hidden" name="betId" value="${bet.betId }">
+							<input type="file" name="photoA">
+							<button type="submit" value="올리기">올리기</button>
+						</form>
+						<%--  <form action="BetDetail.do" method="POST" enctype="multipart/form-data">
+							<input type="hidden" name="betId" value="${bet.betId }">
+							<input type="file" name="photoA">
+							<input type="file" name="photoB">
+							<button type="submit" value="올리기">올리기</button>
+						</form>  --%>
+
+					</c:if>
+
+
 					<form action="betVote.do" method="post">
 						<input type="hidden" name="betId" value="${bet.betId }">
 						<table>
 							<tr>
-								<td><img src="resources/images/betofall.jpg"
-									alt="Banner Image 1" /><br> <br> <c:if
+								<td><img class="imgs" src="/images/${bet.photoA }"
+									alt="이미지를 올려주세요" /> <!-- <img src="resources/images/betofall.jpg"
+									alt="Banner Image 1" /> --> <br> <br> <c:if
 										test="${bet.state eq '진행'}">
 										<c:if
 											test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
 											<input type="radio" name="vote" value="A">Team A</c:if>
 									</c:if></td>
-								<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>
-								<td><img src="resources/images/betofall.jpg"
-									alt="Banner Image 1" /><br> <br> <c:if
+								<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>								
+								<td><img class="imgs" src="/images/${bet.photoB }"
+									alt="이미지를 올려주세요" />
+								<!-- <img src="resources/images/betofall.jpg"
+									alt="Banner Image 1" /> --><br> <br> <c:if
 										test="${bet.state eq '진행'}">
 										<c:if
 											test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
@@ -205,12 +224,11 @@
 							</tr>
 							<tr>
 								<td>
-									<p class="txt">${clist.content }</p> 
-									<%-- 	<p style="padding: 20px">${comment.contents } --%>
+									<p class="txt">${clist.content }</p> <%-- 	<p style="padding: 20px">${comment.contents } --%>
 									<c:if test="${clist.photo ne null }">
 										<img src="${clist.photo }">
 									</c:if> <!-- </p> -->
-									
+
 								</td>
 							</tr>
 						</table>
@@ -230,30 +248,24 @@
 									</div>
 								</div>
 								<input type="submit" class="comment_submit" value="작성">
-
 							</form>
 						</div>
 					</div>
 
-
 					<!-- // end #content -->
 				</div>
 				<div id="footer">
+					<br> <br> <br>
 					<p>
-						&copy; copyright 2012 <a href="htp://www.dkntemplates.com"
+						&copy; copyright 2017 <a href="htp://www.dkntemplates.com"
 							title="Dkntemplates">www.dkntemplates.com</a> All right reserved
 					</p>
-
-					<!-- Please don't remove my backlink -->
 					<p>
 						Free Web Design Templates by <a href="http://www.dkntemplates.com"
 							title="Dkntemplates">Dkntemplates.com</a>
 					</p>
-					<!-- Please don't remove my backlink -->
 
 				</div>
-				<!-- // end #footer -->
 			</div>
-			<!-- // end #container -->
 		</div>
 		<!-- // end #wrapper -->

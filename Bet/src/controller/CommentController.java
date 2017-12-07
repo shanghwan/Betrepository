@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Bet;
@@ -22,13 +23,13 @@ import service.BetService;
 import service.CommentService;
 
 @Controller
-@MultipartConfig(maxFileSize = 1024 * 1024
-		* 1024, location = "C:/Users/kosta/eclipse-workspace/web.servlet.todayCom_ver01/WebContent/photo")
 public class CommentController {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private BetService betService;
 
 	@RequestMapping(value = "/registComment.do", method = RequestMethod.POST)
 	public String registComment(HttpSession session, Comment comment) {
@@ -41,32 +42,34 @@ public class CommentController {
 		return "redirect:BetDetail.do?betId=" + betId;
 	}
 
-	@RequestMapping(value = "/uploadFile.do", method = RequestMethod.POST)
-	public ModelAndView uploadHandler(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
+	@RequestMapping(value = "/commentUploadFile.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView uploadHandler(Comment comment, MultipartHttpServletRequest file) throws IOException {
 
-		if (!file.isEmpty()) {
-			try {
-				byte[] bytes = file.getBytes();
+		Bet bet = betService.findByBetId(comment.getBetId());
 
-				File dir = new File("c:\\" + File.separator + "tempFiles");
-				if (!dir.exists()) {
-					dir.mkdirs();
-				}
-				File saveFile = new File(dir.getAbsolutePath() + File.separator + name);
+		File dir = new File("c:\\" + File.separator + "tempFiles");
 
-				BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(saveFile));
+		if (!dir.isDirectory()) {
+			dir.mkdirs();
+		}
+		MultipartFile photoA = file.getFile("photoA");
 
-				out.write(bytes);
-				out.close();
+		if (!photoA.isEmpty()) {
 
-				ModelAndView modelAndView = new ModelAndView("detailBetOfOne.jsp");
-				modelAndView.addObject("img", "/images/" + name);
+			byte[] bytes = photoA.getBytes();
 
-				return modelAndView;
+			File saveFile = new File(dir.getAbsolutePath() + File.separator + photoA);
 
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(saveFile));
+			out.write(bytes);
+			out.close();
+
+			ModelAndView modelAndView = new ModelAndView("detailBetOfOne.jsp");
+			modelAndView.addObject("img", "/images/" + photoA);
+
+			// comment.setPhoto(saveFile);
+
+			return modelAndView;
 		}
 		return null;
 	}
