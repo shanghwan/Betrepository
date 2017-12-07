@@ -71,13 +71,18 @@ public class ReportController {
 	}
 	
 	@RequestMapping("/deleteBetAllReport.do")
-	public ModelAndView deleteBetAllReport(String target){
+	public ModelAndView deleteBetAllReport(String target, String userId){
 		
 		reportService.removeBetReportAllByTarget(target);
-		
+		if(userId.equals("admin")) {
+			ModelAndView modelAndView = new ModelAndView("adminpageBet.do");
+			return modelAndView;
+		}else {
+			ModelAndView modelAndView = new ModelAndView("main.do");
+			return modelAndView;
+		}
 			
-		ModelAndView modelAndView = new ModelAndView("adminpageBet.do");
-		return modelAndView;
+		
 	}
 	
 	@RequestMapping("/findBetByUserId.do")
@@ -85,6 +90,15 @@ public class ReportController {
 		List<Bet> list = betService.findByUserId(betOwner);
 		ModelAndView modelAndView = new ModelAndView("userAllBetList.jsp");
 		modelAndView.addObject("list", list);
+		modelAndView.addObject("betOwner", betOwner);
+		return modelAndView;
+	}
+	
+	@RequestMapping("/deleteUserReport.do")
+	public ModelAndView deleteUserReport(String reportId){
+		
+		reportService.removeUserReport(reportId);
+		ModelAndView modelAndView = new ModelAndView("adminpage.do");
 		return modelAndView;
 	}
 	

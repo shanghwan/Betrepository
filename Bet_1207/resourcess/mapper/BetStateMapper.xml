@@ -14,5 +14,7 @@
 	SELECT presentBetId, userId, state, betId from presentBet_tb
 	WHERE userId = #{userId} and state = #{state}
 	</select>
+	
+	<delete id=""></delete>
 
 </mapper>

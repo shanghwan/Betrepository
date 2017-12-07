@@ -88,6 +88,8 @@
 								</div>
 
 						</div>
+						<div align="right"><a href="adminBetList.do?userId=admin"><button type="button" class="btn btn btn-warning">**이벤트내기**</button></a><br><br></div>
+						
 						<div class="post-content clearfix">
 							<div class="post-thumb"></div>
 							<div class="post-summary">
@@ -107,6 +109,7 @@
 											<th class="text-center">상태</th>
 										</tr>
 										<c:if test="${bet ne null }">
+										<c:if test="${bet.betOwner ne admin }">
 										<tr>
 											<td align="center">${bet.betId }</td>
 											<td align="center"><a
@@ -116,8 +119,10 @@
 											<td align="center">${bet.state }</td>
 										</tr>
 										</c:if>
+										</c:if>
 										
 										<c:forEach items="${list }" var="list">
+										<c:if test="${list.betOwner ne 'admin' }">
 										<tr>
 											<td align="center">${list.betId }</td>
 											<td align="center"><a
@@ -126,9 +131,11 @@
 											<td align="center">${list.betOwner }</td>
 											<td align="center">${list.state }</td>
 										</tr>
+										</c:if>
 										</c:forEach>
 										
 										<c:forEach items="${list1 }" var="list">
+										<c:if test="${list.betOwner ne 'admin' }">
 										<tr>
 											<td align="center">${list.betId }</td>
 											<td align="center"><a
@@ -137,10 +144,12 @@
 											<td align="center">${list.betOwner }</td>
 											<td align="center">${list.state }</td>
 										</tr>
+										</c:if>
 										</c:forEach>
 										
 									</thead>
 									<c:forEach var="list" items="${BetList }">
+									<c:if test="${list.betOwner ne 'admin' }">
 										<tr>
 											<td align="center">${list.betId }</td>
 											<td align="center"><a
@@ -149,6 +158,7 @@
 											<td align="center">${list.betOwner }</td>
 											<td align="center">${list.state }</td>
 										</tr>
+										</c:if>
 									</c:forEach>
 								</table>
 							</div>

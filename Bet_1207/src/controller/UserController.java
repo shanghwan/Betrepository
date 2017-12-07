@@ -6,10 +6,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -44,8 +46,8 @@ public class UserController {
 
 
 	@RequestMapping(value = "/Userregist.do", method = RequestMethod.POST)
-	public String join(User user) {
-
+	public String join (User user, BindingResult bindingResult) {
+		
 		userService.regist(user);
 
 		return "redirect:main.jsp";
@@ -203,6 +205,19 @@ public class UserController {
 		session.setAttribute("loginUser", loginUser);
 		return "attendance.jsp";
 	}
+	
+	@RequestMapping(value = "/pointReset.do")
+	public String pointReset(String userId, Model model) {
+		
+		User user = userService.findByUserId(userId);
+		user.setPoint(0);
+		userService.modifyUser(user);
+		List<Report> list = reportService.findAllBetReport();
+		model.addAttribute("BetList", list);
+		return "adminpage.do";
+	}
+
+	
 	
 
 }

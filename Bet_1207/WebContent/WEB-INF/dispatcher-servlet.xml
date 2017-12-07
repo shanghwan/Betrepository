@@ -17,5 +17,10 @@
 	<context:component-scan base-package="store.logic"/>
 	<context:component-scan base-package="domain" />
 	
+	<bean id="messageSource"
+        class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="message/messages" />
+    </bean>
+	
 
 </beans>

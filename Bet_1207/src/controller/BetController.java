@@ -165,6 +165,15 @@ public class BetController {
 
 		return "betstate.jsp";
 	}
+	
+	@RequestMapping(value = "/adminBetList.do")
+	public String adminBetList(String userId, Model model) {
+
+		List<Bet> adminlist = betService.findByUserId(userId);
+		model.addAttribute("adminlist", adminlist);
+
+		return "adminBet.jsp";
+	}
 
 	@RequestMapping(value = "/findBet.do")
 	public String findBet(String betId, String betOwner, String title, Model model, String betWay) {
@@ -216,5 +225,7 @@ public class BetController {
 			}
 		}
 	}
+	
+	
 	
 }

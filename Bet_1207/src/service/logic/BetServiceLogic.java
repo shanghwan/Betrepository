@@ -132,6 +132,7 @@ public class BetServiceLogic implements BetService {
 		inviteStore.deletebyBetId(betId);
 		betStore.delete(betId);
 		teamService.removeTeam(betId);
+		playerStore.deleteByBetId(betId);
 	}
 	
 	   @Override

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import domain.Report;
 import domain.User;
+import service.PlayerService;
 import service.ReportService;
 import service.TeamService;
 import store.BetStore;
@@ -26,9 +27,11 @@ public class ReportServiceLogic implements ReportService{
 	@Autowired
 	private InviteStore inviteStore;
 	@Autowired
-	private TeamService teamService;
+	private TeamService teamStore;
 	@Autowired
 	private ReportUserStore reportUserStore;
+	@Autowired
+	private PlayerService playerStore;
 	
 	
 	@Override
@@ -75,11 +78,14 @@ public class ReportServiceLogic implements ReportService{
 		reportBetStore.deleteAllByTarget(target);
 		inviteStore.deletebyBetId(target);
 		betStore.delete(target);
-		teamService.removeTeam(target);
+		teamStore.removeTeam(target);
+		playerStore.removeByBetId(target);
 	}
 
 	@Override
 	public void removeUserReport(String reportId) {
+		
+		reportUserStore.delete(reportId);
 		
 	}
 

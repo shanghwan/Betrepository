@@ -22,5 +22,9 @@
    <select id="searchByAllUserReport" resultType="Report" resultMap="ReportMap">
    SELECT reportId, userId, reportUserId, reportContent, reportUserDate FROM reportUser_tb
    </select>
+   
+   <delete id="delete" parameterType="String">
+   DELETE FROM reportUser_tb where reportId = #{reportId}
+   </delete>
 
 </mapper>

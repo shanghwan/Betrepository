@@ -63,10 +63,12 @@
 			<a href="${ctx }/article/recommend.do?articleId=${article.articleId}"
 				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">삭제</a>
 				</c:if>
+			<c:if test="${bet.betOwner ne 'admin' }">
 			<a class="glyphicon glyphicon-cog pull-right" style="padding: 10px"
 				onclick="showPopup1();">신고</a> <br>
+				</c:if>
 			<div align="right">
-				<br> 종료날짜 : ${bet.endDate} <br> 상태 : ${bet.state} <br> 내기장 아이디 : ${bet.betOwner }
+				<br> 종료날짜 : ${bet.endDate} <br> 상태 : ${bet.state} <br> 내기장 아이디 : ${bet.betOwner }<c:if test="${bet.betOwner ne 'admin' }"><a onclick="showPopup2();">[신고]</a></c:if>
             <br> 내기 방식 : BetOf${bet.betWay } <br> 포인트 방식 : ${bet.pointCheck } <br> <c:if test="${bet.pointCheck eq 'LOCK' }">내기포인트 : ${bet.point }</c:if>
 
 			</div>

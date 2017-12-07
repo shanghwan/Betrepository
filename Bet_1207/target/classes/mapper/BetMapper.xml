@@ -85,5 +85,9 @@
       FROM bet_tb WHERE betOwner = #{betOwner}
    </select>
    
+   <delete id="delete" parameterType="String">
+   DELETE from bet_tb where betId = #{betId}
+   </delete>
+   
    
 </mapper>

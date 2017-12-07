@@ -8,6 +8,17 @@
 <meta name="description" content="Project Description" />
 <meta name="keywords" content="Project Keywords" />
 <title>내기의 신</title>
+<style>
+/*   경고에 대한 style jQuery에서 사용*/
+tr td.error input,tr td.error textarea,tr td.error label {
+   background: red;
+}
+tr td p.error {
+   margin: 0;
+   color: red;
+   font-weight: bold;
+   margin-bottom: 1em;}
+</style>
 <link href="resources/css/style5.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/style4.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
@@ -47,7 +58,7 @@
 					<div class="post">
 						<div class="post-head">
 							<form action="registBet.do" method="POST">
-
+								<c:if test="${userId eq 'admin' }">
 								<table>
 									<colgroup>
 										<col width="90" />
@@ -56,17 +67,17 @@
 										<col width="100" />
 										<col width="100" />
 									</colgroup>
-
+									
 									<thead>
 										<tr>
 											<th>제목</th>
-											<td><input id="title" name="title" class="form-control"
+											<td><input id="title" name="title" class="form-control title validate"
 												type="text" placeholder="제목을 입력하세요." size="60"></td>
 										</tr>
 										<tr>
 											<th>내용</th>
 											<td align="left"><input id="content" name="content"
-												class="form-control" type="text" placeholder="내용을 입력하세요."
+												class="form-control validate content" type="text" placeholder="내용을 입력하세요."
 												size="60"><br> <br></td>
 										</tr>
 
@@ -78,26 +89,68 @@
 										<tr>
 											<th>종료날짜</th>
 											<td><input id="endDate" name="endDate"
-												class="form-control" type="Date" placeholder="YYMMDD"
+												class="form-control validate endDate" type="Date" placeholder="YYMMDD"
 												size="50"></td>
 										</tr>
 										
 										<tr>
 											<th>BetOf</th>
-											<td><input type="radio" name="betWay"
-												onClick="display1()" value="One">One <input
-												type="radio" name="betWay" onClick="display1()" value="Team">Team
-												<input type="radio" name="betWay" onclick="display2()"
-												value="All">All</td>
-										</tr>
-
-										<tr id="indivisual1">
-											<th>포인트방식</th>
-											<td><input type="radio" name="pointCheck" value="ALLIN">올인
-												<input type="radio" name="pointCheck" value="FREE">자유
-												<input type="radio" name="pointCheck" value="LOCK">고정</td>
+											<td><input type="radio" name="betWay validate All" onclick="display2()" value="All">All</td>
 										</tr>
 								</table>
+								</c:if>
+								
+								
+								
+								<c:if test="${userId ne 'admin' }">
+								<table>
+									<colgroup>
+										<col width="90" />
+										<col width="*" />
+										<col width="100" />
+										<col width="100" />
+										<col width="100" />
+									</colgroup>
+									
+									<thead>
+										<tr>
+											<th>제목</th>
+											<td><input id="title" name="title" class="form-control validate title"
+												type="text" placeholder="제목을 입력하세요." size="60"></td>
+										</tr>
+										<tr>
+											<th>내용</th>
+											<td align="left"><input id="content" name="content"
+												class="form-control validate content" type="text" placeholder="내용을 입력하세요."
+												size="60"><br> <br></td>
+										</tr>
+
+										<tr>
+
+											<th>포인트</th>
+											<td><input name="point" class="form-control" type="text"
+												placeholder="포인트을 입력해주세요." size="20"></td>
+										<tr>
+											<th>종료날짜</th>
+											<td><input id="endDate" name="endDate"
+												class="form-control validate endDate" type="Date" placeholder="YYMMDD"
+												size="50"></td>
+										</tr>
+										
+										<tr>
+											<th>BetOf</th>
+											<td><input type="radio" name="betWay" onClick="display1()" value="One" class="one team all">One 
+												<input type="radio" name="betWay" onClick="display1()" value="Team">Team
+												<input type="radio" name="betWay" onclick="display2()" value="All">All</td>
+										</tr>
+										<tr>
+											<th>포인트방식</th>
+											<td id="indivisual1"><input type="radio" name="pointCheck"  value="ALLIN" class="one team all">올인 
+												<input type="radio" name="pointCheck"  value="FREE">자유
+												<input type="radio" name="pointCheck"  value="LOCK">고정</td>
+										</tr>
+								</table>
+								</c:if>
 								<br>
 								<div align="right">
 									<button type="submit" class="btn btn btn-warning">내기생성</button>
@@ -128,7 +181,58 @@
 		<!-- // end #container -->
 	</div>
 	<!-- // end #wrapper -->
-
+	
+	
+<script type="text/javascript">
+$("form").submit(function(){
+    // 에러 초기화(추가로 붙는 내용 삭제)
+    $("p.error").remove();
+    $("tr td").removeClass("error");
+    
+    // filter 메소드를 이용해 text, textarea 요소들 중에서 validate 클래스를 갖는 것만 찾는다.
+    $(":text, textarea").filter(".validate").each(function() {
+       //필수 항목 검사
+       // this -> filter로 걸러진 text, textarea중에 하나
+       $(this).filter(".title").each(function() {
+          if($(this).val() == ""){
+             $(this).before("<p class='error'>필수 항목 입니다. </p>");
+             $(this).before("<p class='error'>제목을 입력해주세요. </p>");
+          }
+       });
+       
+       //연락처 검사
+       $(this).filter(".content").each(function() {
+    	   if($(this).val() == ""){
+               $(this).before("<p class='error'>필수 항목 입니다. </p>");
+               $(this).before("<p class='error'>내용을 입력해주세요. </p>");
+            }
+       });
+       
+       //메일 검사
+       $(this).filter(".endDate").each(function() {
+    	   if($(this).val() == ""){
+               $(this).before("<p class='error'>필수 항목 입니다. </p>");
+               $(this).before("<p class='error'>종료날짜를 입력해주세요. </p>");
+            }
+       });
+       
+       $(":radio").filter(".one").each(function() {
+              if($(":radio[name=" +  $(this).attr("name") + "]:checked").length==0){
+                 $(this).before("<p class='error'>필수 선택 항목입니다. </p>");
+              }
+        });
+       
+    });
+    
+    if($("p.error").length > 0){
+       //에러가 발생했을 때 스크롤 이동
+       $("html, body").animate({scrollTop : $("p.error.first").offset.top - 40}, "slow");
+       //에러 항목에 대한 음영처리
+       $("p.error").parent().addClass("error");
+       return false;
+    }
+ });  
+</script>
 
 </body>
 </html>

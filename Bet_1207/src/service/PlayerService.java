@@ -12,6 +12,7 @@ public interface PlayerService {
 	List<Player> findByUserId(String userId);
 	void modifyPlayer(Player player);
 	void removePlayer(String playerId);
+	void removeByBetId(String betId);
 	void removePlayerByBetIdAndUserId(String betId, String userId);
 	Player findByBetId(String betId,String userId);
 	

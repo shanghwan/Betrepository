@@ -74,7 +74,7 @@
 											<td align="center"><a href="findBetByUserId.do?betOwner=${list.target } " class="list-group-item hidden-xs">${list.target }</a></td>
 											<td align="center">${list.reason }</td>
 											<td align="center">${list.reportdate }</td>
-											<td align="center"><a href="#"><button type="button" class="btn btn btn-warning">X</button></a></td>
+											<td align="center"><a href="deleteUserReport.do?reportId=${list.reportId }"><button type="button" class="btn btn btn-warning">X</button></a></td>
 										</tr>
 									</c:forEach>
 									

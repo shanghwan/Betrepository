@@ -55,6 +55,12 @@
 		playerId = #{playerId}
 	</delete>
 	
+	<delete id="deleteByBetId" parameterType="String">
+		DELETE FROM player_tb
+		WHERE
+		betId = #{betId}
+	</delete>
+	
 	<select id="searchByUserId" parameterType="String" resultType="Player">
 		SELECT playerId, betId, teamId, userId, position, point, vote
 		FROM

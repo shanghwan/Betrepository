@@ -51,6 +51,16 @@ public class ReportUserStoreLogic implements ReportUserStore{
 
    @Override
    public void delete(String reportId) {
+	   
+	   SqlSession session = BetSessionFactory.getinstance().getSession();
+	   
+	   try {
+		   ReportUserMapper mapper = session.getMapper(ReportUserMapper.class);
+		   mapper.delete(reportId);
+		   session.commit();
+	   }finally {
+		session.close();
+	}
       
    }
    

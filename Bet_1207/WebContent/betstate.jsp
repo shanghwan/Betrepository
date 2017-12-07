@@ -28,7 +28,7 @@
 			</div>
 			<!-- // end #header -->
 			<div id="banner">
-				<h1 class="page-title">초대목록</h1>
+				<h1 class="page-title">내기목록</h1>
 			</div>
 			<!-- // end #banner -->
 			<div id="main" class="clearfix">
@@ -36,18 +36,13 @@
 					<div class="post">
 						<div class="post-content clearfix">
 							<div class="post-thumb"></div>
-							<div class="post-summary" align="left">
+							<div class="post-summary">
 								<ul id="nav">
 									<li><a href="mypage.jsp">회원수정</a></li>
-									<li class="active"><a href="betStateList.do?userId=${userId }&state=대기">내기목록</a></li>
+									<li class="active"><a href="betStateList.do?userId=${userId }">내기목록</a></li>
 									<li><a href="pointList.do">포인트내역</a></li>
 									<li><a href="userDeletepassword.jsp">회원탈퇴</a></li>
 									<li><a href="inviteList.do">초대목록</a></li>
-								</ul>
-								<ul id="nav">
-									<li><a href="betStateList.do?userId=${userId }&state=대기">시작 전</a></li>
-									<li><a href="betStateList.do?userId=${userId }&state=진행">진행 중</a></li>
-									<li><a href="betStateList.do?userId=${userId }&state=종료">종료</a></li>
 								</ul>
 							</div>
 						</div>

@@ -55,5 +55,10 @@ public class PlayerServiceLogic implements PlayerService{
 		return playerStore.searchByBetId(betId,userId);
 	}
 
+	@Override
+	public void removeByBetId(String betId) {
+		playerStore.deleteByBetId(betId);
+	}
+
 	
 }
