@@ -79,4 +79,11 @@
 				WHERE betId = #{betId}
 		
 	</update>
+	
+	 <select id="searchByUserId" parameterType="String" resultType="Bet" resultMap="BetMap">
+      select betId, state, title, content, betWay , pointCheck , betOwner
+      FROM bet_tb WHERE betOwner = #{betOwner}
+   </select>
+   
+   
 </mapper>

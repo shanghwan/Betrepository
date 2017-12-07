@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Bet;
 import domain.Report;
+import service.BetService;
 import service.ReportService;
 
 
@@ -18,9 +20,9 @@ public class ReportController {
 	
 	@Autowired
 	private ReportService reportService;
+	@Autowired
+	private BetService betService;
 	
-	
-		
 	@RequestMapping("/UserReport.do")
 	public ModelAndView UserReport(String target, String userId){
 		
@@ -77,6 +79,16 @@ public class ReportController {
 		ModelAndView modelAndView = new ModelAndView("adminpageBet.do");
 		return modelAndView;
 	}
+	
+	@RequestMapping("/findBetByUserId.do")
+	public ModelAndView findBetByUserId(String betOwner){
+		List<Bet> list = betService.findByUserId(betOwner);
+		ModelAndView modelAndView = new ModelAndView("userAllBetList.jsp");
+		modelAndView.addObject("list", list);
+		return modelAndView;
+	}
+	
+	
 	
 	
 	

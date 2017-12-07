@@ -13,6 +13,7 @@ public interface BetService {
 	List<Bet> findByTitle(String title, String betWay);
 	List<Bet> findByState(String state);
 	List<Bet> findByBetWay(String betWay);
+	List<Bet> findByUserId(String betOwner);
 	void modify(Bet bet);
 	void removeBet(String betId);
 

@@ -133,5 +133,10 @@ public class BetServiceLogic implements BetService {
 		betStore.delete(betId);
 		teamService.removeTeam(betId);
 	}
+	
+	   @Override
+	   public List<Bet> findByUserId(String betOwner) {
+	      return betStore.searchByUserId(betOwner);
+	   }
 
 }

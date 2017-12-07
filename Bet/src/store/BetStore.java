@@ -13,6 +13,7 @@ public interface BetStore {
 	List<Bet> searchByTitle(String title, String betWay);
 	List<Bet> searchByState(String state);
 	List<Bet> searchByBetWay(String betWay);
+	List<Bet> searchByUserId(String betOwner);
 	void update(Bet bet);
 	void delete(String betId);
 }

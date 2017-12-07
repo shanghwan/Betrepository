@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import domain.Bet;
 import domain.Player;
+import domain.Record;
 import domain.Team;
 import domain.User;
 import service.BetService;
@@ -15,6 +16,7 @@ import service.PlayerService;
 import service.TeamService;
 import store.CommentStore;
 import store.PlayerStore;
+import store.RecordStore;
 import store.TeamStore;
 import store.UserStore;
 
@@ -35,6 +37,8 @@ public class GameServiceLogic implements GameService {
 	private CommentStore commentStore;
 	@Autowired
 	private PlayerStore playerStore;
+	@Autowired
+	private RecordStore recordStore;
 
 	@Override
 	public String joinBetOfAll(String userId, String teamName, String betId) {
@@ -88,7 +92,7 @@ public class GameServiceLogic implements GameService {
 		Team team = teamService.findByTeamName(betId, teamName);
 
 		// 내기에 참여중인 나를 삭제
-//		playerService.removePlayerByBetIdAndUserId(betId, userId);
+		// playerService.removePlayerByBetIdAndUserId(betId, userId);
 		teamService.removePlayerByTeam(userId, betId, team.getTeamId());
 
 		Player player = new Player();
@@ -170,14 +174,12 @@ public class GameServiceLogic implements GameService {
 		if (result > 1) {
 			return gameEnd(betId, vote);
 		}
-		// TODO Auto-generated method stub
 		return betId;
 	}
 
 	@Override
 	public String gameEnd(String betId, String vote) {
-		
-		
+
 		Bet bet = betService.findByBetId(betId);
 
 		bet.setState("종료");
@@ -189,8 +191,7 @@ public class GameServiceLogic implements GameService {
 		}
 
 		betService.modify(bet);
-		
-		
+
 		if (vote.equals("A")) {
 			Team teamW = teamService.findByTeamName(betId, vote);
 
@@ -202,7 +203,23 @@ public class GameServiceLogic implements GameService {
 			teamStore.update(teamL);
 
 			// 포인트 처리 서비스 호출 2개 teamW,teamL
+
 			// 전적 기록
+			List<Player> winner = playerStore.searchByTeamId(teamW.getTeamId(), betId);
+			for (Player p : winner) {
+				Record r = recordStore.search(p.getUserId());
+				r.setWin(r.getWin() + 1);
+				recordStore.update(r);
+
+			}
+
+			List<Player> loser = playerStore.searchByTeamId(teamL.getTeamId(), betId);
+			for (Player p : loser) {
+				Record r = recordStore.search(p.getUserId());
+				r.setLose(r.getLose() + 1);
+				recordStore.update(r);
+
+			}
 
 		}
 		if (vote.equals("B")) {
@@ -216,6 +233,21 @@ public class GameServiceLogic implements GameService {
 
 			// 포인트 처리 서비스 호출 2개 teamW,teamL
 			// 전적 기록
+			List<Player> winner = playerStore.searchByTeamId(teamW.getTeamId(), betId);
+			for (Player p : winner) {
+				Record r = recordStore.search(p.getUserId());
+				r.setWin(r.getWin() + 1);
+				recordStore.update(r);
+
+			}
+
+			List<Player> loser = playerStore.searchByTeamId(teamL.getTeamId(), betId);
+			for (Player p : loser) {
+				Record r = recordStore.search(p.getUserId());
+				r.setLose(r.getLose() + 1);
+				recordStore.update(r);
+
+			}
 
 		}
 		return betId;
@@ -232,13 +264,20 @@ public class GameServiceLogic implements GameService {
 		}
 
 		betService.modify(bet);
-		
+
 		List<Team> teams = teamService.findTeamByBetId(bet.getBetId());
-		for(Team t : teams) {
+
+		for (Team t : teams) {
 			t.setResult("DRAW");
 			teamStore.update(t);
-			//포인트 처리 서비스 호출
-			//전적 기록
+			// 포인트 처리 서비스 호출
+			// 전적 기록
+			List<Player> players = playerStore.searchByTeamId(t.getTeamId(), bet.getBetId());
+			for (Player p : players) {
+				Record r = recordStore.search(p.getUserId());
+				r.setDraw(r.getDraw() + 1);
+				recordStore.update(r);
+			}
 		}
 
 		return bet.getBetId();

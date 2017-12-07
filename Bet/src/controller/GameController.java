@@ -11,6 +11,7 @@ import domain.Bet;
 import domain.Team;
 import service.BetService;
 import service.GameService;
+import service.RecordService;
 import service.TeamService;
 
 @Controller
@@ -22,6 +23,8 @@ public class GameController {
 	private BetService betService;
 	@Autowired
 	private GameService gameService;
+	@Autowired
+	private RecordService recordService;
 
 	@RequestMapping(value = "/gameJoin.do", method = RequestMethod.POST)
 	public String teamJoin(String betId, String pointBet, String teamName, HttpSession session) {

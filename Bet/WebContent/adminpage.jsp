@@ -20,7 +20,7 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="main.do"><h1>내기의 神</h1></a>
+					<a href="main.jsp"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 						<ul id="nav">
@@ -71,12 +71,14 @@
 									<c:forEach var="list" items="${BetList }">
 										<tr>
 											<td align="center">${list.userId }</a></td>
-											<td align="center"><a href="#" class="list-group-item hidden-xs">${list.target }</a></td>
+											<td align="center"><a href="findBetByUserId.do?betOwner=${list.target } " class="list-group-item hidden-xs">${list.target }</a></td>
 											<td align="center">${list.reason }</td>
 											<td align="center">${list.reportdate }</td>
 											<td align="center"><a href="#"><button type="button" class="btn btn btn-warning">X</button></a></td>
 										</tr>
 									</c:forEach>
+									
+									
 								</table>
 							</form>
 						</div>

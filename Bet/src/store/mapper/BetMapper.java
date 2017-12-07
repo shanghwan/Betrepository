@@ -18,6 +18,8 @@ public interface BetMapper {
 	List<Bet> searchByState(String state);
 
 	List<Bet> searchByBetWay(String betWay);
+	
+	List<Bet> searchByUserId(String betOwner);
 
 	void update(Bet bet);
 
