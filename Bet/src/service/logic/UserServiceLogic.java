@@ -1,6 +1,7 @@
 package service.logic;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -8,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import domain.Friend;
 import domain.User;
 import service.UserService;
+import store.FriendStore;
 import store.PointStore;
 import store.UserStore;
 
@@ -20,6 +23,8 @@ public class UserServiceLogic implements UserService {
 	private UserStore userStore;
 	@Autowired
 	private PointStore pointStore;
+	@Autowired
+	private FriendStore friendStore;
 
 	@Override
 	public User login(User user) {
@@ -79,24 +84,40 @@ public class UserServiceLogic implements UserService {
 		userStore.delete(userId);
 	}
 
+
+
 	@Override
-	public String registFriend(String userId) {
-		return null;
+	public void registFriend(String userId, String friendId) {
+		friendStore.create(userId, friendId);
 	}
 
 	@Override
-	public void removeFriend(String userId) {
-
+	public void removeFriend(String userId, String friendId) {
+		friendStore.delete(userId, userId);
 	}
 
-//	@Override
-//	public void attendance(User user) {
-//		
-//		//Date today = new Date(Calendar.getInstance().getTimeInMillis());
-//
-//		user.setPoint(user.getPoint() + 100);
-//		userstore.update(user);
-//		
-//	}
+	@Override
+	public void removeByUserId(String userId) {
+		friendStore.deleteByFriendId(userId);
+	}
+
+	@Override
+	public List<Friend> findFriends(String userId) {
+		List<Friend> list = friendStore.search(userId);
+		
+		List<Friend> friends = new ArrayList<>();
+		
+		
+		for(int i=0 ; i<list.size();i++) {
+			User user = userStore.searchByUserId(list.get(i).getFriendId());
+			Friend fr = new Friend();
+			fr.setFriendId(user.getUserId());
+			fr.setName(user.getName());
+			friends.add(fr);
+		}
+		
+		return friends;
+	}
+
 
 }

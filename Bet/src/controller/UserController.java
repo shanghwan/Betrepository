@@ -1,6 +1,7 @@
 package controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import domain.Attendance;
 import domain.Bet;
+import domain.Friend;
 import domain.Invite;
 import domain.Record;
 import domain.Report;
@@ -42,7 +44,6 @@ public class UserController {
 	@Autowired
 	private RecordService recordService;
 
-
 	@RequestMapping(value = "/Userregist.do", method = RequestMethod.POST)
 	public String join(User user) {
 
@@ -50,19 +51,17 @@ public class UserController {
 
 		return "redirect:main.jsp";
 	}
-	
+
 	@RequestMapping(value = "/main.do")
 	public String main(Model model, HttpSession session) {
-		
+
 		String userId = (String) session.getAttribute("userId");
 		Record recordUser = recordService.findRecord(userId);
 
-		model.addAttribute("recordUser",recordUser);
-		
+		model.addAttribute("recordUser", recordUser);
+
 		return "main.jsp";
 	}
-	
-	
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login(User user, HttpSession session, String password) {
@@ -140,6 +139,7 @@ public class UserController {
 		model.addAttribute("bet", bet);
 		return "BetFail.jsp";
 	}
+
 	@RequestMapping(value = "/invite.do")
 	public String invite(String userId, String betId, Model model) {
 
@@ -158,9 +158,7 @@ public class UserController {
 		model.addAttribute("list", list);
 		return "inviteList.jsp";
 	}
-	
-	
-		
+
 	@RequestMapping(value = "/adminpage.do")
 	public String adminpage(Model model) {
 		List<Report> list = reportService.findAllUserReport();
@@ -203,6 +201,17 @@ public class UserController {
 		session.setAttribute("loginUser", loginUser);
 		return "attendance.jsp";
 	}
-	
+
+	@RequestMapping(value = "/friendList.do")
+	public String friendList(HttpSession session, Model model) {
+
+		String userId = (String) session.getAttribute("userId");
+
+		List<Friend> list = userService.findFriends(userId);
+		
+		model.addAttribute("list", list);
+		System.out.println(list.get(0).getName());
+		return "friendList.jsp";
+	}
 
 }

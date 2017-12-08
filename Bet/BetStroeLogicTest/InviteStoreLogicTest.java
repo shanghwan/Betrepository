@@ -44,6 +44,7 @@ public class InviteStoreLogicTest {
 		System.out.println(user.toString());
 		Bet bet = betstore.searchByBetId("1");
 		
+		
 		store.delete(user.getUserId(), bet.getBetId());
 	}
 
