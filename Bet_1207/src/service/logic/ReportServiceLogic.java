@@ -1,0 +1,99 @@
+package service.logic;
+
+import java.sql.Date;
+import java.util.Calendar;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import domain.Report;
+import domain.User;
+import service.PlayerService;
+import service.ReportService;
+import service.TeamService;
+import store.BetStore;
+import store.InviteStore;
+import store.ReportBetStore;
+import store.ReportUserStore;
+
+@Service
+public class ReportServiceLogic implements ReportService{
+	
+	@Autowired
+	private ReportBetStore reportBetStore;
+	@Autowired
+	private BetStore betStore;
+	@Autowired
+	private InviteStore inviteStore;
+	@Autowired
+	private TeamService teamStore;
+	@Autowired
+	private ReportUserStore reportUserStore;
+	@Autowired
+	private PlayerService playerStore;
+	
+	
+	@Override
+	public void registBetReport(Report report) {
+		Date today = new Date(Calendar.getInstance().getTimeInMillis());
+		report.setreportdate(today);
+		reportBetStore.create(report);
+	}
+
+	@Override
+	public List<Report> findAllBetReport() {
+		
+		return reportBetStore.searchByAllBetReport();
+	}
+
+	@Override
+	public List<Report> findAllUserReport() {
+		return reportUserStore.searchByAllUserReport();
+	}
+
+	@Override
+	public Report findByBetReportId(String reportId) {
+		return null;
+	}
+
+	@Override
+	public List<User> findByTarget(String target) {
+		return null;
+	}
+
+	@Override
+	public Report findByUserReportId(String reportId) {
+		return null;
+	}
+
+	@Override
+	public void removeBetReport(String reportId) {
+		reportBetStore.delete(reportId);
+	}
+
+	@Override
+	public void removeBetReportAllByTarget(String target) {
+		
+		reportBetStore.deleteAllByTarget(target);
+		inviteStore.deletebyBetId(target);
+		betStore.delete(target);
+		teamStore.removeTeam(target);
+		playerStore.removeByBetId(target);
+	}
+
+	@Override
+	public void removeUserReport(String reportId) {
+		
+		reportUserStore.delete(reportId);
+		
+	}
+
+	@Override
+	public void registUserReport(Report report) {
+		Date today = new Date(Calendar.getInstance().getTimeInMillis());
+		report.setreportdate(today);
+		reportUserStore.create(report);
+	}
+
+}

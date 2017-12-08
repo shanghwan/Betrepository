@@ -42,6 +42,7 @@ public class BetController {
 	@Autowired
 	private BetStateService betStateService;
 	
+	
 	@RequestMapping("/Betlist.do")
 	public ModelAndView Betlist(String betWay){
 		
@@ -159,7 +160,6 @@ public class BetController {
 
 	@RequestMapping(value = "/betStateList.do")
 	public String betStateList(String userId, String state, Model model) {
-
 		List<BetState> list = betStateService.findBetState(userId, state);
 		model.addAttribute("list", list);
 
