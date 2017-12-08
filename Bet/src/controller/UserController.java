@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +57,10 @@ public class UserController {
 		Record recordUser = recordService.findRecord(userId);
 
 		model.addAttribute("recordUser",recordUser);
+		
+		User loginUser = userService.findByUserId(userId);
+		session.setAttribute("userId", loginUser.getUserId());
+		session.setAttribute("loginUser", loginUser);
 		
 		return "main.jsp";
 	}

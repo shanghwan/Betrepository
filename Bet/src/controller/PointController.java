@@ -1,10 +1,7 @@
 package controller;
 
-import java.sql.Date;
-import java.util.Calendar;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,17 +31,27 @@ public class PointController {
 		// System.out.println(pList.toString());
 
 		modelAndView.addObject("pList", pList);
-
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/giftPoint.do", method = RequestMethod.POST)
 	public ModelAndView GiftPoint(Point point, HttpSession session) {
-
-		pointService.registPoint(point);
-
 		ModelAndView modelAndView = new ModelAndView("pointList.do");
-
+		String userId = (String) session.getAttribute("userId");
+		if(userService.findByUserId(point.getReceiverId())==null) {
+			//받을 유저가 없습니다.
+			return modelAndView;
+		}
+		if(userService.findByUserId(point.getUserId()).getPoint()<point.getPoint()) {
+			//포인트가 부족합니다.
+			return modelAndView;
+		}
+		int userPoint = pointService.giftPoint(point);
+		
+		User loginUser = userService.findByUserId(userId);
+		session.setAttribute("userId", loginUser.getUserId());
+		session.setAttribute("loginUser", loginUser);
+		modelAndView.addObject("userPoint", userPoint);
 		return modelAndView;
 	}
 

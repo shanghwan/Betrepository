@@ -1,15 +1,14 @@
 package store.logic;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import domain.Point;
-import domain.User;
 import store.PointStore;
 import store.mapper.PointMapper;
-import store.mapper.UserMapper;
 
 @Repository
 public class PointStoreLogic implements PointStore {
@@ -36,7 +35,6 @@ public class PointStoreLogic implements PointStore {
 		try {
 			PointMapper mapper = session.getMapper(PointMapper.class);
 			list = mapper.searchAll(userId);
-			session.commit();
 		} finally {
 			session.close();
 		}
@@ -69,12 +67,15 @@ public class PointStoreLogic implements PointStore {
 	}
 
 	@Override
-	public Point searchPoint(String userId) {
+	public Point searchByUserIdBetId(String userId, String receiverId) {
 		SqlSession session = BetSessionFactory.getinstance().getSession();
+		HashMap<String, String> map = new HashMap<>();
 		Point point = null;
 		try {
 			PointMapper mapper = session.getMapper(PointMapper.class);
-			point = mapper.searchPoint(userId);
+			map.put("receiverId", receiverId);
+			map.put("userId", userId);
+			point = mapper.searchByUserIdBetId(map);
 		} finally {
 			session.close();
 		}
@@ -92,5 +93,35 @@ public class PointStoreLogic implements PointStore {
 			session.close();
 		}
 		return point;
+	}
+
+	@Override
+	public void deleteByReceiverId(String receiverId, String userId) {
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		HashMap<String, String> map = new HashMap<>();
+		
+		try {
+			PointMapper mapper = session.getMapper(PointMapper.class);
+			map.put("receiverId", receiverId);
+			map.put("userId", userId);
+			mapper.deleteByReceiverId(map);
+			session.commit();
+		} finally {
+			session.close();
+		}
+		
+	}
+
+	@Override
+	public void deleteByPointId(String pointId) {
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		try {
+			PointMapper mapper = session.getMapper(PointMapper.class);
+			mapper.deleteByPointId(pointId);
+			session.commit();
+		} finally {
+			session.close();
+		}
+		
 	}
 }

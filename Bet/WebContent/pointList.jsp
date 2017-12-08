@@ -49,61 +49,105 @@
 						<div class="post">
 							<div class="post-head">
 								<h1>
-									<form action="giftPoint.do?userId=${userId }" method="post">
-										<label>${loginUser.name }님의 포인트는 ${loginUser.point }P</label>
-										<br></br> 
-										<input size="15" type="text" class="input_text" name="receiverId" placeholder="아이디" /> </span>							
-										<a>에게</a>
-											<input size="10" type="text" name="point" placeholder="포인트"> 
-											<a>P 를</a>
-											<input class="btn btn-xs btn-default" type="submit" value="선물하기♥">
+									<form action="giftPoint.do" method="post">
+										<input type="hidden" name="userId"
+											value="${loginUser.userId }"> <label>${loginUser.name }님의
+											포인트는 ${loginUser.point }P</label> <br></br> <input size="15"
+											type="text" class="input_text" name="receiverId"
+											placeholder="아이디" /> </span> <a>에게</a> <input size="10" type="text"
+											name="point" placeholder="포인트"> <a>P 를</a> <input
+											class="btn btn-xs btn-default" type="submit" value="선물하기♥">
 									</form>
 								</h1>
 							</div>
 						</div>
 
 						<div class="table-responsive">
-							<form action="pwok.do" method="post">
-								<table class="table table-striped table-bordered table-hover">
-									<colgroup align="center">
-										<col width="100" />
-										<col width="100" />
-										<col width="100" />
-										<col width="200" />
-										<col width="120" />
-									</colgroup>
+							<table class="table table-striped table-bordered table-hover">
+								<colgroup align="center">
+									<col width="100" />
+									<col width="100" />
+									<col width="100" />
+									<col width="100" />
+									<col width="100" />
+									<col width="100" />
+								</colgroup>
+								<tr>
+									<td align="center">날짜</td>
+									<td align="center">구분</td>
+									<td align="center">포인트</td>
+									<td align="center">Give</td>
+									<td align="center">Take</td>
+								</tr>
+								<c:forEach items="${pList }" var="point" varStatus="sts">
 									<tr>
-										<td align="center">번호</td>
-										<td align="center">일자</td>
-										<td align="center">구분</td>
-										<td align="center">포인트</td>
-										<td align="center">선물받은회원</td>
-									</tr>
-									<c:forEach items="${pList }" var="point" varStatus="sts">
-										<tr>
-											<td align="center">${sts.count }</td>
-											<td align="center">${point.pointDate }</td>
-											<td align="center">${point.type }</td>
-											<td align="center">${point.point }</td>
-											<c:choose>
-												<c:when test="${null eq point.receiverId}">
-													<td align="center">-</td>
+										<td align="center">${point.pointDate }</td>
+										<td align="center">${point.type }</td>
+										<td align="center"><c:choose>
+												<c:when
+													test="${point.type eq '선물' and loginUser.userId eq point.userId}">
+													-
 												</c:when>
-												<c:otherwise>
-													<td align="center">${point.receiverId }</td>
-												</c:otherwise>
-											</c:choose>
-										</tr>
-									</c:forEach>
-								</table>
-							</form>
+												<c:when
+													test="${point.type eq '선물' and loginUser.userId eq point.receiverId}">
+													+
+												</c:when>
+												<c:when
+													test="${point.type eq '내기참여' or point.type eq '내기무승부' or point.type eq '내기패배'}">
+													-
+												</c:when>
+												<c:when
+													test="${point.type eq '내기승리' or point.type eq '회원가입' or point.type eq '출석'}">
+													+
+												</c:when>
+											</c:choose>${point.point }</td>
+										<td align="center">
+										<c:choose>
+											<c:when test="${point.type eq '선물' }">
+												<c:if test="${loginUser.userId eq point.userId}">
+													${point.receiverId }
+												</c:if>
+											</c:when>
+											
+											<c:when test="${point.type eq '내기참여'}">
+												내기번호 : <a href="BetDetail.do?betId=${point.receiverId }">${point.receiverId }</a>
+											</c:when>
+											<c:when test="${point.type eq '내기무승부'}">
+												내기번호 : <a href="BetDetail.do?betId=${point.receiverId }">${point.receiverId }</a>
+											</c:when>
+											<c:when test="${point.type eq '내기패배'}">
+												내기번호 : <a href="BetDetail.do?betId=${point.receiverId }">${point.receiverId }</a>
+											</c:when>
+											<c:otherwise>
+												-
+											</c:otherwise>
+											</c:choose></td>
+										<td align="center">
+										<c:choose>
+											<c:when test="${point.type eq '선물' }">
+												<c:if test="${loginUser.userId eq point.receiverId}">
+													${point.userId }
+												</c:if>
+											</c:when>
+											
+											<c:when test="${point.type eq '내기승리'}">
+												내기번호 : <a href="BetDetail.do?betId=${point.receiverId }">${point.receiverId }</a>
+											</c:when>
+											<c:otherwise>
+												-
+											</c:otherwise>
+										</c:choose></td>
+									</tr>
+								</c:forEach>
+							</table>
 						</div>
 					</div>
 				</div>
 				<!-- // end #content -->
 				<div id="sidebar">
 					<div class="widget widget-search">
-						<%@ include file="usermenu.jsp"%>
+					
+				<%@ include file="usermenu.jsp"%>
 					</div>
 				</div>
 

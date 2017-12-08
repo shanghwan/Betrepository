@@ -3,7 +3,6 @@ package store;
 import java.util.List;
 
 import domain.Point;
-import domain.User;
 
 public interface PointStore {
 
@@ -15,11 +14,12 @@ public interface PointStore {
 	void update(Point point);
 
 	//
-	Point searchPoint(String userId);
+	Point searchByUserIdBetId(String userId, String receiverId);
 
 	//
 	Point searchReceiver(String receiverId);
-
+	void deleteByPointId(String pointId);
 	void delete(String userId);
+	void deleteByReceiverId(String receiverId,String userId);
 
 }

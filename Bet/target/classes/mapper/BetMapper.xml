@@ -22,7 +22,7 @@
 	<select id="searchByBetWay" resultType="Bet" resultMap="BetMap">
 		select betId, state, title, content, photoA , photoB , betWay ,
 		endDate , pointCheck , point, betOwner
-		FROM bet_tb WHERE betWay =#{betWay} and (state = '진행' or state = '종료')
+		FROM bet_tb WHERE betWay =#{betWay} and (state = '진행' or state = '종료') order by betId desc
 	</select>
 
 	<insert id="create" parameterType="Bet">

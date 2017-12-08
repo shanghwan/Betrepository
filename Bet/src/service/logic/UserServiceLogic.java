@@ -1,16 +1,13 @@
 package service.logic;
 
-import java.sql.Date;
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import domain.User;
+import service.PointService;
 import service.UserService;
-import store.PointStore;
 import store.UserStore;
 
 @Service
@@ -19,14 +16,13 @@ public class UserServiceLogic implements UserService {
 	@Autowired
 	private UserStore userStore;
 	@Autowired
-	private PointStore pointStore;
+	private PointService pointService;
 
 	@Override
 	public User login(User user) {
-		
+
 		User readerUser = null;
-		
-	
+
 		if (validate(user)) {
 			readerUser = userStore.searchByUserId(user.getUserId());
 		}
@@ -46,8 +42,12 @@ public class UserServiceLogic implements UserService {
 	}
 
 	@Override
-	public void regist(User user) {
-		userStore.create(user);
+	public String regist(User user) {
+		String userId = userStore.create(user);
+		if (userId != null) {
+			pointService.registUserPoint(user.getUserId());
+		}
+		return userId;
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class UserServiceLogic implements UserService {
 
 	@Override
 	public List<User> findByPoint() {
-		
+
 		List<User> list = userStore.searchByPoint();
 		return list;
 	}
@@ -89,14 +89,6 @@ public class UserServiceLogic implements UserService {
 
 	}
 
-//	@Override
-//	public void attendance(User user) {
-//		
-//		//Date today = new Date(Calendar.getInstance().getTimeInMillis());
-//
-//		user.setPoint(user.getPoint() + 100);
-//		userstore.update(user);
-//		
-//	}
+	
 
 }

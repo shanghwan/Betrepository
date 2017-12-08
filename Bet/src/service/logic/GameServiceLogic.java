@@ -12,6 +12,7 @@ import domain.User;
 import service.BetService;
 import service.GameService;
 import service.PlayerService;
+import service.PointService;
 import service.TeamService;
 import store.CommentStore;
 import store.PlayerStore;
@@ -35,6 +36,8 @@ public class GameServiceLogic implements GameService {
 	private CommentStore commentStore;
 	@Autowired
 	private PlayerStore playerStore;
+	@Autowired
+	private PointService pointService;
 
 	@Override
 	public String joinBetOfAll(String userId, String teamName, String betId) {
@@ -86,7 +89,8 @@ public class GameServiceLogic implements GameService {
 	@Override
 	public String joinBetOfTeam(String userId, String teamName, String betId, int point) {
 		Team team = teamService.findByTeamName(betId, teamName);
-
+		
+	
 		// 내기에 참여중인 나를 삭제
 //		playerService.removePlayerByBetIdAndUserId(betId, userId);
 		teamService.removePlayerByTeam(userId, betId, team.getTeamId());
@@ -95,6 +99,7 @@ public class GameServiceLogic implements GameService {
 		Bet bet = betService.findByBetId(betId);
 		User user = userStore.searchByUserId(userId);
 
+		team = teamService.findByTeamName(betId, teamName);
 		// 나를 내기에 새로 참여 등록
 		player.setBetId(betId);
 		player.setTeamId(team.getTeamId());
@@ -176,7 +181,7 @@ public class GameServiceLogic implements GameService {
 
 	@Override
 	public String gameEnd(String betId, String vote) {
-		
+		int totalPoint = 0;
 		
 		Bet bet = betService.findByBetId(betId);
 
@@ -193,15 +198,19 @@ public class GameServiceLogic implements GameService {
 		
 		if (vote.equals("A")) {
 			Team teamW = teamService.findByTeamName(betId, vote);
-
+			
 			teamW.setResult("WIN");
 			teamStore.update(teamW);
 			String teamName = "B";
 			Team teamL = teamService.findByTeamName(betId, teamName);
 			teamL.setResult("LOSE");
 			teamStore.update(teamL);
-
+			
+			totalPoint = teamW.getTotalPoint()+teamL.getTotalPoint();
+			
 			// 포인트 처리 서비스 호출 2개 teamW,teamL
+			pointService.betResultPoint(teamW.getTeamId(), totalPoint);
+			pointService.betResultPoint(teamL.getTeamId(), totalPoint);
 			// 전적 기록
 
 		}
@@ -214,7 +223,11 @@ public class GameServiceLogic implements GameService {
 			teamL.setResult("LOSE");
 			teamStore.update(teamL);
 
+			totalPoint = teamW.getTotalPoint()+teamL.getTotalPoint();
+			
 			// 포인트 처리 서비스 호출 2개 teamW,teamL
+			pointService.betResultPoint(teamW.getTeamId(), totalPoint);
+			pointService.betResultPoint(teamL.getTeamId(), totalPoint);
 			// 전적 기록
 
 		}
@@ -238,6 +251,7 @@ public class GameServiceLogic implements GameService {
 			t.setResult("DRAW");
 			teamStore.update(t);
 			//포인트 처리 서비스 호출
+			pointService.betResultPoint(t.getTeamId(), t.getTotalPoint());
 			//전적 기록
 		}
 
