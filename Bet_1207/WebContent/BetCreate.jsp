@@ -57,14 +57,11 @@ tr td p.error {
 				<div id="content">
 					<div class="post">
 						<div class="post-head">
-							<form action="registBet.do" method="POST">
+							<form action="registBet.do" method="POST" name="sub2">
 								<c:if test="${userId eq 'admin' }">
 								<table>
 									<colgroup>
-										<col width="90" />
-										<col width="*" />
-										<col width="100" />
-										<col width="100" />
+										<col width="150" />
 										<col width="100" />
 									</colgroup>
 									
@@ -117,8 +114,7 @@ tr td p.error {
 										</tr>
 										<tr>
 											<th>내용</th>
-											<td align="left"><input id="content" name="content"
-												class="form-control validate content" type="text" placeholder="내용을 입력하세요."
+											<td align="left"><input id="content" name="content" class="form-control" type="text" placeholder="내용을 입력하세요."
 												size="60"><br> <br></td>
 										</tr>
 
@@ -126,7 +122,7 @@ tr td p.error {
 
 											<th>포인트</th>
 											<td><input name="point" class="form-control" type="text"
-												placeholder="포인트을 입력해주세요." size="20"></td>
+												placeholder="포인트을 입력해주세요." size="20">(0~${loginUser.point }p)</td>
 										<tr>
 											<th>종료날짜</th>
 											<td><input id="endDate" name="endDate"
@@ -135,7 +131,7 @@ tr td p.error {
 										
 										<tr>
 											<th>BetOf</th>
-											<td><input type="radio" name="betWay" onClick="display1()" value="One" class="validate one team all">One 
+											<td><input type="radio" name="betWay" onClick="display1()" value="One" class="validate one team all" id="one">One 
 												<input type="radio" name="betWay" onClick="display1()" value="Team">Team
 												<input type="radio" name="betWay" onclick="display2()" value="All">All</td>
 										</tr>
@@ -150,9 +146,25 @@ tr td p.error {
 								</c:if>
 								<br>
 								<div align="right">
-									<button type="submit" class="btn btn btn-warning">내기생성</button>
+									<button type="button" class="btn btn btn-warning btn2">내기생성</button>
 								</div>
 							</form>
+<script type="text/javascript">
+$('.btn2').click(function(){
+	if (document.getElementById("title").value == "") {
+         alert("제목을 입력해주세요");
+	}else if(document.getElementById("content").value == ""){
+		alert("내용을 입력해주세요");
+	}else if(document.getElementById("point").value == ""){
+		alert("포인트를 입력해주세요");
+	}else if(document.getElementById("endDate").value == ""){
+		alert("종료날짜를 입력해주세요");
+	}else if($(":radio[name=" +  $(one).attr("name") + "]:checked").length==0){
+		alert("팀을 선택해주세요");
+	}else
+		   document.sub2.submit();
+	});
+</script>
 						</div>
 					</div>
 				</div>
@@ -173,48 +185,6 @@ tr td p.error {
 			</div>
 		</div>
 	</div>
-	
-	
-<script type="text/javascript">
-$("form").submit(function(){
-    // 에러 초기화(추가로 붙는 내용 삭제)
-    $("p.error").remove();
-    $("tr td").removeClass("error");
-    
-    // filter 메소드를 이용해 text, textarea 요소들 중에서 validate 클래스를 갖는 것만 찾는다.
-    $(":text, textarea").filter(".validate").each(function() {
-       //필수 항목 검사
-       // this -> filter로 걸러진 text, textarea중에 하나
-       $(this).filter(".title").each(function() {
-          if($(this).val() == ""){
-             $(this).before("<p class='error'>필수 항목 입니다. </p>");
-             $(this).before("<p class='error'>제목을 입력해주세요. </p>");
-          }
-       });
-       
-       //연락처 검사
-       $(this).filter(".content").each(function() {
-    	   if($(this).val() == ""){
-               $(this).before("<p class='error'>필수 항목 입니다. </p>");
-               $(this).before("<p class='error'>내용을 입력해주세요. </p>");
-            }
-       });
-       
-       $(":radio").filter(".one").each(function() {
-                 $(this).before("<p class='error'>필수 선택 항목입니다. </p>");
-        });
-       
-    });
-    
-    if($("p.error").length > 0){
-       //에러가 발생했을 때 스크롤 이동
-       $("html, body").animate({scrollTop : $("p.error.first").offset.top - 40}, "slow");
-       //에러 항목에 대한 음영처리
-       $("p.error").parent().addClass("error");
-       return false;
-    }
- });  
-</script>
 
 </body>
 </html>
