@@ -13,13 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Bet;
-import domain.BetState;
 import domain.Comment;
 import domain.Invite;
 import domain.User;
 import domain.Team;
 import service.BetService;
-import service.BetStateService;
 import service.CommentService;
 import service.InviteService;
 import service.TeamService;
@@ -36,7 +34,6 @@ public class BetController {
 	@Autowired
 	private TeamService teamService;
 	@Autowired
-	private BetStateService betStateService;
 	
 	@RequestMapping("/Betlist.do")
 	public ModelAndView Betlist(String betWay){
@@ -163,8 +160,6 @@ public class BetController {
 	@RequestMapping(value="/betStateList.do")
 	public String betStateList(String userId, String state, Model model) {
 		
-		List<BetState> list = betStateService.findBetState(userId, state);
-		model.addAttribute("list", list);
 		
 		return "betstate.jsp";
 	}
