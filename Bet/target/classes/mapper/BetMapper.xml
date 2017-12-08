@@ -22,7 +22,7 @@
 	<select id="searchByBetWay" resultType="Bet" resultMap="BetMap">
 		select betId, state, title, content, photoA , photoB , betWay ,
 		endDate , pointCheck , point, betOwner
-		FROM bet_tb WHERE betWay =#{betWay} and (state = '진행' or state = '종료') order by betId desc
+		FROM bet_tb WHERE betWay =#{betWay} and (state = '진행' or state = '종료')
 	</select>
 
 	<insert id="create" parameterType="Bet">
@@ -79,4 +79,15 @@
 				WHERE betId = #{betId}
 		
 	</update>
+	
+	 <select id="searchByUserId" parameterType="String" resultType="Bet" resultMap="BetMap">
+      select betId, state, title, content, betWay , pointCheck , betOwner
+      FROM bet_tb WHERE betOwner = #{betOwner}
+   </select>
+   
+   <delete id="delete" parameterType="String">
+   DELETE from bet_tb where betId = #{betId}
+   </delete>
+   
+   
 </mapper>

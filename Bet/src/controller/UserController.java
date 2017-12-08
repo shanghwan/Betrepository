@@ -54,6 +54,11 @@ public class UserController {
 	public String main(Model model, HttpSession session) {
 		
 		String userId = (String) session.getAttribute("userId");
+		
+		if(userId == null) {
+			return "redirect:index.jsp";
+		}
+		
 		Record recordUser = recordService.findRecord(userId);
 
 		model.addAttribute("recordUser",recordUser);
@@ -180,6 +185,17 @@ public class UserController {
 
 		return "adminpageBet.jsp";
 	}
+	@RequestMapping(value = "/pointReset.do")
+	public String pointReset(String userId, Model model) {
+		
+		User user = userService.findByUserId(userId);
+		user.setPoint(0);
+		userService.modifyUser(user);
+		List<Report> list = reportService.findAllBetReport();
+		model.addAttribute("BetList", list);
+		return "adminpage.do";
+	}
+	
 
 	@RequestMapping(value = "/registattendance.do", method = RequestMethod.POST)
 	public String registattendance(HttpSession session, String userId, Attendance attendance, Model model) {
@@ -206,4 +222,6 @@ public class UserController {
 		session.setAttribute("loginUser", loginUser);
 		return "attendance.jsp";
 	}
+	
+	
 }

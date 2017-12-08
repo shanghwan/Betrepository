@@ -13,6 +13,7 @@ import service.ReportService;
 import service.TeamService;
 import store.BetStore;
 import store.InviteStore;
+import store.PlayerStore;
 import store.ReportBetStore;
 import store.ReportUserStore;
 
@@ -29,6 +30,8 @@ public class ReportServiceLogic implements ReportService{
 	private TeamService teamService;
 	@Autowired
 	private ReportUserStore reportUserStore;
+	@Autowired
+	private PlayerStore playerStore;
 	
 	
 	@Override
@@ -76,6 +79,7 @@ public class ReportServiceLogic implements ReportService{
 		inviteStore.deletebyBetId(target);
 		betStore.delete(target);
 		teamService.removeTeam(target);
+		playerStore.deleteByBetId(target);
 	}
 
 	@Override

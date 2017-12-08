@@ -159,6 +159,21 @@ public class BetStoreLogic implements BetStore{
 		
 	}
 
+	@Override
+	public List<Bet> searchByUserId(String betOwner) {
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		List<Bet> list = null;
+
+		try {
+			BetMapper mapper = session.getMapper(BetMapper.class);
+			list = mapper.searchByUserId(betOwner);
+
+		} finally {
+			session.close();
+		}
+		return list;
+	}
+
 
 
 }

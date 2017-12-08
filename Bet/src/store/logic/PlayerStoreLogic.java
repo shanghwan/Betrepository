@@ -147,4 +147,20 @@ public class PlayerStoreLogic implements PlayerStore {
 		}
 	}
 
+	@Override
+	public void deleteByBetId(String betId) {
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		
+		try {
+			PlayerMapper mapper = session.getMapper(PlayerMapper.class);
+			mapper.deleteByBetId(betId);
+			session.commit();
+		}finally {
+			session.close();
+		}
+	}
+
+	
+	
+
 }

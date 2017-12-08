@@ -216,4 +216,13 @@ public class BetController {
 			}
 		}
 	}
+	
+	@RequestMapping(value = "/adminBetList.do")
+	public String adminBetList(String userId, Model model) {
+
+		List<Bet> adminlist = betService.findByUserId(userId);
+		model.addAttribute("adminlist", adminlist);
+
+		return "adminBet.jsp";
+	}
 }

@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Bet;
 import domain.Report;
+import service.BetService;
 import service.ReportService;
 
 
@@ -18,6 +20,18 @@ public class ReportController {
 	
 	@Autowired
 	private ReportService reportService;
+	@Autowired
+	private BetService betService;
+	
+
+	@RequestMapping("/findBetByUserId.do")
+	public ModelAndView findBetByUserId(String betOwner){
+		List<Bet> list = betService.findByUserId(betOwner);
+		ModelAndView modelAndView = new ModelAndView("userAllBetList.jsp");
+		modelAndView.addObject("list", list);
+		modelAndView.addObject("betOwner", betOwner);
+		return modelAndView;
+	}
 	
 	
 		
@@ -69,13 +83,18 @@ public class ReportController {
 	}
 	
 	@RequestMapping("/deleteBetAllReport.do")
-	public ModelAndView deleteBetAllReport(String target){
+	public ModelAndView deleteBetAllReport(String target, String userId){
 		
 		reportService.removeBetReportAllByTarget(target);
-		
+		if(userId.equals("admin")) {
+			ModelAndView modelAndView = new ModelAndView("adminpageBet.do");
+			return modelAndView;
+		}else {
+			ModelAndView modelAndView = new ModelAndView("main.do");
+			return modelAndView;
+		}
 			
-		ModelAndView modelAndView = new ModelAndView("adminpageBet.do");
-		return modelAndView;
+		
 	}
 	
 	

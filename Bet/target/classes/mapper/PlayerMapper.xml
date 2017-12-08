@@ -66,4 +66,10 @@
 		select count(vote) from player_tb where betId = #{betId} and vote = #{vote}
 	</select>
 	
+		<delete id="deleteByBetId" parameterType="String">
+		DELETE FROM player_tb
+		WHERE
+		betId = #{betId}
+	</delete>
+	
 </mapper>

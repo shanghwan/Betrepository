@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="description" content="Project Description" />
 <meta name="keywords" content="Project Keywords" />
-<title>attedance</title>
+<title>attedance</title>	
 <link href="resources/css/style.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/style2.css" rel="stylesheet" type="text/css" />
 <!--[if IE]><link href="resources/css/style-ie.css" rel="stylesheet" type="text/css" /><![endif]-->
@@ -160,10 +160,14 @@
                      <TBODY>
                         <TR>
                            <form action="registattendance.do?userId=${userId }" method="post">
-                              <input type="submit" class="btn btn btn-warning" value="출석체크"></form>
+                              <button type="submit" class="btn btn-warning btn3">출석체크</form>
                            <br>
                            <br>
-
+<script type="text/javascript">
+$('.btn3').click(function(){
+         alert("출석체크를 하였습니다 ");
+	})
+</script>
                            <%
                               //처음 빈공란 표시
                               for (int index = 1; index < start; index++) {
