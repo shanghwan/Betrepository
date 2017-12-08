@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="store.mapper.AttendanceMapper">
+
+
+	<insert id="create" parameterType="String">
+		<selectKey keyProperty="attendanceId" resultType="String" order="BEFORE">
+			SELECT attendance_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO attendance_tb(attendanceId, userId, attendanceDate)
+		VALUES(#{attendanceId}, #{userId}, SYSDATE)
+	</insert>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM attendance_tb
+		WHERE
+		userId = #{userId}
+	</delete>
+	
+	<select id="search" resultType="Attendance">
+	SELECT attendanceId, userId, attendanceDate
+		FROM attendance_tb
+		WHERE userId = #{userId}
+	</select>
+
+
+	<!-- <select id="searchByUserId" resultType="Attendance">
+	SELECT attendanceId, userId, attendanceDate
+		FROM attendance_tb
+		WHERE userId = #{userId}
+	</select> -->
+
+
+</mapper>

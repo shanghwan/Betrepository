@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="store.mapper.ReportUserMapper">
+
+   <resultMap type="Report" id="ReportMap">
+      <result property="target" column="reportUserId" />
+      <result property="reason" column="reportContent" />
+      <result property="reportdate" column="reportUserDate" />
+   </resultMap>
+   
+   <insert id="create" parameterType="Report">
+      <selectKey keyProperty="reportId" resultType="String" order="BEFORE">
+         SELECT reportuser_seq.nextval FROM dual
+      </selectKey>
+      INSERT INTO reportUser_tb(reportId, userId, reportUserId, reportContent, reportUserDate)
+      values(#{reportId}, #{userId}, #{target}, #{reason}, SYSDATE)
+   </insert>
+   
+   <select id="searchByAllUserReport" resultType="Report" resultMap="ReportMap">
+   SELECT reportId, userId, reportUserId, reportContent, reportUserDate FROM reportUser_tb
+   </select>
+   
+   <delete id="delete" parameterType="String">
+   DELETE FROM reportUser_tb where reportId = #{reportId}
+   </delete>
+
+</mapper>

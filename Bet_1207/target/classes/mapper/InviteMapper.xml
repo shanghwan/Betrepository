@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="store.mapper.InviteMapper">
+  
+  <insert id="create" parameterType="Hashmap">
+  INSERT INTO invite_tb(INVITEUSERID, betId)
+  values(#{userId}, #{betId})
+  </insert>
+  
+  <select id="searchByAllInviteByBetId" parameterType="String" resultType="String">
+  SELECT INVITEUSERID, betId FROM invite_tb WHERE betId = #{betId}
+  </select>
+  
+  <delete id="delete" parameterType="Hashmap">
+  delete from invite_tb WHERE INVITEUSERID = #{userId} and betId = #{betId}
+  </delete>
+  
+  <select id="searchByAllInviteByUserId" parameterType="String" resultType="Invite">
+  SELECT INVITEUSERID, betId FROM invite_tb WHERE INVITEUSERID = #{inviteUserId}
+  </select>
+  
+  <delete id="deletebyBetId" parameterType="String">
+  delete from invite_tb WHERE betId = #{betId}
+  </delete>
+    
+  
+  
+  
+  </mapper>
