@@ -59,10 +59,9 @@
 				<h1 class="page-title">[${bet.betId }]&nbsp;${bet.title }</h1>
 			</div>
 			<!-- // end #banner -->
-			<c:if test="${bet.state eq '대기' and bet.betOwner eq userId}">
-			<a href="${ctx }/article/recommend.do?articleId=${article.articleId}"
-				class="glyphicon glyphicon-trash pull-right" style="padding: 10px">삭제</a>
-				</c:if>
+			<c:if test="${bet.betOwner eq userId or userId eq 'admin'}">
+			<a href="deleteBetAllReport.do?target=${bet.betId }&userId=${userId}" class="glyphicon glyphicon-trash pull-right" style="padding: 10px">삭제</a>
+			</c:if>
 			<a class="glyphicon glyphicon-cog pull-right" style="padding: 10px"
 				onclick="showPopup1();">신고</a> <br>
 			<div align="right">

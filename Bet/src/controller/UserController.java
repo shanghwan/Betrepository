@@ -54,6 +54,11 @@ public class UserController {
 	public String main(Model model, HttpSession session) {
 		
 		String userId = (String) session.getAttribute("userId");
+		
+		if(userId == null) {
+			return "redirect:index.jsp";
+		}
+		
 		Record recordUser = recordService.findRecord(userId);
 
 		model.addAttribute("recordUser",recordUser);
@@ -180,6 +185,17 @@ public class UserController {
 
 		return "adminpageBet.jsp";
 	}
+	@RequestMapping(value = "/pointReset.do")
+	public String pointReset(String userId, Model model) {
+		
+		User user = userService.findByUserId(userId);
+		user.setPoint(0);
+		userService.modifyUser(user);
+		List<Report> list = reportService.findAllBetReport();
+		model.addAttribute("BetList", list);
+		return "adminpage.do";
+	}
+	
 
 	@RequestMapping(value = "/registattendance.do", method = RequestMethod.POST)
 	public String registattendance(HttpSession session, String userId, Attendance attendance, Model model) {
@@ -207,54 +223,5 @@ public class UserController {
 		return "attendance.jsp";
 	}
 	
-	@RequestMapping(value = "/rateRank.do")
-	public String rateRank(Model model) {
-
-		List<Record> list = recordService.findByRate();
-
-		model.addAttribute("RateList", list);
-
-		return "rateRank.jsp";
-	}
 	
-	@RequestMapping(value = "/totalRank.do")
-	public String totalRank(Model model) {
-
-		List<Record> list = recordService.findByTotal();
-
-		model.addAttribute("RateList", list);
-
-		return "totalRank.jsp";
-	}
-	
-	@RequestMapping(value = "/pointRank.do")
-	public String pointRank(Model model) {
-
-		List<User> list = userService.findByPoint();
-
-		model.addAttribute("pointList", list);
-
-		return "pointRank.jsp";
-	}
-	
-	@RequestMapping(value = "/winRank.do")
-	public String winRank(Model model) {
-
-		List<Record> list = recordService.findByWin();
-
-		model.addAttribute("winList", list);
-
-		return "winRank.jsp";
-	}
-	
-	@RequestMapping(value = "/loseRank.do")
-	public String loseRank(Model model) {
-
-		List<Record> list = recordService.findByLose();
-
-		model.addAttribute("loseList", list);
-
-		return "loseRank.jsp";
-	}
-
 }

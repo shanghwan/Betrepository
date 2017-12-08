@@ -1,9 +1,11 @@
 package controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,20 +14,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Bet;
 import domain.BetState;
-import domain.Comment;
-import domain.Invite;
-import domain.Player;
-import domain.User;
 import domain.Team;
 import service.BetService;
 import service.BetStateService;
-import service.CommentService;
 import service.InviteService;
-import service.PlayerService;
 import service.TeamService;
 
 @Controller
@@ -34,21 +32,17 @@ public class BetController {
 	@Autowired
 	private BetService betService;
 	@Autowired
-	private CommentService commentService;
-	@Autowired
 	private InviteService inviteService;
 	@Autowired
 	private TeamService teamService;
 	@Autowired
 	private BetStateService betStateService;
-	
-	
+
 	@RequestMapping("/Betlist.do")
-	public ModelAndView Betlist(String betWay){
-		
+	public ModelAndView Betlist(String betWay) {
 		List<Bet> list = betService.findByBetWay(betWay);
-		
-		if(betWay.equals("One")) {
+
+		if (betWay.equals("One")) {
 			ModelAndView modelAndView = new ModelAndView("BetOfOne.jsp");
 			modelAndView.addObject("BetList", list);
 			return modelAndView;
@@ -63,7 +57,6 @@ public class BetController {
 		}
 	}
 
-	
 	@RequestMapping("/BetDetail.do")
 	public ModelAndView BetDetail(String betId) {
 		Bet bet = betService.findByBetId(betId);
@@ -72,24 +65,22 @@ public class BetController {
 		Team teamA = teamService.findByTeamName(betId, teamName);
 		teamName = "B";
 		Team teamB = teamService.findByTeamName(betId, teamName);
-		
-		if(bet.getBetWay().equals("One")) {
+		if (bet.getBetWay().equals("One")) {
 			ModelAndView modelAndView = new ModelAndView("detailBetOfOne.jsp");
 			modelAndView.addObject("bet", bet);
 			modelAndView.addObject("list", list);
 			modelAndView.addObject("teamA", teamA);
 			modelAndView.addObject("teamB", teamB);
 			return modelAndView;
-		}
-		else if(bet.getBetWay().equals("Team")){
+
+		} else if (bet.getBetWay().equals("Team")) {
 			ModelAndView modelAndView = new ModelAndView("detailBetOfTeam.jsp");
 			modelAndView.addObject("bet", bet);
 			modelAndView.addObject("list", list);
 			modelAndView.addObject("teamA", teamA);
 			modelAndView.addObject("teamB", teamB);
 			return modelAndView;
-		}
-		else {
+		} else {
 			ModelAndView modelAndView = new ModelAndView("detailBetOfAll.jsp");
 			modelAndView.addObject("bet", bet);
 			modelAndView.addObject("list", list);
@@ -97,7 +88,7 @@ public class BetController {
 			modelAndView.addObject("teamB", teamB);
 			return modelAndView;
 		}
-		
+
 	}
 
 	@RequestMapping("/BetlistByState.do")
@@ -113,25 +104,109 @@ public class BetController {
 		String userId = (String) session.getAttribute("userId");
 		if (userId == null) {
 
-			return "redirect:main.jsp";
+			return "redirect:index.jsp";
 		}
 		return "BetCreate.jsp";
 	}
 
 	@RequestMapping(value = "/registBet.do", method = RequestMethod.POST)
 	public String registBet(Bet bet, HttpSession session) {
-		
-		String userId = (String)session.getAttribute("userId");
-		
+
+		String userId = (String) session.getAttribute("userId");
+
 		bet.setBetOwner(userId);
 
-		bet.setPhotoA("null");
-		bet.setPhotoB("null");
+		bet.setPhotoA("photoA");
+		bet.setPhotoB("photoB");
 
 		String betId = betService.registBet(bet);
-		return "BetDetail.do?betId=" + betId;
+		return "redirect:BetDetail.do?betId=" + betId;
 	}
 
+	@RequestMapping(value = "/ImageA.do", method = RequestMethod.POST)
+	public String ImageA(String betId, MultipartHttpServletRequest file) throws IllegalStateException, IOException {
+
+		Bet bet = betService.findByBetId(betId);
+
+		String realFolder = "c:\\" + File.separator + "tempFiles";
+		File dir = new File(realFolder);
+		if (!dir.isDirectory()) {
+			dir.mkdirs();
+		}
+		
+		// 썸네일 저장
+		MultipartFile thumbnail = file.getFile("photoA");
+		if (thumbnail == null && thumbnail.getOriginalFilename().equals("")) {
+
+		} else {
+			// 파일 중복명 처리
+			String genId = UUID.randomUUID().toString();
+			// 본래 파일명
+			String originalfileName = thumbnail.getOriginalFilename();
+			// 저장되는 파일 이름
+			String saveFileName = genId + "." + originalfileName;
+
+			File saveFile = new File(dir.getAbsolutePath() + File.separator + saveFileName);
+
+			byte[] bytes = thumbnail.getBytes();
+
+			BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(saveFile));
+			out.write(bytes);
+			out.close();
+
+			bet.setPhotoA(saveFileName);
+			bet.setPhotoB("null");
+			betService.modify(bet);
+			System.out.println(bet.getPhotoA());
+		}
+
+		return "redirect:BetDetail.do?betId=" + betId;
+	}
+
+	/*
+	 * @RequestMapping(value = "/ImageB.do", method = { RequestMethod.GET,
+	 * RequestMethod.POST }) public ModelAndView ImageB(String betId,
+	 * MultipartHttpServletRequest file) throws IOException {
+	 * 
+	 * Bet bet = betService.findByBetId(betId); List<String> list =
+	 * inviteService.findByAllInviteByBetId(betId); String teamName = "A"; Team
+	 * teamA = teamService.findByTeamName(betId, teamName); teamName = "B"; Team
+	 * teamB = teamService.findByTeamName(betId, teamName);
+	 * 
+	 * String realFolder = "c:\\" + File.separator + "tempFiles"; File dir = new
+	 * File(realFolder); if (!dir.isDirectory()) { dir.mkdirs(); }
+	 * 
+	 * MultipartFile photoB = file.getFile("photoB");
+	 * 
+	 * if (photoB == null && photoB.getOriginalFilename().equals("")) {
+	 * 
+	 * } else { // 파일 중복명 처리 String genId = UUID.randomUUID().toString(); // 본래 파일명
+	 * String originalfileName = photoB.getOriginalFilename(); // 저장되는 파일 이름 String
+	 * saveFileName = genId + originalfileName;
+	 * 
+	 * File saveFile = new File(dir.getAbsolutePath() + File.separator +
+	 * saveFileName);
+	 * 
+	 * byte[] bytes = photoB.getBytes();
+	 * 
+	 * BufferedOutputStream out = new BufferedOutputStream(new
+	 * FileOutputStream(saveFile)); out.write(bytes); out.close();
+	 * 
+	 * bet.setPhotoA("null"); bet.setPhotoB(saveFileName); betService.modify(bet); }
+	 * 
+	 * if (bet.getBetWay().equals("One")) { ModelAndView modelAndView = new
+	 * ModelAndView("detailBetOfOne.jsp"); modelAndView.addObject("bet", bet);
+	 * modelAndView.addObject("list", list); modelAndView.addObject("teamA", teamA);
+	 * modelAndView.addObject("teamB", teamB); return modelAndView; } else if
+	 * (bet.getBetWay().equals("Team")) { ModelAndView modelAndView = new
+	 * ModelAndView("detailBetOfTeam.jsp"); modelAndView.addObject("bet", bet);
+	 * modelAndView.addObject("list", list); modelAndView.addObject("teamA", teamA);
+	 * modelAndView.addObject("teamB", teamB); return modelAndView; } else {
+	 * ModelAndView modelAndView = new ModelAndView("detailBetOfAll.jsp");
+	 * modelAndView.addObject("bet", bet); modelAndView.addObject("list", list);
+	 * modelAndView.addObject("teamA", teamA); modelAndView.addObject("teamB",
+	 * teamB); return modelAndView; } }
+	 */
 	@RequestMapping(value = "/BetFail.do")
 	public String BetFail(String betId, Model model, HttpSession session) {
 
@@ -160,6 +235,7 @@ public class BetController {
 
 	@RequestMapping(value = "/betStateList.do")
 	public String betStateList(String userId, String state, Model model) {
+
 		List<BetState> list = betStateService.findBetState(userId, state);
 		model.addAttribute("list", list);
 
@@ -168,52 +244,53 @@ public class BetController {
 
 	@RequestMapping(value = "/findBet.do")
 	public String findBet(String betId, String betOwner, String title, Model model, String betWay) {
-		
-		if(betId != null) {
+
+		if (betId != null) {
 			Bet bet = betService.findByBetId(betId);
-			if(betWay.equals("One")) {
+			if (betWay.equals("One")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("bet", bet);
 				return "BetOfOne.jsp";
-			}else if(betWay.equals("All")) {
+			} else if (betWay.equals("All")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("bet", bet);
 				return "BetOfAll.jsp";
-			}else {
+			} else {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("bet", bet);
 				return "BetOfTeam.jsp";
 			}
-		}else if(betOwner != null) {
+		} else if (betOwner != null) {
 			List<Bet> list = betService.findByOwner(betOwner, betWay);
-			if(betWay.equals("One")) {
+			if (betWay.equals("One")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("list", list);
 				return "BetOfOne.jsp";
-			}else if(betWay.equals("All")) {
+			} else if (betWay.equals("All")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("list", list);
 				return "BetOfAll.jsp";
-			}else {
+			} else {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("list", list);
 				return "BetOfTeam.jsp";
 			}
-		}else {
+		} else {
 			List<Bet> list1 = betService.findByTitle(title, betWay);
-			if(betWay.equals("One")) {
+			if (betWay.equals("One")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("list1", list1);
 				return "BetOfOne.jsp";
-			}else if(betWay.equals("All")) {
+			} else if (betWay.equals("All")) {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("list1", list1);
 				return "BetOfAll.jsp";
-			}else {
+			} else {
 				model.addAttribute("betWay", betWay);
 				model.addAttribute("list1", list1);
 				return "BetOfTeam.jsp";
 			}
 		}
 	}
+
 }

@@ -8,6 +8,17 @@
 <meta name="description" content="Project Description" />
 <meta name="keywords" content="Project Keywords" />
 <title>내기의 신</title>
+<style>
+/*   경고에 대한 style jQuery에서 사용*/
+tr td.error input,tr td.error textarea,tr td.error label {
+   background: red;
+}
+tr td p.error {
+   margin: 0;
+   color: red;
+   font-weight: bold;
+   margin-bottom: 1em;}
+</style>
 <link href="resources/css/style5.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/style4.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
@@ -46,27 +57,24 @@
 				<div id="content">
 					<div class="post">
 						<div class="post-head">
-							<form action="registBet.do" method="POST">
-
+							<form action="registBet.do" method="POST" name="sub2">
+								<c:if test="${userId eq 'admin' }">
 								<table>
 									<colgroup>
-										<col width="90" />
-										<col width="*" />
-										<col width="100" />
-										<col width="100" />
+										<col width="150" />
 										<col width="100" />
 									</colgroup>
-
+									
 									<thead>
 										<tr>
 											<th>제목</th>
-											<td><input id="title" name="title" class="form-control"
+											<td><input id="title" name="title" class="form-control title validate"
 												type="text" placeholder="제목을 입력하세요." size="60"></td>
 										</tr>
 										<tr>
 											<th>내용</th>
 											<td align="left"><input id="content" name="content"
-												class="form-control" type="text" placeholder="내용을 입력하세요."
+												class="form-control validate content" type="text" placeholder="내용을 입력하세요."
 												size="60"><br> <br></td>
 										</tr>
 
@@ -78,31 +86,86 @@
 										<tr>
 											<th>종료날짜</th>
 											<td><input id="endDate" name="endDate"
-												class="form-control" type="Date" placeholder="YYMMDD"
+												class="form-control validate endDate" type="Date" placeholder="YYMMDD"
 												size="50"></td>
 										</tr>
 										
 										<tr>
 											<th>BetOf</th>
-											<td><input type="radio" name="betWay"
-												onClick="display1()" value="One">One <input
-												type="radio" name="betWay" onClick="display1()" value="Team">Team
-												<input type="radio" name="betWay" onclick="display2()"
-												value="All">All</td>
-										</tr>
-
-										<tr id="indivisual1">
-											<th>포인트방식</th>
-											<td><input type="radio" name="pointCheck" value="ALLIN">올인
-												<input type="radio" name="pointCheck" value="FREE">자유
-												<input type="radio" name="pointCheck" value="LOCK">고정</td>
+											<td><input type="radio" name="betWay validate All" onclick="display2()" value="All">All</td>
 										</tr>
 								</table>
+								</c:if>
+								
+								
+								
+								<c:if test="${userId ne 'admin' }">
+								<table>
+									<colgroup>
+										<col width="150" />
+										<col width="100" />
+									</colgroup>
+									
+									<thead>
+										<tr>
+											<th>제목</th>
+											<td><input id="title" name="title" class="form-control validate title"
+												type="text" placeholder="제목을 입력하세요." size="60"></td>
+										</tr>
+										<tr>
+											<th>내용</th>
+											<td align="left"><input id="content" name="content" class="form-control" type="text" placeholder="내용을 입력하세요."
+												size="60"><br> <br></td>
+										</tr>
+
+										<tr>
+
+											<th>포인트</th>
+											<td><input name="point" class="form-control" type="text"
+												placeholder="포인트을 입력해주세요." size="20">(0~${loginUser.point }p)</td>
+										<tr>
+											<th>종료날짜</th>
+											<td><input id="endDate" name="endDate"
+												class="form-control validate endDate" type="Date" placeholder="YYMMDD" size="50">(필수)</td>
+										</tr>
+										
+										<tr>
+											<th>BetOf</th>
+											<td><input type="radio" name="betWay" onClick="display1()" value="One" class="validate one team all" id="one">One 
+												<input type="radio" name="betWay" onClick="display1()" value="Team">Team
+												<input type="radio" name="betWay" onclick="display2()" value="All">All</td>
+										</tr>
+										<tr>
+											<th>포인트방식</th>
+											<td id="indivisual1">
+												<input type="radio" name="pointCheck"  value="ALLIN">올인 
+												<input type="radio" name="pointCheck"  value="FREE">자유
+												<input type="radio" name="pointCheck"  value="LOCK">고정</td>
+										</tr>
+								</table>
+								</c:if>
 								<br>
 								<div align="right">
-									<button type="submit" class="btn btn btn-warning">내기생성</button>
+									<!-- <button type="button" class="btn btn btn-warning btn2">내기생성</button> -->
+									<button type="submit" class="btn btn btn-warning btn2">내기생성</button>
 								</div>
 							</form>
+<!-- <script type="text/javascript">
+$('.btn2').click(function(){
+	if (document.getElementById("title").value == "") {
+         alert("제목을 입력해주세요");
+	}else if(document.getElementById("content").value == ""){
+		alert("내용을 입력해주세요");
+	}else if(document.getElementById("point").value == ""){
+		alert("포인트를 입력해주세요");
+	}else if(document.getElementById("endDate").value == ""){
+		alert("종료날짜를 입력해주세요");
+	}else if($(":radio[name=" +  $(one).attr("name") + "]:checked").length==0){
+		alert("팀을 선택해주세요");
+	}else
+		   document.sub2.submit();
+	});
+</script> -->
 						</div>
 					</div>
 				</div>
@@ -120,15 +183,9 @@
 					Free Web Design Templates by <a href="http://www.dkntemplates.com"
 						title="Dkntemplates">Dkntemplates.com</a>
 				</p>
-				<!-- Please don't remove my backlink -->
-
 			</div>
-			<!-- // end #footer -->
 		</div>
-		<!-- // end #container -->
 	</div>
-	<!-- // end #wrapper -->
-
 
 </body>
 </html>

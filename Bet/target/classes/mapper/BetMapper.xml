@@ -5,13 +5,13 @@
 
 <mapper namespace="store.mapper.BetMapper">
 
-	<resultMap type="Bet" id="BetMap">
+		<resultMap type="Bet" id="BetMap">
 		<result property="betId" column="betId" />
 		<result property="title" column="title" />
 		<result property="state" column="state" />
 		<result property="betWay" column="betWay" />
 		<result property="content" column="content" />
-		<result property="photoA" column="photeA" />
+		<result property="photoA" column="photoA" />
 		<result property="photoB" column="photeB" />
 		<result property="point" column="point" />
 		<result property="endDate" column="endDate" />
@@ -22,7 +22,7 @@
 	<select id="searchByBetWay" resultType="Bet" resultMap="BetMap">
 		select betId, state, title, content, photoA , photoB , betWay ,
 		endDate , pointCheck , point, betOwner
-		FROM bet_tb WHERE betWay =#{betWay} and (state = '진행' or state = '종료') order by betId desc
+		FROM bet_tb WHERE betWay =#{betWay} and (state = '진행' or state = '종료')
 	</select>
 
 	<insert id="create" parameterType="Bet">
@@ -75,8 +75,21 @@
 				content = #{content},
 				point = #{point},
 				state = #{state},
+				photoA = #{photoA},
+				photoB = #{photoB},
 				pointCheck = #{pointCheck}
 				WHERE betId = #{betId}
 		
 	</update>
+	
+	 <select id="searchByUserId" parameterType="String" resultType="Bet" resultMap="BetMap">
+      select betId, state, title, content, betWay , pointCheck , betOwner
+      FROM bet_tb WHERE betOwner = #{betOwner}
+   </select>
+   
+   <delete id="delete" parameterType="String">
+   DELETE from bet_tb where betId = #{betId}
+   </delete>
+   
+   
 </mapper>

@@ -91,6 +91,7 @@ public class PointServiceLogic implements PointService {
 	public String betResultPoint(String teamId, int point) {
 		Team team = teamService.findTeam(teamId);
 		Point po = new Point();
+		int teamTotalP = team.getTotalPoint();
 		int resultP = 0;
 		int playerP = 0;
 		float playerPP = 0;
@@ -99,8 +100,8 @@ public class PointServiceLogic implements PointService {
 			for (Player p : team.getPlayers()) {
 				User user = userStore.searchByUserId(p.getUserId());
 				playerP = p.getPoint();
-				playerPP = playerP/100;
-				resultP = Math.round(playerPP*point);
+				playerPP = (float)(playerP/teamTotalP);
+				resultP = Math.round(playerPP*point)+playerP;
 				po.setUserId(p.getUserId());
 				po.setPoint(resultP);
 				po.setReceiverId(team.getBetId());

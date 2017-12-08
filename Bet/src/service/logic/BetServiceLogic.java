@@ -38,6 +38,7 @@ public class BetServiceLogic implements BetService {
 	private InviteStore inviteStore;
 	@Autowired
 	private GameService gameService;
+	
 
 	@Override
 	public String registBet(Bet bet) {
@@ -132,6 +133,12 @@ public class BetServiceLogic implements BetService {
 		inviteStore.deletebyBetId(betId);
 		betStore.delete(betId);
 		teamService.removeTeam(betId);
+		playerStore.deleteByBetId(betId);
+	}
+
+	@Override
+	public List<Bet> findByUserId(String betOwner) {
+		 return betStore.searchByUserId(betOwner);
 	}
 
 }
