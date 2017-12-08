@@ -163,11 +163,11 @@
                               <button type="submit" class="btn btn-warning btn3">출석체크</form>
                            <br>
                            <br>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $('.btn3').click(function(){
          alert("출석체크를 하였습니다 ");
 	})
-</script>
+</script> -->
                            <%
                               //처음 빈공란 표시
                               for (int index = 1; index < start; index++) {

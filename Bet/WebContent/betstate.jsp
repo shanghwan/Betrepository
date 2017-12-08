@@ -23,7 +23,7 @@
 				<div id="logo">
 					<a href="main.do"><h1>내기의 神</h1></a>
 					<p>what's up</p>
-				</div>
+				</div align="left">
 				<%@ include file="menu.jsp"%>
 			</div>
 			<!-- // end #header -->
@@ -43,11 +43,6 @@
 									<li><a href="pointList.do">포인트내역</a></li>
 									<li><a href="userDeletepassword.jsp">회원탈퇴</a></li>
 									<li><a href="inviteList.do">초대목록</a></li>
-								</ul>
-								<ul id="nav">
-									<li><a href="betStateList.do?userId=${userId }&state=대기">시작 전</a></li>
-									<li><a href="betStateList.do?userId=${userId }&state=진행">진행 중</a></li>
-									<li><a href="betStateList.do?userId=${userId }&state=종료">종료</a></li>
 								</ul>
 							</div>
 						</div>
@@ -75,7 +70,9 @@
 									<tr>
 									<td align="center">${sts.count }</td>
 									<td align="center">${list.betId }</td>
-									<td align="center">${list.title }</td>
+									<td align="center"><a
+												href="BetDetail.do?betId=${list.betId }"
+												class="list-group-item hidden-xs">${list.title }</a></td>
 									<td align="center">${list.betOwner }</td>
 									<td align="center">BetOf${list.betWay }</td>
 									<td align="center">${list.state }</td>

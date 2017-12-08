@@ -88,52 +88,53 @@ public class PointServiceLogic implements PointService {
 	}
 
 	@Override
-	public String betResultPoint(String teamId, int point) {
-		Team team = teamService.findTeam(teamId);
-		Point po = new Point();
-		int resultP = 0;
-		int playerP = 0;
-		float playerPP = 0;
-		
-		if (team.getResult().equals("WIN")) {
-			for (Player p : team.getPlayers()) {
-				User user = userStore.searchByUserId(p.getUserId());
-				playerP = p.getPoint();
-				playerPP = playerP/100;
-				resultP = Math.round(playerPP*point);
-				po.setUserId(p.getUserId());
-				po.setPoint(resultP);
-				po.setReceiverId(team.getBetId());
-				po.setType("내기승리");
-				registPoint(po);
-				user.setPoint(user.getPoint() + resultP);
-				userStore.update(user);
-			}
-		}
-		if (team.getResult().equals("LOSE")) {
+	   public String betResultPoint(String teamId, int point) {
+	      Team team = teamService.findTeam(teamId);
+	      Point po = new Point();
+	      int teamTotalP = team.getTotalPoint();
+	      int resultP = 0;
+	      int playerP = 0;
+	      float playerPP = 0;
+	      
+	      if (team.getResult().equals("WIN")) {
+	         for (Player p : team.getPlayers()) {
+	            User user = userStore.searchByUserId(p.getUserId());
+	            playerP = p.getPoint();
+	            playerPP = (float)(playerP/teamTotalP);
+	            resultP = Math.round(playerPP*point)+playerP;
+	            po.setUserId(p.getUserId());
+	            po.setPoint(resultP);
+	            po.setReceiverId(team.getBetId());
+	            po.setType("내기승리");
+	            registPoint(po);
+	            user.setPoint(user.getPoint() + resultP);
+	            userStore.update(user);
+	         }
+	      }
+	      if (team.getResult().equals("LOSE")) {
 
-			for (Player p : team.getPlayers()) {
+	         for (Player p : team.getPlayers()) {
 
-				po.setUserId(p.getUserId());
-				po.setPoint(p.getPoint());
-				po.setReceiverId(team.getBetId());
-				po.setType("내기패배");
-				registPoint(po);
-			}
-		}
+	            po.setUserId(p.getUserId());
+	            po.setPoint(p.getPoint());
+	            po.setReceiverId(team.getBetId());
+	            po.setType("내기패배");
+	            registPoint(po);
+	         }
+	      }
 
-		if (team.getResult().equals("DRAW")) {
-			for (Player p : team.getPlayers()) {
+	      if (team.getResult().equals("DRAW")) {
+	         for (Player p : team.getPlayers()) {
 
-				po.setUserId(p.getUserId());
-				po.setPoint(p.getPoint());
-				po.setReceiverId(team.getBetId());
-				po.setType("내기무승부");
-				registPoint(po);
-			}
-		}
-		return "T";
-	}
+	            po.setUserId(p.getUserId());
+	            po.setPoint(p.getPoint());
+	            po.setReceiverId(team.getBetId());
+	            po.setType("내기무승부");
+	            registPoint(po);
+	         }
+	      }
+	      return "T";
+	   }
 
 	@Override
 	public String registUserPoint(String userId) {

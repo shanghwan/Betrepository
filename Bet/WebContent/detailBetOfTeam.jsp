@@ -77,10 +77,9 @@
 				<form action="gameJoin.do" method="post" name="sub1">
 					<input type="hidden" name="betId" value="${bet.betId }"> <input
 						type="text" name="pointBet" placeholder="포인트 입력 " size="12" id="pointBet"></input>
-					
 					<input type="radio" name="teamName" value="A" id="teamName">Team A <input
 						type="radio" name="teamName" value="B">Team B
-					<button type="button" class="btn btn btn-warning btn3">참여하기</button>
+					<button type="button" class="btn btn btn-warning btn3">참여하기</button><br><c:if test="${bet.state eq '대기' }">[잔여포인트 : ${loginUser.point }]</c:if>
 				</form>
 			</c:if>
 
@@ -242,8 +241,10 @@ $('.btn3').click(function(){
          alert("포인트를 입력해주세요");
 	}else if($(":radio[name=" +  $(teamName).attr("name") + "]:checked").length==0){
 		alert("팀을 선택해주세요");
+	}else if (document.getElementById("pointBet").value > ${loginUser.point}){
+         alert("포인트가 부족합니다.");
 	}else
-		   document.sub1.submit();
+		 document.sub1.submit();
 	})
 </script>
 

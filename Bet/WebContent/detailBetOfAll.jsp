@@ -79,13 +79,11 @@
 							type="hidden" name="pointBet" value="${bet.point }">
 						<table>
 							<tr>
-								<td><img src="resources/images/betofall.jpg"
-									alt="Banner Image 1" /><br> <br> <input type="radio"
-									name="teamName" value="A">A<br>
+								<td><img src="resources/images/betofall.jpg" alt="Banner Image 1" /><br> <br> 
+								<input type="radio" name="teamName" value="A">A<br>
 								<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>
-								<td><img src="resources/images/betofall.jpg"
-									alt="Banner Image 1" /><br> <br> <input type="radio"
-									name="teamName" value="B">B<br></td>
+								<td><img src="resources/images/betofall.jpg" alt="Banner Image 1" /><br> <br> 
+								<input type="radio" name="teamName" value="B">B<br></td>
 							</tr>
 						</table>
 

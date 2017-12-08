@@ -159,8 +159,8 @@ public class BetController {
 	}
 
 	@RequestMapping(value = "/betStateList.do")
-	public String betStateList(String userId, String state, Model model) {
-		List<BetState> list = betStateService.findBetState(userId, state);
+	public String betStateList(String userId, Model model) {
+		List<BetState> list = betStateService.findBetState(userId);
 		model.addAttribute("list", list);
 
 		return "betstate.jsp";

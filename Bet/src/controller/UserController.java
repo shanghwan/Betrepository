@@ -213,9 +213,8 @@ public class UserController {
 			for (Attendance a : list) {
 				if (sdf.format(d).toString().equals((a.getAttendanceDate().toString()))) {
 					break;
-				} else {
+				} 
 					attendanceService.registAttendance(attendance);
-				}
 			}
 		}
 		model.addAttribute("list", list);

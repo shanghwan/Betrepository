@@ -50,15 +50,25 @@
 							<div class="post-head">
 								<h1>
 									<form action="giftPoint.do" method="post">
-										<input type="hidden" name="userId"
-											value="${loginUser.userId }"> <label>${loginUser.name }님의
-											포인트는 ${loginUser.point }P</label> <br></br> <input size="15"
-											type="text" class="input_text" name="receiverId"
-											placeholder="아이디" /> </span> <a>에게</a> <input size="10" type="text"
-											name="point" placeholder="포인트"> <a>P 를</a> <input
-											class="btn btn-xs btn-default" type="submit" value="선물하기♥">
+										<input type="hidden" name="userId" value="${loginUser.userId }"> <label>${loginUser.name }님의 포인트는 ${loginUser.point }P</label> <br></br> 
+										<input size="15" type="text" class="input_text" name="receiverId" placeholder="아이디" /> </span> <a>에게</a> 
+										<input size="10" type="text" name="point" placeholder="포인트"> <a>P 를</a> 
+										<input class="btn btn-xs btn-default" type="submit" value="선물하기♥">
 									</form>
 								</h1>
+								
+								<script type="text/javascript">
+$('.btn3').click(function(){
+	if (document.getElementById("pointBet").value == "") {
+         alert("포인트를 입력해주세요");
+	}else if($(":radio[name=" +  $(teamName).attr("name") + "]:checked").length==0){
+		alert("팀을 선택해주세요");
+	}else if (document.getElementById("pointBet").value > "${loginUser.point}") {
+		alert("포인트가 부족합니다.");
+	}else
+		   document.sub1.submit();
+	})
+</script>
 							</div>
 						</div>
 
