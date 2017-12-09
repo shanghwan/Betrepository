@@ -44,6 +44,7 @@
 									<li><a href="pointList.do">포인트내역</a></li>
 									<li><a href="userDeletepassword.jsp">회원탈퇴</a></li>
 									<li class="active"><a href="inviteList.do">초대목록</a></li>
+									<li><a href="friendList.do">친구목록</a></li>
 								</ul>
 							</div>
 						</div>

@@ -18,10 +18,10 @@ public class CommentServiceLogic implements CommentService {
 	private CommentStore commentStore;
 
 	@Override
-	public void registComment(Comment comment) {
+	public String registComment(Comment comment) {
 		Date today = new Date(Calendar.getInstance().getTimeInMillis());
 		comment.setRegDate(today);
-		commentStore.create(comment);
+		return commentStore.create(comment);
 	}
 
 	@Override

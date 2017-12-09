@@ -6,7 +6,7 @@ import domain.Comment;
 
 public interface CommentService {
 
-	void registComment(Comment comment);
+	String registComment(Comment comment);
 
 	Comment findComment(String commentId);
 

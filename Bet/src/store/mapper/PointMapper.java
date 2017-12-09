@@ -1,6 +1,7 @@
 package store.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import domain.Point;
 
@@ -11,7 +12,7 @@ public interface PointMapper {
 	List<Point> searchAll(String userId);
 
 	//
-	Point searchPoint(String userId);
+	Point searchByUserIdBetId(Map<String, String> map);
 
 	void delete(String userId);
 
@@ -20,5 +21,7 @@ public interface PointMapper {
 
 	//
 	Point searchReceiver(String receiverId);
+	void deleteByReceiverId(Map<String, String> map);
+	void deleteByPointId(String pointId);
 
 }

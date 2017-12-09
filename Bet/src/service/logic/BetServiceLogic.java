@@ -38,6 +38,7 @@ public class BetServiceLogic implements BetService {
 	private InviteStore inviteStore;
 	@Autowired
 	private GameService gameService;
+	
 
 	@Override
 	public String registBet(Bet bet) {
@@ -45,7 +46,6 @@ public class BetServiceLogic implements BetService {
 		bet.setState("대기");
 
 		if (bet.getBetWay().equals("All")) {
-			bet.setState("진행");
 			bet.setPointCheck("LOCK");
 			bet.setPoint(10);
 		}
@@ -132,11 +132,12 @@ public class BetServiceLogic implements BetService {
 		inviteStore.deletebyBetId(betId);
 		betStore.delete(betId);
 		teamService.removeTeam(betId);
+		playerStore.deleteByBetId(betId);
 	}
-	
-	   @Override
-	   public List<Bet> findByUserId(String betOwner) {
-	      return betStore.searchByUserId(betOwner);
-	   }
+
+	@Override
+	public List<Bet> findByUserId(String betOwner) {
+		 return betStore.searchByUserId(betOwner);
+	}
 
 }

@@ -34,6 +34,7 @@
 	</environments>
 
 	<mappers>
+	<mapper resource="mapper/FriendMapper.xml" />
 		<mapper resource="mapper/PlayerMapper.xml" />
 		<mapper resource="mapper/InviteMapper.xml" />
 		<mapper resource="mapper/UserMapper.xml" />
@@ -45,7 +46,6 @@
 		<mapper resource="mapper/TeamMapper.xml" />
 		<mapper resource="mapper/AttendanceMapper.xml" />
 		<mapper resource="mapper/RecordMapper.xml" />
-		<mapper resource="mapper/FriendMapper.xml" />
 	</mappers>
 
 </configuration>

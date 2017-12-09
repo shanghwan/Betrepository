@@ -5,25 +5,55 @@
 
 <mapper namespace="store.mapper.RecordMapper">
 
-<resultMap type="Record" id="RecordMap">
-	<result property="win" column="win"/>
-	<result property="lose" column="lose"/>
-	<result property="draw" column="draw"/>
-	<result property="total" column="total"/>
-	<result property="rate" column="rate"/>
-	<result property="rank" column="rank"/>
-</resultMap>
+	<resultMap type="Record" id="RecordMap">
+		<result property="win" column="win" />
+		<result property="lose" column="lose" />
+		<result property="draw" column="draw" />
+		<result property="total" column="total" />
+		<result property="rate" column="rate" />
+		<result property="rank" column="rank" />
+	</resultMap>
 
 	<insert id="create" parameterType="Record">
 		INSERT INTO record_tb(userId,
 		win, lose, draw)
-		VALUES(#{userId}, #{win}, #{lose}, #{draw})
+		VALUES(#{userId}, 0, 0, 0)
 	</insert>
 
 	<select id="search" parameterType="String" resultType="Record">
 		SELECT
-		userId, win, lose, draw, (win+lose+draw) AS total, ROUND (win/(win+lose+draw)*100,1) as rate
+		userId, win, lose, draw, (win+lose+draw) AS total, ROUND
+		(NVL(win/DECODE((win+lose+draw),0,null,(win+lose+draw))*100,0)) as
+		rate
 		FROM record_tb WHERE userId = #{userId}
+	</select>
+
+
+	<!-- <select id="rateSearch" resultType="Record"> <![CDATA[SELECT userId, 
+		win, lose, draw, win+lose+draw as total, ROUND (win/(win+lose+draw)*100,1) 
+		as rate, RANK () OVER(ORDER BY ROUND (win/(win+lose+draw)*100,1) desc) as 
+		rank FROM (SELECT userId, win, lose, draw, win+lose+draw as total, ROUND 
+		(win/(win+lose+draw)*100,1) as rate from record_tb order by ROUND (win/(win+lose+draw)*100,1) 
+		desc) where ROWNUM <=10]]> </select> -->
+
+
+	<!-- <select id="rateSearch" resultType="Record"> <![CDATA[SELECT userId, 
+		win, lose, draw, win+lose+draw as total, ROUND (NVL(win/DECODE((win+lose+draw)*100,null,0))) 
+		as rate, RANK () OVER(ORDER BY ROUND (NVL(win/DECODE((win+lose+draw)*100,null,0) 
+		desc))) as rank FROM (SELECT userId, win, lose, draw, win+lose+draw as total, 
+		ROUND (NVL(win/DECODE((win+lose+draw)*100,null,0))) as rate from record_tb 
+		order by ROUND (NVL(win/DECODE((win+lose+draw)*100,null,0) desc))) where 
+		ROWNUM <=10]]> </select> -->
+
+	<select id="rateSearch" resultType="Record"> 
+	 <![CDATA[SELECT userId, win, lose, draw, win+lose+draw as total,
+   ROUND (NVL(win/DECODE((win+lose+draw)*100,0,null,(win+lose+draw))*100 ,0))as rate,
+     RANK () OVER(ORDER BY ROUND (NVL(win/DECODE((win+lose+draw)*100,0,null,(win+lose+draw))*100 ,0))desc) as rank
+	FROM
+    (SELECT userId, win, lose, draw, win+lose+draw as total, 
+   ROUND (NVL(win/DECODE((win+lose+draw)*100,0,null,(win+lose+draw))*100 ,0))as rate
+    from record_tb order by ROUND (NVL(win/DECODE((win+lose+draw)*100,0,null,(win+lose+draw))*100 ,0))) 
+	 where ROWNUM <=10]]>
 	</select>
 
 	<update id="update">
@@ -57,10 +87,6 @@
 		where ROWNUM <=10]]>
 	</select>
 
-	<select id="rateSearch" resultType="Record">
-	<![CDATA[SELECT userId, win, lose, draw, win+lose+draw as total, ROUND (win/(win+lose+draw)*100,1) as rate, RANK () OVER(ORDER BY ROUND (win/(win+lose+draw)*100,1) desc) as rank
-	FROM (SELECT userId, win, lose, draw, win+lose+draw as total, ROUND (win/(win+lose+draw)*100,1) as rate from record_tb order by ROUND (win/(win+lose+draw)*100,1) desc)
-	 where ROWNUM <=10]]>
-	</select>
+
 
 </mapper>

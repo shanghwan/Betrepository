@@ -5,40 +5,33 @@
 
 <mapper namespace="store.mapper.PointMapper">
 
-	<resultMap type="Point" id="PointMap">
-		<id property="id" column="point_id" />
-		<result property="regDate" column="PointgDate" />
-	</resultMap>
-
 	<insert id="create" parameterType="Point">
 		<selectKey keyProperty="pointId" resultType="String" order="BEFORE">
 			SELECT point_seq.nextval FROM dual
 		</selectKey>
-		INSERT INTO point_tb(pointId, userId, receiverId, pointDate, type,	point)
+		INSERT INTO point_tb(pointId, userId, receiverId, pointDate, type, point)
 		VALUES(#{pointId}, #{userId}, #{receiverId}, SYSDATE, #{type}, #{point})
 	</insert>
 
-	<select id="searchPoint" parameterType="String" resultType="Point" resultMap="PointMap">
+	<select id="searchByUserIdBetId" parameterType="HashMap" resultType="Point">
 		SELECT pointId, userId, receiverId, pointDate, type, point
 		FROM point_tb
-		WHERE userId = #{userId}
+		WHERE receiverId = #{receiverId} and userId = #{userId}
 	</select>
 
-	<select id="searchAll" parameterType="String" resultType="Point" resultMap="PointMap">
+	<select id="searchAll" parameterType="String" resultType="Point">
 		SELECT pointId, userId, receiverId, pointDate, type, point
 		FROM point_tb
-		WHERE userId = #{userId}
+		WHERE userId = #{userId} or receiverId = #{userId} order by pointId desc
 	</select>	
 
 	<update id="update" parameterType="String">
 		UPDATE point_tb
-		SET pointId = #{pointId},
-		    userId = #{userId},
-		    receiverId = #{receiverId}
+		SET receiverId = #{receiverId}
 		    pointDate #{pointDate}
-		    type = {type}
-		    point = {point}		
-		WHERE userId = #{userId}
+		    type = #{type}
+		    point = #{point}
+		WHERE pointId = #{pointId}
 	</update>
 
 	<delete id="delete" parameterType="String">
@@ -47,5 +40,15 @@
 		userId = #{userId}
 	</delete>
 	
+	<delete id="deleteByPointId" parameterType="String">
+		DELETE FROM point_tb
+		WHERE
+		pointId = #{pointId}
+	</delete>
 	
+	<delete id="deleteByReceiverId" parameterType="HashMap">
+		DELETE FROM point_tb
+		WHERE
+		receiverId = #{receiverId} and userId = #{userId}
+	</delete>
 </mapper>

@@ -1,11 +1,9 @@
 package controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +46,7 @@ public class UserController {
 	public String join(User user) {
 
 		userService.regist(user);
+		
 
 		return "redirect:main.jsp";
 	}
@@ -56,9 +55,18 @@ public class UserController {
 	public String main(Model model, HttpSession session) {
 
 		String userId = (String) session.getAttribute("userId");
+
+		if (userId == null) {
+			return "redirect:index.jsp";
+		}
+
 		Record recordUser = recordService.findRecord(userId);
 
 		model.addAttribute("recordUser", recordUser);
+
+		User loginUser = userService.findByUserId(userId);
+		session.setAttribute("userId", loginUser.getUserId());
+		session.setAttribute("loginUser", loginUser);
 
 		return "main.jsp";
 	}
@@ -176,6 +184,17 @@ public class UserController {
 		return "adminpageBet.jsp";
 	}
 
+	@RequestMapping(value = "/pointReset.do")
+	public String pointReset(String userId, Model model) {
+
+		User user = userService.findByUserId(userId);
+		user.setPoint(0);
+		userService.modifyUser(user);
+		List<Report> list = reportService.findAllBetReport();
+		model.addAttribute("BetList", list);
+		return "adminpage.do";
+	}
+
 	@RequestMapping(value = "/registattendance.do", method = RequestMethod.POST)
 	public String registattendance(HttpSession session, String userId, Attendance attendance, Model model) {
 
@@ -192,26 +211,25 @@ public class UserController {
 			for (Attendance a : list) {
 				if (sdf.format(d).toString().equals((a.getAttendanceDate().toString()))) {
 					break;
-				} else {
-					attendanceService.registAttendance(attendance);
 				}
+				attendanceService.registAttendance(attendance);
 			}
 		}
 		model.addAttribute("list", list);
 		session.setAttribute("loginUser", loginUser);
 		return "attendance.jsp";
 	}
-
+	
 	@RequestMapping(value = "/friendList.do")
-	public String friendList(HttpSession session, Model model) {
+	   public String friendList(HttpSession session, Model model) {
 
-		String userId = (String) session.getAttribute("userId");
+	      String userId = (String) session.getAttribute("userId");
 
-		List<Friend> list = userService.findFriends(userId);
-		
-		model.addAttribute("list", list);
-		System.out.println(list.get(0).getName());
-		return "friendList.jsp";
-	}
+	      List<Friend> list = userService.findFriends(userId);
+	      
+	      model.addAttribute("list", list);
+	      
+	      return "friendList.jsp";
+	   }
 
 }

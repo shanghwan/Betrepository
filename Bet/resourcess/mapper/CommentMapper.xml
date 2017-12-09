@@ -7,7 +7,7 @@
 
 	<resultMap type="Comment" id="CommentMap">
 		<id property="id" column="comment_id" />
-		<result property="photo" column="COMMENTPHOTO"/>
+		<result property="photo" column="commentPhoto"/>
 	</resultMap>
 
 	<insert id="create" parameterType="Comment">
@@ -22,13 +22,13 @@
 		resultMap="CommentMap">
 		SELECT commentId, betId, userId, content, photo, RegDate
 		FROM comment_tb
-		WHERE commentId = #{commentId}
+		WHERE commentId = #{commentId} 
 	</select>
 
 	<select id="searchAll" parameterType="String" resultType="Comment">
 		SELECT commentId, betId, userId, content, photo, RegDate
 		FROM comment_tb
-		WHERE betId = #{betId}
+		WHERE betId = #{betId} order by commentId asc
 	</select>
 
 	<delete id="delete" parameterType="String">

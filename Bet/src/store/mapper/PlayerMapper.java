@@ -14,6 +14,7 @@ public interface PlayerMapper {
 	void update(Player player);
 	void deleteByBetIdAndUserId(Map<String, String> map);
 	void delete(String playerId);
+	void deleteByBetId(String betId);
 	Player searchByBetId(Map<String, String> map);
 	int voteCount(Map<String, String> map);
 }

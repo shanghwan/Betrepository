@@ -15,5 +15,6 @@ public interface PlayerStore {
 	void deleteByBetIdAndUserId(String userId, String betId);
 	void delete(String playerId);
 	int voteCount(String betId, String vote);
+	void deleteByBetId(String betId);
 
 }

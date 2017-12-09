@@ -1,7 +1,5 @@
 package domain;
 
-import java.util.List;
-
 public class User {
 	
 	private String userId;
@@ -9,11 +7,6 @@ public class User {
 	private String name;
 	private int point;
 	
-	private List<User> friends;
-	
-	
-
-
 	public User() {}
 
 
@@ -49,14 +42,6 @@ public class User {
 		this.point = point;
 	}
 
-	public List<User> getFriends() {
-		return friends;
-	}
-
-
-	public void setFriends(List<User> friends) {
-		this.friends = friends;
-	}
 
 	@Override
 	public String toString() {
