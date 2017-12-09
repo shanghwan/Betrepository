@@ -103,7 +103,7 @@ public class BetController {
 	public String showCreateBet(HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
 		if (userId == null) {
-
+			
 			return "redirect:index.jsp";
 		}
 		return "BetCreate.jsp";
@@ -116,8 +116,8 @@ public class BetController {
 
 		bet.setBetOwner(userId);
 
-		bet.setPhotoA("photoA");
-		bet.setPhotoB("photoB");
+		bet.setPhotoA("null");
+		bet.setPhotoB("null");
 
 		String betId = betService.registBet(bet);
 		return "redirect:BetDetail.do?betId=" + betId;
@@ -155,14 +155,52 @@ public class BetController {
 			out.close();
 
 			bet.setPhotoA(saveFileName);
-			bet.setPhotoB("null");
+//			bet.setPhotoB("null");
 			betService.modify(bet);
-			System.out.println(bet.getPhotoA());
 		}
 
 		return "redirect:BetDetail.do?betId=" + betId;
 	}
 
+	@RequestMapping(value = "/ImageB.do", method = RequestMethod.POST)
+	public String ImageB(String betId, MultipartHttpServletRequest file) throws IllegalStateException, IOException {
+
+		Bet bet = betService.findByBetId(betId);
+
+		String realFolder = "c:\\" + File.separator + "tempFiles";
+		File dir = new File(realFolder);
+		if (!dir.isDirectory()) {
+			dir.mkdirs();
+		}
+		
+		// 썸네일 저장
+		MultipartFile thumbnail = file.getFile("photoB");
+		if (thumbnail == null && thumbnail.getOriginalFilename().equals("")) {
+
+		} else {
+			// 파일 중복명 처리
+			String genId = UUID.randomUUID().toString();
+			// 본래 파일명
+			String originalfileName = thumbnail.getOriginalFilename();
+			// 저장되는 파일 이름
+			String saveFileName = genId + "." + originalfileName;
+
+			File saveFile = new File(dir.getAbsolutePath() + File.separator + saveFileName);
+
+			byte[] bytes = thumbnail.getBytes();
+
+			BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(saveFile));
+			out.write(bytes);
+			out.close();
+
+			bet.setPhotoB(saveFileName);
+//			bet.setPhotoB("null");
+			betService.modify(bet);
+		}
+
+		return "redirect:BetDetail.do?betId=" + betId;
+	}
+	
 	/*
 	 * @RequestMapping(value = "/ImageB.do", method = { RequestMethod.GET,
 	 * RequestMethod.POST }) public ModelAndView ImageB(String betId,

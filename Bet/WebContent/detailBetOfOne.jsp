@@ -133,12 +133,11 @@
 							<input type="file" name="photoA">
 							<button type="submit" value="올리기">올리기</button>
 						</form>
-						<%--  <form action="BetDetail.do" method="POST" enctype="multipart/form-data">
+						<form action="ImageB.do" method="POST" enctype="multipart/form-data">
 							<input type="hidden" name="betId" value="${bet.betId }">
-							<input type="file" name="photoA">
 							<input type="file" name="photoB">
 							<button type="submit" value="올리기">올리기</button>
-						</form>  --%>
+						</form>
 
 					</c:if>
 
@@ -155,7 +154,7 @@
 											test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
 											<input type="radio" name="vote" value="A">Team A</c:if>
 									</c:if></td>
-								<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>								
+								<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>						
 								<td><img class="imgs" src="/images/${bet.photoB }"
 									alt="이미지를 올려주세요" />
 								<!-- <img src="resources/images/betofall.jpg"
