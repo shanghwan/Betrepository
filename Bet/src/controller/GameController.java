@@ -58,5 +58,13 @@ public class GameController {
 		gameService.voteGame(betId, userId, vote);
 		return "BetDetail.do";
 	}
+	
+	@RequestMapping(value="/startBetOfAll.do",method=RequestMethod.GET)
+	   public String startBetOfAll(String betId) {
+	      Bet bet = betService.findByBetId(betId);
+	      bet.setState("진행");
+	      betService.modify(bet);
+	      return "BetDetail.do";
+	   }
 
 }

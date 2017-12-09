@@ -46,7 +46,6 @@ public class BetServiceLogic implements BetService {
 		bet.setState("대기");
 
 		if (bet.getBetWay().equals("All")) {
-			bet.setState("진행");
 			bet.setPointCheck("LOCK");
 			bet.setPoint(10);
 		}

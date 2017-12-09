@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import domain.Attendance;
 import domain.Bet;
+import domain.Friend;
 import domain.Invite;
 import domain.Record;
 import domain.Report;
@@ -41,36 +42,34 @@ public class UserController {
 	@Autowired
 	private RecordService recordService;
 
-
 	@RequestMapping(value = "/Userregist.do", method = RequestMethod.POST)
 	public String join(User user) {
 
 		userService.regist(user);
+		
 
 		return "redirect:main.jsp";
 	}
-	
+
 	@RequestMapping(value = "/main.do")
 	public String main(Model model, HttpSession session) {
-		
+
 		String userId = (String) session.getAttribute("userId");
-		
-		if(userId == null) {
+
+		if (userId == null) {
 			return "redirect:index.jsp";
 		}
-		
+
 		Record recordUser = recordService.findRecord(userId);
 
-		model.addAttribute("recordUser",recordUser);
-		
+		model.addAttribute("recordUser", recordUser);
+
 		User loginUser = userService.findByUserId(userId);
 		session.setAttribute("userId", loginUser.getUserId());
 		session.setAttribute("loginUser", loginUser);
-		
+
 		return "main.jsp";
 	}
-	
-	
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login(User user, HttpSession session, String password) {
@@ -148,6 +147,7 @@ public class UserController {
 		model.addAttribute("bet", bet);
 		return "BetFail.jsp";
 	}
+
 	@RequestMapping(value = "/invite.do")
 	public String invite(String userId, String betId, Model model) {
 
@@ -166,9 +166,7 @@ public class UserController {
 		model.addAttribute("list", list);
 		return "inviteList.jsp";
 	}
-	
-	
-		
+
 	@RequestMapping(value = "/adminpage.do")
 	public String adminpage(Model model) {
 		List<Report> list = reportService.findAllUserReport();
@@ -185,9 +183,10 @@ public class UserController {
 
 		return "adminpageBet.jsp";
 	}
+
 	@RequestMapping(value = "/pointReset.do")
 	public String pointReset(String userId, Model model) {
-		
+
 		User user = userService.findByUserId(userId);
 		user.setPoint(0);
 		userService.modifyUser(user);
@@ -195,7 +194,6 @@ public class UserController {
 		model.addAttribute("BetList", list);
 		return "adminpage.do";
 	}
-	
 
 	@RequestMapping(value = "/registattendance.do", method = RequestMethod.POST)
 	public String registattendance(HttpSession session, String userId, Attendance attendance, Model model) {
@@ -213,8 +211,8 @@ public class UserController {
 			for (Attendance a : list) {
 				if (sdf.format(d).toString().equals((a.getAttendanceDate().toString()))) {
 					break;
-				} 
-					attendanceService.registAttendance(attendance);
+				}
+				attendanceService.registAttendance(attendance);
 			}
 		}
 		model.addAttribute("list", list);
@@ -222,5 +220,16 @@ public class UserController {
 		return "attendance.jsp";
 	}
 	
-	
+	@RequestMapping(value = "/friendList.do")
+	   public String friendList(HttpSession session, Model model) {
+
+	      String userId = (String) session.getAttribute("userId");
+
+	      List<Friend> list = userService.findFriends(userId);
+	      
+	      model.addAttribute("list", list);
+	      
+	      return "friendList.jsp";
+	   }
+
 }

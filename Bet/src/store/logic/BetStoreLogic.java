@@ -58,9 +58,11 @@ public class BetStoreLogic implements BetStore{
 		try {
 			BetMapper mapper = session.getMapper(BetMapper.class);
 			bet = mapper.searchByBetId(betId);
+			System.out.println("스토어B"+bet.getPhotoB());
 		}finally {
 			session.close();
 		}
+		System.out.println("스토어A"+bet.getPhotoA());
 		
 		return bet;
 	}

@@ -1,13 +1,18 @@
 package service.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import domain.Friend;
+import domain.Record;
 import domain.User;
 import service.PointService;
+import service.RecordService;
 import service.UserService;
+import store.FriendStore;
 import store.UserStore;
 
 @Service
@@ -17,6 +22,10 @@ public class UserServiceLogic implements UserService {
 	private UserStore userStore;
 	@Autowired
 	private PointService pointService;
+	@Autowired
+	private RecordService recordService;
+	@Autowired
+	private FriendStore friendStore;
 
 	@Override
 	public User login(User user) {
@@ -47,6 +56,11 @@ public class UserServiceLogic implements UserService {
 		if (userId != null) {
 			pointService.registUserPoint(user.getUserId());
 		}
+		Record record = new Record();
+		record.setUserId(userId);
+		recordService.registRecord(record);
+		
+		
 		return userId;
 	}
 
@@ -80,14 +94,37 @@ public class UserServiceLogic implements UserService {
 	}
 
 	@Override
-	public String registFriend(String userId) {
-		return null;
-	}
+	   public void registFriend(String userId, String friendId) {
+	      friendStore.create(userId, friendId);
+	   }
 
-	@Override
-	public void removeFriend(String userId) {
+	   @Override
+	   public void removeFriend(String userId, String friendId) {
+	      friendStore.delete(userId, userId);
+	   }
 
-	}
+	   @Override
+	   public void removeByUserId(String userId) {
+	      friendStore.deleteByFriendId(userId);
+	   }
+
+	   @Override
+	   public List<Friend> findFriends(String userId) {
+	      List<Friend> list = friendStore.search(userId);
+	      
+	      List<Friend> friends = new ArrayList<>();
+	      
+	      
+	      for(int i=0 ; i<list.size();i++) {
+	         User user = userStore.searchByUserId(list.get(i).getFriendId());
+	         Friend fr = new Friend();
+	         fr.setFriendId(user.getUserId());
+	         fr.setName(user.getName());
+	         friends.add(fr);
+	      }
+	      
+	      return friends;
+	   }
 
 	
 

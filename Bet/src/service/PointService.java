@@ -12,13 +12,18 @@ public interface PointService {
 
 	void removePoint(String userId); // 탈퇴
 
-	
-	//jun
+	// jun
 	int giftPoint(Point point);
+
 	String checkDayPoint(String userId);
+
 	String betResultPoint(String teamId, int point);
+
 	String registUserPoint(String userId);
-	String betJoinPoint(String userId,String betId,int point);
-	String betExitPoint(String userId,String betId);
+
+	String betJoinPoint(String userId, String betId, int point);
+
+	String betExitPoint(String userId, String betId);
+
 
 }

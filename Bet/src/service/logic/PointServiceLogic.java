@@ -68,7 +68,7 @@ public class PointServiceLogic implements PointService {
 		getUser.setPoint(getUser.getPoint() + point.getPoint());
 		userStore.update(getUser);
 		userStore.update(sendUser);
-		
+
 		return sendUser.getPoint();
 	}
 
@@ -88,53 +88,53 @@ public class PointServiceLogic implements PointService {
 	}
 
 	@Override
-	   public String betResultPoint(String teamId, int point) {
-	      Team team = teamService.findTeam(teamId);
-	      Point po = new Point();
-	      int teamTotalP = team.getTotalPoint();
-	      int resultP = 0;
-	      int playerP = 0;
-	      float playerPP = 0;
-	      
-	      if (team.getResult().equals("WIN")) {
-	         for (Player p : team.getPlayers()) {
-	            User user = userStore.searchByUserId(p.getUserId());
-	            playerP = p.getPoint();
-	            playerPP = (float)(playerP/teamTotalP);
-	            resultP = Math.round(playerPP*point)+playerP;
-	            po.setUserId(p.getUserId());
-	            po.setPoint(resultP);
-	            po.setReceiverId(team.getBetId());
-	            po.setType("내기승리");
-	            registPoint(po);
-	            user.setPoint(user.getPoint() + resultP);
-	            userStore.update(user);
-	         }
-	      }
-	      if (team.getResult().equals("LOSE")) {
+	public String betResultPoint(String teamId, int point) {
+		Team team = teamService.findTeam(teamId);
+		Point po = new Point();
+		int teamTotalP = team.getTotalPoint();
+		int resultP = 0;
+		int playerP = 0;
+		float playerPP = 0;
 
-	         for (Player p : team.getPlayers()) {
+		if (team.getResult().equals("WIN")) {
+			for (Player p : team.getPlayers()) {
+				User user = userStore.searchByUserId(p.getUserId());
+				playerP = p.getPoint();
+				playerPP = (float) playerP / (float) teamTotalP;
+				resultP = Math.round(playerPP * point) + playerP;
+				po.setUserId(p.getUserId());
+				po.setPoint(resultP);
+				po.setReceiverId(team.getBetId());
+				po.setType("내기승리");
+				registPoint(po);
+				user.setPoint(user.getPoint() + resultP);
+				userStore.update(user);
+			}
+		}
+		if (team.getResult().equals("LOSE")) {
 
-	            po.setUserId(p.getUserId());
-	            po.setPoint(p.getPoint());
-	            po.setReceiverId(team.getBetId());
-	            po.setType("내기패배");
-	            registPoint(po);
-	         }
-	      }
+			for (Player p : team.getPlayers()) {
 
-	      if (team.getResult().equals("DRAW")) {
-	         for (Player p : team.getPlayers()) {
+				po.setUserId(p.getUserId());
+				po.setPoint(p.getPoint());
+				po.setReceiverId(team.getBetId());
+				po.setType("내기패배");
+				registPoint(po);
+			}
+		}
 
-	            po.setUserId(p.getUserId());
-	            po.setPoint(p.getPoint());
-	            po.setReceiverId(team.getBetId());
-	            po.setType("내기무승부");
-	            registPoint(po);
-	         }
-	      }
-	      return "T";
-	   }
+		if (team.getResult().equals("DRAW")) {
+			for (Player p : team.getPlayers()) {
+
+				po.setUserId(p.getUserId());
+				po.setPoint(p.getPoint());
+				po.setReceiverId(team.getBetId());
+				po.setType("내기무승부");
+				registPoint(po);
+			}
+		}
+		return "T";
+	}
 
 	@Override
 	public String registUserPoint(String userId) {
@@ -155,10 +155,10 @@ public class PointServiceLogic implements PointService {
 	public String betJoinPoint(String userId, String betId, int point) {
 		Point pp = new Point();
 
-//		Point p = pointStore.searchByUserIdBetId(userId, betId);
-//		if (p != null) {
-//			pointStore.deleteByPointId(p.getPointId());
-//		}
+		// Point p = pointStore.searchByUserIdBetId(userId, betId);
+		// if (p != null) {
+		// pointStore.deleteByPointId(p.getPointId());
+		// }
 		pp.setReceiverId(betId);
 		pp.setType("내기참여");
 		pp.setUserId(userId);
@@ -176,10 +176,10 @@ public class PointServiceLogic implements PointService {
 	public String betExitPoint(String userId, String betId) {
 		User user = userStore.searchByUserId(userId);
 		Point point = pointStore.searchByUserIdBetId(userId, betId);
-		if(point!=null) {
-		user.setPoint(user.getPoint()+point.getPoint());
-		userStore.update(user);
-		pointStore.deleteByPointId(point.getPointId());
+		if (point != null) {
+			user.setPoint(user.getPoint() + point.getPoint());
+			userStore.update(user);
+			pointStore.deleteByPointId(point.getPointId());
 		}
 		return null;
 	}

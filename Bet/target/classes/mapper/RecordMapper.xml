@@ -17,12 +17,11 @@
 	<insert id="create" parameterType="Record">
 		INSERT INTO record_tb(userId,
 		win, lose, draw)
-		VALUES(#{userId}, #{win}, #{lose}, #{draw})
+		VALUES(#{userId}, 0, 0, 0)
 	</insert>
 
 	<select id="search" parameterType="String" resultType="Record">
-		SELECT
-		userId, win, lose, draw, (win+lose+draw) AS total, ROUND (win/(win+lose+draw)*100,1) as rate
+		SELECT userId, win, lose, draw, (win+lose+draw) AS total, ROUND (NVL(win/DECODE((win+lose+draw),0,null,(win+lose+draw))*100,0)) as rate
 		FROM record_tb WHERE userId = #{userId}
 	</select>
 

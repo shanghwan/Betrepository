@@ -71,16 +71,15 @@ public class GameServiceLogic implements GameService {
 		}
 		// 내기에 참여중인 나를 삭제
 		playerService.removePlayerByBetIdAndUserId(betId, userId);
-
+	
 		// 나를 내기에 새로 참여 등록
-
 		player.setBetId(betId);
 		player.setTeamId(team.getTeamId());
 		player.setPoint(point);
 		player.setUserId(userId);
 		player.setPosition("leader");
 		player.setVote("N");
-
+		
 		if (bet.getPointCheck().equals("LOCK")) {
 			player.setPoint(bet.getPoint());
 		} else if (bet.getPointCheck().equals("ALLIN")) {
@@ -93,10 +92,9 @@ public class GameServiceLogic implements GameService {
 	@Override
 	public String joinBetOfTeam(String userId, String teamName, String betId, int point) {
 		Team team = teamService.findByTeamName(betId, teamName);
-		
-	
+
 		// 내기에 참여중인 나를 삭제
-//		playerService.removePlayerByBetIdAndUserId(betId, userId);
+		// playerService.removePlayerByBetIdAndUserId(betId, userId);
 		teamService.removePlayerByTeam(userId, betId, team.getTeamId());
 
 		Player player = new Player();
@@ -105,6 +103,7 @@ public class GameServiceLogic implements GameService {
 
 		team = teamService.findByTeamName(betId, teamName);
 		// 나를 내기에 새로 참여 등록
+		
 		player.setBetId(betId);
 		player.setTeamId(team.getTeamId());
 		player.setPoint(point);
@@ -185,52 +184,54 @@ public class GameServiceLogic implements GameService {
 
 	@Override
 	public String gameEnd(String betId, String vote) {
-		
+		// int totalPoint = 0;
+
 		Bet bet = betService.findByBetId(betId);
 
 		bet.setState("종료");
-		if (bet.getPhotoA() == null) {
-			bet.setPhotoA("null");
-		}
-		if (bet.getPhotoB() == null) {
-			bet.setPhotoB("null");
-		}
+		// if (bet.getPhotoA() == null) {
+		// bet.setPhotoA("null");
+		// }
+		// if (bet.getPhotoB() == null) {
+		// bet.setPhotoB("null");
+		// }
 
 		betService.modify(bet);
-		
-		
+
 		if (vote.equals("A")) {
 			Team teamW = teamService.findByTeamName(betId, vote);
-			
+
 			teamW.setResult("WIN");
 			teamStore.update(teamW);
 			String teamName = "B";
 			Team teamL = teamService.findByTeamName(betId, teamName);
 			teamL.setResult("LOSE");
 			teamStore.update(teamL);
-			
+
+			// totalPoint = teamW.getTotalPoint()+teamL.getTotalPoint();
+
 			// 포인트 처리 서비스 호출 2개 teamW,teamL
 			pointService.betResultPoint(teamW.getTeamId(), teamL.getTotalPoint());
 			pointService.betResultPoint(teamL.getTeamId(), teamL.getTotalPoint());
+
 			// 전적 기록
-			
 			List<Player> winner = playerStore.searchByTeamId(teamW.getTeamId(), betId);
-	         for (Player p : winner) {
-	            Record r = recordStore.search(p.getUserId());
-	            r.setWin(r.getWin() + 1);
-	            recordStore.update(r);
+			for (Player p : winner) {
+				Record r = recordStore.search(p.getUserId());
+				r.setWin(r.getWin() + 1);
+				recordStore.update(r);
 
-	         }
+			}
 
-	         List<Player> loser = playerStore.searchByTeamId(teamL.getTeamId(), betId);
-	         for (Player p : loser) {
-	            Record r = recordStore.search(p.getUserId());
-	            r.setLose(r.getLose() + 1);
-	            recordStore.update(r);
+			List<Player> loser = playerStore.searchByTeamId(teamL.getTeamId(), betId);
+			for (Player p : loser) {
+				Record r = recordStore.search(p.getUserId());
+				r.setLose(r.getLose() + 1);
+				recordStore.update(r);
 
-	         }
-
+			}
 		}
+
 		if (vote.equals("B")) {
 			Team teamW = teamService.findByTeamName(betId, vote);
 			teamW.setResult("WIN");
@@ -240,28 +241,26 @@ public class GameServiceLogic implements GameService {
 			teamL.setResult("LOSE");
 			teamStore.update(teamL);
 
-			
 			// 포인트 처리 서비스 호출 2개 teamW,teamL
 			pointService.betResultPoint(teamW.getTeamId(), teamL.getTotalPoint());
 			pointService.betResultPoint(teamL.getTeamId(), teamL.getTotalPoint());
+
 			// 전적 기록
-			
 			List<Player> winner = playerStore.searchByTeamId(teamW.getTeamId(), betId);
-	         for (Player p : winner) {
-	            Record r = recordStore.search(p.getUserId());
-	            r.setWin(r.getWin() + 1);
-	            recordStore.update(r);
+			for (Player p : winner) {
+				Record r = recordStore.search(p.getUserId());
+				r.setWin(r.getWin() + 1);
+				recordStore.update(r);
 
-	         }
+			}
 
-	         List<Player> loser = playerStore.searchByTeamId(teamL.getTeamId(), betId);
-	         for (Player p : loser) {
-	            Record r = recordStore.search(p.getUserId());
-	            r.setLose(r.getLose() + 1);
-	            recordStore.update(r);
+			List<Player> loser = playerStore.searchByTeamId(teamL.getTeamId(), betId);
+			for (Player p : loser) {
+				Record r = recordStore.search(p.getUserId());
+				r.setLose(r.getLose() + 1);
+				recordStore.update(r);
 
-	         }
-
+			}
 		}
 		return betId;
 	}
@@ -277,22 +276,21 @@ public class GameServiceLogic implements GameService {
 		}
 
 		betService.modify(bet);
-		
+
 		List<Team> teams = teamService.findTeamByBetId(bet.getBetId());
-		for(Team t : teams) {
+
+		for (Team t : teams) {
 			t.setResult("DRAW");
 			teamStore.update(t);
-			//포인트 처리 서비스 호출
-			pointService.betResultPoint(t.getTeamId(), t.getTotalPoint());
-			//전적 기록
+			// 포인트 처리 서비스 호출
+			// 전적 기록
 			List<Player> players = playerStore.searchByTeamId(t.getTeamId(), bet.getBetId());
-	         for (Player p : players) {
-	            Record r = recordStore.search(p.getUserId());
-	            r.setDraw(r.getDraw() + 1);
-	            recordStore.update(r);
-	         }
+			for (Player p : players) {
+				Record r = recordStore.search(p.getUserId());
+				r.setDraw(r.getDraw() + 1);
+				recordStore.update(r);
+			}
 		}
-
 		return bet.getBetId();
 	}
 
