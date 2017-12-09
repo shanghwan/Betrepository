@@ -5,14 +5,14 @@
 
 <mapper namespace="store.mapper.BetMapper">
 
-	<resultMap type="Bet" id="BetMap">
+		<resultMap type="Bet" id="BetMap">
 		<result property="betId" column="betId" />
 		<result property="title" column="title" />
 		<result property="state" column="state" />
 		<result property="betWay" column="betWay" />
 		<result property="content" column="content" />
-		<result property="photoA" column="photeA" />
-		<result property="photoB" column="photeB" />
+		<result property="photoA" column="photoA" />
+		<result property="photoB" column="photoB" />
 		<result property="point" column="point" />
 		<result property="endDate" column="endDate" />
 		<result property="pointCheck" column="pointCheck" />
@@ -38,9 +38,12 @@
 				#{betOwner})
 	</insert>
 
+
+
 	<select id="searchByBetId" parameterType="String" resultType="Bet"
 		resultMap="BetMap">
-		select betId, state, title, content, photoA , photoB , betWay , endDate , pointCheck , point, betOwner
+		select betId, state, title, content, photoA , betWay, photoB,
+		 endDate , pointCheck , point, betOwner
 		FROM bet_tb WHERE betId = #{betId}
 	</select>
 	
@@ -70,12 +73,28 @@
 				UPDATE bet_tb
 				set title = #{title},
 				content = #{content},
-				photoA = #{photoA},
-				photoB = #{photoB},
 				point = #{point},
 				state = #{state},
+				
+				<if test="photoA!=null">
+				photoA = #{photoA},
+				</if>
+				<if test="photoB!=null">
+				photoB = #{photoB},
+				</if>
 				pointCheck = #{pointCheck}
 				WHERE betId = #{betId}
 		
 	</update>
+	
+	 <select id="searchByUserId" parameterType="String" resultType="Bet" resultMap="BetMap">
+      select betId, state, title, content, betWay , pointCheck , betOwner
+      FROM bet_tb WHERE betOwner = #{betOwner}
+   </select>
+   
+   <delete id="delete" parameterType="String">
+   DELETE from bet_tb where betId = #{betId}
+   </delete>
+   
+   
 </mapper>

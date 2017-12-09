@@ -19,7 +19,7 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="main.jsp"><h1>내기의 神</h1></a>
+					<a href="main.do"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 				<%@ include file="menu.jsp"%>
@@ -57,8 +57,8 @@
 					<div class="post">
 						<div class="post-head">
 							<h1>
-								<a href="Betlist.do?betWay=all" title="Welcome to Dkntemplates">Welcome
-									to BetOfAll</a>
+								<a href="Betlist.do?betWay=all" title="Welcome to Dkntemplates">Welcome to
+									BetOfAll</a>
 							</h1>
 						</div>
 						<div class="post-content clearfix">
@@ -105,8 +105,7 @@
 					<div class="post">
 						<div class="post-head">
 							<h1>
-								<a href="Betlist.do?betWay=one" title="Another Post Title">Welcome
-									to BetOfOne</a>
+								<a href="Betlist.do?betWay=one" title="Another Post Title">Welcome to BetOfOne</a>
 							</h1>
 						</div>
 						<div class="post-content clearfix">
@@ -153,8 +152,7 @@
 					<div class="post">
 						<div class="post-head">
 							<h1>
-								<a href="Betlist.do?betWay=team" title="Another Post Title">Welcome
-									to BetOfTeam</a>
+								<a href="Betlist.do?betWay=team" title="Another Post Title">Welcome to BetOfTeam</a>
 							</h1>
 						</div>
 						<div class="post-content clearfix">
@@ -201,6 +199,7 @@
 				</div>
 				<!-- // end #content -->
 				<%@ include file="usermenu.jsp"%>
+				<%@ include file="userRecord.jsp"%>
 			</div>
 			<div id="footer">
 				<p>

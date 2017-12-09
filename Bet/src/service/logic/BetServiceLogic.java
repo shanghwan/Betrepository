@@ -1,6 +1,7 @@
 package service.logic;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -37,35 +38,34 @@ public class BetServiceLogic implements BetService {
 	private InviteStore inviteStore;
 	@Autowired
 	private GameService gameService;
+	
 
 	@Override
 	public String registBet(Bet bet) {
 		User user = userStore.searchByUserId(bet.getBetOwner());
-		
 		bet.setState("대기");
-		
+
 		if (bet.getBetWay().equals("All")) {
-			bet.setState("진행");
 			bet.setPointCheck("LOCK");
 			bet.setPoint(10);
 		}
 		if (bet.getPointCheck().equals("ALLIN")) {
 			bet.setPoint(user.getPoint());
 		}
-		
+
 		// point 처리해야함
-		
+
 		String betId = betStore.create(bet);
 
 		Team team = new Team();
-		
+
 		team.setBetId(betId);
 		team.setTeamName("A");
 		teamService.registTeam(team);
 
 		team.setTeamName("B");
 		teamService.registTeam(team);
-		
+
 		return betId;
 	}
 
@@ -132,6 +132,12 @@ public class BetServiceLogic implements BetService {
 		inviteStore.deletebyBetId(betId);
 		betStore.delete(betId);
 		teamService.removeTeam(betId);
+		playerStore.deleteByBetId(betId);
+	}
+
+	@Override
+	public List<Bet> findByUserId(String betOwner) {
+		 return betStore.searchByUserId(betOwner);
 	}
 
 }

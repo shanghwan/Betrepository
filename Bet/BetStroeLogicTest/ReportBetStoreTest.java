@@ -30,7 +30,7 @@ public class ReportBetStoreTest {
 		re.setUserId("koo");
 		re.setTarget("2");
 		re.setReason("멍청이");
-		re.setreportbetdate(date);
+		re.setreportdate(date);
 		
 		store.create(re);
 		

@@ -33,7 +33,7 @@ public class BetStateServiceLogic implements BetStateService{
 	}
 
 	@Override
-	public List<BetState> findBetState(String userId, String state) {
+	public List<BetState> findBetState(String userId) {
 		
 		List<Player> playerlist = playerStore.searchByUserId(userId);
 		
@@ -44,16 +44,14 @@ public class BetStateServiceLogic implements BetStateService{
 				String betId = list.getBetId();
 				Bet bet = betStore.searchByBetId(betId);
 				
-				if(state.equals(bet.getState())) {
 				BetState betstate1 = new BetState();
 				betstate1.setBetId(betId);
 				betstate1.setBetOwner(bet.getBetOwner());
 				betstate1.setBetWay(bet.getBetWay());
 				betstate1.setUserId(userId);
-				betstate1.setState(state);
+				betstate1.setState(bet.getState());
 				betstate1.setTitle(bet.getTitle());
 				betstatelist.add(betstate1);
-				}
 			}
 			return betstatelist;
 	}

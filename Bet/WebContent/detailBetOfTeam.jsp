@@ -11,10 +11,6 @@
 <link href="resources/css/style6.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/style8.css" rel="stylesheet" type="text/css" />
 
-
-
-
-
 <link href="resources/css2/bootstrap_modify.css" rel="stylesheet"
 	type="text/css" />
 <link href="resources/css2/bootstrap.css" rel="stylesheet"
@@ -42,6 +38,10 @@
 		window.open("BetReport.do?target=${bet.betId}&userId=${userId}", "a",
 				"width=500, height=300, left=100, top=50");
 	}
+	function showPopup2() {
+		window.open("UserReport.do?target=${bet.betOwner}&userId=${userId}",
+				"a", "width=500, height=300, left=100, top=50");
+	}
 </script>
 </head>
 
@@ -50,7 +50,7 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="main.jsp"><h1>내기의 神</h1></a>
+					<a href="main.do"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 				<%@ include file="menu.jsp"%>
@@ -60,9 +60,10 @@
 				<h1 class="page-title">[${bet.betId }]&nbsp;${bet.title }</h1>
 			</div>
 			<!-- // end #banner -->
-			<c:if test="${bet.state eq '대기' and bet.betOwner eq userId}">
+			<c:if
+				test="${bet.state eq '대기' and bet.betOwner eq userId or userId eq 'admin'}">
 				<a
-					href="${ctx }/article/recommend.do?articleId=${article.articleId}"
+					href="deleteBetAllReport.do?target=${bet.betId }&userId=${userId}"
 					class="glyphicon glyphicon-trash pull-right" style="padding: 10px">삭제</a>
 			</c:if>
 			<a class="glyphicon glyphicon-cog pull-right" style="padding: 10px"
@@ -72,16 +73,15 @@
 					<button type="submit" class="btn btn btn-warning"
 						onclick="showPopup();">초대하기</button>
 				</c:if>
-				<form action="gameJoin.do" method="post">
+				<form action="gameJoin.do" method="post" name="sub1">
 					<input type="hidden" name="betId" value="${bet.betId }"> <input
-						type="text" name="pointBet" placeholder="포인트 입력 " size="12"></input>
-
-					<input type="radio" name="teamName" value="A">Team A <input
-						type="radio" name="teamName" value="B">Team B
-					<button type="submit" class="btn btn btn-warning">참여하기</button>
+						type="text" name="pointBet" placeholder="포인트 입력 " size="12"
+						id="pointBet"></input> <input type="radio" name="teamName"
+						value="A" id="teamName">Team A <input type="radio"
+						name="teamName" value="B">Team B
+					<button type="button" class="btn btn btn-warning btn3">참여하기</button>
 				</form>
 			</c:if>
-
 
 			<div align="center">
 				<c:if test="${bet.state eq '대기' }">
@@ -126,24 +126,42 @@
 
 			<div id="main" class="clearfix">
 				<div id="page">
-
 					<h3 class="page-title" align="center">${bet.content }</h3>
 					<br>
+
+					<c:if test="${bet.state eq '대기' }">
+						<c:if test="${userId eq bet.betOwner or userId eq teamA.leader.userId}">
+							<form action="ImageA.do" method="POST"
+							enctype="multipart/form-data">
+							<input type="hidden" name="betId" value="${bet.betId }">
+							<input type="file" name="photoA">
+							<button type="submit" value="올리기">A팀 사진올리기</button>
+							</form>
+						</c:if>		
+						<c:if test="${userId eq bet.betOwner or userId eq teamB.leader.userId}">
+							<form action="ImageB.do" method="POST"
+							enctype="multipart/form-data">
+								<input type="hidden" name="betId" value="${bet.betId }">
+								<input type="file" name="photoB">
+								<button type="submit" value="올리기">B팀 사진올리기</button>
+							</form>
+						</c:if>
+					</c:if>
 
 					<form action="betVote.do" method="post">
 						<input type="hidden" name="betId" value="${bet.betId }">
 						<table>
 							<tr>
-								<td><img src="resources/images/betofall.jpg"
-									alt="Banner Image 1" /><br> <br> <c:if
+								<td><img class="imgs" src="/images/${bet.photoA }"
+									alt="이미지를 올려주세요" /> <br> <br> <c:if
 										test="${bet.state eq '진행'}">
 										<c:if
 											test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
 											<input type="radio" name="vote" value="A">Team A</c:if>
 									</c:if></td>
 								<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>
-								<td><img src="resources/images/betofall.jpg"
-									alt="Banner Image 1" /><br> <br> <c:if
+								<td><img class="imgs" src="/images/${bet.photoB }"
+									alt="이미지를 올려주세요" /> <br> <br> <c:if
 										test="${bet.state eq '진행'}">
 										<c:if
 											test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
@@ -178,7 +196,8 @@
 					${teamB.leader.userId } <br> TEAM A :
 					<c:forEach var="a" items="${teamA.players }">
 						
-						&nbsp;${a.userId }&nbsp;(${a.point }&nbsp;Point) <c:if
+						&nbsp;${a.userId }&nbsp;(${a.point }&nbsp;Point) 
+						<c:if
 							test="${userId eq bet.betOwner and bet.state eq '대기' or userId eq teamA.leader.userId and bet.state eq '대기'}">
 							<a
 								href="deleteplayerByTeam.do?betId=${bet.betId }&userId=${a.userId }&teamId=${teamA.teamId}">[X]</a>
@@ -196,24 +215,22 @@
 						
 						</c:forEach>
 
-
 					<c:forEach var="clist" items="${bet.comments }">
 						<table class="table" style="font-size: 13px; padding: 20px;">
 							<tr>
 								<td>${clist.commentId }</td>
 								<td>${clist.userId }</td>
-								<td class="text-right">${clist.regDate }<a
-									class="glyphicon glyphicon-trash"
+								<td class="text-right">${clist.regDate }
+								<a class="glyphicon glyphicon-trash"
 									href="removeComment.do?betId=${bet.betId}&commentId=${clist.commentId}"></a>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<p class="txt">${clist.content }</p> <%-- 	<p style="padding: 20px">${comment.contents } --%>
+									<p class="txt">${clist.content }</p> 
 									<c:if test="${clist.photo ne null }">
 										<img src="${clist.photo }">
-									</c:if> <!-- </p> -->
-
+									</c:if>
 								</td>
 							</tr>
 						</table>
@@ -223,35 +240,51 @@
 						<div class="write_area">
 							<form action="registComment.do" method="POST">
 								<input type="hidden" name="betId" value="${bet.betId }">
-								<textarea class="input_write_comment" name="content"
-									placeholder="댓글쓰기"></textarea>
+								<textarea class="input_write_comment" name="content" placeholder="댓글쓰기"></textarea>
 								<br> <br> <br>
 								<div class="form-group">
-									<label class="col-lg-2 control-label">이미지</label>
 									<div class="col-lg-10">
 										<input type="file" name="photo" class="form-control">
 									</div>
 								</div>
 								<input type="submit" class="comment_submit" value="작성">
-
 							</form>
 						</div>
 					</div>
-
-					<div id="footer">
-						<p>
-							&copy; copyright 2012 <a href="htp://www.dkntemplates.com"
-								title="Dkntemplates">www.dkntemplates.com</a> All right reserved
-						</p>
-
-						<!-- Please don't remove my backlink -->
-						<p>
-							Free Web Design Templates by <a
-								href="http://www.dkntemplates.com" title="Dkntemplates">Dkntemplates.com</a>
-						</p>
-						<!-- Please don't remove my backlink -->
-
-					</div>
-					<!-- // end #footer -->
+					<!-- // end #content -->
 				</div>
-				<!-- // end #container -->
+
+		
+				<script type="text/javascript">
+					$('.btn3')
+							.click(
+									function() {
+										if (document.getElementById("pointBet").value == "") {
+											alert("포인트를 입력해주세요");
+										} else if ($(":radio[name="
+												+ $(teamName).attr("name")
+												+ "]:checked").length == 0) {
+											alert("팀을 선택해주세요");
+										} else
+											document.sub1.submit();
+									})
+				</script>
+
+
+				<div id="footer">
+					<p>
+						&copy; copyright 2012 <a href="htp://www.dkntemplates.com"
+							title="Dkntemplates">www.dkntemplates.com</a> All right reserved
+					</p>
+
+					<!-- Please don't remove my backlink -->
+					<p>
+						Free Web Design Templates by <a href="http://www.dkntemplates.com"
+							title="Dkntemplates">Dkntemplates.com</a>
+					</p>
+					<!-- Please don't remove my backlink -->
+
+				</div>
+				<!-- // end #footer -->
+			</div>
+			<!-- // end #container -->

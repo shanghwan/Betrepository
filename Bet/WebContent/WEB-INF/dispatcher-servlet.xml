@@ -8,7 +8,7 @@
 
 	<mvc:annotation-driven />
 	<mvc:resources location="/resources/" mapping="/resources/**" />
-	<mvc:resources location="/img/" mapping="/img/*/" />
+	<mvc:resources location="/images/" mapping="/images/*/" />
 	<context:component-scan base-package="controller" />
 	<context:component-scan base-package="service.logic" />
 	<context:component-scan base-package="store.logic" />
@@ -16,11 +16,15 @@
 
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="5000000" />
+		<property name="maxUploadSize" value="500000" />
 	</bean>
 
-	<!-- <bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource"> 
-		<constructor-arg> <value>c:/tempFiles/</value> </constructor-arg> </bean> -->
-<!-- 	<alias name="spring.RegularCommonsMultipartResolver" alias="multipartResolver" /> -->
+	<bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource">
+		<constructor-arg>
+			<value>c:/tempFiles/</value>
+		</constructor-arg>
+	</bean>
+	<!-- <alias name="spring.RegularCommonsMultipartResolver" alias="multipartResolver" 
+		/> -->
 
 </beans>

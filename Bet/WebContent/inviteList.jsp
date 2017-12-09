@@ -20,7 +20,7 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="main.jsp"><h1>내기의 神</h1></a>
+					<a href="main.do"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 				<%@ include file="menu.jsp"%>
@@ -44,6 +44,7 @@
 									<li><a href="pointList.do">포인트내역</a></li>
 									<li><a href="userDeletepassword.jsp">회원탈퇴</a></li>
 									<li class="active"><a href="inviteList.do">초대목록</a></li>
+									<li><a href="friendList.do">친구목록</a></li>
 								</ul>
 							</div>
 						</div>

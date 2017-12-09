@@ -49,7 +49,7 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="main.jsp"><h1>내기의 神</h1></a>
+					<a href="main.do"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 				<%@ include file="menu.jsp"%>
@@ -59,13 +59,33 @@
 				<h1 class="page-title">[${bet.betId }]&nbsp;${bet.title }</h1>
 			</div>
 			<!-- // end #banner -->
-			<c:if test="${bet.state eq '대기' and bet.betOwner eq userId}">
+			<c:if test="${bet.betOwner eq userId or userId eq 'admin'}">
 				<a
-					href="${ctx }/article/recommend.do?articleId=${article.articleId}"
+					href="deleteBetAllReport.do?target=${bet.betId }&userId=${userId}"
 					class="glyphicon glyphicon-trash pull-right" style="padding: 10px">삭제</a>
 			</c:if>
 			<a class="glyphicon glyphicon-cog pull-right" style="padding: 10px"
 				onclick="showPopup1();">신고</a> <br>
+				
+			<div align="center">
+				<c:if test="${bet.state eq '대기' }">
+					<c:if test="${userId eq bet.betOwner }">
+						<form action="gameReady.do" method="post">
+							<input type="hidden" name="betId" value="${bet.betId }">
+							<input type="hidden" name="teamId" value="${teamA.teamId }">
+							<c:choose>
+								<c:when test="${teamA.start eq 'N' }">
+									<input type="submit" class="btn btn btn-warning" value="Game Start">
+								</c:when>
+								<c:when test="${teamA.start eq 'Y' }">
+									<input type="submit" class="btn btn btn-warning" value="준비해제">
+								</c:when>
+							</c:choose>
+						</form>
+					</c:if>
+				</c:if>
+			</div>	
+				
 			<div align="right">
 				<br> 종료날짜 : ${bet.endDate} <br> 상태 : ${bet.state} <br>
 				내기장 아이디 : ${bet.betOwner } <br> 내기 방식 : BetOf${bet.betWay } <br>
@@ -77,20 +97,39 @@
 			<div id="main" class="clearfix">
 				<div id="page">
 					<h3 class="page-title" align="center">${bet.content }</h3>
-					<br>
+				<br>
+										
+					<c:if test="${bet.state eq '대기' }">
+						<c:if test="${userId eq bet.betOwner or userId eq teamA.leader.userId}">
+							<form action="ImageA.do" method="POST"
+							enctype="multipart/form-data">
+								<input type="hidden" name="betId" value="${bet.betId }">
+								<input type="file" name="photoA">
+								<button type="submit" value="올리기">A팀 사진올리기</button>
+							</form>
+						</c:if>	
+						
+						<c:if test="${userId eq bet.betOwner or userId eq teamB.leader.userId}">
+							<form action="ImageB.do" method="POST"
+							enctype="multipart/form-data">
+								<input type="hidden" name="betId" value="${bet.betId }">
+								<input type="file" name="photoB">
+								<button type="submit" value="올리기">B팀 사진올리기</button>
+						</form>
+						</c:if>	
+					</c:if>				
+										
+										
 					<c:if test="${bet.state eq '진행' }">
 						<form action="gameJoin.do" method="post">
 							<input type="hidden" name="betId" value="${bet.betId }">
 							<input type="hidden" name="pointBet" value="${bet.point }">
 							<table>
 								<tr>
-									<td><img src="resources/images/betofall.jpg"
-										alt="Banner Image 1" /><br> <br> <input
-										type="radio" name="teamName" value="A">A<br>
-									<td><img src="resources/images/vs.png"
-										alt="Banner Image 1" /></td>
-									<td><img src="resources/images/betofall.jpg"
-										alt="Banner Image 1" /><br> <br> <input
+									<td><td><img class="imgs" src="/images/${bet.photoA }" alt="이미지를 올려주세요" /> <br><br> 
+										<input type="radio" name="teamName" value="A">A<br>
+									<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>
+									<td><img class="imgs" src="/images/${bet.photoB }" alt="이미지를 올려주세요" /> <br><br> <input
 										type="radio" name="teamName" value="B">B<br></td>
 								</tr>
 							</table>
@@ -137,10 +176,10 @@
 							</tr>
 							<tr>
 								<td>
-									<p class="txt">${clist.content }</p> <%-- 	<p style="padding: 20px">${comment.contents } --%>
-									<c:if test="${clist.photo ne null }">
+									<p class="txt">${clist.content }</p> <c:if
+										test="${clist.photo ne null }">
 										<img src="${clist.photo }">
-									</c:if> <!-- </p> -->
+									</c:if>
 
 								</td>
 							</tr>
@@ -155,32 +194,31 @@
 									placeholder="댓글쓰기"></textarea>
 								<br> <br> <br>
 								<div class="form-group">
-									<label class="col-lg-2 control-label">이미지</label>
 									<div class="col-lg-10">
 										<input type="file" name="photo" class="form-control">
 									</div>
 								</div>
 								<input type="submit" class="comment_submit" value="작성">
-
 							</form>
 						</div>
 					</div>
-
-
-					<div id="footer">
-						<p>
-							&copy; copyright 2012 <a href="htp://www.dkntemplates.com"
-								title="Dkntemplates">www.dkntemplates.com</a> All right reserved
-						</p>
-
-						<!-- Please don't remove my backlink -->
-						<p>
-							Free Web Design Templates by <a
-								href="http://www.dkntemplates.com" title="Dkntemplates">Dkntemplates.com</a>
-						</p>
-						<!-- Please don't remove my backlink -->
-
-					</div>
-					<!-- // end #footer -->
+					<!-- // end #content -->
 				</div>
-				<!-- // end #container -->
+
+				<div id="footer">
+					<p>
+						&copy; copyright 2012 <a href="htp://www.dkntemplates.com"
+							title="Dkntemplates">www.dkntemplates.com</a> All right reserved
+					</p>
+
+					<!-- Please don't remove my backlink -->
+					<p>
+						Free Web Design Templates by <a href="http://www.dkntemplates.com"
+							title="Dkntemplates">Dkntemplates.com</a>
+					</p>
+					<!-- Please don't remove my backlink -->
+
+				</div>
+				<!-- // end #footer -->
+			</div>
+			<!-- // end #container -->

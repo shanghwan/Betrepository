@@ -59,7 +59,7 @@
 			<!-- // end #banner -->
 			<c:if test="${bet.state eq '대기' and bet.betOwner eq userId}">
 				<a
-					href="${ctx }/article/recommend.do?articleId=${article.articleId}"
+					href="deleteBetAllReport.do?target=${bet.betId }&userId=${userId}"
 					class="glyphicon glyphicon-trash pull-right" style="padding: 10px">삭제</a>
 			</c:if>
 			<a class="glyphicon glyphicon-cog pull-right" style="padding: 10px"
@@ -127,20 +127,25 @@
 					<h3 class="page-title" align="center">${bet.content }</h3>
 					<br>
 
-					<c:if test="${bet.state eq '대기' }">
-						<form action="ImageA.do" method="POST" enctype="multipart/form-data">
+				<c:if test="${bet.state eq '대기' }">
+					<c:if test="${userId eq bet.betOwner or userId eq teamA.leader.userId}">
+						<form action="ImageA.do" method="POST"
+							enctype="multipart/form-data">
 							<input type="hidden" name="betId" value="${bet.betId }">
 							<input type="file" name="photoA">
-							<button type="submit" value="올리기">올리기</button>
+							<button type="submit" value="올리기">A팀 사진올리기</button>
 						</form>
-						<%--  <form action="BetDetail.do" method="POST" enctype="multipart/form-data">
+					</c:if>								  
+				
+				<c:if test="${userId eq bet.betOwner or userId eq teamB.leader.userId}">
+						<form action="ImageB.do" method="POST"
+							enctype="multipart/form-data">
 							<input type="hidden" name="betId" value="${bet.betId }">
-							<input type="file" name="photoA">
 							<input type="file" name="photoB">
-							<button type="submit" value="올리기">올리기</button>
-						</form>  --%>
-
-					</c:if>
+							<button type="submit" value="올리기">B팀 사진올리기</button>
+						</form>					
+				</c:if>
+			</c:if>
 
 
 					<form action="betVote.do" method="post">
@@ -148,19 +153,15 @@
 						<table>
 							<tr>
 								<td><img class="imgs" src="/images/${bet.photoA }"
-									alt="이미지를 올려주세요" /> <!-- <img src="resources/images/betofall.jpg"
-									alt="Banner Image 1" /> --> <br> <br> <c:if
-										test="${bet.state eq '진행'}">
-										<c:if
-											test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
+									alt="이미지를 올려주세요" /> <br>
+								<br> <c:if test="${bet.state eq '진행'}">
+										<c:if test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
 											<input type="radio" name="vote" value="A">Team A</c:if>
 									</c:if></td>
-								<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>								
+								<td><img src="resources/images/vs.png" alt="Banner Image 1" /></td>
 								<td><img class="imgs" src="/images/${bet.photoB }"
-									alt="이미지를 올려주세요" />
-								<!-- <img src="resources/images/betofall.jpg"
-									alt="Banner Image 1" /> --><br> <br> <c:if
-										test="${bet.state eq '진행'}">
+									alt="이미지를 올려주세요" /> <br>
+								<br> <c:if test="${bet.state eq '진행'}">
 										<c:if
 											test="${userId eq teamB.leader.userId or userId eq teamA.leader.userId}">
 											<input type="radio" name="vote" value="B">Team B</c:if>
@@ -208,26 +209,25 @@
 							test="${userId eq bet.betOwner and bet.state eq '대기' or userId eq teamB.leader.userId and bet.state eq '대기'}">
 							<a
 								href="deleteplayerByTeamA.do?betId=${bet.betId }&userId=${p.userId }&betWay=${bet.betWay}">[X]</a>
-						</c:if>,
-						
+						</c:if>,						
 						</c:forEach>
 
-					<c:forEach var="clist" items="${bet.comments }">
+				<c:forEach var="clist" items="${bet.comments }">
 						<table class="table" style="font-size: 13px; padding: 20px;">
 							<tr>
 								<td>${clist.commentId }</td>
 								<td>${clist.userId }</td>
-								<td class="text-right">${clist.regDate }<a
-									class="glyphicon glyphicon-trash"
+								<td class="text-right">${clist.regDate }
+								<a class="glyphicon glyphicon-trash"
 									href="removeComment.do?betId=${bet.betId}&commentId=${clist.commentId}"></a>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<p class="txt">${clist.content }</p> <%-- 	<p style="padding: 20px">${comment.contents } --%>
+									<p class="txt">${clist.content }</p> 
 									<c:if test="${clist.photo ne null }">
 										<img src="${clist.photo }">
-									</c:if> <!-- </p> -->
+									</c:if> 
 
 								</td>
 							</tr>
@@ -238,11 +238,9 @@
 						<div class="write_area">
 							<form action="registComment.do" method="POST">
 								<input type="hidden" name="betId" value="${bet.betId }">
-								<textarea class="input_write_comment" name="content"
-									placeholder="댓글쓰기"></textarea>
+								<textarea class="input_write_comment" name="content" placeholder="댓글쓰기"></textarea>
 								<br> <br> <br>
 								<div class="form-group">
-									<label class="col-lg-2 control-label">이미지</label>
 									<div class="col-lg-10">
 										<input type="file" name="photo" class="form-control">
 									</div>

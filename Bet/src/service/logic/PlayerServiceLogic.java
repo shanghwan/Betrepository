@@ -7,17 +7,27 @@ import org.springframework.stereotype.Service;
 
 import domain.Player;
 import service.PlayerService;
+import service.PointService;
 import store.PlayerStore;
+import store.PointStore;
 
 @Service
 public class PlayerServiceLogic implements PlayerService{
 
 	@Autowired
 	private PlayerStore playerStore;
+	@Autowired
+	private PointService pointService;
+	@Autowired
+	private PointStore pointStore;
 	
 	@Override
 	public String registPlayer(Player player) {
-		return playerStore.create(player);
+		String result = playerStore.create(player);
+		if(result!=null) {
+			pointService.betJoinPoint(player.getUserId(), player.getBetId(), player.getPoint());
+		}
+		return result;
 	}
 
 	@Override
@@ -42,6 +52,8 @@ public class PlayerServiceLogic implements PlayerService{
 
 	@Override
 	public void removePlayerByBetIdAndUserId(String betId, String userId) {
+		
+		pointStore.deleteByReceiverId(betId, userId);
 		playerStore.deleteByBetIdAndUserId(userId, betId);
 	}
 

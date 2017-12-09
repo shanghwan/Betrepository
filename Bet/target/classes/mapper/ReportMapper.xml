@@ -8,10 +8,8 @@
 	<resultMap type="Report" id="ReportMap">
 		<result property="target" column="reportbetId" />
 		<result property="reason" column="reportContent" />
+		<result property="reportdate" column="reportBetDate"/>
 	</resultMap>
-	
-
-
 	<insert id="create" parameterType="Report">
 		<selectKey keyProperty="reportId" resultType="String" order="BEFORE">
 			SELECT reportbet_seq.nextval FROM dual

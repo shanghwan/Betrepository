@@ -13,7 +13,7 @@ import store.mapper.UserMapper;
 public class UserStoreLogic implements UserStore{
 
 	@Override
-	public void create(User user) {
+	public String create(User user) {
 		
 		SqlSession session = BetSessionFactory.getinstance().getSession();
 		
@@ -27,7 +27,7 @@ public class UserStoreLogic implements UserStore{
 		}finally {
 			session.close();
 		}
-		
+		return user.getUserId();
 	}
 
 	@Override
@@ -108,5 +108,6 @@ public class UserStoreLogic implements UserStore{
 		}
 		
 	}
+
 
 }

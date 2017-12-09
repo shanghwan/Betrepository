@@ -7,18 +7,19 @@
 	<properties resource="dataresource.properties" />
 	<typeAliases>
 		<typeAlias type="domain.User" alias="User" />
+		<typeAlias type="domain.Attendance" alias="Attendance" />
 		<typeAlias type="domain.Bet" alias="Bet" />
 		<typeAlias type="domain.Comment" alias="Comment" />
 		<typeAlias type="domain.Point" alias="Point" />
 		<typeAlias type="domain.Report" alias="Report" />
-		<typeAlias type="domain.Player" alias="Player" />
-		<typeAlias type="domain.Invite" alias="Invite" />
-		<typeAlias type="domain.Team" alias="Team" />
-		<typeAlias type="domain.BetState" alias="BetState" />
-		<typeAlias type="domain.Attendance" alias="Attendance" />
-
+		<typeAlias type="domain.Player" alias="Player"/>
+		<typeAlias type="domain.Invite" alias="Invite"/>
+		<typeAlias type="domain.Team" alias="Team"/>
+		<typeAlias type="domain.BetState" alias="BetState"/>
+		<typeAlias type="domain.Attendance" alias="Attendance"/>
+		<typeAlias type="domain.Record" alias="Record"/>
+		<typeAlias type="domain.Friend" alias="Friend"/>
 	</typeAliases>
-
 
 	<environments default="development">
 		<environment id="development">
@@ -33,6 +34,7 @@
 	</environments>
 
 	<mappers>
+	<mapper resource="mapper/FriendMapper.xml" />
 		<mapper resource="mapper/PlayerMapper.xml" />
 		<mapper resource="mapper/InviteMapper.xml" />
 		<mapper resource="mapper/UserMapper.xml" />
@@ -40,12 +42,10 @@
 		<mapper resource="mapper/CommentMapper.xml" />
 		<mapper resource="mapper/PointMapper.xml" />
 		<mapper resource="mapper/ReportMapper.xml" />
+		<mapper resource="mapper/ReportUserMapper.xml" />
 		<mapper resource="mapper/TeamMapper.xml" />
-		<mapper resource="mapper/BetStateMapper.xml" />
 		<mapper resource="mapper/AttendanceMapper.xml" />
+		<mapper resource="mapper/RecordMapper.xml" />
 	</mappers>
 
-
-
 </configuration>
-

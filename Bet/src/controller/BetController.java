@@ -23,7 +23,6 @@ import domain.BetState;
 import domain.Team;
 import service.BetService;
 import service.BetStateService;
-import service.CommentService;
 import service.InviteService;
 import service.TeamService;
 
@@ -66,7 +65,6 @@ public class BetController {
 		Team teamA = teamService.findByTeamName(betId, teamName);
 		teamName = "B";
 		Team teamB = teamService.findByTeamName(betId, teamName);
-
 		if (bet.getBetWay().equals("One")) {
 			ModelAndView modelAndView = new ModelAndView("detailBetOfOne.jsp");
 			modelAndView.addObject("bet", bet);
@@ -105,7 +103,7 @@ public class BetController {
 	public String showCreateBet(HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
 		if (userId == null) {
-
+			
 			return "redirect:index.jsp";
 		}
 		return "BetCreate.jsp";
@@ -125,136 +123,84 @@ public class BetController {
 		return "redirect:BetDetail.do?betId=" + betId;
 	}
 
-	@RequestMapping(value = "/ImageA.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView ImageA(String betId, MultipartHttpServletRequest file) throws IOException {
+	@RequestMapping(value = "/ImageA.do", method = RequestMethod.POST)
+	public String ImageA(String betId, MultipartHttpServletRequest file) throws IllegalStateException, IOException {
 
 		Bet bet = betService.findByBetId(betId);
-		List<String> list = inviteService.findByAllInviteByBetId(betId);
-		String teamName = "A";
-		Team teamA = teamService.findByTeamName(betId, teamName);
-		teamName = "B";
-		Team teamB = teamService.findByTeamName(betId, teamName);
 
 		String realFolder = "c:\\" + File.separator + "tempFiles";
 		File dir = new File(realFolder);
 		if (!dir.isDirectory()) {
 			dir.mkdirs();
 		}
-
-		MultipartFile photoA = file.getFile("photoA");
-
-		if (photoA == null && photoA.getOriginalFilename().equals("")) {
+		
+		// 썸네일 저장
+		MultipartFile thumbnail = file.getFile("photoA");
+		if (thumbnail == null && thumbnail.getOriginalFilename().equals("")) {
 
 		} else {
 			// 파일 중복명 처리
 			String genId = UUID.randomUUID().toString();
 			// 본래 파일명
-			String originalfileName = photoA.getOriginalFilename();
+			String originalfileName = thumbnail.getOriginalFilename();
 			// 저장되는 파일 이름
-			String saveFileName = genId + originalfileName;
+			String saveFileName = genId + "." + originalfileName;
 
 			File saveFile = new File(dir.getAbsolutePath() + File.separator + saveFileName);
 
-			byte[] bytes = photoA.getBytes();
+			byte[] bytes = thumbnail.getBytes();
 
 			BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(saveFile));
 			out.write(bytes);
 			out.close();
 
 			bet.setPhotoA(saveFileName);
-			bet.setPhotoB("null");
+//			bet.setPhotoB("null");
 			betService.modify(bet);
 		}
 
-		if (bet.getBetWay().equals("One")) {
-			ModelAndView modelAndView = new ModelAndView("detailBetOfOne.jsp");
-			modelAndView.addObject("bet", bet);
-			modelAndView.addObject("list", list);
-			modelAndView.addObject("teamA", teamA);
-			modelAndView.addObject("teamB", teamB);
-			return modelAndView;
-		} else if (bet.getBetWay().equals("Team")) {
-			ModelAndView modelAndView = new ModelAndView("detailBetOfTeam.jsp");
-			modelAndView.addObject("bet", bet);
-			modelAndView.addObject("list", list);
-			modelAndView.addObject("teamA", teamA);
-			modelAndView.addObject("teamB", teamB);
-			return modelAndView;
-		} else {
-			ModelAndView modelAndView = new ModelAndView("detailBetOfAll.jsp");
-			modelAndView.addObject("bet", bet);
-			modelAndView.addObject("list", list);
-			modelAndView.addObject("teamA", teamA);
-			modelAndView.addObject("teamB", teamB);
-			return modelAndView;
-		}
+		return "redirect:BetDetail.do?betId=" + betId;
 	}
-/*
-	@RequestMapping(value = "/ImageB.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView ImageB(String betId, MultipartHttpServletRequest file) throws IOException {
+
+	@RequestMapping(value = "/ImageB.do", method = RequestMethod.POST)
+	public String ImageB(String betId, MultipartHttpServletRequest file) throws IllegalStateException, IOException {
 
 		Bet bet = betService.findByBetId(betId);
-		List<String> list = inviteService.findByAllInviteByBetId(betId);
-		String teamName = "A";
-		Team teamA = teamService.findByTeamName(betId, teamName);
-		teamName = "B";
-		Team teamB = teamService.findByTeamName(betId, teamName);
 
 		String realFolder = "c:\\" + File.separator + "tempFiles";
 		File dir = new File(realFolder);
 		if (!dir.isDirectory()) {
 			dir.mkdirs();
 		}
-
-		MultipartFile photoB = file.getFile("photoB");
-
-		if (photoB == null && photoB.getOriginalFilename().equals("")) {
+		
+		// 썸네일 저장
+		MultipartFile thumbnail = file.getFile("photoB");
+		if (thumbnail == null && thumbnail.getOriginalFilename().equals("")) {
 
 		} else {
 			// 파일 중복명 처리
 			String genId = UUID.randomUUID().toString();
 			// 본래 파일명
-			String originalfileName = photoB.getOriginalFilename();
+			String originalfileName = thumbnail.getOriginalFilename();
 			// 저장되는 파일 이름
-			String saveFileName = genId + originalfileName;
+			String saveFileName = genId + "." + originalfileName;
 
 			File saveFile = new File(dir.getAbsolutePath() + File.separator + saveFileName);
 
-			byte[] bytes = photoB.getBytes();
+			byte[] bytes = thumbnail.getBytes();
 
 			BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(saveFile));
 			out.write(bytes);
 			out.close();
 
-			bet.setPhotoA("null");
 			bet.setPhotoB(saveFileName);
+//			bet.setPhotoB("null");
 			betService.modify(bet);
 		}
 
-		if (bet.getBetWay().equals("One")) {
-			ModelAndView modelAndView = new ModelAndView("detailBetOfOne.jsp");
-			modelAndView.addObject("bet", bet);
-			modelAndView.addObject("list", list);
-			modelAndView.addObject("teamA", teamA);
-			modelAndView.addObject("teamB", teamB);
-			return modelAndView;
-		} else if (bet.getBetWay().equals("Team")) {
-			ModelAndView modelAndView = new ModelAndView("detailBetOfTeam.jsp");
-			modelAndView.addObject("bet", bet);
-			modelAndView.addObject("list", list);
-			modelAndView.addObject("teamA", teamA);
-			modelAndView.addObject("teamB", teamB);
-			return modelAndView;
-		} else {
-			ModelAndView modelAndView = new ModelAndView("detailBetOfAll.jsp");
-			modelAndView.addObject("bet", bet);
-			modelAndView.addObject("list", list);
-			modelAndView.addObject("teamA", teamA);
-			modelAndView.addObject("teamB", teamB);
-			return modelAndView;
-		}
+		return "redirect:BetDetail.do?betId=" + betId;
 	}
-*/
+	
 	@RequestMapping(value = "/BetFail.do")
 	public String BetFail(String betId, Model model, HttpSession session) {
 
@@ -284,7 +230,7 @@ public class BetController {
 	@RequestMapping(value = "/betStateList.do")
 	public String betStateList(String userId, String state, Model model) {
 
-		List<BetState> list = betStateService.findBetState(userId, state);
+		List<BetState> list = betStateService.findBetState(userId);
 		model.addAttribute("list", list);
 
 		return "betstate.jsp";

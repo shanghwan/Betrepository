@@ -58,9 +58,11 @@ public class BetStoreLogic implements BetStore{
 		try {
 			BetMapper mapper = session.getMapper(BetMapper.class);
 			bet = mapper.searchByBetId(betId);
+			System.out.println("스토어B"+bet.getPhotoB());
 		}finally {
 			session.close();
 		}
+		System.out.println("스토어A"+bet.getPhotoA());
 		
 		return bet;
 	}
@@ -157,6 +159,21 @@ public class BetStoreLogic implements BetStore{
 			session.close();
 		}
 		
+	}
+
+	@Override
+	public List<Bet> searchByUserId(String betOwner) {
+		SqlSession session = BetSessionFactory.getinstance().getSession();
+		List<Bet> list = null;
+
+		try {
+			BetMapper mapper = session.getMapper(BetMapper.class);
+			list = mapper.searchByUserId(betOwner);
+
+		} finally {
+			session.close();
+		}
+		return list;
 	}
 
 

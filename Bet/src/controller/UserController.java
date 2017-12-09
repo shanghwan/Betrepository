@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import domain.Attendance;
 import domain.Bet;
+import domain.Friend;
 import domain.Invite;
+import domain.Record;
 import domain.Report;
 import domain.User;
 import service.AttendanceService;
 import service.BetService;
 import service.InviteService;
+import service.RecordService;
 import service.ReportService;
 import service.UserService;
 
@@ -37,13 +39,36 @@ public class UserController {
 	private InviteService inviteService;
 	@Autowired
 	private ReportService reportService;
+	@Autowired
+	private RecordService recordService;
 
 	@RequestMapping(value = "/Userregist.do", method = RequestMethod.POST)
 	public String join(User user) {
 
 		userService.regist(user);
+		
 
 		return "redirect:main.jsp";
+	}
+
+	@RequestMapping(value = "/main.do")
+	public String main(Model model, HttpSession session) {
+
+		String userId = (String) session.getAttribute("userId");
+
+		if (userId == null) {
+			return "redirect:index.jsp";
+		}
+
+		Record recordUser = recordService.findRecord(userId);
+
+		model.addAttribute("recordUser", recordUser);
+
+		User loginUser = userService.findByUserId(userId);
+		session.setAttribute("userId", loginUser.getUserId());
+		session.setAttribute("loginUser", loginUser);
+
+		return "main.jsp";
 	}
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
@@ -54,7 +79,7 @@ public class UserController {
 		if (loginUser != null && loginUser.getPassword().equals(password)) {
 			session.setAttribute("userId", loginUser.getUserId());
 			session.setAttribute("loginUser", loginUser);
-			return "redirect:main.jsp";
+			return "main.do";
 		} else {
 			session.invalidate();
 			return "redirect:signUp.jsp";
@@ -142,6 +167,13 @@ public class UserController {
 		return "inviteList.jsp";
 	}
 
+	@RequestMapping(value = "/adminpage.do")
+	public String adminpage(Model model) {
+		List<Report> list = reportService.findAllUserReport();
+		model.addAttribute("BetList", list);
+		return "adminpage.jsp";
+	}
+
 	@RequestMapping(value = "/adminpageBet.do")
 	public String adminpageBet(Model model) {
 
@@ -152,8 +184,19 @@ public class UserController {
 		return "adminpageBet.jsp";
 	}
 
+	@RequestMapping(value = "/pointReset.do")
+	public String pointReset(String userId, Model model) {
+
+		User user = userService.findByUserId(userId);
+		user.setPoint(0);
+		userService.modifyUser(user);
+		List<Report> list = reportService.findAllBetReport();
+		model.addAttribute("BetList", list);
+		return "adminpage.do";
+	}
+
 	@RequestMapping(value = "/registattendance.do", method = RequestMethod.POST)
-	public String registattendance(HttpSession session, String userId, Attendance attendance) {
+	public String registattendance(HttpSession session, String userId, Attendance attendance, Model model) {
 
 		User loginUser = userService.findByUserId(userId);
 
@@ -168,14 +211,25 @@ public class UserController {
 			for (Attendance a : list) {
 				if (sdf.format(d).toString().equals((a.getAttendanceDate().toString()))) {
 					break;
-				} else {
-					attendanceService.registAttendance(attendance);
 				}
+				attendanceService.registAttendance(attendance);
 			}
 		}
-
+		model.addAttribute("list", list);
 		session.setAttribute("loginUser", loginUser);
 		return "attendance.jsp";
 	}
+	
+	@RequestMapping(value = "/friendList.do")
+	   public String friendList(HttpSession session, Model model) {
+
+	      String userId = (String) session.getAttribute("userId");
+
+	      List<Friend> list = userService.findFriends(userId);
+	      
+	      model.addAttribute("list", list);
+	      
+	      return "friendList.jsp";
+	   }
 
 }

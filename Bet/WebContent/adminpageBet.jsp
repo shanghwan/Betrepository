@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="description" content="Project Description" />
 <meta name="keywords" content="Project Keywords" />
-<title>BetOfOne</title>
+<title>내기신고</title>
 <link href="resources/css/style5.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/style4.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
@@ -20,7 +20,7 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="main.jsp"><h1>내기의 神</h1></a>
+					<a href="main.do"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 						<ul id="nav">
@@ -44,7 +44,7 @@
 
 							<div class="post-summary" align="center">
 								<ul id="nav">
-									<li><a href="adminpage.jsp">회원신고</a></li>
+									<li><a href="adminpage.do">회원신고</a></li>
 									<li class="active"><a href="adminpageBet.do">내기신고</a></li>
 								</ul>
 							</div>
@@ -70,10 +70,10 @@
 									</thead>
 									<c:forEach var="list" items="${BetList }">
 										<tr>
-											<td align="center">${list.target }</td>
+											<td align="center"><a href="BetDetail.do?betId=${list.target}">${list.target }</a></td>
 											<td align="center">${list.userId }</td>
-											<td align="center"><a href="BetDetail.do?betId=${list.target}">${list.reason }</a></td>
-											<td align="center">${list.reportbetdate }</td>
+											<td align="center">${list.reason }</td>
+											<td align="center">${list.reportdate }</td>
 											<td align="center"><a href="deleteBetReport.do?reportId=${list.reportId }"><button type="button" class="btn btn btn-warning">X</button></a></td>
 										</tr>
 									</c:forEach>

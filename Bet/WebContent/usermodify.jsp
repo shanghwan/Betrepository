@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="description" content="Project Description" />
 <meta name="keywords" content="Project Keywords" />
-<title>내기의신</title>
+<title>내기</title>
 <link href="resources/css/style5.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/style4.css" rel="stylesheet" type="text/css" />
 <!--[if IE]><link href="resources/css/style-ie.css" rel="stylesheet" type="text/css" /><![endif]-->
@@ -17,85 +17,86 @@
 </head>
 
 <body>
-	<div id="wrapper">
-		<div id="container">
-			<div id="header" class="clearfix">
-				<div id="logo">
-					<a href="main.jsp"><h1>내기의 神</h1></a>
-					<p>what's up</p>
-				</div>
-				<%@ include file="menu.jsp"%>
-			</div>
-			<!-- // end #header -->
-			<div id="banner">
-				<h1 class="page-title">My Page</h1>
-			</div>
-			<!-- // end #banner -->
-			<div id="main" class="clearfix">
-				<div id="content">
-					<div class="post">
-						<div class="post-content clearfix">
-							<div class="post-thumb"></div>
+   <div id="wrapper">
+      <div id="container">
+         <div id="header" class="clearfix">
+            <div id="logo">
+               <a href="main.do"><h1>내기의 神</h1></a>
+               <p>what's up</p>
+            </div>
+            <%@ include file="menu.jsp"%>
+         </div>
+         <!-- // end #header -->
+         <div id="banner">
+            <h1 class="page-title">My Page</h1>
+         </div>
+         <!-- // end #banner -->
+         <div id="main" class="clearfix">
+            <div id="content">
+               <div class="post">
+                  <div class="post-content clearfix">
+                     <div class="post-thumb"></div>
 
 
-							<div class="post-summary" align="center">
-								<ul id="nav">
-									<li class="active"><a href="mypage.jsp">회원수정</a></li>
-									<li><a href="betStateList.do?userId=${userId }&state=대기">내기목록</a></li>
-									<li><a href="pointList.do">포인트내역</a></li>
-									<li><a href="userDeletepassword.jsp">회원탈퇴</a></li>
-									<li><a href="inviteList.do">초대목록</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="table-responsive">
-							<table class="table table-striped table-bordered table-hover">
-								<colgroup>
-									<col width="100" />
-									<col width="*" />
-									<col width="120" />
-									<col width="70" />
-									<col width="50" />
-								</colgroup>
-								<thead>
-								</thead>
-								<tbody>
-									<form action="usermodify.do" method="post">
-										<div>
-											<label>변경할 비밀번호 입력 : </label> <input type="password"
-												name="paw">&nbsp;&nbsp;
-											<button type="submit" class="btn btn btn-warning">확인</button>
-										</div>
-									</form>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<!-- // end #content -->
-				<div id="sidebar">
-					<div class="widget widget-search">
-						<%@ include file="usermenu.jsp"%>
-					</div>
-				</div>
+                     <div class="post-summary" align="center">
+                        <ul id="nav">
+                           <li class="active"><a href="mypage.jsp">회원수정</a></li>
+                           <li><a href="betStateList.do?userId=${userId }&state=대기">내기목록</a></li>
+                           <li><a href="pointList.do">포인트내역</a></li>
+                           <li><a href="userDeletepassword.jsp">회원탈퇴</a></li>
+                           <li><a href="inviteList.do">초대목록</a></li>
+                           <li><a href="friendList.do">친구목록</a></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="table-responsive">
+                     <table class="table table-striped table-bordered table-hover">
+                        <colgroup>
+                           <col width="100" />
+                           <col width="*" />
+                           <col width="120" />
+                           <col width="70" />
+                           <col width="50" />
+                        </colgroup>
+                        <thead>
+                        </thead>
+                        <tbody>
+                           <form action="usermodify.do" method="post">
+                              <div>
+                                 <label>변경할 비밀번호 입력 : </label> <input type="password"
+                                    name="paw">&nbsp;&nbsp;
+                                 <button type="submit" class="btn btn btn-warning">확인</button>
+                              </div>
+                           </form>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+            <!-- // end #content -->
+            <div id="sidebar">
+               <div class="widget widget-search">
+                  <%@ include file="usermenu.jsp"%>
+               </div>
+            </div>
 
-			</div>
-			<div id="footer">
-				<p>
-					&copy; copyright 2012 <a href="htp://www.dkntemplates.com"
-						title="Dkntemplates">www.dkntemplates.com</a> All right reserved
-				</p>
+         </div>
+         <div id="footer">
+            <p>
+               &copy; copyright 2012 <a href="htp://www.dkntemplates.com"
+                  title="Dkntemplates">www.dkntemplates.com</a> All right reserved
+            </p>
 
-				<!-- Please don't remove my backlink -->
-				<p>
-					Free Web Design Templates by <a href="http://www.dkntemplates.com"
-						title="Dkntemplates">Dkntemplates.com</a>
-				</p>
-				<!-- Please don't remove my backlink -->
+            <!-- Please don't remove my backlink -->
+            <p>
+               Free Web Design Templates by <a href="http://www.dkntemplates.com"
+                  title="Dkntemplates">Dkntemplates.com</a>
+            </p>
+            <!-- Please don't remove my backlink -->
 
-			</div>
-			<!-- // end #footer -->
-		</div>
-		<!-- // end #container -->
-	</div>
-	<!-- // end #wrapper -->
+         </div>
+         <!-- // end #footer -->
+      </div>
+      <!-- // end #container -->
+   </div>
+   <!-- // end #wrapper -->

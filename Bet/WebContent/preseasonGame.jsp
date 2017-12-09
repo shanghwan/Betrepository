@@ -13,6 +13,26 @@
 <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.cycle.all.js"></script>
 <script type="text/javascript" src="resources/js/site.js"></script>
+<SCRIPT>
+	function change(style) {
+
+		if (style == "selectBox01") {
+			view1.style.display = "inline"
+			view2.style.display = "none"
+			view3.style.display = "none"
+		}
+		if (style == "selectBox02") {
+			view1.style.display = "none"
+			view2.style.display = "inline"
+			view3.style.display = "none"
+		}
+		if (style == "selectBox03") {
+			view1.style.display = "none"
+			view2.style.display = "none"
+			view3.style.display = "inline"
+		}
+	}
+</SCRIPT>
 </head>
 
 <body>
@@ -20,7 +40,7 @@
 		<div id="container">
 			<div id="header" class="clearfix">
 				<div id="logo">
-					<a href="main.jsp"><h1>내기의 神</h1></a>
+					<a href="main.do"><h1>내기의 神</h1></a>
 					<p>what's up</p>
 				</div>
 				<%@ include file="menu.jsp"%>
