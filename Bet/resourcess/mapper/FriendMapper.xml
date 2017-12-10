@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="store.mapper.FriendMapper">
+
+	<insert id="create" parameterType="Hashmap">
+		<selectKey keyProperty="Id" resultType="String" order="BEFORE">
+			SELECT friend_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO friend_tb(Id,userId,friendId)
+		values(#{Id},#{userId}, #{friendId})
+	</insert>
+
+	<select id="search" resultType="Friend">
+		SELECT id, userId, friendId
+		FROM friend_tb
+		WHERE userId= #{userId}
+	</select>
+
+	<delete id="delete" parameterType="Hashmap">
+		delete from friend_tb where userId=#{userId} and friendId=#{friendId}
+	</delete>
+
+	<delete id="deleteByFriendId" parameterType="String">
+		delete from friend_tb where userId=#{userId}
+	</delete>
+
+
+</mapper>

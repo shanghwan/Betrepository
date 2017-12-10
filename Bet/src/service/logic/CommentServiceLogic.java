@@ -1,0 +1,42 @@
+package service.logic;
+
+import java.sql.Date;
+import java.util.Calendar;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import domain.Comment;
+import service.CommentService;
+import store.CommentStore;
+import store.logic.CommentStoreLogic;
+
+@Service
+public class CommentServiceLogic implements CommentService {
+	@Autowired
+	private CommentStore commentStore;
+
+	@Override
+	public String registComment(Comment comment) {
+		Date today = new Date(Calendar.getInstance().getTimeInMillis());
+		comment.setRegDate(today);
+		return commentStore.create(comment);
+	}
+
+	@Override
+	public Comment findComment(String commentId) {
+		return commentStore.search(commentId);
+	}
+
+	@Override
+	public List<Comment> findAllComent(String betId) {
+		return commentStore.searchAll(betId);
+	}
+
+	@Override
+	public void removeComment(String commentId) {
+		commentStore.delete(commentId);
+	}
+
+}

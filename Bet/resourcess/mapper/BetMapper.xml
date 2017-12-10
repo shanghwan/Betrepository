@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="store.mapper.BetMapper">
+
+		<resultMap type="Bet" id="BetMap">
+		<result property="betId" column="betId" />
+		<result property="title" column="title" />
+		<result property="state" column="state" />
+		<result property="betWay" column="betWay" />
+		<result property="content" column="content" />
+		<result property="photoA" column="photoA" />
+		<result property="photoB" column="photoB" />
+		<result property="point" column="point" />
+		<result property="endDate" column="endDate" />
+		<result property="pointCheck" column="pointCheck" />
+		<result property="betOwner" column="betOwner" />
+	</resultMap>
+
+	<select id="searchByBetWay" resultType="Bet" resultMap="BetMap">
+      select betId, state, title, content, photoA , photoB , betWay ,
+      endDate , pointCheck , point, betOwner
+      FROM bet_tb WHERE betWay =#{betWay} and (state = '진행' or state = '종료') order by betId desc
+   </select>
+
+	<insert id="create" parameterType="Bet">
+		<selectKey keyProperty="betId" resultType="string" order="BEFORE">
+			select bet_seq.nextval from dual
+		</selectKey>
+				insert into bet_tb
+				(betId, state, title, content, photoA , photoB , betWay 
+				 ,endDate , pointCheck , point, betOwner)
+				values(#{betId}, #{state}, #{title}, #{content}, #{photoA},
+				#{photoB},
+				#{betWay}, #{endDate}, #{pointCheck}, #{point},
+				#{betOwner})
+	</insert>
+
+
+
+	<select id="searchByBetId" parameterType="String" resultType="Bet"
+		resultMap="BetMap">
+		select betId, state, title, content, photoA , betWay, photoB,
+		 endDate , pointCheck , point, betOwner
+		FROM bet_tb WHERE betId = #{betId}
+	</select>
+	
+	<select id="searchByBetOwner" parameterType="HashMap" resultType="Bet" resultMap="BetMap">
+		select betId, state, title, content, photoA , photoB , betWay ,
+		 endDate , pointCheck , point, betOwner
+		FROM bet_tb WHERE betOwner = #{betOwner} and betWay = #{betWay}
+	</select>
+	
+		<select id="searchByTitle" parameterType="HashMap" resultType="Bet" resultMap="BetMap">
+		select betId, state, title, content, photoA , photoB , betWay ,
+		 endDate , pointCheck , point, betOwner
+		FROM bet_tb WHERE title like '%'||#{title}||'%' and betWay = #{betWay}
+	</select>
+	
+	
+
+	<select id="searchByState" parameterType="String" resultType="Bet"
+		resultMap="BetMap">
+		select betId, state, title, content, photoA , photoB , betWay 
+		 ,endDate , pointCheck , point, betOwner
+		FROM bet_tb WHERE state = #{state}
+	</select>
+
+	<update id="update" parameterType="Bet">
+		
+				UPDATE bet_tb
+				set title = #{title},
+				content = #{content},
+				point = #{point},
+				state = #{state},
+				
+				<if test="photoA!=null">
+				photoA = #{photoA},
+				</if>
+				<if test="photoB!=null">
+				photoB = #{photoB},
+				</if>
+				pointCheck = #{pointCheck}
+				WHERE betId = #{betId}
+		
+	</update>
+	
+	 <select id="searchByUserId" parameterType="String" resultType="Bet" resultMap="BetMap">
+      select betId, state, title, content, betWay , pointCheck , betOwner
+      FROM bet_tb WHERE betOwner = #{betOwner}
+   </select>
+   
+   <delete id="delete" parameterType="String">
+   DELETE from bet_tb where betId = #{betId}
+   </delete>
+   
+   
+</mapper>
