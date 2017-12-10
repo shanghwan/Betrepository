@@ -62,11 +62,11 @@
 	
 
 	<select id="searchByState" parameterType="String" resultType="Bet"
-		resultMap="BetMap">
-		select betId, state, title, content, photoA , photoB , betWay 
-		 ,endDate , pointCheck , point, betOwner
-		FROM bet_tb WHERE state = #{state}
-	</select>
+      resultMap="BetMap">
+      select betId, state, title, content, photoA , photoB , betWay 
+       ,endDate , pointCheck , point, betOwner
+      FROM bet_tb WHERE state = #{state} order by betId desc
+   </select>
 
 	<update id="update" parameterType="Bet">
 		
