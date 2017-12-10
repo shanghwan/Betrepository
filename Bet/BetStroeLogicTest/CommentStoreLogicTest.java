@@ -28,7 +28,6 @@ public class CommentStoreLogicTest {
 		comment.setBetId("1");
 		comment.setUserId("eunhye");
 		comment.setContent("I'M LEEHWAJUNG");
-		comment.setPhoto("null");
 		store.create(comment);
 	}
 

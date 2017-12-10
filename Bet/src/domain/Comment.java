@@ -9,19 +9,17 @@ public class Comment {
    private String commentId;
    private String userId;
    private String content;
-   private String photo;
    private Date regDate;
 
    public Comment() {
    }
 
-   public Comment(String betId, String commentId, String userId, String content, String photo, Date regDate) {
+   public Comment(String betId, String commentId, String userId, String content, Date regDate) {
       super();
       this.betId = betId;
       this.commentId = commentId;
       this.userId = userId;
       this.content = content;
-      this.photo = photo;
       this.regDate = regDate;
    }
 
@@ -55,14 +53,6 @@ public class Comment {
 
    public void setContent(String content) {
       this.content = content;
-   }
-
-   public String getPhoto() {
-      return photo;
-   }
-
-   public void setPhoto(String photo) {
-      this.photo = photo;
    }
 
    public Date getRegDate() {

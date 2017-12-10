@@ -84,7 +84,7 @@ public class ReportServiceLogic implements ReportService{
 
 	@Override
 	public void removeUserReport(String reportId) {
-		
+		reportUserStore.delete(reportId);
 	}
 
 	@Override

@@ -23,18 +23,6 @@ public class ReportController {
 	@Autowired
 	private BetService betService;
 	
-
-	@RequestMapping("/findBetByUserId.do")
-	public ModelAndView findBetByUserId(String betOwner){
-		List<Bet> list = betService.findByUserId(betOwner);
-		ModelAndView modelAndView = new ModelAndView("userAllBetList.jsp");
-		modelAndView.addObject("list", list);
-		modelAndView.addObject("betOwner", betOwner);
-		return modelAndView;
-	}
-	
-	
-		
 	@RequestMapping("/UserReport.do")
 	public ModelAndView UserReport(String target, String userId){
 		
@@ -96,6 +84,25 @@ public class ReportController {
 			
 		
 	}
+	
+	@RequestMapping("/findBetByUserId.do")
+	public ModelAndView findBetByUserId(String betOwner){
+		List<Bet> list = betService.findByUserId(betOwner);
+		ModelAndView modelAndView = new ModelAndView("userAllBetList.jsp");
+		modelAndView.addObject("list", list);
+		modelAndView.addObject("betOwner", betOwner);
+		return modelAndView;
+	}
+	
+	@RequestMapping("/deleteUserReport.do")
+	public ModelAndView deleteUserReport(String reportId){
+		
+		reportService.removeUserReport(reportId);
+		ModelAndView modelAndView = new ModelAndView("adminpage.do");
+		return modelAndView;
+	}
+	
+	
 	
 	
 	

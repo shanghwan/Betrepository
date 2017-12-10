@@ -94,7 +94,7 @@ tr td p.error {
 										
 										<tr>
 											<th>BetOf<span style="color:red">(필수)</span></th>
-											<td><input type="radio" name="betWay validate All" onclick="display2()" value="All">All</td>
+											<td><input type="radio" name="betWay" value="All">All</td>
 										</tr>
 								</table>
 							</c:when>

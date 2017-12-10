@@ -56,10 +56,15 @@
 		where ROWNUM <=10]]>
 	</select>
 
-	<select id="rateSearch" resultType="Record">
-	<![CDATA[SELECT userId, win, lose, draw, win+lose+draw as total, ROUND (win/(win+lose+draw)*100,1) as rate, RANK () OVER(ORDER BY ROUND (win/(win+lose+draw)*100,1) desc) as rank
-	FROM (SELECT userId, win, lose, draw, win+lose+draw as total, ROUND (win/(win+lose+draw)*100,1) as rate from record_tb order by ROUND (win/(win+lose+draw)*100,1) desc)
-	 where ROWNUM <=10]]>
-	</select>
+<select id="rateSearch" resultType="Record"> 
+    <![CDATA[SELECT userId, win, lose, draw, win+lose+draw as total,
+   ROUND (NVL(win/DECODE((win+lose+draw)*100,0,null,(win+lose+draw))*100 ,0))as rate,
+     RANK () OVER(ORDER BY ROUND (NVL(win/DECODE((win+lose+draw)*100,0,null,(win+lose+draw))*100 ,0))desc) as rank
+   FROM
+    (SELECT userId, win, lose, draw, win+lose+draw as total, 
+   ROUND (NVL(win/DECODE((win+lose+draw)*100,0,null,(win+lose+draw))*100 ,0))as rate
+    from record_tb order by ROUND (NVL(win/DECODE((win+lose+draw)*100,0,null,(win+lose+draw))*100 ,0))) 
+    where ROWNUM <=10]]>
+   </select>
 
 </mapper>

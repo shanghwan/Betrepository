@@ -5,14 +5,14 @@
 
 <mapper namespace="store.mapper.BetMapper">
 
-	<resultMap type="Bet" id="BetMap">
+		<resultMap type="Bet" id="BetMap">
 		<result property="betId" column="betId" />
 		<result property="title" column="title" />
 		<result property="state" column="state" />
 		<result property="betWay" column="betWay" />
 		<result property="content" column="content" />
-		<result property="photoA" column="photeA" />
-		<result property="photoB" column="photeB" />
+		<result property="photoA" column="photoA" />
+		<result property="photoB" column="photoB" />
 		<result property="point" column="point" />
 		<result property="endDate" column="endDate" />
 		<result property="pointCheck" column="pointCheck" />
@@ -42,7 +42,7 @@
 
 	<select id="searchByBetId" parameterType="String" resultType="Bet"
 		resultMap="BetMap">
-		select betId, state, title, content, photoA , photoB , betWay ,
+		select betId, state, title, content, photoA , betWay, photoB,
 		 endDate , pointCheck , point, betOwner
 		FROM bet_tb WHERE betId = #{betId}
 	</select>
@@ -75,6 +75,13 @@
 				content = #{content},
 				point = #{point},
 				state = #{state},
+				
+				<if test="photoA!=null">
+				photoA = #{photoA},
+				</if>
+				<if test="photoB!=null">
+				photoB = #{photoB},
+				</if>
 				pointCheck = #{pointCheck}
 				WHERE betId = #{betId}
 		

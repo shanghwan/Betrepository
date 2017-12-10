@@ -7,10 +7,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import domain.Bet;
 import domain.Player;
 import domain.Point;
 import domain.Team;
 import domain.User;
+import service.BetService;
 import service.PointService;
 import service.TeamService;
 import store.AttendanceStore;
@@ -90,6 +92,8 @@ public class PointServiceLogic implements PointService {
 	@Override
 	public String betResultPoint(String teamId, int point) {
 		Team team = teamService.findTeam(teamId);
+		String betId = team.getBetId();
+		Bet bet = betStore.searchByBetId(betId);
 		Point po = new Point();
 		int teamTotalP = team.getTotalPoint();
 		int resultP = 0;
@@ -107,7 +111,11 @@ public class PointServiceLogic implements PointService {
 				po.setReceiverId(team.getBetId());
 				po.setType("내기승리");
 				registPoint(po);
-				user.setPoint(user.getPoint() + resultP);
+				if(bet.getBetOwner().equals("admin")) {
+					user.setPoint(user.getPoint() + bet.getPoint());
+				}else {
+					user.setPoint(user.getPoint() + resultP);
+				}
 				userStore.update(user);
 			}
 		}

@@ -103,7 +103,6 @@ public class BetController {
 	public String showCreateBet(HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
 		if (userId == null) {
-			
 			return "redirect:index.jsp";
 		}
 		return "BetCreate.jsp";
@@ -285,6 +284,15 @@ public class BetController {
 				return "BetOfTeam.jsp";
 			}
 		}
+	}
+	
+	@RequestMapping(value = "/adminBetList.do")
+	public String adminBetList(String userId, Model model) {
+
+		List<Bet> adminlist = betService.findByUserId(userId);
+		model.addAttribute("adminlist", adminlist);
+
+		return "adminBet.jsp";
 	}
 
 }

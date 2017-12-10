@@ -47,7 +47,10 @@ public class BetServiceLogic implements BetService {
 
 		if (bet.getBetWay().equals("All")) {
 			bet.setPointCheck("LOCK");
-			bet.setPoint(10);
+			if(!user.getUserId().equals("admin")) {
+				bet.setPoint(10);
+			}
+			
 		}
 		if (bet.getPointCheck().equals("ALLIN")) {
 			bet.setPoint(user.getPoint());
